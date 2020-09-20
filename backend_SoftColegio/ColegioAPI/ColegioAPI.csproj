@@ -123,7 +123,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\archivoController.cs" />
+    <Compile Include="Controllers\calificacionController.cs" />
+    <Compile Include="Controllers\claseController.cs" />
     <Compile Include="Controllers\homeController.cs" />
+    <Compile Include="Controllers\usuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,10 +147,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\archivo\" />
+    <Folder Include="Views\calificacion\" />
+    <Folder Include="Views\clase\" />
+    <Folder Include="Views\usuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\home\index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ColegioED\ColegioED.csproj">
+      <Project>{c1b8434b-617c-42b6-95e3-570ddd88be93}</Project>
+      <Name>ColegioED</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ColegioTD\ColegioTD.csproj">
+      <Project>{78a8b186-1e7a-4a16-8031-72265919a6fb}</Project>
+      <Name>ColegioTD</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

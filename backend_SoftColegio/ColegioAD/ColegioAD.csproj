@@ -44,12 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adArchivo.cs" />
+    <Compile Include="adCalificacion.cs" />
+    <Compile Include="adClase.cs" />
+    <Compile Include="adUsuario.cs" />
     <Compile Include="ad_aglobal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ColegioED\ColegioED.csproj">
+      <Project>{c1b8434b-617c-42b6-95e3-570ddd88be93}</Project>
+      <Name>ColegioED</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
