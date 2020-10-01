@@ -9,59 +9,54 @@ namespace frontendUtil
 {
     public class UtlAuditoria
     {
-        private const string SESSION_IDALUMNO = "SESSION_IDALUMNO";
-        private const string SESSION_SNOMBRE = "SESSION_SNOMBRE";
-        private const string SESSION_SEMAIL = "SESSION_SEMAIL";
-        private const string SESSION_IETAPAESCOLAR = "SESSION_IETAPAESCOLAR";
-        private const string SESSION_IGRADO = "SESSION_IGRADO";
-        private const string SESSION_ISECCION = "SESSION_ISECCION";
-        private const string SESSION_ITIPODOC = "SESSION_ITIPODOC";
-        private const string SESSION_SDOCUMENTO = "SESSION_SDOCUMENTO";
-        private const string SESSION_ISUSCRIPCIONESTADO = "SESSION_ISUSCRIPCIONESTADO";
-        private const string SESSION_IACTIVO = "SESSION_IACTIVO";
+        private const string SESSION_IDUSUARIO = "SESSION_IDALUMNO";
+        private const string SESSION_IDNIVEL = "SESSION_SNOMBRE";
+        private const string SESSION_IDGRADO = "SESSION_SEMAIL";
+        private const string SESSION_IDSEDE = "SESSION_IETAPAESCOLAR";
+        private const string SESSION_IDSECCION = "SESSION_IGRADO";
+        private const string SESSION_NOMBRE = "SESSION_ISECCION";
+        private const string SESSION_APELLIDOPARTERNO = "SESSION_ITIPODOC";
+        private const string SESSION_APELLIDOMATERNO = "SESSION_SDOCUMENTO";
+        private const string SESSION_CORREO = "SESSION_ISUSCRIPCIONESTADO";
         private const string SESSION_IMATRICULADO = "SESSION_IMATRICULADO";
 
         #region "Obtiene Datos del Usuario"
 
         public static int ObtenerIdUsuario()
         {
-            return ((HttpContext.Current.Session[SESSION_IDALUMNO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IDALUMNO].ToString()));
+            return ((HttpContext.Current.Session[SESSION_IDUSUARIO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IDUSUARIO].ToString()));
+        }
+        public static int ObtenerIdNivel()
+        {
+            return ((HttpContext.Current.Session[SESSION_IDNIVEL] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IDNIVEL].ToString()));
+        }
+        public static int ObtenerIdGrado()
+        {
+            return ((HttpContext.Current.Session[SESSION_IDGRADO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IDGRADO].ToString()));
+        }
+        public static int ObtenerIdSede()
+        {
+            return ((HttpContext.Current.Session[SESSION_IDSEDE] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IDSEDE].ToString()));
+        }
+        public static int ObtenerIdSeccion()
+        {
+            return ((HttpContext.Current.Session[SESSION_IDSECCION] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IDSECCION].ToString()));
         }
         public static string ObtenerNombre()
         {
-            return ((HttpContext.Current.Session[SESSION_SNOMBRE] == null) ? "" : HttpContext.Current.Session[SESSION_SNOMBRE].ToString());
+            return ((HttpContext.Current.Session[SESSION_NOMBRE] == null) ? "" : HttpContext.Current.Session[SESSION_NOMBRE].ToString());
+        }
+        public static string ObtenerApellidoPaterno()
+        {
+            return ((HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] == null) ? "" : HttpContext.Current.Session[SESSION_APELLIDOPARTERNO].ToString());
+        }
+        public static string ObtenerApellidoMaterno()
+        {
+            return ((HttpContext.Current.Session[SESSION_APELLIDOMATERNO] == null) ? "" : HttpContext.Current.Session[SESSION_APELLIDOMATERNO].ToString());
         }
         public static string ObtenerCorreo()
         {
-            return ((HttpContext.Current.Session[SESSION_SEMAIL] == null) ? "-" : HttpContext.Current.Session[SESSION_SEMAIL].ToString());
-        }
-        public static int ObtenerEtapaEscolar()
-        {
-            return ((HttpContext.Current.Session[SESSION_IETAPAESCOLAR] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IETAPAESCOLAR].ToString()));
-        }
-        public static int ObtenerGrado()
-        {
-            return ((HttpContext.Current.Session[SESSION_IGRADO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IGRADO].ToString()));
-        }
-        public static int ObtenerSeccion()
-        {
-            return ((HttpContext.Current.Session[SESSION_ISECCION] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_ISECCION].ToString()));
-        }
-        public static int ObtenerTipoDoc()
-        {
-            return ((HttpContext.Current.Session[SESSION_ITIPODOC] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_ITIPODOC].ToString()));
-        }
-        public static string ObtenerDocumento()
-        {
-            return ((HttpContext.Current.Session[SESSION_SDOCUMENTO] == null) ? "-" : HttpContext.Current.Session[SESSION_SDOCUMENTO].ToString());
-        }
-        public static int ObtenerSuscripcionEstado()
-        {
-            return ((HttpContext.Current.Session[SESSION_ISUSCRIPCIONESTADO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_ISUSCRIPCIONESTADO].ToString()));
-        }
-        public static int ObtenerActivo()
-        {
-            return ((HttpContext.Current.Session[SESSION_IACTIVO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IACTIVO].ToString()));
+            return ((HttpContext.Current.Session[SESSION_CORREO] == null) ? "-" : HttpContext.Current.Session[SESSION_CORREO].ToString());
         }
         public static int ObtenerMatriculado()
         {
@@ -76,17 +71,16 @@ namespace frontendUtil
         {
             try
             {
-                HttpContext.Current.Session[SESSION_IDALUMNO] = DVariables["IdAlumno"];
-                HttpContext.Current.Session[SESSION_SNOMBRE] = DVariables["Snombre"];
-                HttpContext.Current.Session[SESSION_SEMAIL] = DVariables["Semail"];
-                HttpContext.Current.Session[SESSION_IETAPAESCOLAR] = DVariables["IEtapaEscolar"];
-                HttpContext.Current.Session[SESSION_IGRADO] = DVariables["IGrado"];
-                HttpContext.Current.Session[SESSION_ISECCION] = DVariables["ISeccion"];
-                HttpContext.Current.Session[SESSION_ITIPODOC] = DVariables["ITipodoc"];
-                HttpContext.Current.Session[SESSION_SDOCUMENTO] = DVariables["Sdocumento"];
-                HttpContext.Current.Session[SESSION_ISUSCRIPCIONESTADO] = DVariables["Isuscripcionestado"];
-                HttpContext.Current.Session[SESSION_IACTIVO] = DVariables["Iactivo"];
-                HttpContext.Current.Session[SESSION_IMATRICULADO] = DVariables["Imatriculado"];
+                HttpContext.Current.Session[SESSION_IDUSUARIO] = DVariables["IDUSUARIO"];
+                HttpContext.Current.Session[SESSION_IDNIVEL] = DVariables["IDNIVEL"];
+                HttpContext.Current.Session[SESSION_IDGRADO] = DVariables["IDGRADO"];
+                HttpContext.Current.Session[SESSION_IDSEDE] = DVariables["IDSEDE"];
+                HttpContext.Current.Session[SESSION_IDSECCION] = DVariables["IDSECCION"];
+                HttpContext.Current.Session[SESSION_NOMBRE] = DVariables["NOMBRE"];
+                HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] = DVariables["APELLIDOPARTERNO"];
+                HttpContext.Current.Session[SESSION_APELLIDOMATERNO] = DVariables["APELLIDOMATERNO"];
+                HttpContext.Current.Session[SESSION_CORREO] = DVariables["CORREO"];
+                HttpContext.Current.Session.Timeout = 24 * 60;
             }
             catch (ArgumentOutOfRangeException kfe)
             {
@@ -191,12 +185,12 @@ namespace frontendUtil
         {
             try
             {
-                if (HttpContext.Current.Session[SESSION_IDALUMNO] == null ||
-                HttpContext.Current.Session[SESSION_IETAPAESCOLAR] == null ||
-                HttpContext.Current.Session[SESSION_IGRADO] == null ||
-                HttpContext.Current.Session[SESSION_SNOMBRE] == null ||
-                HttpContext.Current.Session[SESSION_SEMAIL] == null ||
-                HttpContext.Current.Session[SESSION_IMATRICULADO] == null)
+                if (HttpContext.Current.Session[SESSION_IDUSUARIO] == null ||
+                HttpContext.Current.Session[SESSION_IDNIVEL] == null ||
+                HttpContext.Current.Session[SESSION_IDGRADO] == null ||
+                HttpContext.Current.Session[SESSION_IDSEDE] == null ||
+                HttpContext.Current.Session[SESSION_NOMBRE] == null ||
+                HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] == null)
                 {
                     return true;
                 }
@@ -224,17 +218,15 @@ namespace frontendUtil
         {
             try
             {
-                HttpContext.Current.Session[SESSION_IDALUMNO] = null;
-                HttpContext.Current.Session[SESSION_SNOMBRE] = null;
-                HttpContext.Current.Session[SESSION_SEMAIL] = null;
-                HttpContext.Current.Session[SESSION_IETAPAESCOLAR] = null;
-                HttpContext.Current.Session[SESSION_IGRADO] = null;
-                HttpContext.Current.Session[SESSION_ISECCION] = null;
-                HttpContext.Current.Session[SESSION_ITIPODOC] = null;
-                HttpContext.Current.Session[SESSION_SDOCUMENTO] = null;
-                HttpContext.Current.Session[SESSION_ISUSCRIPCIONESTADO] = null;
-                HttpContext.Current.Session[SESSION_IACTIVO] = null;
-                HttpContext.Current.Session[SESSION_IMATRICULADO] = null;
+                HttpContext.Current.Session[SESSION_IDUSUARIO] = null;
+                HttpContext.Current.Session[SESSION_IDNIVEL] = null;
+                HttpContext.Current.Session[SESSION_IDGRADO] = null;
+                HttpContext.Current.Session[SESSION_IDSEDE] = null;
+                HttpContext.Current.Session[SESSION_IDSECCION] = null;
+                HttpContext.Current.Session[SESSION_NOMBRE] = null;
+                HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] = null;
+                HttpContext.Current.Session[SESSION_APELLIDOMATERNO] = null;
+                HttpContext.Current.Session[SESSION_CORREO] = null;
 
                 return true;
             }
@@ -243,8 +235,22 @@ namespace frontendUtil
                 UtlLog.toWrite(UtlConstantes.PizarraUTL, UtlConstantes.LogNamespace_PizarraUTL, "ValidarSession", MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 return false;
             }
+        }
 
+        public static int MostrarTiempoSesion()
+        {
+            try
+            {
+                var iTiempoSesion = HttpContext.Current.Session.Timeout;
+                return iTiempoSesion;
+            }
+            catch (Exception ex)
+            {
+                UtlLog.toWrite(UtlConstantes.PizarraUTL, UtlConstantes.LogNamespace_PizarraUTL, "ValidarSession", MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return 0;
+            }
 
         }
+
     }
 }

@@ -382,6 +382,16 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\frontendED\frontendED.csproj">
+      <Project>{b38f0ba6-5eb4-42fb-8ab2-b647511ffbfd}</Project>
+      <Name>frontendED</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\frontendUtil\frontendUtil.csproj">
+      <Project>{a1610540-07b3-4227-b175-3e59a2036538}</Project>
+      <Name>frontendUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
