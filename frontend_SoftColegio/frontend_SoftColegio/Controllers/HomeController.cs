@@ -10,6 +10,7 @@ namespace frontend_SoftColegio.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.MenuPrincipal = "active";
             return View();
         }
 
