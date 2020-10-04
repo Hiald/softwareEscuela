@@ -134,6 +134,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Filters\SeguridadSesion.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -381,6 +382,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">
