@@ -12,7 +12,7 @@ namespace frontend_SoftColegio
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static string wsRoutepizarra = System.Web.Configuration.WebConfigurationManager.AppSettings["routewsColegio"].ToString();
+        public static string wsRouteSchoolBackend = System.Web.Configuration.WebConfigurationManager.AppSettings["routewsColegio"].ToString();
 
         protected void Application_Start()
         {
