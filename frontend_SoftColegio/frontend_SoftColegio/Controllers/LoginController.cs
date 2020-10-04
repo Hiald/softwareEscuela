@@ -20,7 +20,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> loginusuario(string wusuario, string wclave)
+        public async Task<JsonResult> Loginusuario(string wusuario, string wclave)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace frontend_SoftColegio.Controllers
                 int idusuarioGenerado = -1;
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(MvcApplication.wsRoutepizarra);
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage Reslogueo = await client.GetAsync("api/usuario/wsObtenerAcceso?wusuario=" + wusuario + "&wclave=" + wclave);
@@ -55,7 +55,7 @@ namespace frontend_SoftColegio.Controllers
                 edUsuario oEnUsuario = new edUsuario();
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(MvcApplication.wsRoutepizarra);
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage Reslistarusu = await client.GetAsync("api/usuario/wsObtenerUsuario?wsidusuario=" + idusuarioGenerado);
@@ -78,20 +78,20 @@ namespace frontend_SoftColegio.Controllers
                 DVariables["CORREO"] = oEnUsuario.Scorreo.ToString();
                 UtlAuditoria.SetSessionValues(DVariables);
 
-               /* string pdip = UtlAuditoria.ObtenerDireccionIP();
-                string pdmac = UtlAuditoria.ObtenerDireccionMAC();
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(MvcApplication.wsRoutepizarra);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Resregsesion = await client.GetAsync("api/usuario/APIRegistrarSesionUsuario?wsusuarioid="
-                        + oEnUsuario.idnivel + "&wsdireccionip=" + pdip + "&wsdireccionmac=" + pdmac + "&wstipoconexion=" + 2);
-                    if (Resregsesion.IsSuccessStatusCode)
-                    {
-                        var rwsrs = Resregsesion.Content.ReadAsAsync<string>().Result;
-                    }
-                }*/
+                /* string pdip = UtlAuditoria.ObtenerDireccionIP();
+                 string pdmac = UtlAuditoria.ObtenerDireccionMAC();
+                 using (var client = new HttpClient())
+                 {
+                     client.BaseAddress = new Uri(MvcApplication.wsRoutepizarra);
+                     client.DefaultRequestHeaders.Clear();
+                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                     HttpResponseMessage Resregsesion = await client.GetAsync("api/usuario/APIRegistrarSesionUsuario?wsusuarioid="
+                         + oEnUsuario.idnivel + "&wsdireccionip=" + pdip + "&wsdireccionmac=" + pdmac + "&wstipoconexion=" + 2);
+                     if (Resregsesion.IsSuccessStatusCode)
+                     {
+                         var rwsrs = Resregsesion.Content.ReadAsAsync<string>().Result;
+                     }
+                 }*/
 
                 objResultado = new
                 {
@@ -108,6 +108,100 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<JsonResult> Crearusuario(int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno
+                                                , string wgenero, string wcorreo,
+                                                /* CUENTA */ int wtipousuario, string wusuario, int wclave, string wtoken)
+        {
+            try
+            {
+                var objResultado = new object();
+                Int16 westado = 1;
+                string wfechaRegistro = DateTime.Now.ToString();
+                int idusuarioGenerado = -1;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/usuario/wsInsertarCuenta?widnivel=" + widnivel + "&widgrado=" + widgrado
+                        + "&widsede=" + widsede + "&wnombres=" + wnombres + "&wamaterno=" + wamaterno + "&wapaterno=" + wapaterno
+                        + "&wgenero=" + wgenero + "&wcorreo=" + wcorreo + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro);
+
+                    if (ResRegistrarCuenta.IsSuccessStatusCode)
+                    {
+                        var rwsapi = ResRegistrarCuenta.Content.ReadAsAsync<string>().Result;
+                        idusuarioGenerado = int.Parse(rwsapi);
+
+                        if (idusuarioGenerado == -1 || idusuarioGenerado == 0)
+                        {
+                            //error
+                            objResultado = new
+                            {
+                                iResultado = -1,
+                                iResultadoIns = "El usuario o clave son incorrectos"
+                            };
+                            return Json(objResultado);
+                        }
+                    }
+                }
+
+                int idcuentagenerada = 0;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage ResCrearCuenta = await client.GetAsync("api/usuario/wsInsertarUsuario?widusuario=" + idusuarioGenerado
+                        + "&wtipousuario=" + wtipousuario + "&wusuario=" + wusuario + "&wclave=" + wclave + "&wtoken=" + wtoken
+                        + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro);
+                    if (ResCrearCuenta.IsSuccessStatusCode)
+                    {
+                        var rwsapi = ResCrearCuenta.Content.ReadAsAsync<string>().Result;
+                        idcuentagenerada = int.Parse(rwsapi);
+                    }
+                }
+
+                edUsuario oEnUsuario = new edUsuario();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/usuario/wsObtenerUsuario?wsidusuario=" + idusuarioGenerado);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        oEnUsuario = JsonConvert.DeserializeObject<edUsuario>(rwsapilu);
+                    }
+                }
+
+                Dictionary<string, string> DVariables = new Dictionary<string, string>();
+                DVariables["IDUSUARIO"] = idusuarioGenerado.ToString();
+                DVariables["IDNIVEL"] = oEnUsuario.idnivel.ToString();
+                DVariables["IDGRADO"] = oEnUsuario.idgrado.ToString();
+                DVariables["IDSEDE"] = oEnUsuario.idsede.ToString();
+                DVariables["IDSECCION"] = oEnUsuario.idseccion.ToString();
+                DVariables["NOMBRE"] = oEnUsuario.Snombres.ToString();
+                DVariables["APELLIDOPARTERNO"] = oEnUsuario.SApellidoPaterno.ToString();
+                DVariables["APELLIDOMATERNO"] = oEnUsuario.SApellidoMaterno.ToString();
+                DVariables["CORREO"] = oEnUsuario.Scorreo.ToString();
+                UtlAuditoria.SetSessionValues(DVariables);
+
+                objResultado = new
+                {
+                    iResultado = 1,
+                    iResultadoIns = "Home/Index"
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
 
     }
 }
