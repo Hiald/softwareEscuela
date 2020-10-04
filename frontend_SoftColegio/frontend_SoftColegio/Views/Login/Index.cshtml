@@ -1,5 +1,5 @@
 ﻿@{
-    
+
     Layout = null;
 }
 <!DOCTYPE html>
@@ -22,6 +22,9 @@
     <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="~/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <script>
+         var RutaPrincipal = "@Url.Content("~")";
+    </script>
 </head>
 
 <body class="authentication-bg pb-0" data-layout-config='{"darkMode":false}'>
@@ -47,10 +50,10 @@
                     <p class="text-muted mb-4">Ingrese su dirección de correo electrónico y contraseña para acceder a la cuenta.</p>
 
                     <!-- form -->
-                    <form action="#">
+                    <form id="frm2">
                         <div class="form-group">
                             <label for="emailaddress">Dirección de correo electrónico</label>
-                            <input class="form-control" type="email" id="emailaddress" required="" placeholder="Introduce tu correo electrónico">
+                            <input class="form-control" type="text" id="emailaddress" required="" placeholder="Introduce tu correo electrónico">
                         </div>
                         <div class="form-group">
                             <a href="pages-recoverpw-2.html" class="text-muted float-right"><small>Olvidaste tu contraseña?</small></a>
@@ -64,7 +67,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-0 text-center">
-                            <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i> Iniciar sesión </button>
+                            <button id="btnLogin" class="btn btn-primary btn-block" type="button"><i class="mdi mdi-login"></i> Iniciar Sesión</button>
                         </div>
                         <!-- social-->
                         <div class="text-center mt-4">
@@ -116,10 +119,44 @@
     <!-- bundle -->
     <script src="~/assets/js/vendor.min.js"></script>
     <script src="~/assets/js/app.min.js"></script>
-   
+
 </body>
 
 
 <!-- Mirrored from coderthemes.com/hyper/saas/pages-login-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Sep 2020 22:26:26 GMT -->
 
 </html>
+
+<script>
+    $('#frm2').submit(false);
+
+    $("#btnLogin").click(function () {
+        var ipUsuario = $('#emailaddress').val();
+        var ipClave = $('#password').val();
+
+        $.ajax({
+            type: "POST",
+            url: RutaPrincipal + 'Login/Loginusuario',
+            data: {
+                "wusuario": ipUsuario,
+                "wclave": ipClave
+            },
+            async: false,
+            success: function (msg) {
+                if (msg.iResultado === -3) {
+                    alert("usuario o clave incorrecta");
+                } else {
+                    window.location.href = RutaPrincipal + "Home/Index";
+                }
+            },
+            error: function (msg) {
+               
+                //location.reload();
+            },
+            complete: function (data) {
+                // si acabo de completar
+            }
+        });
+
+    });
+</script>

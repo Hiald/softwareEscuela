@@ -10,7 +10,7 @@ namespace ColegioTD
     {
         adUsuario iadUsuario;
 
-        public int tdInsertarUsuario(int tdidusuario, int tditipousuario, string tdusuario, int tdclave, string tdtoken, Int16 tdestado, DateTime tdfechaRegistro)
+        public int tdInsertarUsuario(int tdidusuario, int tditipousuario, string tdusuario, string tdclave, string tdtoken, Int16 tdestado, DateTime tdfechaRegistro)
         {
             int iRespuesta = -1;
             try

@@ -43,7 +43,7 @@ namespace ColegioAD
             }
         }
 
-        public int adInsertarUsuario(int adidusuario, int aditipousuario, string adusuario, int adclave, string adtoken, Int16 adestado, DateTime adfechaRegistro)
+        public int adInsertarUsuario(int adidusuario, int aditipousuario, string adusuario, string adclave, string adtoken, Int16 adestado, DateTime adfechaRegistro)
         {
             try
             {

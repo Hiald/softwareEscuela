@@ -31,7 +31,7 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsInsertarUsuario(int widusuario, int wtipousuario, string wusuario, int wclave, string wtoken, Int16 westado, string wfechaRegistro)
+        public int wsInsertarUsuario(int widusuario, int wtipousuario, string wusuario, string wclave, string wtoken, Int16 westado, string wfechaRegistro)
         {
             int iresultado = -1;
             try

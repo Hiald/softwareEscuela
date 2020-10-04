@@ -31,8 +31,8 @@
                                             <label for="example-select">Nivel (Primaria / Secundaria)</label>
                                             <select class="form-control" id="idNivel">
                                                 <option>Seleccionar</option>
-                                                <option>Primaria</option>
-                                                <option>Secundaria</option>
+                                                <option value="1">Primaria</option>
+                                                <option value="2">Secundaria</option>
                                             </select>
                                         </div>
 
@@ -40,12 +40,12 @@
                                             <label for="example-select">Grado</label>
                                             <select class="form-control" id="idGrado">
                                                 <option>Seleccionar</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
                                             </select>
                                         </div>
 
@@ -53,7 +53,7 @@
                                             <label for="example-select">Sede</label>
                                             <select class="form-control" id="idSede">
                                                 <option>Seleccionar</option>
-                                                <option>Principal</option>
+                                                <option value="1">Principal</option>
                                             </select>
                                         </div>
 
@@ -76,22 +76,21 @@
                                 </div> <!-- end col -->
 
                                 <div class="col-lg-6">
-                                    <form>
+                                    <form id="frm2">
                                         <div class="form-group mb-3">
                                             <label for="example-select">Tipo Usuario</label>
                                             <select class="form-control" id="idTipoUsuario">
                                                 <option>Seleccionar</option>
-                                                <option>Administrador</option>
-                                                <option>Profesor</option>
-                                                <option>Alumno</option>
+                                                <option value="1">Administrador</option>
+                                                <option value="2">Profesor</option>
+                                                <option value="3">Alumno</option>
                                             </select>
                                         </div>
 
                                         <div class="form-group mb-3">
                                             <label for="example-email">Usuario</label>
-                                            <input type="email" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
+                                            <input type="text" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
                                         </div>
-
 
                                         <div class="form-group mb-3">
                                             <label for="example-password">Contraseña</label>
@@ -119,4 +118,47 @@
 
 <script>
     $("#frmUsuario").submit(false);
+    $('#frm2').submit(false);
+
+    $("#btnAgregar").click(function () {
+        var slcNivel = $('#idNivel option:selected').attr('value');
+        var slcGrado = $('#idGrado option:selected').attr('value');
+        var slcSede = $('#idSede option:selected').attr('value');
+        var ipNombres = $('#idNombres').val();
+        var ipApPaterno = $('#idApPaterno').val();
+        var ipApMaterno = $('#idApMaterno').val();
+        var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
+        var ipUsuario = $('#idUsuario').val();
+        var ipContrasenia = $('#idContrasenia').val();
+
+        $.ajax({
+            type: "POST",
+            url: RutaPrincipal + 'Login/Crearusuario',
+            data: {
+                "widnivel": slcNivel,
+                "widgrado": slcGrado,
+                "widsede": slcSede,
+                "wnombres": ipNombres,
+                "wamaterno": ipApPaterno,
+                "wapaterno": ipApMaterno,
+                "wtipousuario": slcTipoUsuario,
+                "wusuario": ipUsuario,
+                "wclave": ipContrasenia
+            },
+            async: false,
+            success: function (msg) {
+                console.log(msg);
+            },
+            error: function (msg) {
+                console.log(msg);
+                //location.reload();
+            },
+            complete: function (data) {
+                // si acabo de completar
+            }
+        });
+
+    });
+
+
 </script>
