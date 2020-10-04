@@ -35,6 +35,33 @@ namespace ColegioTD
 
         }
 
+        public int tdInsertarCuenta(int tdidnivel, int tdidgrado, int tdidsede, string tdnombres, string tdamaterno, string tdapaterno, string tdgenero
+                                    , string tdcorreo, Int16 tdestado, DateTime tdfechaRegistro)
+        {
+            int iRespuesta = -1;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadUsuario = new adUsuario(con);
+                        iRespuesta = iadUsuario.adInsertarCuenta(tdidnivel, tdidgrado, tdidsede, tdnombres, tdamaterno, tdapaterno, tdgenero
+                                                                , tdcorreo, tdestado, tdfechaRegistro);
+                        scope.Commit();
+                    }
+                }
+                return (iRespuesta);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
         public int tdObtenerAcceso(string tdusuario, string tdclave)
         {
             int iRespuesta = -1;

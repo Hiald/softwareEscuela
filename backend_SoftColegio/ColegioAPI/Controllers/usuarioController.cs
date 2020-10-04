@@ -12,6 +12,25 @@ namespace ColegioAPI.Controllers
         tdUsuario itdUsuario;
 
         [HttpGet]
+        public int wsInsertarCuenta(int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno, string wgenero
+                                    , string wcorreo, Int16 westado, string wfechaRegistro)
+        {
+            int iresultado = -1;
+            try
+            {
+                DateTime wsfechaRegistro = DateTime.Parse(wfechaRegistro);
+                itdUsuario = new tdUsuario();
+                iresultado = itdUsuario.tdInsertarCuenta(widnivel, widgrado, widsede, wnombres, wamaterno, wapaterno, wgenero
+                                                        , wcorreo, westado, wsfechaRegistro);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
+        [HttpGet]
         public int wsInsertarUsuario(int widusuario, int wtipousuario, string wusuario, int wclave, string wtoken, Int16 westado, string wfechaRegistro)
         {
             int iresultado = -1;

@@ -13,6 +13,36 @@ namespace ColegioAD
             cnMysql = cn;
         }
 
+        public int adInsertarCuenta(int adidnivel, int adidgrado, int adidsede, string adnombres, string adamaterno, string adapaterno, string adgenero
+                                    ,string adcorreo,Int16 adestado, DateTime adfechaRegistro)
+        {
+            try
+            {
+                int result = -1;
+                MySqlCommand cmd = new MySqlCommand("sp_insertar_alumno", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = adidnivel;
+                cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = adidgrado;
+                cmd.Parameters.Add("_idsede", MySqlDbType.Int32).Value = adidsede;
+                cmd.Parameters.Add("_nombres", MySqlDbType.VarChar, 50).Value = adnombres;
+                cmd.Parameters.Add("_apellido_materno", MySqlDbType.VarChar, 50).Value = adamaterno;
+                cmd.Parameters.Add("_apellido_paterno", MySqlDbType.VarChar, 50).Value = adapaterno;
+                cmd.Parameters.Add("_genero", MySqlDbType.VarChar, 1).Value = adgenero;
+                cmd.Parameters.Add("_correo", MySqlDbType.VarChar, 50).Value = adcorreo;
+                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
+                cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = adfechaRegistro;
+
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
+                throw ex;
+            }
+        }
+
         public int adInsertarUsuario(int adidusuario, int aditipousuario, string adusuario, int adclave, string adtoken, Int16 adestado, DateTime adfechaRegistro)
         {
             try
