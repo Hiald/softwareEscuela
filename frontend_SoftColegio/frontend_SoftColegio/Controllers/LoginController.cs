@@ -109,9 +109,8 @@ namespace frontend_SoftColegio.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Crearusuario(int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno
-                                                , string wgenero, string wcorreo,
-                                                /* CUENTA */ int wtipousuario, string wusuario, int wclave, string wtoken)
+        public async Task<JsonResult> Crearusuario(int widnivel, int widgrado, int widsede, string wnombres, string wamaterno
+                                                    , string wapaterno, int wtipousuario, string wusuario, int wclave)
         {
             try
             {
@@ -119,6 +118,9 @@ namespace frontend_SoftColegio.Controllers
                 Int16 westado = 1;
                 string wfechaRegistro = DateTime.Now.ToString();
                 int idusuarioGenerado = -1;
+                string wtoken = "";
+                string wgenero = "";
+                string wcorreo = "";
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
