@@ -131,6 +131,7 @@
     <Compile Include="App_Start\InitialPage.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Filters\SeguridadSesion.cs" />
@@ -346,6 +347,7 @@
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\Clase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\dripicons-v2.eot" />
