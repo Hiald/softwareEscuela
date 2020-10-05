@@ -125,6 +125,7 @@ namespace ColegioAD
                             int pos_apellidopaterno = mdrd.GetOrdinal("v_apellido_paterno");
                             int pos_apellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
                             int pos_correo = mdrd.GetOrdinal("v_correo");
+                            int pos_tipousuario = mdrd.GetOrdinal("i_tipo_usuario");
 
                             while (mdrd.Read())
                             {
@@ -137,6 +138,7 @@ namespace ColegioAD
                                 senUsuario.SApellidoPaterno = (mdrd.IsDBNull(pos_apellidopaterno) ? "-" : mdrd.GetString(pos_apellidopaterno));
                                 senUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_apellidomaterno) ? "-" : mdrd.GetString(pos_apellidomaterno));
                                 senUsuario.Scorreo = (mdrd.IsDBNull(pos_correo) ? "-" : mdrd.GetString(pos_correo));
+                                senUsuario.tipousuario = (mdrd.IsDBNull(pos_tipousuario) ? 0 : mdrd.GetInt32(pos_tipousuario));
                             }
                         }
                     }

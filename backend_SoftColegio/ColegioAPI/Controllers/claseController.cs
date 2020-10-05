@@ -66,14 +66,14 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string wsListarClaseCurso(int widcurso)
+        public string wsListarClaseCurso(int widcurso, int wtipousuario)
         {
-            edClase wsenUsuario = new edClase();
+            List<edClase> wsenClase = new List<edClase>();
             try
             {
                 itdClase = new tdClase();
-                wsenUsuario = itdClase.tdListarClaseCurso(widcurso);
-                return JsonConvert.SerializeObject(wsenUsuario);
+                wsenClase = itdClase.tdListarClaseCurso(widcurso, wtipousuario);
+                return JsonConvert.SerializeObject(wsenClase);
             }
             catch (Exception ex)
             {

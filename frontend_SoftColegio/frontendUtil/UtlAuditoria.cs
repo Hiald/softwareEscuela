@@ -19,6 +19,7 @@ namespace frontendUtil
         private const string SESSION_APELLIDOMATERNO = "SESSION_SDOCUMENTO";
         private const string SESSION_CORREO = "SESSION_ISUSCRIPCIONESTADO";
         private const string SESSION_IMATRICULADO = "SESSION_IMATRICULADO";
+        private const string SESSION_TIPOUSUARIO = "SESSION_TIPOUSUARIO";
 
         #region "Obtiene Datos del Usuario"
 
@@ -62,6 +63,10 @@ namespace frontendUtil
         {
             return ((HttpContext.Current.Session[SESSION_IMATRICULADO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_IMATRICULADO].ToString()));
         }
+        public static int ObtenerTipoUsuario()
+        {
+            return ((HttpContext.Current.Session[SESSION_TIPOUSUARIO] == null) ? -1 : int.Parse(HttpContext.Current.Session[SESSION_TIPOUSUARIO].ToString()));
+        }
         public static string ObtenerFechaSistema()
         {
             return DateTime.Now.ToShortDateString();
@@ -80,6 +85,7 @@ namespace frontendUtil
                 HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] = DVariables["APELLIDOPARTERNO"];
                 HttpContext.Current.Session[SESSION_APELLIDOMATERNO] = DVariables["APELLIDOMATERNO"];
                 HttpContext.Current.Session[SESSION_CORREO] = DVariables["CORREO"];
+                HttpContext.Current.Session[SESSION_TIPOUSUARIO] = DVariables["TIPOUSUARIO"];
                 HttpContext.Current.Session.Timeout = 24 * 60;
             }
             catch (ArgumentOutOfRangeException kfe)
@@ -190,6 +196,7 @@ namespace frontendUtil
                 HttpContext.Current.Session[SESSION_IDGRADO] == null ||
                 HttpContext.Current.Session[SESSION_IDSEDE] == null ||
                 HttpContext.Current.Session[SESSION_NOMBRE] == null ||
+                HttpContext.Current.Session[SESSION_TIPOUSUARIO] == null ||
                 HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] == null)
                 {
                     return true;
@@ -227,6 +234,7 @@ namespace frontendUtil
                 HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] = null;
                 HttpContext.Current.Session[SESSION_APELLIDOMATERNO] = null;
                 HttpContext.Current.Session[SESSION_CORREO] = null;
+                HttpContext.Current.Session[SESSION_TIPOUSUARIO] = null;
 
                 return true;
             }
