@@ -63,6 +63,33 @@ namespace ColegioTD
 
         }
 
+        public int tdActualizarArchivoDetalle(int tdidarchivodetalle, int tdnota, string tdobservacion, int tdidusuario
+                                        , int tdtiponota, Int16 tdestado, DateTime tdfecharegistro)
+        {
+            int iRespuesta = -1;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadArchivo = new adArchivo(con);
+                        iRespuesta = iadArchivo.adActualizarArchivoDetalle(tdidarchivodetalle, tdnota, tdobservacion, tdidusuario
+                                                                            , tdtiponota, tdestado, tdfecharegistro);
+                        scope.Commit();
+                    }
+                }
+                return (iRespuesta);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
         public int tdInsertarArchivoDetalle(int tdidarchivo, int tdidusuario, string tdimagen, int tdnota, string tdobservacion
                                         , string tdenlace, DateTime tdfecharegistro)
         {

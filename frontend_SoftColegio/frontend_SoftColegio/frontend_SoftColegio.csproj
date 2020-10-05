@@ -131,6 +131,8 @@
     <Compile Include="App_Start\InitialPage.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ArchivoController.cs" />
+    <Compile Include="Controllers\CalificacionController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -347,6 +349,8 @@
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\Archivo\" />
+    <Folder Include="Views\Calificacion\" />
     <Folder Include="Views\Clase\" />
   </ItemGroup>
   <ItemGroup>

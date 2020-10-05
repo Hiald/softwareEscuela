@@ -4,6 +4,7 @@ namespace frontendED
     public class edArchivo
     {
         public int idarchivo { get; set; }
+        public int idarchivodetalle { get; set; }
         public int idusuario { get; set; }
         public int idclase { get; set; }
         public string Senlace { get; set; }

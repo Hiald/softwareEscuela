@@ -48,6 +48,25 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
+        public int wsActualizarArchivoDetalle(int widarchivodetalle, int wnota, string wobservacion, int widusuario
+                                        , int wtiponota, Int16 westado, string wfecharegistro)
+        {
+            int iresultado = -1;
+            try
+            {
+                DateTime wsfechaRegistro = DateTime.Parse(wfecharegistro);
+                itdArchivo = new tdArchivo();
+                iresultado = itdArchivo.tdActualizarArchivoDetalle(widarchivodetalle, wnota, wobservacion, widusuario
+                                                                    , wtiponota, westado, wsfechaRegistro);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
+        [HttpGet]
         public int wsInsertarArchivoDetalle(int widarchivo, int widusuario, string wimagen, int wnota, string wobservacion
                                         , string wenlace, string wfecharegistro)
         {

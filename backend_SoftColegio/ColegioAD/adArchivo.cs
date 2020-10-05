@@ -125,6 +125,34 @@ namespace ColegioAD
             }
         }
 
+        public int adActualizarArchivoDetalle(int adidarchivodetalle, int adnota, string adobservacion, int adidusuario
+                                        , int adtiponota, Int16 adestado, DateTime adfecharegistro)
+        {
+            try
+            {
+                int result = -1;
+                MySqlCommand cmd = new MySqlCommand("sp_insertar_archivo_detalle", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("_idarchivodetalle", MySqlDbType.Int32).Value = adidarchivodetalle;
+                cmd.Parameters.Add("_nota", MySqlDbType.Int32).Value = adnota;
+                cmd.Parameters.Add("_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
+                cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = adtiponota;
+                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = adfecharegistro;
+
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
+                throw ex;
+            }
+        }
+
+
         public List<edArchivo> adListarArchivoDetalle(string adidarchivo, int adidusuario)
         {
             try
@@ -141,6 +169,7 @@ namespace ColegioAD
                         if (mdrd != null)
                         {
                             edArchivo senUsuario = null;
+                            int pos_idarchivodetalle = mdrd.GetOrdinal("idarchivodetalle");
                             int pos_idarchivo = mdrd.GetOrdinal("idarchivo");
                             int pos_idusuario = mdrd.GetOrdinal("idusuario");
                             int pos_vimagen = mdrd.GetOrdinal("v_imagen");
@@ -151,6 +180,7 @@ namespace ColegioAD
                             while (mdrd.Read())
                             {
                                 senUsuario = new edArchivo();
+                                senUsuario.idarchivodetalle = (mdrd.IsDBNull(pos_idarchivodetalle) ? 0 : mdrd.GetInt32(pos_idarchivodetalle));
                                 senUsuario.idarchivo = (mdrd.IsDBNull(pos_idarchivo) ? 0 : mdrd.GetInt32(pos_idarchivo));
                                 senUsuario.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
                                 senUsuario.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));

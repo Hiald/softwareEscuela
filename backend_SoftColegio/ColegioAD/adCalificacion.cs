@@ -13,7 +13,7 @@ namespace ColegioAD
             cnMysql = cn;
         }
 
-        public List<edCalificacion> adListarCalificacion(string adidarchivo, int adidusuario)
+        public List<edCalificacion> adListarCalificacion(int adidusuario, int adtiponota, int adnota)
         {
             try
             {
@@ -21,9 +21,9 @@ namespace ColegioAD
                 using (MySqlCommand cmd = new MySqlCommand("sp_listar_calificacion", cnMysql))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidarchivo;
-                    cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = adidusuario;
-                    cmd.Parameters.Add("_idnota", MySqlDbType.Int32).Value = adidusuario;
+                    cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                    cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = adtiponota;
+                    cmd.Parameters.Add("_idnota", MySqlDbType.Int32).Value = adnota;
                     
                     using (MySqlDataReader mdrd = cmd.ExecuteReader())
                     {
