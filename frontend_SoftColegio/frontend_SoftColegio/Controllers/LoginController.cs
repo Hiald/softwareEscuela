@@ -207,5 +207,45 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<JsonResult> ListarUsuarioGestion(string usuario, int tipousuario)
+        {
+            try
+            {
+                var objResultado = new object();
+                List<edUsuario> lenUsuario = new List<edUsuario>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/usuario/wsListarUsuario?wusuario=" + usuario + "&wtipousuario=" + tipousuario);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        lenUsuario = JsonConvert.DeserializeObject<List<edUsuario>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = lenUsuario.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = lenUsuario
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
     }
 }
