@@ -25,7 +25,7 @@
                 <div class="card-body">
 
                     <p class="text-muted font-14">
-                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#dark-header-modal">Agregar Clase</button>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalClase">Agregar Clase</button>
                     </p>
 
 
@@ -518,7 +518,7 @@
     </div>
     <!-- end row-->
 
-    <div id="dark-header-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+    <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-dark">
@@ -558,7 +558,7 @@
 
                                 <div class="form-group mb-3">
                                     <label for="simpleinput">Ruta video</label>
-                                    <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta video...">
+                                    <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
                                 </div>
 
                                 <div class="form-group mb-3">
@@ -574,12 +574,12 @@
 
                                 <div class="form-group mb-3">
                                     <label for="example-email">Imagen</label>
-                                    <input type="file" id="example-email" name="example-email" class="form-control" placeholder="Email">
+                                    <input type="file" id="fImagen" name="example-email" class="form-control" placeholder="Email">
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="example-email">Ruta Imagen</label>
-                                    <input type="text" id="example-email" name="example-email" class="form-control" placeholder="Email">
+                                    <input type="text" id="txtRutaImagen" name="example-email" class="form-control" placeholder="Email">
                                 </div>
 
                             </form>
@@ -604,11 +604,50 @@
 
 
 <script>
-
     $("#basic-datatable").dataTable();
-
     if (true) {
-
     }
 
+    $("#btnGuardar").click(function () {
+        var slcGrado = $('#idGrado option:selected').attr('value');
+        var slcCategoria = $('#idCategoria option:selected').attr('value');
+        var txtNombre = $('#txtNombre').val();
+        var txtDescripcion = $('#txtDescripcion').val();
+        var txtRutaEnlace = $('#txtRutaEnlace').val();
+        var txtRutaVideo = $('#txtRutaVideo').val();
+        var txtRutaImagen = $('#txtRutaImagen').val();
+
+        $.ajax({
+            type: "POST",
+            url: RutaPrincipal + 'Clase/InsertarClaseGestion',
+            data: {
+                "idgrado": slcGrado,
+                "nombre": txtNombre,
+                "descripcion": txtDescripcion,
+                "rutaenlace": txtRutaEnlace,
+                "rutavideo": txtRutaVideo,
+                "categoria": slcCategoria,
+                "imagen": "",
+                "imagenruta": txtRutaImagen,
+                "orden": 0
+            },
+                async: false,
+            success: function (msg) {
+                $('#modalClase').hide();
+            console.log(msg);
+            },
+            error: function (msg) {
+            console.log(msg);
+            //location.reload();
+            },
+            complete: function (data) {
+            // si acabo de completar
+            }
+        });
+
+    });
+        
+
 </script>
+
+
