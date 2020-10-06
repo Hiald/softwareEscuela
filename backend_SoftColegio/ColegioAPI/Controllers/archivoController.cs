@@ -13,7 +13,7 @@ namespace ColegioAPI.Controllers
 
         [HttpGet]
         public int wsInsertarArchivo(int widgrado, int widusuario, string wnombre, string wdescripcion, string wrutaenlace, string wrutavideo
-                                , int wcategoria, string wimagen, string wimagenruta, int worden, short westado, string wfecharegistro)
+                                , int wcategoria, string wimagen, string wimagenruta, int worden, Int16 westado, string wfecharegistro)
         {
             int iresultado = -1;
             try
@@ -33,7 +33,7 @@ namespace ColegioAPI.Controllers
         [HttpGet]
         public string wsObtenerArchivo(int widclase)
         {
-            edArchivo enUsuario = new edArchivo();
+            List<edArchivo> enUsuario = new List<edArchivo>();
             try
             {
 

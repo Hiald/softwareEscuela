@@ -14,7 +14,7 @@ namespace ColegioAD
         }
 
         public int adInsertarArchivo(int adidgrado, int adidusuario, string adnombre, string addescripcion, string adrutaenlace, string adrutavideo, int adcategoria
-                               , string adimagen, string adimagenruta, int adorden, short adestado, DateTime adfecharegistro)
+                               , string adimagen, string adimagenruta, int adorden, Int16 adestado, DateTime adfecharegistro)
         {
             try
             {
@@ -45,11 +45,11 @@ namespace ColegioAD
             }
         }
 
-        public edArchivo adObtenerArchivo(int adidclase)
+        public List<edArchivo> adObtenerArchivo(int adidclase)
         {
             try
             {
-                edArchivo senUsuario = null;
+                List<edArchivo> slenUsuario = new List<edArchivo>();
                 using (MySqlCommand cmd = new MySqlCommand("sp_obtener_archivo", cnMysql))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -59,6 +59,7 @@ namespace ColegioAD
                     {
                         if (mdrd != null)
                         {
+                            edArchivo senArchivo = null;
                             int pos_idarchivo = mdrd.GetOrdinal("idarchivo");
                             int pos_idclase = mdrd.GetOrdinal("idclase");
                             int pos_venlace = mdrd.GetOrdinal("v_enlace");
@@ -73,22 +74,23 @@ namespace ColegioAD
 
                             while (mdrd.Read())
                             {
-                                senUsuario = new edArchivo();
-                                senUsuario.idarchivo = (mdrd.IsDBNull(pos_idarchivo) ? 0 : mdrd.GetInt32(pos_idarchivo));
-                                senUsuario.idclase = (mdrd.IsDBNull(pos_idclase) ? 0 : mdrd.GetInt32(pos_idclase));
-                                senUsuario.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
-                                senUsuario.Itipoarchivo = (mdrd.IsDBNull(pos_itipoarchivo) ? 0 : mdrd.GetInt32(pos_itipoarchivo));
-                                senUsuario.IPuntajeMinimo = (mdrd.IsDBNull(pos_ipuntajeminimo) ? 0 : mdrd.GetInt32(pos_ipuntajeminimo));
-                                senUsuario.IpuntajeMaximo = (mdrd.IsDBNull(pos_ipuntajemaximo) ? 0 : mdrd.GetInt32(pos_ipuntajemaximo));
-                                senUsuario.SfechaInicio = (mdrd.IsDBNull(pos_dfechainicio) ? "-" : mdrd.GetString(pos_dfechainicio));
-                                senUsuario.SfechaFin = (mdrd.IsDBNull(pos_dfechafin) ? "-" : mdrd.GetString(pos_dfechafin));
-                                senUsuario.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
-                                senUsuario.Bestado = (mdrd.IsDBNull(pos_bestado) ? 0 : mdrd.GetInt16(pos_bestado));
-                                senUsuario.SfechaRegistro = (mdrd.IsDBNull(pos_dtfecharegistro) ? "-" : mdrd.GetString(pos_dtfecharegistro));
+                                senArchivo = new edArchivo();
+                                senArchivo.idarchivo = (mdrd.IsDBNull(pos_idarchivo) ? 0 : mdrd.GetInt32(pos_idarchivo));
+                                senArchivo.idclase = (mdrd.IsDBNull(pos_idclase) ? 0 : mdrd.GetInt32(pos_idclase));
+                                senArchivo.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
+                                senArchivo.Itipoarchivo = (mdrd.IsDBNull(pos_itipoarchivo) ? 0 : mdrd.GetInt32(pos_itipoarchivo));
+                                senArchivo.IPuntajeMinimo = (mdrd.IsDBNull(pos_ipuntajeminimo) ? 0 : mdrd.GetInt32(pos_ipuntajeminimo));
+                                senArchivo.IpuntajeMaximo = (mdrd.IsDBNull(pos_ipuntajemaximo) ? 0 : mdrd.GetInt32(pos_ipuntajemaximo));
+                                senArchivo.SfechaInicio = (mdrd.IsDBNull(pos_dfechainicio) ? "-" : mdrd.GetString(pos_dfechainicio));
+                                senArchivo.SfechaFin = (mdrd.IsDBNull(pos_dfechafin) ? "-" : mdrd.GetString(pos_dfechafin));
+                                senArchivo.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
+                                senArchivo.Bestado = (mdrd.IsDBNull(pos_bestado) ? 0 : mdrd.GetInt16(pos_bestado));
+                                senArchivo.SfechaRegistro = (mdrd.IsDBNull(pos_dtfecharegistro) ? "-" : mdrd.GetString(pos_dtfecharegistro));
+                                slenUsuario.Add(senArchivo);
                             }
                         }
                     }
-                    return senUsuario;
+                    return slenUsuario;
                 }
             }
             catch (Exception ex)

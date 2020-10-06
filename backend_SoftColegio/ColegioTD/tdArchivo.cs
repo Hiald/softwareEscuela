@@ -11,7 +11,7 @@ namespace ColegioTD
         adArchivo iadArchivo;
 
         public int tdInsertarArchivo(int tdidgrado, int tdidusuario, string tdnombre, string tddescripcion, string tdrutaenlace, string tdrutavideo
-                                , int tdcategoria, string tdimagen, string tdimagenruta, int tdorden, short tdestado, DateTime tdfecharegistro)
+                                , int tdcategoria, string tdimagen, string tdimagenruta, int tdorden, Int16 tdestado, DateTime tdfecharegistro)
         {
             int iRespuesta = -1;
             try
@@ -37,10 +37,10 @@ namespace ColegioTD
 
         }
 
-        public edArchivo tdObtenerArchivo(int tdidclase)
+        public List<edArchivo> tdObtenerArchivo(int tdidclase)
         {
 
-            edArchivo renUsuario = new edArchivo();
+            List<edArchivo> renUsuario = new List<edArchivo>();
             try
             {
                 using (MySqlConnection con = new MySqlConnection(mysqlConexion))
