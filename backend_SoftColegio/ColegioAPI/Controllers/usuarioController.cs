@@ -86,8 +86,12 @@ namespace ColegioAPI.Controllers
             List<edUsuario> enUsuario = new List<edUsuario>();
             try
             {
+                var valorusuario = "";
+                if (wusuario != null)
+                    valorusuario = wusuario;
+
                 itdUsuario = new tdUsuario();
-                enUsuario = itdUsuario.tdListarUsuario(wusuario, wtipousuario);
+                enUsuario = itdUsuario.tdListarUsuario(valorusuario, wtipousuario);
                 return JsonConvert.SerializeObject(enUsuario);
             }
             catch (Exception ex)

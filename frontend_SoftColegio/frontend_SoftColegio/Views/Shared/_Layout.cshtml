@@ -1143,6 +1143,33 @@
     <div class="rightbar-overlay"></div>
     <!-- /Right-bar -->
     <!-- bundle -->
+    <script>
+        function fn_ArmadoAJAX(pstrMetodo, pParam, successFn, errorFn) {
+            var oParametros = JSON.stringify(pParam);
+
+            //Arma Parametros
+            var parametro = '';
+            if (oParametros === '') {
+                parametro = "{}";
+            } else {
+                parametro = oParametros;
+            }
+            //Ejecuta Ajax
+            $.ajax({
+                type: "POST",
+                url: pstrMetodo,
+                contentType: "application/json; charset=utf-8",
+                data: parametro,
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    successFn(data);
+                },
+                error: errorFn
+            });
+
+        }
+    </script>
     <!-- end demo js-->
 </body>
 

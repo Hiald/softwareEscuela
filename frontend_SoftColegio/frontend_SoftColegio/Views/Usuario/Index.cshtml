@@ -17,6 +17,26 @@
     </div>
     <!-- end page title -->
 
+    <div class="tab-content">
+        <div class="tab-pane show active" id="basic-datatable-preview">
+            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                <thead>
+                    <tr>
+                        <th>Nivel/Grado</th>
+                        <th>Usuario</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Correo</th>
+                        <th>Tipo de usuario</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -160,5 +180,109 @@
 
     });
 
+
+
+    $(document).ready(function () {
+
+        $('#basic-datatable').dataTable({
+            "responsive": {
+                "details": true,
+                "columnDefs": [
+                    { "responsivePriority": 1 },
+                    { "responsivePriority": 2 }
+                ]
+            },
+            "bServerSide": true,
+            "sAjaxSource": RutaPrincipal + 'Login/ListarUsuarioGestion',
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "bFilter": true,
+            "bSort": false,
+            "language": {
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "emptyTable": "No se encontraron registros",
+                "sZeroRecords": "No se encontraron registros.",
+                "processing": "Cargando. Por favor espere...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "sSearch": "Buscar:"
+            },
+            "bLengthChange": false,
+            "fnDrawCallback": function (oSettings) {
+                //si esta cargando la data
+            },
+            "aoColumns": [
+                {
+                    "mData": "idnivel",
+                    "sClass": "center",
+                    "mRender": function (data, type, value) {
+                        return value.idnivel + "/" + value.idgrado;
+                    }
+                },
+                { "sName": "Susuario", "mDataProp": "Susuario" },
+                { "sName": "Snombres", "mDataProp": "Snombres" },
+                {
+                    "mData": "SApellidoPaterno",
+                    "sClass": "center",
+                    "mRender": function (data, type, value) {
+                        return value.SApellidoPaterno + " " + value.SApellidoMaterno;
+                    }
+                },
+                { "sName": "Scorreo", "mDataProp": "Scorreo" },
+                { "sName": "tipousuario", "mDataProp": "tipousuario" },
+                {},
+                {}
+            ],
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+                var sEcho = aoData[0].value;
+                var iNroPagina = 1;
+                var iCantMostrar = 1;
+
+                var sParams = {
+                    "usuario": "",
+                    "tipousuario": 0
+                };
+
+                oSettings.jqXHR = fn_ArmadoAJAX(
+                    sSource,
+                    sParams,
+                    function (result) {
+                        fnCallback(result);
+                    }, function (error) {
+                        // mostrar si hay un error
+                        console.log(error);
+                    });
+            }, "aoColumnDefs":
+                [
+                    {
+                        "mRender": function (data, type, row) {
+                            var strHtml = "<button class='btn btn-warning' onclick='' data-cat=\"" + row.pos_idnivel + "|" + "\" id='AcessEliminar' >Editar</button>";
+                            return strHtml;
+                        },
+                        "sWidth": "5px",
+                        "sClass": "css-center",
+                        "bSort": false,
+                        "aTargets": [6]
+                    },
+                    {
+                        "mRender": function (data, type, row) {
+                            var strHtml = "<button class='btn btn-danger' onclick='' data-cat=\"" + row.pos_idnivel + "|" + "\" id='AcessEliminar' >Eliminar</button>";
+                            return strHtml;
+                        },
+                        "sWidth": "5px",
+                        "sClass": "css-center",
+                        "bSort": false,
+                        "aTargets": [7]
+                    }
+                ]
+        });
+
+    });
 
 </script>
