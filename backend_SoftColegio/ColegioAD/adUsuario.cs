@@ -14,7 +14,7 @@ namespace ColegioAD
         }
 
         public int adInsertarCuenta(int adidnivel, int adidgrado, int adidsede, string adnombres, string adamaterno, string adapaterno, string adgenero
-                                    ,string adcorreo,Int16 adestado, DateTime adfechaRegistro)
+                                    , string adcorreo, Int16 adestado, DateTime adfechaRegistro)
         {
             try
             {
@@ -143,6 +143,60 @@ namespace ColegioAD
                         }
                     }
                     return senUsuario;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+        public List<edUsuario> adListarUsuario(string adusuario, int adtipousuario)
+        {
+            try
+            {
+                List<edUsuario> slenUsuario = new List<edUsuario>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_listar_usuario", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("_usuario", MySqlDbType.VarChar, 25).Value = adusuario;
+                    cmd.Parameters.Add("_tipousuario", MySqlDbType.Int32).Value = adtipousuario;
+
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edUsuario enUsuario = null;
+                            int pos_idnivel = mdrd.GetOrdinal("idnivel");
+                            int pos_idgrado = mdrd.GetOrdinal("idgrado");
+                            int pos_idsede = mdrd.GetOrdinal("idsede");
+                            int pos_idseccion = mdrd.GetOrdinal("idseccion");
+                            int pos_usuario = mdrd.GetOrdinal("v_usuario");
+                            int pos_nombres = mdrd.GetOrdinal("v_nombres");
+                            int pos_apellidopaterno = mdrd.GetOrdinal("v_apellido_paterno");
+                            int pos_apellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
+                            int pos_correo = mdrd.GetOrdinal("v_correo");
+                            int pos_tipousuario = mdrd.GetOrdinal("i_tipo_usuario");
+
+                            while (mdrd.Read())
+                            {
+                                enUsuario = new edUsuario();
+                                enUsuario.idnivel = (mdrd.IsDBNull(pos_idnivel) ? 0 : mdrd.GetInt32(pos_idnivel));
+                                enUsuario.idgrado = (mdrd.IsDBNull(pos_idgrado) ? 0 : mdrd.GetInt32(pos_idgrado));
+                                enUsuario.idsede = (mdrd.IsDBNull(pos_idsede) ? 0 : mdrd.GetInt32(pos_idsede));
+                                enUsuario.idseccion = (mdrd.IsDBNull(pos_idseccion) ? 0 : mdrd.GetInt32(pos_idseccion));
+                                enUsuario.Susuario = (mdrd.IsDBNull(pos_usuario) ? "-" : mdrd.GetString(pos_usuario));
+                                enUsuario.Snombres = (mdrd.IsDBNull(pos_nombres) ? "-" : mdrd.GetString(pos_nombres));
+                                enUsuario.SApellidoPaterno = (mdrd.IsDBNull(pos_apellidopaterno) ? "-" : mdrd.GetString(pos_apellidopaterno));
+                                enUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_apellidomaterno) ? "-" : mdrd.GetString(pos_apellidomaterno));
+                                enUsuario.Scorreo = (mdrd.IsDBNull(pos_correo) ? "-" : mdrd.GetString(pos_correo));
+                                enUsuario.tipousuario = (mdrd.IsDBNull(pos_tipousuario) ? 0 : mdrd.GetInt32(pos_tipousuario));
+                                slenUsuario.Add(enUsuario);
+                            }
+                        }
+                    }
+                    return slenUsuario;
                 }
             }
             catch (Exception ex)

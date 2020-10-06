@@ -76,8 +76,25 @@ namespace ColegioAPI.Controllers
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(enUsuario);
+                return JsonConvert.SerializeObject(ex);
             }
         }
+
+        [HttpGet]
+        public string wsListarUsuario(string wusuario, int wtipousuario)
+        {
+            List<edUsuario> enUsuario = new List<edUsuario>();
+            try
+            {
+                itdUsuario = new tdUsuario();
+                enUsuario = itdUsuario.tdListarUsuario(wusuario, wtipousuario);
+                return JsonConvert.SerializeObject(enUsuario);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
     }
 }

@@ -8,6 +8,7 @@ namespace ColegioED
         public int idsede { get; set; }
         public int idseccion { get; set; }
         public string Snombres { get; set; }
+        public string Susuario { get; set; }
         public string SApellidoPaterno { get; set; }
         public string SApellidoMaterno { get; set; }
         public string Scorreo { get; set; }

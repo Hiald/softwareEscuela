@@ -113,5 +113,31 @@ namespace ColegioTD
 
         }
 
+        public List<edUsuario> tdListarUsuario(string tdusuario, int tdtipousuario)
+        {
+
+            List<edUsuario> renUsuario = new List<edUsuario>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadUsuario = new adUsuario(con);
+                        renUsuario = iadUsuario.adListarUsuario(tdusuario, tdtipousuario);
+                        scope.Commit();
+                    }
+                }
+                return (renUsuario);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }
