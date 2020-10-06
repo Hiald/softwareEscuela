@@ -347,7 +347,6 @@
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
-    <Folder Include="Views\Clase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\dripicons-v2.eot" />
@@ -385,6 +384,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Clase\ClaseGestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

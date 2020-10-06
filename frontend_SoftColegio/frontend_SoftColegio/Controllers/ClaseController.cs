@@ -20,6 +20,11 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
+        public ActionResult ClaseAlumno()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<JsonResult> InsertarClaseGestion(int idgrado, string nombre, string descripcion
             , string rutaenlace, string rutavideo, int categoria, string imagen, string imagenruta
