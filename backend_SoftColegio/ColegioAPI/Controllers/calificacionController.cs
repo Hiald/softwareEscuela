@@ -12,13 +12,13 @@ namespace ColegioAPI.Controllers
         tdCalificacion itdCalificacion;
 
         [HttpGet]
-        public string wsListarCalificacion(string widarchivo, int widusuario)
+        public string wsListarCalificacion(int widusuario, int wtiponota, int wnota)
         {
             List<edCalificacion> wsenCalificacion = new List<edCalificacion>();
             try
             {
                 itdCalificacion = new tdCalificacion();
-                wsenCalificacion = itdCalificacion.tdListarCalificacion(widarchivo, widusuario);
+                wsenCalificacion = itdCalificacion.tdListarCalificacion(widusuario, wtiponota, wnota);
                 return JsonConvert.SerializeObject(wsenCalificacion);
             }
             catch (Exception ex)

@@ -76,6 +76,7 @@ namespace frontend_SoftColegio.Controllers
                 DVariables["APELLIDOPARTERNO"] = oEnUsuario.SApellidoPaterno.ToString();
                 DVariables["APELLIDOMATERNO"] = oEnUsuario.SApellidoMaterno.ToString();
                 DVariables["CORREO"] = oEnUsuario.Scorreo.ToString();
+                DVariables["TIPOUSUARIO"] = oEnUsuario.tipousuario.ToString();
                 UtlAuditoria.SetSessionValues(DVariables);
 
                 /* string pdip = UtlAuditoria.ObtenerDireccionIP();
@@ -188,6 +189,7 @@ namespace frontend_SoftColegio.Controllers
                 DVariables["APELLIDOPARTERNO"] = oEnUsuario.SApellidoPaterno.ToString();
                 DVariables["APELLIDOMATERNO"] = oEnUsuario.SApellidoMaterno.ToString();
                 DVariables["CORREO"] = oEnUsuario.Scorreo.ToString();
+                DVariables["TIPOUSUARIO"] = oEnUsuario.tipousuario.ToString();
                 UtlAuditoria.SetSessionValues(DVariables);
 
                 objResultado = new

@@ -5,11 +5,11 @@ using MySql.Data.MySqlClient;
 
 namespace ColegioTD
 {
-    public class tdCalificacion: td_aglobal
+    public class tdCalificacion : td_aglobal
     {
         adCalificacion iadCalificacion;
 
-        public List<edCalificacion> tdListarCalificacion(string tdidarchivo, int tdidusuario)
+        public List<edCalificacion> tdListarCalificacion(int tdidusuario, int tdtiponota, int tdnota)
         {
             List<edCalificacion> renUsuario = new List<edCalificacion>();
             try
@@ -20,7 +20,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadCalificacion = new adCalificacion(con);
-                        renUsuario = iadCalificacion.adListarCalificacion(tdidarchivo, tdidusuario);
+                        renUsuario = iadCalificacion.adListarCalificacion(tdidusuario, tdtiponota, tdnota);
                         scope.Commit();
                     }
                 }

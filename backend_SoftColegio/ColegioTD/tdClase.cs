@@ -89,10 +89,9 @@ namespace ColegioTD
 
         }
 
-        public edClase tdListarClaseCurso(int tdidcurso)
+        public List<edClase> tdListarClaseCurso(int tdidcurso, int tdtipousuario)
         {
-
-            edClase renUsuario = new edClase();
+            List<edClase> renClase = new List<edClase>();
             try
             {
                 using (MySqlConnection con = new MySqlConnection(mysqlConexion))
@@ -101,11 +100,11 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadClase = new adClase(con);
-                        renUsuario = iadClase.adListarClaseCurso(tdidcurso);
+                        renClase = iadClase.adListarClaseCurso(tdidcurso, tdtipousuario);
                         scope.Commit();
                     }
                 }
-                return (renUsuario);
+                return (renClase);
             }
             catch (MySqlException ex)
             {

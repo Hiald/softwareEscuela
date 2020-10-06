@@ -11,5 +11,6 @@ namespace frontendED
         public string SApellidoPaterno { get; set; }
         public string SApellidoMaterno { get; set; }
         public string Scorreo { get; set; }
+        public int tipousuario { get; set; }
     }
 }
