@@ -13,8 +13,26 @@ namespace frontend_SoftColegio.Controllers
     public class ArchivoController : Controller
     {
         // admin y profesor gestion
-        public ActionResult ArchivoGestion()
+        public ActionResult archivoGestion()
         {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            return View();
+        }
+
+        // alumno
+        public ActionResult examen()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            return View();
+        }
+
+        // alumno
+        public ActionResult tarea()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
             return View();
         }
 

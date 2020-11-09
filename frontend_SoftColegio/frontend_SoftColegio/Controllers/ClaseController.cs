@@ -13,13 +13,17 @@ namespace frontend_SoftColegio.Controllers
     public class ClaseController : Controller
     {
         //CRUD para administrar
-        public ActionResult ClaseGestion()
+        public ActionResult claseGestion()
         {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
             return View();
         }
 
-        public ActionResult ClaseAlumno()
+        public ActionResult clase()
         {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
             return View();
         }
 
