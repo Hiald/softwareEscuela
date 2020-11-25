@@ -1,5 +1,4 @@
 ﻿<div class="container-fluid">
-
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -11,33 +10,152 @@
                         <li class="breadcrumb-item active">Form Validation</li>
                     </ol>
                 </div>
-                <h4 class="page-title">USUARIOS</h4>
+                <h4 class="page-title">MÓDULO USUARIO</h4>
             </div>
         </div>
     </div>
     <!-- end page title -->
 
-    <div class="tab-content">
-        <div class="tab-pane show active" id="basic-datatable-preview">
-            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                <thead>
-                    <tr>
-                        <th>Nivel/Grado</th>
-                        <th>Usuario</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Correo</th>
-                        <th>Tipo de usuario</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted font-14">
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalUsuario">AGREGAR USUARIO</button>
+                    </p>
+                    <!-- end nav-->
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="basic-datatable-preview">
+                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Nivel/Grado</th>
+                                        <th>Usuario</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Correo</th>
+                                        <th>Tipo de usuario</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end tab-content-->
+
+                </div>
+                <!-- end card body-->
+            </div>
+            <!-- end card -->
         </div>
+        <!-- end col-->
     </div>
 
-    <div class="row">
+
+    <div id="modalUsuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-dark">
+                    <h4 class="modal-title" id="dark-header-modalLabel">USUARIO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        @* here *@
+                        @*<div class="col-lg-12">  *@
+                        <div class="col-lg-6">
+                            <form id="frmUsuario">
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Nivel (Primaria / Secundaria)</label>
+                                    <select class="form-control" id="idNivel">
+                                        <option>Seleccionar</option>
+                                        <option value="1">Primaria</option>
+                                        <option value="2">Secundaria</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Grado</label>
+                                    <select class="form-control" id="idGrado">
+                                        <option>Seleccionar</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Sede</label>
+                                    <select class="form-control" id="idSede">
+                                        <option>Seleccionar</option>
+                                        <option value="1">Principal</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Nombres</label>
+                                    <input type="text" id="idNombres" placeholder="Nombres" class="form-control">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Apellido Paterno</label>
+                                    <input type="text" id="idApPaterno" placeholder="Apellido Paterno" class="form-control">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Apellido Materno</label>
+                                    <input type="text" id="idApMaterno" placeholder="Apellido Materno" class="form-control">
+                                </div>
+                                @*<button id="btnAgregar" class="btn btn-primary" type="button">Agregar</button>*@
+                            </form>
+                        </div> <!-- end col -->
+
+                        <div class="col-lg-6">
+                            <form id="frm2">
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Tipo Usuario</label>
+                                    <select class="form-control" id="idTipoUsuario">
+                                        <option>Seleccionar</option>
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Profesor</option>
+                                        <option value="3">Alumno</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-email">Usuario</label>
+                                    <input type="text" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-password">Contraseña</label>
+                                    <input type="password" id="idContrasenia" class="form-control">
+                                </div>
+
+                            </form>
+                        </div> <!-- end col -->
+                        <!-- end col -->
+                        <!-- end col -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-dark" id="btnAgregar">Guardar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+    @*<div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -131,7 +249,7 @@
             </div>
             <!-- end card-->
         </div>
-    </div>
+    </div>*@
     <!-- end row -->
 
 </div>
@@ -195,9 +313,10 @@
             "bServerSide": true,
             "sAjaxSource": RutaPrincipal + 'Login/ListarUsuarioGestion',
             "bProcessing": true,
-            "sPaginationType": "full_numbers",
+            "pageLength": 10,
+            //"sPaginationType": "full_numbers",
             "bFilter": true,
-            "bSort": false,
+            //"bSort": false,
             "language": {
                 "info": "",
                 "infoEmpty": "",
@@ -213,7 +332,7 @@
                 },
                 "sSearch": "Buscar:"
             },
-            "bLengthChange": false,
+            //"bLengthChange": false,
             "fnDrawCallback": function (oSettings) {
                 //si esta cargando la data
             },
