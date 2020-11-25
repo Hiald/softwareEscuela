@@ -15,8 +15,18 @@ namespace frontend_SoftColegio.Controllers
     public class CalificacionController : Controller
     {
         // vista admin y profesor
-        public ActionResult CalificacionGestion()
+        public ActionResult calificacionGestion()
         {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            return View();
+        }
+
+        // vista usuario
+        public ActionResult calificacion()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
             return View();
         }
 

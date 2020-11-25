@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -285,10 +289,22 @@
             },
             async: false,
             success: function (msg) {
-                console.log(msg);
+                $('#idNombres').val("");
+                $('#idApPaterno').val("");
+                $('#idApMaterno').val("");
+                $('#idUsuario').val("");
+                $('#idContrasenia').val("");
             },
             error: function (msg) {
-                console.log(msg);
+                var slcNivel = $('#idNivel option:selected').attr('value');
+                var slcGrado = $('#idGrado option:selected').attr('value');
+                var slcSede = $('#idSede option:selected').attr('value');
+                var ipNombres = $('#idNombres').val();
+                var ipApPaterno = $('#idApPaterno').val();
+                var ipApMaterno = $('#idApMaterno').val();
+                var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
+                var ipUsuario = $('#idUsuario').val();
+                var ipContrasenia = $('#idContrasenia').val();
                 //location.reload();
             },
             complete: function (data) {

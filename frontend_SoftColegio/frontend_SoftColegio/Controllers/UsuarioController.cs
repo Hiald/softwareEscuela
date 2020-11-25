@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using frontendUtil;
 
 namespace frontend_SoftColegio.Controllers
 {
@@ -11,6 +12,8 @@ namespace frontend_SoftColegio.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
             return View();
         }
 
