@@ -63,6 +63,7 @@ namespace ColegioAD
                             int pos_idarchivo = mdrd.GetOrdinal("idarchivo");
                             int pos_idclase = mdrd.GetOrdinal("idclase");
                             int pos_venlace = mdrd.GetOrdinal("v_enlace");
+                            int pos_vnombreclase = mdrd.GetOrdinal("nombreClase");
                             int pos_itipoarchivo = mdrd.GetOrdinal("i_tipo_archivo");
                             int pos_ipuntajeminimo = mdrd.GetOrdinal("i_puntaje_minimo");
                             int pos_ipuntajemaximo = mdrd.GetOrdinal("i_puntaje_maximo");
@@ -78,6 +79,7 @@ namespace ColegioAD
                                 senArchivo.idarchivo = (mdrd.IsDBNull(pos_idarchivo) ? 0 : mdrd.GetInt32(pos_idarchivo));
                                 senArchivo.idclase = (mdrd.IsDBNull(pos_idclase) ? 0 : mdrd.GetInt32(pos_idclase));
                                 senArchivo.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
+                                senArchivo.SclaseNombre = (mdrd.IsDBNull(pos_vnombreclase) ? "-" : mdrd.GetString(pos_vnombreclase));
                                 senArchivo.Itipoarchivo = (mdrd.IsDBNull(pos_itipoarchivo) ? 0 : mdrd.GetInt32(pos_itipoarchivo));
                                 senArchivo.IPuntajeMinimo = (mdrd.IsDBNull(pos_ipuntajeminimo) ? 0 : mdrd.GetInt32(pos_ipuntajeminimo));
                                 senArchivo.IpuntajeMaximo = (mdrd.IsDBNull(pos_ipuntajemaximo) ? 0 : mdrd.GetInt32(pos_ipuntajemaximo));
@@ -154,8 +156,7 @@ namespace ColegioAD
             }
         }
 
-
-        public List<edArchivo> adListarArchivoDetalle(string adidarchivo, int adidusuario)
+        public List<edArchivo> adListarArchivoDetalle(int adidarchivo, int adidusuario)
         {
             try
             {
@@ -189,6 +190,85 @@ namespace ColegioAD
                                 senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
                                 senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
                                 senUsuario.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
+                                loenusuario.Add(senUsuario);
+                            }
+                        }
+                    }
+                    return loenusuario;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+        public List<edArchivo> adListarArchivo(int adidclase)
+        {
+            try
+            {
+                List<edArchivo> loenusuario = new List<edArchivo>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_listar_archivo", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
+
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edArchivo senUsuario = null;
+                            int pos_idarchivo = mdrd.GetOrdinal("idarchivo");
+                            int pos_idclase = mdrd.GetOrdinal("idclase");
+                            int pos_idusuario = mdrd.GetOrdinal("idusuario");
+                            int pos_vnombres = mdrd.GetOrdinal("v_nombres");
+                            int pos_vapellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
+                            int pos_vapellidopaterno = mdrd.GetOrdinal("v_apellido_paterno");
+                            int pos_nombregrado = mdrd.GetOrdinal("nombreGrado");
+                            int pos_nombrenivel = mdrd.GetOrdinal("nombreNivel");
+                            int pos_vnombre = mdrd.GetOrdinal("v_nombre");
+                            int pos_venlace = mdrd.GetOrdinal("v_enlace");
+                            int pos_itipoarchivo = mdrd.GetOrdinal("i_tipo_archivo");
+                            int pos_ipuntajeminimo = mdrd.GetOrdinal("i_puntaje_minimo");
+                            int pos_ipuntajemaximo = mdrd.GetOrdinal("i_puntaje_maximo");
+                            int pos_dfechainicio = mdrd.GetOrdinal("d_fecha_inicio");
+                            int pos_dfechafin = mdrd.GetOrdinal("d_fecha_fin");
+                            int pos_vimagen = mdrd.GetOrdinal("v_imagen");
+                            int pos_bestado = mdrd.GetOrdinal("b_estado");
+                            int pos_dtfecharegistro = mdrd.GetOrdinal("dt_fecharegistro");
+                            int pos_idarchivodetalle = mdrd.GetOrdinal("idarchivodetalle");
+                            int pos_imagenalumno = mdrd.GetOrdinal("imagenAlumno");
+                            int pos_inota = mdrd.GetOrdinal("i_nota");
+                            int pos_vobservacion = mdrd.GetOrdinal("v_observacion");
+                            int pos_enlacealumno = mdrd.GetOrdinal("enlaceAlumno");
+
+                            while (mdrd.Read())
+                            {
+                                senUsuario = new edArchivo();
+                                senUsuario.idarchivo = (mdrd.IsDBNull(pos_idarchivo) ? 0 : mdrd.GetInt32(pos_idarchivo));
+                                senUsuario.idclase = (mdrd.IsDBNull(pos_idclase) ? 0 : mdrd.GetInt32(pos_idclase));
+                                senUsuario.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
+                                senUsuario.SNombre = (mdrd.IsDBNull(pos_vnombres) ? "-" : mdrd.GetString(pos_vnombres));
+                                senUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_vapellidomaterno) ? "-" : mdrd.GetString(pos_vapellidomaterno));
+                                senUsuario.SApellidoPaterno = (mdrd.IsDBNull(pos_vapellidopaterno) ? "-" : mdrd.GetString(pos_vapellidopaterno));
+                                senUsuario.SNombreGrado = (mdrd.IsDBNull(pos_nombregrado) ? "-" : mdrd.GetString(pos_nombregrado));
+                                senUsuario.SNombreNivel = (mdrd.IsDBNull(pos_nombrenivel) ? "-" : mdrd.GetString(pos_nombrenivel));
+                                senUsuario.SNombreArchivo = (mdrd.IsDBNull(pos_vnombre) ? "-" : mdrd.GetString(pos_vnombre));
+                                senUsuario.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
+                                senUsuario.Itipoarchivo = (mdrd.IsDBNull(pos_itipoarchivo) ? 0 : mdrd.GetInt32(pos_itipoarchivo));
+                                senUsuario.IPuntajeMinimo = (mdrd.IsDBNull(pos_ipuntajeminimo) ? 0 : mdrd.GetInt32(pos_ipuntajeminimo));
+                                senUsuario.IpuntajeMaximo = (mdrd.IsDBNull(pos_ipuntajemaximo) ? 0 : mdrd.GetInt32(pos_ipuntajemaximo));
+                                senUsuario.SfechaInicio = (mdrd.IsDBNull(pos_dfechainicio) ? "-" : mdrd.GetString(pos_dfechainicio));
+                                senUsuario.SfechaFin = (mdrd.IsDBNull(pos_dfechafin) ? "-" : mdrd.GetString(pos_dfechafin));
+                                senUsuario.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
+                                senUsuario.Bestado = (mdrd.IsDBNull(pos_bestado) ? 0 : mdrd.GetInt16(pos_bestado));
+                                senUsuario.SfechaRegistro = (mdrd.IsDBNull(pos_dtfecharegistro) ? "-" : mdrd.GetString(pos_dtfecharegistro));
+                                senUsuario.idarchivodetalle = (mdrd.IsDBNull(pos_idarchivodetalle) ? 0 : mdrd.GetInt32(pos_idarchivodetalle));
+                                senUsuario.SimagenAlumno = (mdrd.IsDBNull(pos_imagenalumno) ? "-" : mdrd.GetString(pos_imagenalumno));
+                                senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
+                                senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
+                                senUsuario.SenlaceAlumno = (mdrd.IsDBNull(pos_enlacealumno) ? "-" : mdrd.GetString(pos_enlacealumno));
 
                                 loenusuario.Add(senUsuario);
                             }

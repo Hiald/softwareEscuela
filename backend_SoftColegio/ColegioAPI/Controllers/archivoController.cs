@@ -86,7 +86,7 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string wsListarArchivoDetalle(string widarchivo, int widusuario)
+        public string wsListarArchivoDetalle(int widarchivo, int widusuario)
         {
             List<edArchivo> wsenUsuario = new List<edArchivo>();
             try
@@ -101,6 +101,21 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string wsListarArchivoGeneral(int wsidclasela)
+        {
+            List<edArchivo> wsenUsuario = new List<edArchivo>();
+            try
+            {
+                itdArchivo = new tdArchivo();
+                wsenUsuario = itdArchivo.tdListarArchivo(wsidclasela);
+                return JsonConvert.SerializeObject(wsenUsuario);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
 
     }
 }

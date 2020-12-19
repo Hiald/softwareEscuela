@@ -12,16 +12,18 @@ namespace ColegioAPI.Controllers
         tdClase itdClase;
 
         [HttpGet]
-        public int wsInsertarClase(int widgrado, string wnombre, string wdescripcion, string wrutaenlace, string wrutavideo, int wcategoria
-                                , string wimagen, string wimagenruta, int worden, Int16 westado, string wfecharegistro)
+        public int wsInsertarClase(int wsidcurso, int wssemana, string wsnombre, string wsdescripcion
+                                , string wsrutaenlace, string wsrutavideo, int wscategoria, string wsimagen
+                                , string wsimagenruta, int wsorden, Int16 wsestado, string wfecharegistro)
         {
             int iresultado = -1;
             try
             {
                 DateTime wsfechaRegistro = DateTime.Parse(wfecharegistro);
                 itdClase = new tdClase();
-                iresultado = itdClase.tdInsertarClase(widgrado, wnombre, wdescripcion, wrutaenlace, wrutavideo, wcategoria
-                                , wimagen, wimagenruta, worden, westado, wsfechaRegistro);
+                iresultado = itdClase.tdInsertarClase(wsidcurso, wssemana, wsnombre, wsdescripcion
+                                                    , wsrutaenlace, wsrutavideo, wscategoria, wsimagen
+                                                    , wsimagenruta, wsorden, wsestado, wsfechaRegistro);
                 return iresultado;
             }
             catch (Exception ex)
@@ -62,6 +64,22 @@ namespace ColegioAPI.Controllers
             catch (Exception ex)
             {
                 return iresultado;
+            }
+        }
+
+        [HttpGet]
+        public string wsListarCurso(int wsidgrado, int wsidnivel, int wstipousuario)
+        {
+            List<edClase> wsenClase = new List<edClase>();
+            try
+            {
+                itdClase = new tdClase();
+                wsenClase = itdClase.tdListarCurso(wsidgrado, wsidnivel, wstipousuario);
+                return JsonConvert.SerializeObject(wsenClase);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
             }
         }
 

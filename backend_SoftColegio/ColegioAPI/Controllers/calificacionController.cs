@@ -27,5 +27,23 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public int wsActualizarNota(int wsidarchivodetalle, int wsinota, string wsobservacion, int wsidusuario,
+                                    int wsitiponota, Int16 wsiestado)
+        {
+            int iresultado = -1;
+            try
+            {
+                itdCalificacion = new tdCalificacion();
+                iresultado = itdCalificacion.tdActualizarNota(wsidarchivodetalle, wsinota, wsobservacion
+                                                    , wsidusuario, wsitiponota, wsiestado);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
     }
 }
