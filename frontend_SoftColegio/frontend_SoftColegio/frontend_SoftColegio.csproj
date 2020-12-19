@@ -199,6 +199,7 @@
     <Content Include="assets\images\layouts\layout-4.png" />
     <Content Include="assets\images\layouts\layout-5.png" />
     <Content Include="assets\images\layouts\layout-6.png" />
+    <Content Include="assets\images\logginFondo.jpeg" />
     <Content Include="assets\images\logo-dark.png" />
     <Content Include="assets\images\logo-light.png" />
     <Content Include="assets\images\logo.png" />

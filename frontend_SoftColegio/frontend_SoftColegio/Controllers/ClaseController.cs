@@ -20,13 +20,13 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
-        public ActionResult Curso()
-        {
-            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
-            ViewBag.GrolUsuario = irolusuario;
-            //ViewBag.Lista = ...;
-            return View();
-        }
+        //public ActionResult Curso()
+        //{
+        //    int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+        //    ViewBag.GrolUsuario = irolusuario;
+        //    //ViewBag.Lista = ...;
+        //    return View();
+        //}
 
         public ActionResult Clase()
         {
@@ -224,6 +224,41 @@ namespace frontend_SoftColegio.Controllers
                     aaData = loenClase
                 };
                 return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
+        
+        public async Task<ActionResult> Curso()
+        {
+            try
+            {
+                var objResultado = new object();
+                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int idgrado = UtlAuditoria.ObtenerIdGrado();
+                int idnivel = UtlAuditoria.ObtenerIdNivel();
+                List<edClase> loenClase = new List<edClase>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
+
+                    }
+                }
+                ViewBag.GrolUsuario = ItipoUsuario;
+                ViewBag.Lista = loenClase;
+                return View();
             }
             catch (Exception ex)
             {

@@ -13,23 +13,22 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        @foreach (var @item in ViewBag.Lista)
+        {
+            <div class="col-md-6 col-lg-3">
+                <!-- Simple card -->
 
-    <div class="col-md-6 col-lg-3">
-        <!-- Simple card -->
-        @*@foreach (var item in ViewBag.Lista)*@
-        @*{*@
-            <div class="card d-block">
-                @*<img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">*@
-                <div class="card-body">
-                    <h5 class="card-title">QUÍMICA</h5>
-                    <p class="card-text">
-                        @*Breve descripción.... p.descripcion*@ 
-                    </p>
-                    <a href="javascript: void(0);" class="btn btn-primary">Ir a la clase</a>
-                </div> <!-- end card-body-->
-            </div> <!-- end card-->
-        @* } *@
-    </div><!-- end col -->
+                <div class="card d-block">
+                    @*<img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">*@
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Snombre</h5>
+                        <a href="javascript: void(0);" class="btn btn-primary">Ir a la clase</a>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+
+            </div><!-- end col -->
+        }
+    </div>
 </div>
-
 
