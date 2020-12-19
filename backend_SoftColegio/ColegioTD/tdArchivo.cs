@@ -117,7 +117,7 @@ namespace ColegioTD
 
         }
 
-        public List<edArchivo> tdListarArchivoDetalle(string tdidarchivo, int tdidusuario)
+        public List<edArchivo> tdListarArchivoDetalle(int tdidarchivo, int tdidusuario)
         {
             List<edArchivo> renUsuario = new List<edArchivo>();
             try
@@ -143,6 +143,31 @@ namespace ColegioTD
 
         }
 
+        public List<edArchivo> tdListarArchivo(int tdidclase)
+        {
+            List<edArchivo> renUsuario = new List<edArchivo>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadArchivo = new adArchivo(con);
+                        renUsuario = iadArchivo.adListarArchivo(tdidclase);
+                        scope.Commit();
+                    }
+                }
+
+                return (renUsuario);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
 
     }
 }
