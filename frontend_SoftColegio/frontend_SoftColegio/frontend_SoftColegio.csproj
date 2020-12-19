@@ -388,10 +388,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Clase\claseGestion.cshtml" />
-    <Content Include="Views\Clase\clase.cshtml" />
+    <Content Include="Views\Clase\Curso.cshtml" />
     <Content Include="Views\Archivo\archivoGestion.cshtml" />
     <Content Include="Views\Archivo\examen.cshtml" />
     <Content Include="Views\Archivo\tarea.cshtml" />
+    <Content Include="Views\Clase\Clase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

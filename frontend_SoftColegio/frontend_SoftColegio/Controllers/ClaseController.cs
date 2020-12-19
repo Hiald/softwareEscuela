@@ -20,7 +20,15 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
-        public ActionResult clase()
+        public ActionResult Curso()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            //ViewBag.Lista = ...;
+            return View();
+        }
+
+        public ActionResult Clase()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             ViewBag.GrolUsuario = irolusuario;
