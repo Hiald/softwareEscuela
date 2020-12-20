@@ -23,7 +23,7 @@
                     @*<img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">*@
                     <div class="card-body">
                         <h5 class="card-title">@item.Snombre</h5>
-                        <a href="javascript: void(0);" class="btn btn-primary">Ir a la clase</a>
+                        <a href="/Clase/Clase" onclick="abrirCurso(@item.idcurso)" class="btn btn-primary">Ir a la clase</a>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
 
@@ -31,4 +31,38 @@
         }
     </div>
 </div>
+
+
+<script>
+
+    var idCurso = 0;
+    function abrirCurso(idcursom) {
+    //    idCurso = parseInt(idcursom);
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Clase/EliminarClaseGestion",
+    //        //contentType: "application/json; charset=utf-8",
+    //        data: {
+    //            "widclase": idClase
+    //        },
+    //        //dataType: "json",
+    //        //async: true,
+    //        success: function (data) {
+    //            $('#modal-eliminar').modal("hide");
+    //            var table = $('#tblClase').DataTable();
+    //            table.ajax.reload();
+    //            //table.destroy();                
+    //            //fn_listarClase();
+    //            //$('#modal-eliminar').modal("hide");
+    //            //setTimeout("$('#modal-eliminar').modal('hide');", 6000);
+    //        },
+    //        error: function (data) {
+    //            console.log(data);
+    //        }
+    //    });
+
+    }
+
+</script>
 
