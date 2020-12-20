@@ -35,8 +35,9 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
+        //ACTIVO : inserta la clase : admin
         [HttpPost]
-        public async Task<JsonResult> InsertarClaseGestion(int idgrado, string nombre, string descripcion
+        public async Task<JsonResult> InsertarClaseGestion(int idgrado, int isemana, string nombre, string descripcion
             , string rutaenlace, string rutavideo, int categoria, string imagen, string imagenruta
             , int orden)
         {
@@ -51,11 +52,11 @@ namespace frontend_SoftColegio.Controllers
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/clase/wsInsertarClase?widgrado=" + idgrado
-                        + "&wnombre=" + nombre + "&wdescripcion=" + descripcion + "&wrutaenlace=" + rutaenlace
-                        + "&wrutavideo=" + rutavideo + "&wcategoria=" + categoria + "&wimagen=" + imagen
-                        + "&wimagenruta=" + imagenruta + "&worden=" + orden + "&westado=" + estado
-                        + "&wfecharegistro=" + wfechaRegistro);
+                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/clase/wsInsertarClase?wsidcurso=" + idgrado
+                        + "&wssemana=" + isemana + "&wsnombre=" + nombre + "&wsdescripcion=" + descripcion
+                        + "&wsrutaenlace=" + rutaenlace + "&wsrutavideo=" + rutavideo + "&wscategoria=" + categoria
+                        + "&wsimagen=" + imagen + "&wsimagenruta=" + imagenruta + "&wsorden=" + orden
+                        + "&wsestado=" + estado + "&wfecharegistro=" + wfechaRegistro);
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
                     {
@@ -192,6 +193,7 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+        //ACTIVO : lista las clases por cada curso : alumno, admin
         [HttpPost]
         public async Task<JsonResult> ListarClaseGeneral(int idcurso)
         {
@@ -233,7 +235,7 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
-        
+        //ACTIVO : muestra la vista y obtiene los cursos por cada grado y nivel : alumno
         public async Task<ActionResult> Curso()
         {
             try

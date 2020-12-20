@@ -193,6 +193,7 @@
     <Content Include="assets\images\flags\spain.jpg" />
     <Content Include="assets\images\flags\us.jpg" />
     <Content Include="assets\images\help-icon.svg" />
+    <Content Include="assets\images\imagenfondo2.png" />
     <Content Include="assets\images\layouts\layout-1.png" />
     <Content Include="assets\images\layouts\layout-2.png" />
     <Content Include="assets\images\layouts\layout-3.png" />
