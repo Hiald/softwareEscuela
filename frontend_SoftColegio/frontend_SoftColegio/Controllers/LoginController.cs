@@ -165,33 +165,6 @@ namespace frontend_SoftColegio.Controllers
                     }
                 }
 
-                edUsuario oEnUsuario = new edUsuario();
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/usuario/wsObtenerUsuario?wsidusuario=" + idusuarioGenerado);
-                    if (Reslistarusu.IsSuccessStatusCode)
-                    {
-                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
-                        oEnUsuario = JsonConvert.DeserializeObject<edUsuario>(rwsapilu);
-                    }
-                }
-
-                Dictionary<string, string> DVariables = new Dictionary<string, string>();
-                DVariables["IDUSUARIO"] = idusuarioGenerado.ToString();
-                DVariables["IDNIVEL"] = oEnUsuario.idnivel.ToString();
-                DVariables["IDGRADO"] = oEnUsuario.idgrado.ToString();
-                DVariables["IDSEDE"] = oEnUsuario.idsede.ToString();
-                DVariables["IDSECCION"] = oEnUsuario.idseccion.ToString();
-                DVariables["NOMBRE"] = oEnUsuario.Snombres.ToString();
-                DVariables["APELLIDOPARTERNO"] = oEnUsuario.SApellidoPaterno.ToString();
-                DVariables["APELLIDOMATERNO"] = oEnUsuario.SApellidoMaterno.ToString();
-                DVariables["CORREO"] = oEnUsuario.Scorreo.ToString();
-                DVariables["TIPOUSUARIO"] = oEnUsuario.tipousuario.ToString();
-                UtlAuditoria.SetSessionValues(DVariables);
-
                 objResultado = new
                 {
                     iResultado = 1,
