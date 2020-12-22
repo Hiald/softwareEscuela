@@ -14,7 +14,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Quimica</h4>
+                    <h4 class="header-title">@ViewBag.Curso</h4>
                     <ul class="nav nav-tabs nav-bordered mb-3">
                         <li class="nav-item">
 
@@ -22,27 +22,52 @@
                         <li class="nav-item">
 
                         </li>
-                    </ul> <!-- end nav-->
+                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="links-buttons-preview">
                             <div class="list-group">
-                                <a href="https://meet.google.com/quv-kwcj-sps" class="list-group-item list-group-item-action active" target="_blank">Clase 1 : Introducción</a>
-                                <a href="#" class="list-group-item list-group-item-action">Clase 2 : Que es la quimica</a>
-                                <button type="button" class="list-group-item list-group-item-action">Facebook Messenger</button>
-                                <button type="button" class="list-group-item list-group-item-action">Apple Technology Company</button>
-                                <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Intercom Support System</a>
-                            </div>
-                        </div> <!-- end preview-->
+                                @foreach (var @item in ViewBag.Lista)
+                                {
+                                    <a onclick="rutaClase('@item.Srutaenlace.ToString()')" data-toggle="modal"  data-target="#modalClase" class="list-group-item list-group-item-action">@item.Snombre</a>
 
-                        <div class="tab-pane" id="links-buttons-code">
-                            <pre class="mb-0">                                                    <span class="html escape hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group"</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item list-group-item-action active"</span>&gt;</span><br>        Paypal Payment Gateway<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item list-group-item-action"</span>&gt;</span>Google Drive<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item list-group-item-action"</span>&gt;</span>Facebook Messenger<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item list-group-item-action"</span>&gt;</span>Apple Technology Company<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item list-group-item-action disabled"</span> <span class="hljs-attr">tabindex</span>=<span class="hljs-string">"-1"</span> <span class="hljs-attr">aria-disabled</span>=<span class="hljs-string">"true"</span>&gt;</span>Intercom Support System<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-                                                </pre> <!-- end highlight-->
-                        </div> <!-- end preview code-->
-                    </div> <!-- end tab-content-->
-                </div> <!-- end card-body -->
-            </div> <!-- end card-->
-        </div> <!-- end col -->
-        <!-- end col -->
-        <!-- end col -->
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<input type="hidden" value="" id="Rutaenlace"/>
+
+<div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-information h1 text-info"></i>
+                    <h4 class="mt-2">¿Qué deseas realizar?</h4>
+                    @*<p class="mt-3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>*@
+                    <button type="button" onclick="Iraclase()" class="btn btn-info my-2" data-dismiss="modal">Ir a la clase</button>
+                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Ir a tarea</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+
+    function rutaClase(rutaEnlace) {
+        //Me envia al modal
+        $("#Rutaenlace").val(rutaEnlace);
+    }
+
+    function Iraclase() {
+        var UrlRutaEnlace = $("#Rutaenlace").val();
+        window.open(UrlRutaEnlace, '_blank');
+    }
+
+</script>
