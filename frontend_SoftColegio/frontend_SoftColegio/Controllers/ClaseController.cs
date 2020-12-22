@@ -28,11 +28,74 @@ namespace frontend_SoftColegio.Controllers
         //    return View();
         //}
 
-        public ActionResult Clase()
+        public async Task<ActionResult> Clase(int idcurso, string nombreCurso)
         {
-            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
-            ViewBag.GrolUsuario = irolusuario;
-            return View();
+            //int irolusuario = UtlAuditoria.ObtenerTipoUsuario();            
+            try
+            {
+                var objResultado = new object();
+                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                List<edClase> loenClase = new List<edClase>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&wtipousuario=" + ItipoUsuario);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
+                    }
+                }
+                ViewBag.GrolUsuario = ItipoUsuario;
+                ViewBag.Lista = loenClase;
+                ViewBag.Curso = nombreCurso;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+
+
+        }
+
+        //ACTIVO : muestra la vista y obtiene los cursos por cada grado y nivel : alumno
+        public async Task<ActionResult> Curso()
+        {
+            try
+            {
+                var objResultado = new object();
+                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int idgrado = UtlAuditoria.ObtenerIdGrado();
+                int idnivel = UtlAuditoria.ObtenerIdNivel();
+                List<edClase> loenClase = new List<edClase>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
+
+                    }
+                }
+                ViewBag.GrolUsuario = ItipoUsuario;
+                ViewBag.Lista = loenClase;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
         }
 
         //ACTIVO : inserta la clase : admin
@@ -194,81 +257,48 @@ namespace frontend_SoftColegio.Controllers
         }
 
         //ACTIVO : lista las clases por cada curso : alumno, admin
-        [HttpPost]
-        public async Task<JsonResult> ListarClaseGeneral(int idcurso)
-        {
-            try
-            {
-                var objResultado = new object();
-                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
-                List<edClase> loenClase = new List<edClase>();
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&wtipousuario=" + ItipoUsuario);
-                    if (Reslistarusu.IsSuccessStatusCode)
-                    {
-                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
-                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
-                    }
-                }
+        //[HttpPost]
+        //public async Task<JsonResult> ListarClaseGeneral(int idcurso)
+        //{
+        //    try
+        //    {
+        //        var objResultado = new object();
+        //        int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+        //        List<edClase> loenClase = new List<edClase>();
+        //        using (var client = new HttpClient())
+        //        {
+        //            client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+        //            client.DefaultRequestHeaders.Clear();
+        //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //            HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&wtipousuario=" + ItipoUsuario);
+        //            if (Reslistarusu.IsSuccessStatusCode)
+        //            {
+        //                var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+        //                loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
+        //            }
+        //        }
 
-                objResultado = new
-                {
-                    PageStart = 1,
-                    pageSize = 100,
-                    SearchText = string.Empty,
-                    ShowChildren = UtlConstantes.bValorTrue,
-                    iTotalRecords = loenClase.Count,
-                    iTotalDisplayRecords = 1,
-                    aaData = loenClase
-                };
-                return Json(objResultado);
-            }
-            catch (Exception ex)
-            {
-                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
-                return Json(ex);
-            }
+        //        objResultado = new
+        //        {
+        //            PageStart = 1,
+        //            pageSize = 100,
+        //            SearchText = string.Empty,
+        //            ShowChildren = UtlConstantes.bValorTrue,
+        //            iTotalRecords = loenClase.Count,
+        //            iTotalDisplayRecords = 1,
+        //            aaData = loenClase
+        //        };
+        //        return Json(objResultado);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+        //        return Json(ex);
+        //    }
 
-        }
+        //}
 
-        //ACTIVO : muestra la vista y obtiene los cursos por cada grado y nivel : alumno
-        public async Task<ActionResult> Curso()
-        {
-            try
-            {
-                var objResultado = new object();
-                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
-                int idgrado = UtlAuditoria.ObtenerIdGrado();
-                int idnivel = UtlAuditoria.ObtenerIdNivel();
-                List<edClase> loenClase = new List<edClase>();
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario);
-                    if (Reslistarusu.IsSuccessStatusCode)
-                    {
-                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
-                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
-
-                    }
-                }
-                ViewBag.GrolUsuario = ItipoUsuario;
-                ViewBag.Lista = loenClase;
-                return View();
-            }
-            catch (Exception ex)
-            {
-                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
-                return Json(ex);
-            }
-
-        }
+        
 
         [HttpPost]
         public async Task<JsonResult> ListarClaseGestion(int idgrado, int idnivel)
