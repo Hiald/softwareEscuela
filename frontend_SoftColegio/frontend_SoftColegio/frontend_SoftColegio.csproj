@@ -394,6 +394,7 @@
     <Content Include="Views\Archivo\examen.cshtml" />
     <Content Include="Views\Archivo\tarea.cshtml" />
     <Content Include="Views\Clase\Clase.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">
