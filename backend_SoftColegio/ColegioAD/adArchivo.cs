@@ -13,26 +13,27 @@ namespace ColegioAD
             cnMysql = cn;
         }
 
-        public int adInsertarArchivo(int adidgrado, int adidusuario, string adnombre, string addescripcion, string adrutaenlace, string adrutavideo, int adcategoria
-                               , string adimagen, string adimagenruta, int adorden, Int16 adestado, DateTime adfecharegistro)
+        public int adInsertarArchivo(int adidclase, int adidusuario, string adnombre
+                               , string adrutaenlace, int adtipoarchivo, string adfechainicio
+                               , string adfechafin, string adrutavideo)
         {
             try
             {
                 int result = -1;
                 MySqlCommand cmd = new MySqlCommand("sp_insertar_archivo", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidgrado;
+                cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_nombre", MySqlDbType.VarChar, 50).Value = adnombre;
-                cmd.Parameters.Add("_enlace", MySqlDbType.VarChar, 500).Value = addescripcion;
-                cmd.Parameters.Add("_tipoarchivo", MySqlDbType.Int32).Value = adrutaenlace;
-                cmd.Parameters.Add("_puntajeminimo", MySqlDbType.Int32).Value = adrutavideo;
-                cmd.Parameters.Add("_puntajemaximo", MySqlDbType.Int32).Value = adcategoria;
-                cmd.Parameters.Add("_fechainicio", MySqlDbType.DateTime).Value = adimagen;
-                cmd.Parameters.Add("_fechafin", MySqlDbType.DateTime).Value = adimagenruta;
-                cmd.Parameters.Add("_imagen", MySqlDbType.Blob).Value = adorden;
-                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = adfecharegistro;
+                cmd.Parameters.Add("_enlace", MySqlDbType.VarChar, 500).Value = adrutaenlace;
+                cmd.Parameters.Add("_tipoarchivo", MySqlDbType.Int32).Value = adtipoarchivo;
+                cmd.Parameters.Add("_puntajeminimo", MySqlDbType.Int32).Value = 0;
+                cmd.Parameters.Add("_puntajemaximo", MySqlDbType.Int32).Value = 0;
+                cmd.Parameters.Add("_fechainicio", MySqlDbType.DateTime).Value = adfechainicio;
+                cmd.Parameters.Add("_fechafin", MySqlDbType.DateTime).Value = adfechafin;
+                cmd.Parameters.Add("_imagen", MySqlDbType.Blob).Value = "";
+                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = 1;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -116,7 +117,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_nota", MySqlDbType.VarChar, 500).Value = adnota;
                 cmd.Parameters.Add("_observacion", MySqlDbType.Int32).Value = adobservacion;
                 cmd.Parameters.Add("_enlace", MySqlDbType.Int32).Value = adenlace;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.Int32).Value = adfecharegistro;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.Int32).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -143,7 +144,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = adtiponota;
                 cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = adfecharegistro;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 

@@ -33,7 +33,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_imagenruta", MySqlDbType.VarChar, 500).Value = adimagenruta;
                 cmd.Parameters.Add("_orden", MySqlDbType.Int32).Value = adorden;
                 cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = adfecharegistro;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -65,7 +65,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_imagenruta", MySqlDbType.VarChar, 500).Value = adimagenruta;
                 cmd.Parameters.Add("_orden", MySqlDbType.Int32).Value = adorden;
                 cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = adfecharegistro;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 

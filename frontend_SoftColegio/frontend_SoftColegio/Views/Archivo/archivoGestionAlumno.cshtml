@@ -7,10 +7,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
-                        <li class="breadcrumb-item active">Gestion archivo</li>
+                        <li class="breadcrumb-item active">Gestion archivo Alumno</li>
                     </ol>
                 </div>
-                <h4 class="page-title">MÓDULO ARCHIVO</h4>
+                <h4 class="page-title">MÓDULO ARCHIVO ALUMNO</h4>
             </div>
         </div>
     </div>
@@ -28,11 +28,12 @@
                             <table id="tblArchivo" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
+                                        <th>Alumno</th>
+                                        <th>Nivel/Grado</th>
                                         <th>Clase</th>
                                         <th>Enlace</th>
-                                        <th>Nombre tarea</th>
-                                        <th>F. Inicio</th>
-                                        <th>F. Fin</th>
+                                        <th>Imagen</th>
+                                        <th>Nota</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -193,7 +194,7 @@
         $('#tblArchivo').DataTable(
             {
                 "ajax": {
-                    "url": "/Archivo/ListarArchivoEspecifico",
+                    "url": "/Archivo/ListarArchivoGeneral",
                     "type": "POST",
                     "datatype": "json",
                     "data": { "idclase": 0 }
@@ -215,13 +216,13 @@
                     },
                     "sSearch": "Buscar:"
                 },
-
                 "columns": [
-                    { "data": "SclaseNombre" },
-                    { "data": "Senlace" },
-                    { "data": "Simagen" },
-                    { "data": "SfechaInicio" },
-                    { "data": "SfechaFin" },
+                    { "data": "Simagen" }, // nombre alumno
+                    { "data": "SNombreGrado" }, // nivel, grado
+                    { "data": "SNombreArchivo"}, // nombre de la clase
+                    { "data": "Senlace" }, //ruta de la tarea
+                    { "data": "SimagenAlumno" }, //ruta de la imagen si es necesario tarea
+                    { "data": "Inota"}, // nota de la tarea
                     {},
                     {}
                 ],
@@ -235,21 +236,20 @@
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [5]
+                            "aTargets": [6]
                         },
                         {
                             "mRender": function (data, type, row) {
-                                 var strHtml = "";
+                                var strHtml = "";
                                 if (@ViewBag.GrolUsuario == 1) {
-                                    strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idarchivo + ")' data-delet=\"" + row.idarchivo + "\" id='AccessEliminar' >Eliminar</button>";
+                                    strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idarchivo + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Eliminar</button>";
                                 }
-
                                 return strHtml;
                             },
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [6]
+                            "aTargets": [7]
                         }
                     ]
             });

@@ -18,7 +18,7 @@ namespace ColegioAD
         {
             try
             {
-                int result = -1;
+                int result = -2;
                 MySqlCommand cmd = new MySqlCommand("sp_insertar_alumno", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = adidnivel;
@@ -29,8 +29,8 @@ namespace ColegioAD
                 cmd.Parameters.Add("_apellido_paterno", MySqlDbType.VarChar, 50).Value = adapaterno;
                 cmd.Parameters.Add("_genero", MySqlDbType.VarChar, 1).Value = adgenero;
                 cmd.Parameters.Add("_correo", MySqlDbType.VarChar, 50).Value = adcorreo;
-                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = adfechaRegistro;
+                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = 1;
+                cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -47,7 +47,7 @@ namespace ColegioAD
         {
             try
             {
-                int result = -1;
+                int result = -2;
                 MySqlCommand cmd = new MySqlCommand("sp_insertar_usuario", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
@@ -56,7 +56,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_clave", MySqlDbType.VarChar, 45).Value = adclave;
                 cmd.Parameters.Add("_token", MySqlDbType.VarChar, 300).Value = adtoken;
                 cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = adfechaRegistro;
+                cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 

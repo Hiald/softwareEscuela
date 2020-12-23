@@ -19,11 +19,10 @@ namespace ColegioAPI.Controllers
             int iresultado = -1;
             try
             {
-                DateTime wsfechaRegistro = DateTime.Parse(wfecharegistro);
                 itdClase = new tdClase();
                 iresultado = itdClase.tdInsertarClase(wsidcurso, wssemana, wsnombre, wsdescripcion
                                                     , wsrutaenlace, wsrutavideo, wscategoria, wsimagen
-                                                    , wsimagenruta, wsorden, wsestado, wsfechaRegistro);
+                                                    , wsimagenruta, wsorden, wsestado, DateTime.Now);
                 return iresultado;
             }
             catch (Exception ex)
@@ -39,10 +38,9 @@ namespace ColegioAPI.Controllers
             int iresultado = -1;
             try
             {
-                DateTime wsfechaRegistro = DateTime.Parse(fecharegistro);
                 itdClase = new tdClase();
                 iresultado = itdClase.tdActualizarClase(widclase, wsidgrado, wsnombre, wsdescripcion, wsrutaenlace, wsrutavideo, wscategoria
-                                , wsimagen, wsimagenruta, wsorden, wsestado, wsfechaRegistro);
+                                , wsimagen, wsimagenruta, wsorden, wsestado, DateTime.Now);
                 return iresultado;
             }
             catch (Exception ex)

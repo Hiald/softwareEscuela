@@ -20,6 +20,14 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
+        // admin y profesor gestion
+        public ActionResult archivoGestionAlumno()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            return View();
+        }
+
         // alumno
         public ActionResult examen()
         {
@@ -38,9 +46,8 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
         [HttpPost]
-        public async Task<JsonResult> InsertarArchivoGestion(int idgrado
-            , string nombre, string descripcion, string rutaenlace, string rutavideo
-            , int categoria, string imagen, string imagenruta, int orden)
+        public async Task<JsonResult> InsertarArchivoGestion(int idgrado , string nombre, string rutaenlace
+                                                        , string rutavideo, string fechaini, string fechafin)
         {
             try
             {
@@ -55,11 +62,10 @@ namespace frontend_SoftColegio.Controllers
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage ResRegistrarArchivo = await client.GetAsync("api/archivo/wsInsertarArchivo?widgrado=" + idgrado
-                        + "&widusuario=" + idusuario + "&wnombre=" + nombre + "&wdescripcion=" + descripcion
-                        + "&wrutaenlace=" + rutaenlace + "&wrutavideo=" + rutavideo
-                        + "&wcategoria=" + categoria + "&wimagen=" + imagen + "&wimagenruta=" + imagenruta
-                        + "&worden=" + orden + "&westado=" + estado + "&wfecharegistro=" + wfechaRegistro);
+                    HttpResponseMessage ResRegistrarArchivo = await client.GetAsync("api/archivo/wsInsertarArchivo?widclase=" + idgrado +
+                        "&widusuario=" + idusuario + "&wnombre=" + nombre +
+                        "&wrutaenlace=" + rutaenlace + "&wtipoarchivo=" + 1 + "&wfechainicio=" + fechaini +
+                        "&wfechafin=" + fechafin + "&wrutavideo=" + rutavideo);
 
                     if (ResRegistrarArchivo.IsSuccessStatusCode)
                     {

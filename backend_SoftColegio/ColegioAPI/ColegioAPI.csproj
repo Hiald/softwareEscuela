@@ -147,10 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\archivo\" />
-    <Folder Include="Views\calificacion\" />
-    <Folder Include="Views\clase\" />
-    <Folder Include="Views\usuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

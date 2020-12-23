@@ -10,8 +10,9 @@ namespace ColegioTD
     {
         adArchivo iadArchivo;
 
-        public int tdInsertarArchivo(int tdidgrado, int tdidusuario, string tdnombre, string tddescripcion, string tdrutaenlace, string tdrutavideo
-                                , int tdcategoria, string tdimagen, string tdimagenruta, int tdorden, Int16 tdestado, DateTime tdfecharegistro)
+        public int tdInsertarArchivo(int tdidclase, int tdidusuario, string tdnombre
+                               , string tdrutaenlace, int tdtipoarchivo, string tdfechainicio
+                               , string tdfechafin, string tdrutavideo)
         {
             int iRespuesta = -1;
             try
@@ -22,8 +23,9 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadArchivo = new adArchivo(con);
-                        iRespuesta = iadArchivo.adInsertarArchivo(tdidgrado, tdidusuario, tdnombre, tddescripcion, tdrutaenlace, tdrutavideo
-                                                                    , tdcategoria, tdimagen, tdimagenruta, tdorden, tdestado, tdfecharegistro);
+                        iRespuesta = iadArchivo.adInsertarArchivo(tdidclase, tdidusuario, tdnombre
+                                                       , tdrutaenlace, tdtipoarchivo, tdfechainicio
+                                                       , tdfechafin, tdrutavideo);
                         scope.Commit();
                     }
                 }

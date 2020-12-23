@@ -38,7 +38,7 @@ namespace ColegioTD
         public int tdInsertarCuenta(int tdidnivel, int tdidgrado, int tdidsede, string tdnombres, string tdamaterno, string tdapaterno, string tdgenero
                                     , string tdcorreo, Int16 tdestado, DateTime tdfechaRegistro)
         {
-            int iRespuesta = -1;
+            int iRespuesta = -3;
             try
             {
                 using (MySqlConnection con = new MySqlConnection(mysqlConexion))

@@ -12,16 +12,18 @@ namespace ColegioAPI.Controllers
         tdArchivo itdArchivo;
 
         [HttpGet]
-        public int wsInsertarArchivo(int widgrado, int widusuario, string wnombre, string wdescripcion, string wrutaenlace, string wrutavideo
-                                , int wcategoria, string wimagen, string wimagenruta, int worden, Int16 westado, string wfecharegistro)
+        public int wsInsertarArchivo(int widclase, int widusuario, string wnombre
+                               , string wrutaenlace, int wtipoarchivo, string wfechainicio
+                               , string wfechafin, string wrutavideo)
         {
             int iresultado = -1;
             try
             {
-                DateTime wsfechaRegistro = DateTime.Parse(wfecharegistro);
+
                 itdArchivo = new tdArchivo();
-                iresultado = itdArchivo.tdInsertarArchivo(widgrado, widusuario, wnombre, wdescripcion, wrutaenlace, wrutavideo
-                                                            , wcategoria, wimagen, wimagenruta, worden, westado, wsfechaRegistro);
+                iresultado = itdArchivo.tdInsertarArchivo(widclase, widusuario, wnombre
+                                                       , wrutaenlace, wtipoarchivo, wfechainicio
+                                                       , wfechafin, wrutavideo);
                 return iresultado;
             }
             catch (Exception ex)
@@ -54,10 +56,10 @@ namespace ColegioAPI.Controllers
             int iresultado = -1;
             try
             {
-                DateTime wsfechaRegistro = DateTime.Parse(wfecharegistro);
+
                 itdArchivo = new tdArchivo();
                 iresultado = itdArchivo.tdActualizarArchivoDetalle(widarchivodetalle, wnota, wobservacion, widusuario
-                                                                    , wtiponota, westado, wsfechaRegistro);
+                                                                    , wtiponota, westado, DateTime.Now);
                 return iresultado;
             }
             catch (Exception ex)
@@ -73,10 +75,9 @@ namespace ColegioAPI.Controllers
             int iresultado = -1;
             try
             {
-                DateTime wsfechaRegistro = DateTime.Parse(wfecharegistro);
                 itdArchivo = new tdArchivo();
                 iresultado = itdArchivo.tdInsertarArchivoDetalle(widarchivo, widusuario, wimagen, wnota, wobservacion
-                                                                , wenlace, wsfechaRegistro);
+                                                                , wenlace, DateTime.Now);
                 return iresultado;
             }
             catch (Exception ex)

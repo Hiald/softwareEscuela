@@ -169,8 +169,65 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- end row-->
-    <!--MODAL ELIMINAR-->
-    <!--MODAL ELIMINAR-->
+    <!--MODAL AGREGAR ARCHIVO-->
+    <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-dark">
+                    <h4 class="modal-title" id="dark-header-modalLabel">Archivo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="txtNombreArc">Nombre</label>
+                                <input type="text" id="txtNombreArc" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="txtdescripcion">Descripción</label>
+                                <textarea class="form-control" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtenlace">Enlace del archivo</label>
+                                <input type="text" id="txtenlace" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtvideo">Enlace del Video (opcional)</label>
+                                <input type="text" id="txtvideo" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechaini">Fecha Inicio</label>
+                                <input type="date" id="txtfechaini" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechafin">Fecha Fin</label>
+                                <input type="date" id="txtfechafin" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-dark" id="btnGuardarArchivo">Guardar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
 </div>
 
 <div id="modal-eliminar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -271,7 +328,7 @@
                         },
                         {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Eliminar</button>";
+                                var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Agregar archivo</button>";
                                 return strHtml;
                             },
                             "sWidth": "5px",
@@ -287,7 +344,6 @@
         });
     });
 
-
     function fnEditar() {
         $('body').on("click", "#AccessEdita", function (e) {
             e.preventDefault();
@@ -298,9 +354,9 @@
     }
     var idClase = 0;
 
-    function fnEliminar(idclasem) {
+    function fnAgregarClase(idclasem) {
         idClase = parseInt(idclasem);
-        $("#modal-eliminar").modal("show");
+        $("#modalArchivo").modal("show");
     }
 
     function fn_ConfimarEliminar() {
@@ -365,6 +421,40 @@
 
     });
 
+    $("#btnGuardarArchivo").click(function () {
+        var txtNombre = $('#txtNombreArc').val();
+        var txtenlace = $('#txtenlace').val();
+        var txtvideo = $('#txtvideo').val();
+        var txtfechaini = $('#txtfechaini').val();
+        var txtfechafin = $('#txtfechafin').val();
+
+        $.ajax({
+            type: "POST",
+            url: '/archivo/InsertarArchivoGestion',
+            data: {
+                "idgrado": idClase,
+                "nombre": txtNombre,
+                "rutaenlace": txtenlace,
+                "rutavideo": txtvideo,
+                "fechaini": txtfechaini,
+                "fechafin": txtfechafin
+            },
+            async: false,
+            success: function (msg) {
+                $('#modalArchivo').modal("hide");
+                var table = $('#tblClase').DataTable();
+                table.ajax.reload();
+            },
+            error: function (msg) {
+                console.log(msg);
+                //location.reload();
+            },
+            complete: function (data) {
+                // si acabo de completar
+            }
+        });
+
+    });
 
 </script>
 
