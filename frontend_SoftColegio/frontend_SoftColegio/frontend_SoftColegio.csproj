@@ -135,6 +135,7 @@
     <Compile Include="Controllers\CalificacionController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Filters\SeguridadSesion.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -392,10 +393,11 @@
     <Content Include="Views\Clase\Curso.cshtml" />
     <Content Include="Views\Archivo\archivoGestion.cshtml" />
     <Content Include="Views\Archivo\examen.cshtml" />
-    <Content Include="Views\Archivo\tarea.cshtml" />
+    <Content Include="Views\Archivo\Tarea.cshtml" />
     <Content Include="Views\Clase\Clase.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <Content Include="Views\Horario\Index.cshtml" />
     <Content Include="Views\Archivo\archivoGestionAlumno.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -37,11 +37,38 @@ namespace frontend_SoftColegio.Controllers
         }
 
         // alumno
-        public ActionResult tarea()
-        {
-            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
-            ViewBag.GrolUsuario = irolusuario;
-            return View();
+        public async Task<ActionResult> Tarea(int idclase)
+        {                   
+            try
+            {
+                var objResultado = new object();
+                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                List<edArchivo> loenArchivo = new List<edArchivo>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/archivo/wsObtenerArchivo?widclase=" + idclase);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenArchivo = JsonConvert.DeserializeObject<List<edArchivo>>(rwsapilu);
+                    }
+                }
+                ViewBag.GrolUsuario = ItipoUsuario;
+                ViewBag.Lista = loenArchivo;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+
+
+
         }
 
         // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
