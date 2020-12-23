@@ -91,11 +91,23 @@
                     <li class="side-nav-title side-nav-item">Navegación</li>
 
                     <li class="side-nav-item">
-                        <a href="javascript: void(0);" class="side-nav-link">
-                            <i class="uil-home-alt"></i>
-                            <span class="badge badge-success float-right">0</span>
-                            <span>General</span>
-                        </a>
+                        @if (ViewBag.GrolUsuario == 1 || ViewBag.GrolUsuario == 2)
+                        {
+                            <a href="javascript: void(0);" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge badge-success float-right">0</span>
+                                <span>General</span>
+                            </a>
+                        }
+                        else if (ViewBag.GrolUsuario == 3)
+                        {
+                            <a href="javascript: void(0);" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge badge-success float-right">0</span>
+                                <span>General</span>
+                            </a>
+                        }
+
                         <ul class="side-nav-second-level" aria-expanded="false">
                             @if (ViewBag.GrolUsuario == 1)
                             {
@@ -130,8 +142,11 @@
                                     <a href="/Clase/Curso">Cursos</a>
                                 </li>
                                 <li>
-                                    <a href="/Archivo/tarea">Tareas</a>
+                                    <a href="/Horario/Index">Horario</a>
                                 </li>
+                                @*<li>
+                                    <a href="/Archivo/tarea">Tareas</a>
+                                </li>*@
                                 <li>
                                     <a href="/Archivo/examen">Exámenes</a>
                                 </li>
@@ -142,281 +157,32 @@
                         </ul>
                     </li>
 
-                    @*
-                            <li class="side-nav-title side-nav-item">Apps</li>
-
+                    @if (ViewBag.GrolUsuario == 3)
+                    {
                         <li class="side-nav-item">
-                            <a href="apps-calendar.html" class="side-nav-link">
-                                <i class="uil-calender"></i>
-                                <span> Calendar </span>
+                            <a href="javascript: void(0);" class="side-nav-link">
+                                <i class="mdi mdi-gamepad-variant-outline"></i>
+                                <span class="badge badge-success float-right">0</span>
+                                <span>Juegos</span>
                             </a>
+                            <ul class="side-nav-second-level" aria-expanded="false">
+
+                                <li>
+                                    <a href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">Ajedrez</a>
+                                </li>
+                            </ul>
+
                         </li>
-                            <li class="side-nav-title side-nav-item">Custom</li>
-
-                            <li class="side-nav-item">
-                                <a href="javascript: void(0);" class="side-nav-link">
-                                    <i class="uil-copy-alt"></i>
-                                    <span> Pages </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="side-nav-second-level" aria-expanded="false">
-                                    <li>
-                                        <a href="pages-profile.html">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-profile-2.html">Profile 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-invoice.html">Invoice</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-faq.html">FAQ</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-pricing.html">Pricing</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-maintenance.html">Maintenance</a>
-                                    </li>
-                                    <li class="side-nav-item">
-                                        <a href="javascript: void(0);" aria-expanded="false">
-                                            Authentication
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="side-nav-third-level" aria-expanded="false">
-                                            <li>
-                                                <a href="pages-login.html">Login</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-login-2.html">Login 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-register.html">Register</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-register-2.html">Register 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-logout.html">Logout</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-logout-2.html">Logout 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-recoverpw.html">Recover Password</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-recoverpw-2.html">Recover Password 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-lock-screen.html">Lock Screen</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-lock-screen-2.html">Lock Screen 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-confirm-mail.html">Confirm Mail</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-confirm-mail-2.html">Confirm Mail 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="side-nav-item">
-                                        <a href="javascript: void(0);" aria-expanded="false">
-                                            Error
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="side-nav-third-level" aria-expanded="false">
-                                            <li>
-                                                <a href="pages-404.html">Error 404</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-404-alt.html">Error 404-alt</a>
-                                            </li>
-                                            <li>
-                                                <a href="pages-500.html">Error 500</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="pages-starter.html">Starter Page</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-preloader.html">With Preloader</a>
-                                    </li>
-                                    <li>
-                                        <a href="pages-timeline.html">Timeline</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="side-nav-item">
-                                <a href="javascript: void(0);" class="side-nav-link">
-                                    <i class="uil-window"></i>
-                                    <span> Layouts </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="side-nav-second-level" aria-expanded="false">
-                                    <li>
-                                        <a href="layouts-horizontal.html">Horizontal</a>
-                                    </li>
-                                    <li>
-                                        <a href="layouts-detached.html">Detached</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="side-nav-title side-nav-item mt-1">Components</li>
-
-                            <li class="side-nav-item">
-                                <a href="javascript: void(0);" class="side-nav-link">
-                                    <i class="uil-folder-plus"></i>
-                                    <span> Multi Level </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="side-nav-second-level" aria-expanded="false">
-                                    <li class="side-nav-item">
-                                        <a href="javascript: void(0);" aria-expanded="false">
-                                            Second Level
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="side-nav-third-level" aria-expanded="false">
-                                            <li>
-                                                <a href="javascript: void(0);">Item 1</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript: void(0);">Item 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="side-nav-item">
-                                        <a href="javascript: void(0);" aria-expanded="false">
-                                            Third Level
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="side-nav-third-level" aria-expanded="false">
-                                            <li>
-                                                <a href="javascript: void(0);">Item 1</a>
-                                            </li>
-                                            <li class="side-nav-item">
-                                                <a href="javascript: void(0);" aria-expanded="false">
-                                                    Item 2
-                                                    <span class="menu-arrow"></span>
-                                                </a>
-                                                <ul class="side-nav-forth-level" aria-expanded="false">
-                                                    <li>
-                                                        <a href="javascript: void(0);">Item 2.1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript: void(0);">Item 2.2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                    *@
-
+                    }
                 </ul>
-
-                <!-- Help Box -->
-                @*<div class="help-box text-white text-center">
-                    <a href="javascript: void(0);" class="float-right close-btn text-white">
-                        <i class="mdi mdi-close"></i>
-                    </a>
-                    <img src="~/assets/images/help-icon.svg" height="90" alt="Helper Icon Image" />
-                    <h5 class="mt-3">Noticias</h5>
-                    <p class="mb-3">Estás al día con las novedades</p>
-                    <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Notificación</a>
-                </div>*@
-                <!-- end Help Box -->
-                <!-- End Sidebar -->
-
                 <div class="clearfix"></div>
             </div>
-            <!-- Sidebar -left -->
-
         </div>
-        <!-- Left Sidebar End -->
-        <!-- ============================================================== -->
-        <!-- Start Page Content here -->
-        <!-- ============================================================== -->
-
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
                 <div class="navbar-custom">
-                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
-                        @*<li class="dropdown notification-list d-lg-none">
-                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="dripicons-search noti-icon"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                                <form class="p-3">
-                                    <input type="text" class="form-control" placeholder="Buscar curso ..." aria-label="Buscar curso ...">
-                                </form>
-                            </div>
-                        </li>*@
-
-                        <!--<li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="dripicons-bell noti-icon"></i>
-                                <span class="noti-icon-badge"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">-->
-
-                                <!-- item-->
-                                <!--<div class="dropdown-item noti-title">
-                                    <h5 class="m-0">
-                                        <span class="float-right">
-                                            <a href="javascript: void(0);" class="text-dark">
-                                                <small>Clear All</small>
-                                            </a>
-                                        </span>Notification
-                                    </h5>
-                                </div>
-
-                                <div style="max-height: 230px;" data-simplebar>-->
-                                    <!-- item-->
-                                    <!--<a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-primary">
-                                            <i class="mdi mdi-comment-account-outline"></i>
-                                        </div>
-                                        <p class="notify-details">
-                                            Caleb Flakelar commented on Admin
-                                            <small class="text-muted">1 min ago</small>
-                                        </p>
-                                    </a>-->
-
-                                    <!-- item-->
-                                    <!--<a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-info">
-                                            <i class="mdi mdi-account-plus"></i>
-                                        </div>
-                                        <p class="notify-details">
-                                            New user registered.
-                                            <small class="text-muted">5 hours ago</small>
-                                        </p>
-                                    </a>
-
-                                </div>-->
-
-                                <!-- All-->
-                                <!--<a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                                    Ver todo
-                                </a>
-
-                            </div>
-                        </li>
-
-                        <li class="notification-list">
-                            <a class="nav-link right-bar-toggle" href="javascript: void(0);">
-                                <i class="dripicons-gear noti-icon"></i>
-                            </a>
-                        </li>-->
-
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">     
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <span class="account-user-avatar">
@@ -464,19 +230,7 @@
                     <button class="button-menu-mobile open-left disable-btn">
                         <i class="mdi mdi-menu"></i>
                     </button>
-                    @*<div class="app-search dropdown d-none d-lg-block">
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control dropdown-toggle" placeholder="Buscar curso..." id="top-search">
-                                <span class="mdi mdi-magnify search-icon"></span>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">Buscar</button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                    </div>*@
+                  
                 </div>
                 <!-- end Topbar -->
                 <!-- Start Content-->

@@ -1,8 +1,35 @@
-﻿
-@{
-    ViewBag.Title = "tarea";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                </div>
+                <h4 class="page-title">TAREA</h4>
+            </div>
+        </div>
+    </div>
 
-<h2>tarea</h2>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                        @foreach (var @item in ViewBag.Lista)
+                        {
+                            <div class="form-group row mb-3">
+                                <label for="inputEmail3" class="col-3 col-form-label">@item.Simagen</label>
+                                <div class="col-9">
+                                    <button onclick="rutaTarea('@item.Senlace.ToString()')" class="btn btn-primary">Ver información</button>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+    function rutaTarea(parametro1) {
+        window.open(parametro1, '_blank');
+    }
+</script>
