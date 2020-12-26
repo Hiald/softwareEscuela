@@ -14,5 +14,8 @@ namespace frontendED
         public int nombreGrado { get; set; }
         public int idnota { get; set; }
         public int Itiponota { get; set; }
+        public int Inota { get; set; }
+        public string Sobservacion { get; set; }
+        public string Snombrecurso { get; set; }
     }
 }

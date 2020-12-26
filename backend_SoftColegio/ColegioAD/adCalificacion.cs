@@ -41,6 +41,9 @@ namespace ColegioAD
                             int pos_nombregrado = mdrd.GetOrdinal("nombreGrado");
                             int pos_itiponota = mdrd.GetOrdinal("i_tipo_nota");
                             int pos_idnota = mdrd.GetOrdinal("idnota");
+                            int pos_inota = mdrd.GetOrdinal("i_nota");
+                            int pos_vobservacion = mdrd.GetOrdinal("v_observacion");
+                            int pos_snombrecurso = mdrd.GetOrdinal("snombrecurso");
 
                             while (mdrd.Read())
                             {
@@ -56,6 +59,9 @@ namespace ColegioAD
                                 senUsuario.nombreGrado = (mdrd.IsDBNull(pos_nombregrado) ? 0 : mdrd.GetInt32(pos_nombregrado));
                                 senUsuario.Itiponota = (mdrd.IsDBNull(pos_itiponota) ? 0 : mdrd.GetInt32(pos_itiponota));
                                 senUsuario.idnota = (mdrd.IsDBNull(pos_idnota) ? 0 : mdrd.GetInt32(pos_idnota));
+                                senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
+                                senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
+                                senUsuario.Snombrecurso = (mdrd.IsDBNull(pos_snombrecurso) ? "-" : mdrd.GetString(pos_snombrecurso));
 
                                 loenusuario.Add(senUsuario);
                             }
