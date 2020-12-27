@@ -114,10 +114,10 @@ namespace ColegioAD
                 cmd.Parameters.Add("_idarchivo", MySqlDbType.Int32).Value = adidarchivo;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_imagen", MySqlDbType.VarChar, 50).Value = adimagen;
-                cmd.Parameters.Add("_nota", MySqlDbType.VarChar, 500).Value = adnota;
-                cmd.Parameters.Add("_observacion", MySqlDbType.Int32).Value = adobservacion;
-                cmd.Parameters.Add("_enlace", MySqlDbType.Int32).Value = adenlace;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.Int32).Value = DateTime.Now;
+                cmd.Parameters.Add("_nota", MySqlDbType.Int32).Value = adnota;
+                cmd.Parameters.Add("_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
+                cmd.Parameters.Add("_enlace", MySqlDbType.VarChar, 500).Value = adenlace;
+                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 
