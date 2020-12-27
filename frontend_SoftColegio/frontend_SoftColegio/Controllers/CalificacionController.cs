@@ -23,10 +23,14 @@ namespace frontend_SoftColegio.Controllers
         }
 
         // vista usuario
-        public ActionResult calificacion()
+        public ActionResult Calificacion()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            int idGrado = UtlAuditoria.ObtenerIdGrado();
+            int idNivel = UtlAuditoria.ObtenerIdNivel();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GidNivel = idNivel;
+            ViewBag.GidGrado = idGrado;
             return View();
         }
 

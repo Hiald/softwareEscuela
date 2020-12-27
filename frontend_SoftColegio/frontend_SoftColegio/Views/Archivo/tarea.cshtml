@@ -13,23 +13,90 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                        @foreach (var @item in ViewBag.Lista)
-                        {
-                            <div class="form-group row mb-3">
-                                <label for="inputEmail3" class="col-3 col-form-label">@item.Simagen</label>
-                                <div class="col-9">
-                                    <button onclick="rutaTarea('@item.Senlace.ToString()')" class="btn btn-primary">Ver información</button>
-                                </div>
+                    @foreach (var @item in ViewBag.Lista)
+                    {
+                        <div class="form-group row mb-3">
+                            <label for="inputEmail3" class="col-3 col-form-label">@item.Simagen</label>
+                            <div class="col-3">
+                                <button onclick="rutaTarea('@item.Senlace.ToString()')" class="btn btn-primary">Ver información</button>
                             </div>
-                        }
+                            @if (@item.Itipoarchivo == 1)
+                            {
+                                <div class="col-3">
+                                    <button type="button" onclick="TraerIdArchivo(@item.idarchivo)" class="btn btn-success" data-toggle="modal" data-target="#modalSubirTarea">Subir Tarea</button>
+                                </div>
+                            }
+
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="modalSubirTarea" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Subir Tarea</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <label>Por favor ingresar el link del drive para su revisión.</label>
+                <input type="text" id="txtLinkTarea" placeholder="Link de tarea..." class="form-control">
+                <button id="btnSubirTarea" type="button" class="btn btn-info">Subir</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<input type="hidden" value="" id="IdArchivo" />
+
+
+
+
 <script>
-    function rutaTarea(parametro1) {
+    function rutaTarea(parametro1)
+    {
         window.open(parametro1, '_blank');
     }
+
+    function TraerIdArchivo(parametro)
+    {
+        $("#IdArchivo").val(parametro);
+    }
+
+    $("#btnSubirTarea").click(function () {
+        var idarchivo = $("#IdArchivo").val();
+        var imagen = "-";
+        var nota = 0;
+        var observacion = "-";
+        var enlace = $('#txtLinkTarea').val();
+        $.ajax({
+            type: "POST",
+            url: '/archivo/InsertarArchivoAlumno',
+            data: {
+                "idarchivo": idarchivo,
+                "imagen": imagen,
+                "nota": nota,
+                "observacion": observacion,
+                "enlace": enlace
+            },
+            async: false,
+            success: function (msg) {
+                $('#modalSubirTarea').modal("hide");
+            },
+            error: function (msg) {
+                console.log(msg);
+                //location.reload();
+            },
+            complete: function (data) {
+                // si acabo de completar
+            }
+        });
+
+    });
+
+
 </script>

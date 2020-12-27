@@ -400,6 +400,7 @@
     <Content Include="Views\Horario\Index.cshtml" />
     <Content Include="Views\Archivo\archivoGestionAlumno.cshtml" />
     <Content Include="Views\Calificacion\calificacionGestion.cshtml" />
+    <Content Include="Views\Calificacion\Calificacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">
