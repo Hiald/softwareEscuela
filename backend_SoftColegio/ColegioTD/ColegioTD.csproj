@@ -48,6 +48,7 @@
     <Compile Include="tdArchivo.cs" />
     <Compile Include="tdCalificacion.cs" />
     <Compile Include="tdClase.cs" />
+    <Compile Include="tdCurso.cs" />
     <Compile Include="tdUsuario.cs" />
     <Compile Include="td_aglobal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

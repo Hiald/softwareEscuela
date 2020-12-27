@@ -126,6 +126,7 @@
     <Compile Include="Controllers\archivoController.cs" />
     <Compile Include="Controllers\calificacionController.cs" />
     <Compile Include="Controllers\claseController.cs" />
+    <Compile Include="Controllers\cursoController.cs" />
     <Compile Include="Controllers\homeController.cs" />
     <Compile Include="Controllers\usuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\curso\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

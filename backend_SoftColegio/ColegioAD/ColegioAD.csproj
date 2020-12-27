@@ -47,6 +47,7 @@
     <Compile Include="adArchivo.cs" />
     <Compile Include="adCalificacion.cs" />
     <Compile Include="adClase.cs" />
+    <Compile Include="adCurso.cs" />
     <Compile Include="adUsuario.cs" />
     <Compile Include="ad_aglobal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -38,7 +38,7 @@ namespace frontend_SoftColegio.Controllers
 
         // alumno
         public async Task<ActionResult> Tarea(int idclase)
-        {                   
+        {
             try
             {
                 var objResultado = new object();
@@ -73,8 +73,9 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
         [HttpPost]
-        public async Task<JsonResult> InsertarArchivoGestion(int idgrado , string nombre, string rutaenlace
-                                                        , string rutavideo, string fechaini, string fechafin)
+        public async Task<JsonResult> InsertarArchivoGestion(int idgrado, string nombre, string rutaenlace
+                                                        , string rutavideo, string fechaini, string fechafin
+                                                        , int itipoarchivo)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResRegistrarArchivo = await client.GetAsync("api/archivo/wsInsertarArchivo?widclase=" + idgrado +
                         "&widusuario=" + idusuario + "&wnombre=" + nombre +
-                        "&wrutaenlace=" + rutaenlace + "&wtipoarchivo=" + 1 + "&wfechainicio=" + fechaini +
+                        "&wrutaenlace=" + rutaenlace + "&wtipoarchivo=" + itipoarchivo + "&wfechainicio=" + fechaini +
                         "&wfechafin=" + fechafin + "&wrutavideo=" + rutavideo);
 
                     if (ResRegistrarArchivo.IsSuccessStatusCode)

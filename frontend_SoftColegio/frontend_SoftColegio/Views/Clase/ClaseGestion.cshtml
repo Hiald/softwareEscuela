@@ -179,10 +179,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="txtNombreArc">Nombre</label>
                                 <input type="text" id="txtNombreArc" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txttipoarchivo">Tipo de archivo</label>
+                                <select class="form-control" id="txttipoarchivo">
+                                    <option>Seleccionar</option>
+                                    <option value="1">Tarea (Calificable)</option>
+                                    <option value="2">Teoría</option>
+                                    <option value="3">Texto</option>
+                                    <option value="4">Otro</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -427,6 +439,7 @@
         var txtvideo = $('#txtvideo').val();
         var txtfechaini = $('#txtfechaini').val();
         var txtfechafin = $('#txtfechafin').val();
+        var itipoarchivo = $('#txttipoarchivo option:selected').attr('value');
 
         $.ajax({
             type: "POST",
@@ -437,7 +450,8 @@
                 "rutaenlace": txtenlace,
                 "rutavideo": txtvideo,
                 "fechaini": txtfechaini,
-                "fechafin": txtfechafin
+                "fechafin": txtfechafin,
+                "itipoarchivo": itipoarchivo
             },
             async: false,
             success: function (msg) {

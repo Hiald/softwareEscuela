@@ -30,7 +30,7 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
-        // ACTIVO: lista las calificaciones por cada usuario o en general: admin, docente, alumno
+        // ACTIVO: lista las calificaciones por cada usuario o en general: alumno
         [HttpPost]
         public async Task<JsonResult> ListarCalificacionGestion(int tiponota, int idnota)
         {
@@ -80,22 +80,64 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
-        // ACTIVO: actualiza la nota de las TAREAS o EJERCICIOS: docente
+        // ACTIVO: lista las calificaciones por cada usuario o en general: admin
         [HttpPost]
-        public async Task<JsonResult> ActualizarNota(int idarchivodetalle, int inota, string observacion,
-                                    int itiponota, Int16 iestado)
+        public async Task<JsonResult> ListarCalificacion(int idUsuario, int tiponota, int idnota)
         {
             try
             {
                 var objResultado = new object();
-                int idusuario = UtlAuditoria.ObtenerIdUsuario();
+                List<edCalificacion> loenCalificacion = new List<edCalificacion>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage ResWSApi = await client.
+                        GetAsync("api/Calificacion/wsListarCalificacion?widusuario="
+                            + idUsuario + "&wtiponota=" + tiponota + tiponota + "&wnota=" + idnota);
+                    if (ResWSApi.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = ResWSApi.Content.ReadAsAsync<string>().Result;
+                        loenCalificacion = JsonConvert.DeserializeObject<List<edCalificacion>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = loenCalificacion.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = loenCalificacion
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
+        // ACTIVO: actualiza la nota de las TAREAS o EJERCICIOS: docente
+        [HttpPost]
+        public async Task<JsonResult> ActualizarNota(int idarchivodetalle, int inota, string observacion,
+                                    int itiponota, Int16 iestado, int idusuario)
+        {
+            try
+            {
+                var objResultado = new object();
                 int idGenerado = -1;
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/clase/wsActualizarNota?wsidarchivodetalle=" + idarchivodetalle
+                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/calificacion/wsActualizarNota?wsidarchivodetalle=" + idarchivodetalle
                         + "&wsinota=" + inota + "&wsobservacion=" + observacion + "&wsidusuario=" + idusuario
                         + "&wsitiponota=" + itiponota + "&wsiestado=" + iestado);
 
