@@ -33,6 +33,8 @@ namespace ColegioED
         public int Bestado { get; set; }
         public string SfechaRegistro { get; set; }
         public int isemana { get; set; }
+        public int idcurso { get; set; }
+        public string snombreCurso { get; set; }
 
     }
 }

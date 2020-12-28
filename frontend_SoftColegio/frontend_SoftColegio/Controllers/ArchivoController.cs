@@ -323,7 +323,7 @@ namespace frontend_SoftColegio.Controllers
 
         //lista los archivos en general : profe y admin
         [HttpPost]
-        public async Task<JsonResult> ListarArchivoGeneral(int idclase)
+        public async Task<JsonResult> ListarArchivoGeneral(int idclase, int idgrado, int idnivel, int idcurso)
         {
             try
             {
@@ -335,7 +335,8 @@ namespace frontend_SoftColegio.Controllers
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/archivo/wsListarArchivoGeneral?wsidclasela=" + idclase);
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/archivo/wsListarArchivoGeneral?wsidclasea=" + 0 +
+                        "&wdgradoa=" + idgrado + "&wdnivela=" + idnivel + "&wsdcursoa=" + idcurso);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;

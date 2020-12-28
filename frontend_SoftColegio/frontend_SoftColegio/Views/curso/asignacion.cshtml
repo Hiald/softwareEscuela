@@ -1,4 +1,5 @@
 ﻿<div class="container-fluid">
+
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -7,10 +8,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
-                        <li class="breadcrumb-item active">Gestion archivo Alumno</li>
+                        <li class="breadcrumb-item active">Gestion clases</li>
                     </ol>
                 </div>
-                <h4 class="page-title">MÓDULO ARCHIVO ALUMNO</h4>
+                <h4 class="page-title">MÓDULO CLASE</h4>
             </div>
         </div>
     </div>
@@ -20,20 +21,19 @@
             <div class="card">
                 <div class="card-body">
                     <p class="text-muted font-14">
-
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalClase">Agregar Clase</button>
                     </p>
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="tblArchivo" class="table dt-responsive nowrap w-100">
+                            <table id="tblClase" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Alumno</th>
-                                        <th>Nivel/Grado</th>
                                         <th>Clase</th>
-                                        <th>Enlace</th>
-                                        <th>Observación</th>
-                                        <th>Nota</th>
+                                        <th>Nombre Curso</th>
+                                        <th>Descripción</th>
+                                        <th>Ruta Enlace</th>
+                                        <th>Ruta Video</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -169,8 +169,77 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- end row-->
-    <!--MODAL ELIMINAR-->
-    <!--MODAL ELIMINAR-->
+    <!--MODAL AGREGAR ARCHIVO-->
+    <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-dark">
+                    <h4 class="modal-title" id="dark-header-modalLabel">Archivo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtNombreArc">Nombre</label>
+                                <input type="text" id="txtNombreArc" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txttipoarchivo">Tipo de archivo</label>
+                                <select class="form-control" id="txttipoarchivo">
+                                    <option>Seleccionar</option>
+                                    <option value="1">Tarea (Calificable)</option>
+                                    <option value="2">Teoría</option>
+                                    <option value="3">Texto</option>
+                                    <option value="4">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="txtdescripcion">Descripción</label>
+                                <textarea class="form-control" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtenlace">Enlace del archivo</label>
+                                <input type="text" id="txtenlace" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtvideo">Enlace del Video (opcional)</label>
+                                <input type="text" id="txtvideo" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechaini">Fecha Inicio</label>
+                                <input type="date" id="txtfechaini" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechafin">Fecha Fin</label>
+                                <input type="date" id="txtfechafin" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-dark" id="btnGuardarArchivo">Guardar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
 </div>
 
 <div id="modal-eliminar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -189,158 +258,3 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<div id="modal-agregarnota" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-body p-4">
-                <div class="text-center">
-                    <i class="dripicons-upload h1 text-danger"></i>
-                    <h4 class="mt-2">Agregue una nota al alumno</h4>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtnota">Nota</label>
-                                <input type="number" id="txtnota" class="form-control" placeholder="Ingrese una nota">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtobservacion">Observación</label>
-                                <textarea class="form-control" id="txtobservacion" placeholder="Ingrese una observación..." rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" onclick="fn_ConfirmarAgregarNota()" id="mdEliminar" class="btn btn-success my-2" data-dismiss="modal">Guardar nota</button>
-                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-
-<script>
-
-    $(document).ready(function () {
-        $('#tblArchivo').DataTable(
-            {
-                "ajax": {
-                    "url": "/Archivo/ListarArchivoGeneral",
-                    "type": "POST",
-                    "datatype": "json",
-                    "data": {
-                        "idclase": 0,
-                        "idgrado": 0,
-                        "idnivel": 0,
-                        "idcurso": 0
-                    }
-                },
-                //"bServerSide": true,
-                "bProcessing": true,
-                "language": {
-                    "info": "",
-                    "infoEmpty": "",
-                    "infoFiltered": "",
-                    "emptyTable": "No se encontraron registros",
-                    "sZeroRecords": "No se encontraron registros.",
-                    "processing": "Cargando. Por favor espere...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "sSearch": "Buscar:"
-                },
-                "columns": [
-                    { "data": "Simagen" }, // nombre alumno
-                    { "data": "SNombreGrado" }, // nivel, grado
-                    { "data": "SNombreArchivo"}, // nombre de la clase
-                    { "data": "Senlace" }, //ruta de la tarea
-                    { "data": "Sobservacion" }, //ruta de la imagen si es necesario tarea
-                    { "data": "Inota"}, // nota de la tarea
-                    {},
-                    {}
-                ],
-                "aoColumnDefs":
-                    [
-                        {
-                            "mRender": function (data, type, row) {
-                                var strHtml = "";
-                                if (row.Inota >= 1) {
-                                    strHtml = "<button class='btn btn-warning' onclick='fnEditar(" + row.idarchivodetalle + ", " + row.idusuario + ")' data-edit=\"" + row.idclase + "\" id='AccessEditar' >Modificar nota</button>";
-                                } else {
-                                    strHtml = "<button class='btn btn-info' onclick='fnEditar(" + row.idarchivodetalle + ", " + row.idusuario + ")' data-edit=\"" + row.idclase + "\" id='AccessEditar' >Agregar nota</button>";
-                                }
-                                
-                                return strHtml;
-                            },
-                            "sWidth": "5px",
-                            "sClass": "css-center",
-                            "bSort": false,
-                            "aTargets": [6]
-                        },
-                        {
-                            "mRender": function (data, type, row) {
-
-                                var strHtml = "";
-                                if (@ViewBag.GrolUsuario == 1) {
-                                    strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idarchivo + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Eliminar</button>";
-                                }
-                                return strHtml;
-                            },
-                            "sWidth": "5px",
-                            "sClass": "css-center",
-                            "bSort": false,
-                            "aTargets": [7]
-                        }
-                    ]
-            });
-
-        $('#idGrado').on('change', function () {
-            fn_ListarCategoria();
-        });
-
-    });
-
-    var gIdArchivoDetalle = 0;
-    var gIdusuario = 0;
-    function fnEditar(param_idarchivodetalle, param_idusuario) {
-        gIdArchivoDetalle = param_idarchivodetalle;
-        gIdusuario = param_idusuario;
-        $("#modal-agregarnota").modal("show");
-    }
-
-    function fn_ConfirmarAgregarNota() {
-        var inota = $("#txtnota").val();
-        var sobservacion = $("#txtobservacion").val();
-
-              $.ajax({
-                  type: "POST",
-                  url: '/Calificacion/ActualizarNota',
-                  data: {
-                      "idarchivodetalle": gIdArchivoDetalle,
-                      "inota": inota,
-                      "observacion": sobservacion,
-                      "itiponota": 2,
-                      "iestado": 1,
-                      "idusuario": gIdusuario
-                  },
-                  async: false,
-                  success: function (msg) {
-                      $('#modal-agregarnota').modal("hide");
-                      var table = $('#tblArchivo').DataTable();
-                      table.ajax.reload();
-                  },
-                  error: function (msg) {
-                      console.log(msg);
-                      //location.reload();
-                  },
-                  complete: function (data) {
-                      // si acabo de completar
-                  }
-              });
-
-    }
-
-</script>

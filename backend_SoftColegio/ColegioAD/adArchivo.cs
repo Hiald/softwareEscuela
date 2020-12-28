@@ -207,7 +207,7 @@ namespace ColegioAD
             }
         }
 
-        public List<edArchivo> adListarArchivo(int adidclase)
+        public List<edArchivo> adListarArchivo(int adidclase, int idgrado, int idnivel, int idcurso)
         {
             try
             {
@@ -216,6 +216,9 @@ namespace ColegioAD
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
+                    cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = idgrado;
+                    cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = idnivel;
+                    cmd.Parameters.Add("_idcurso", MySqlDbType.Int32).Value = idcurso;
 
                     using (MySqlDataReader mdrd = cmd.ExecuteReader())
                     {
@@ -245,6 +248,8 @@ namespace ColegioAD
                             int pos_inota = mdrd.GetOrdinal("i_nota");
                             int pos_vobservacion = mdrd.GetOrdinal("v_observacion");
                             int pos_enlacealumno = mdrd.GetOrdinal("enlaceAlumno");
+                            int pos_idcurso = mdrd.GetOrdinal("idcurso");
+                            int pos_nombrecurso = mdrd.GetOrdinal("nombreCurso");
 
                             while (mdrd.Read())
                             {
@@ -272,6 +277,8 @@ namespace ColegioAD
                                 senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
                                 senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
                                 senUsuario.SenlaceAlumno = (mdrd.IsDBNull(pos_enlacealumno) ? "-" : mdrd.GetString(pos_enlacealumno));
+                                senUsuario.idcurso = (mdrd.IsDBNull(pos_idcurso) ? 0 : mdrd.GetInt32(pos_idcurso));
+                                senUsuario.snombreCurso = (mdrd.IsDBNull(pos_nombrecurso) ? "-" : mdrd.GetString(pos_nombrecurso));
 
                                 loenusuario.Add(senUsuario);
                             }

@@ -145,7 +145,7 @@ namespace ColegioTD
 
         }
 
-        public List<edArchivo> tdListarArchivo(int tdidclase)
+        public List<edArchivo> tdListarArchivo(int tdidclase, int tdgrado, int tdnivel, int tdcurso)
         {
             List<edArchivo> renUsuario = new List<edArchivo>();
             try
@@ -156,7 +156,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadArchivo = new adArchivo(con);
-                        renUsuario = iadArchivo.adListarArchivo(tdidclase);
+                        renUsuario = iadArchivo.adListarArchivo(tdidclase, tdgrado, tdnivel, tdcurso);
                         scope.Commit();
                     }
                 }

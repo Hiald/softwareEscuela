@@ -10,11 +10,12 @@ using frontendUtil;
 
 namespace frontend_SoftColegio.Controllers
 {
-    public class cursoController : Controller
+    public class CursoController : Controller
     {
-        // GET: curso
-        public ActionResult Index()
+        public ActionResult asignacion()
         {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
             return View();
         }
 

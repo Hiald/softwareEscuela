@@ -103,13 +103,13 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string wsListarArchivoGeneral(int wsidclasela)
+        public string wsListarArchivoGeneral(int wsidclasea, int wdgradoa, int wdnivela, int wsdcursoa)
         {
             List<edArchivo> wsenUsuario = new List<edArchivo>();
             try
             {
                 itdArchivo = new tdArchivo();
-                wsenUsuario = itdArchivo.tdListarArchivo(wsidclasela);
+                wsenUsuario = itdArchivo.tdListarArchivo(wsidclasea, wdgradoa, wdnivela, wsdcursoa);
                 return JsonConvert.SerializeObject(wsenUsuario);
             }
             catch (Exception ex)
