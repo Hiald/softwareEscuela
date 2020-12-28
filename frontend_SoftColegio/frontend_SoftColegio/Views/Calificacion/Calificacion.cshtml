@@ -28,17 +28,14 @@
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
                             <table id="tblCalificacion" class="table table-striped dt-responsive nowrap w-100">
-                                @if (ViewBag.GrolUsuario == 3 && ViewBag.GidNivel == 1 && ViewBag.GidGrado == 5)
-                                {
-                                    <thead>
-                                        <tr>
-                                            <th>CURSO</th>
-                                            <th>NOTA</th>
-                                            <th>OBSERVACIÓN</th>
-                                            <th>SEMANA</th>
-                                        </tr>
-                                    </thead>
-                                }
+                                <thead>
+                                    <tr>
+                                        <th>CURSO</th>
+                                        <th>NOTA</th>
+                                        <th>OBSERVACIÓN</th>
+                                        <th>SEMANA</th>
+                                    </tr>
+                                </thead>
                             </table>
                         </div>
                     </div>
@@ -51,48 +48,54 @@
 <script>
     $(document).ready(function () {
         var isemana = 0;
-        $(document).ready(function () {
-            $('#tblCalificacion').DataTable(
-                {
-                    "ajax": {
-                        "url": "/Calificacion/ListarCalificacionGestion",
-                        "type": "POST",
-                        "datatype": "json",
-                        "data": {
-                            "tiponota": 2,
-                            "idnota": 0,
-                            "isemana" : 1,
-                        }
-                    },
-                    //"bServerSide": true,
-                    "bProcessing": true,
-                    "language": {
-                        "info": "",
-                        "infoEmpty": "",
-                        "infoFiltered": "",
-                        "emptyTable": "No se encontraron registros",
-                        "sZeroRecords": "No se encontraron registros.",
-                        "processing": "Cargando. Por favor espere...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "sSearch": "Buscar:"
-                    },
-                    "columns": [
+        $(document).ready(function () {           
 
-                        { "data": "snombrecurso" },
-                        { "data": "i_nota" },
-                        { "data": "" },
-                        { "data": "Srutaenlace" }
-                    ]
-                });
-
-            //$('#idSemana').on('change', function () {
-            //    isemana = $('#idSemana option:selected').attr('value');
-            //});
+            $('#idSemana').on('change', function () {
+                isemana = parseInt($('#idSemana option:selected').attr('value'));
+                listarCalificacion(isemana);
+            });
         });
     });
+
+
+    function listarCalificacion(isemana) {
+        $('#tblCalificacion').DataTable
+            ({
+                "ajax": {
+                    "url": "/Calificacion/ListarCalificacionGestion",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "tiponota": 2,
+                        "idnota": 0,
+                        "isemana": isemana,
+                    }
+                },
+                //"bServerSide": true,
+                "bDestroy": true,
+                "bProcessing": true,
+                "language": {
+                    "info": "",
+                    "infoEmpty": "",
+                    "infoFiltered": "",
+                    "emptyTable": "No se encontraron registros",
+                    "sZeroRecords": "No se encontraron registros.",
+                    "processing": "Cargando. Por favor espere...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "sSearch": "Buscar:"
+                },
+                "columns": [
+                    { "data": "Snombrecurso" },
+                    { "data": "Inota" },
+                    { "data": "Sobservacion" },
+                    { "data": "isemana" }
+                ]
+            });
+    }
+
 </script>
