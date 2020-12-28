@@ -11,51 +11,33 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <p class="text-muted font-14">
+                        <label for="idSemana">Semana</label>
+                        <select class="form-control" id="idSemana">
+                            <option>Seleccionar</option>
+                            <option value="1">Semana 1</option>
+                            <option value="2">Semana 2</option>
+                            <option value="3">Semana 3</option>
+                            <option value="4">Semana 4</option>
+                            <option value="5">Semana 5</option>
+                            <option value="6">Semana 6</option>
+                            <option value="7">Semana 7</option>
+                        </select>
+                    </p>
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="tablaCalificacion" class="table table-striped dt-responsive nowrap w-100">
+                            <table id="tblCalificacion" class="table table-striped dt-responsive nowrap w-100">
                                 @if (ViewBag.GrolUsuario == 3 && ViewBag.GidNivel == 1 && ViewBag.GidGrado == 5)
                                 {
                                     <thead>
                                         <tr>
-                                            <th>NRO</th>
-                                            <th>HORARIO</th>
-                                            <th>LUNES</th>
-                                            <th>MIERCOLES</th>
-                                            <th>VIERNES</th>
+                                            <th>CURSO</th>
+                                            <th>NOTA</th>
+                                            <th>OBSERVACIÓN</th>
+                                            <th>SEMANA</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>9:00 AM - 10:00 AM</td>
-                                            <td>ARITMÉTICA</td>
-                                            <td>AJEDREZ</td>
-                                            <td>INGLES</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>10:15 AM - 11:15 AM</td>
-                                            <td>INGLES</td>
-                                            <td>ÁLGEBRA</td>
-                                            <td>GRAMÁTICA</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>11:30 AM - 12:30 PM</td>
-                                            <td>PERCENTIL ORTOGRÁFICO</td>
-                                            <td>QUÍMICA</td>
-                                            <td>GEOMETRÍA</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>12:45 PM - 1:30 PM</td>
-                                            <td>FÍSICA</td>
-                                            <td>PLAN LECTOR</td>
-                                            <td>EXPERIMENTOS</td>
-                                        </tr>
-                                    </tbody>
                                 }
                             </table>
                         </div>
@@ -68,7 +50,49 @@
 
 <script>
     $(document).ready(function () {
+        var isemana = 0;
+        $(document).ready(function () {
+            $('#tblCalificacion').DataTable(
+                {
+                    "ajax": {
+                        "url": "/Calificacion/ListarCalificacionGestion",
+                        "type": "POST",
+                        "datatype": "json",
+                        "data": {
+                            "tiponota": 2,
+                            "idnota": 0,
+                            "isemana" : 1,
+                        }
+                    },
+                    //"bServerSide": true,
+                    "bProcessing": true,
+                    "language": {
+                        "info": "",
+                        "infoEmpty": "",
+                        "infoFiltered": "",
+                        "emptyTable": "No se encontraron registros",
+                        "sZeroRecords": "No se encontraron registros.",
+                        "processing": "Cargando. Por favor espere...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "sSearch": "Buscar:"
+                    },
+                    "columns": [
 
-        $('#tablaCalificacion').DataTable();
+                        { "data": "snombrecurso" },
+                        { "data": "i_nota" },
+                        { "data": "" },
+                        { "data": "Srutaenlace" }
+                    ]
+                });
+
+            //$('#idSemana').on('change', function () {
+            //    isemana = $('#idSemana option:selected').attr('value');
+            //});
+        });
     });
 </script>
