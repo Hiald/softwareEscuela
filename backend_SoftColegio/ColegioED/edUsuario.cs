@@ -5,6 +5,7 @@ namespace ColegioED
     {
         public int idnivel { get; set; }
         public int idgrado { get; set; }
+        public int idusuario { get; set; }
         public int idsede { get; set; }
         public int idseccion { get; set; }
         public string Snombres { get; set; }

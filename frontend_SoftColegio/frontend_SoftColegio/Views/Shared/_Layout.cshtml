@@ -108,59 +108,63 @@
                             </a>
                         }
 
-                        <ul class="side-nav-second-level" aria-expanded="false">
-                            @if (ViewBag.GrolUsuario == 1)
-                            {
-                                <li>
-                                    <a href="/Usuario/Index">Usuario</a>
-                                </li>
-                                <li>
-                                    <a href="/Clase/ClaseGestion">Clase</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestion">Archivo</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
-                                </li>
-                                <li>
-                                    <a href="/Calificacion/calificacionGestion">Calificación</a>
-                                </li>
-                            }
-                            else if (ViewBag.GrolUsuario == 2)
-                            {
-                                <li>
-                                    <a href="/Clase/ClaseGestion">Contenido</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestion">Archivo</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
-                                </li>
-                                <li>
-                                    <a href="/Calificacion/calificacionGestion">Calificación</a>
-                                </li>
-                            }
-                            else if (ViewBag.GrolUsuario == 3)
-                            {
-                                <li>
-                                    <a href="/Clase/Curso">Cursos</a>
-                                </li>
-                                <li>
-                                    <a href="/Horario/Index">Horario</a>
-                                </li>
-                                @*<li>
-                                    <a href="/Archivo/tarea">Tareas</a>
-                                </li>*@
-                                @*<li>
-                                    <a href="/Archivo/examen">Exámenes</a>
-                                </li>*@
-                                <li>
-                                    <a href="/Calificacion/Calificacion">Calificaciones</a>
-                                </li>
-                            }
-                        </ul>
+                            <ul class="side-nav-second-level" aria-expanded="false">
+                                @if (ViewBag.GrolUsuario == 1)
+                                {
+                                    <li>
+                                        <a href="/Usuario/Index">Usuario</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Clase/ClaseGestion">Clase</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestion">Archivo</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Calificacion/calificacionGestion">Calificación</a>
+                                    </li>
+                                    <li>
+                                        <a href="/curso/asignacion">Asignación</a>
+                                    </li>
+                                }
+                                else if (ViewBag.GrolUsuario == 2)
+                                {
+                                    <li>
+                                        <a href="/Clase/ClaseGestion">Clase</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestion">Archivo</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Calificacion/calificacionGestion">Calificación</a>
+                                    </li>
+
+                                }
+                                else if (ViewBag.GrolUsuario == 3)
+                                {
+                                    <li>
+                                        <a href="/Clase/Curso">Cursos</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Horario/Index">Horario</a>
+                                    </li>
+                                    @*<li>
+                <a href="/Archivo/tarea">Tareas</a>
+            </li>*@
+                                    @*<li>
+                <a href="/Archivo/examen">Exámenes</a>
+            </li>*@
+                                    <li>
+                                        <a href="/Calificacion/Calificacion">Calificaciones</a>
+                                    </li>
+                                }
+                            </ul>
                     </li>
 
                     @if (ViewBag.GrolUsuario == 3)
@@ -188,7 +192,7 @@
             <div class="content">
                 <!-- Topbar Start -->
                 <div class="navbar-custom">
-                    <ul class="list-unstyled topbar-right-menu float-right mb-0">     
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <span class="account-user-avatar">
@@ -236,7 +240,7 @@
                     <button class="button-menu-mobile open-left disable-btn">
                         <i class="mdi mdi-menu"></i>
                     </button>
-                  
+
                 </div>
                 <!-- end Topbar -->
                 <!-- Start Content-->
@@ -291,73 +295,69 @@
                 <div class="alert alert-warning" role="alert">
                     <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
                 </div>-->
+    <!-- Settings -->
+    <!--<h5 class="mt-3">Color Scheme</h5>
+    <hr class="mt-1" />
 
-                <!-- Settings -->
-                <!--<h5 class="mt-3">Color Scheme</h5>
-                <hr class="mt-1" />
+    <div class="custom-control custom-switch mb-1">
+        <input type="radio" class="custom-control-input" name="color-scheme-mode" value="light" id="light-mode-check" checked />
+        <label class="custom-control-label" for="light-mode-check">Light Mode</label>
+    </div>
 
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="color-scheme-mode" value="light" id="light-mode-check" checked />
-                    <label class="custom-control-label" for="light-mode-check">Light Mode</label>
-                </div>
+    <div class="custom-control custom-switch mb-1">
+        <input type="radio" class="custom-control-input" name="color-scheme-mode" value="dark" id="dark-mode-check" />
+        <label class="custom-control-label" for="dark-mode-check">Dark Mode</label>
+    </div>-->
+    <!-- Width -->
+    <!--<h5 class="mt-4">Width</h5>
+    <hr class="mt-1" />
+    <div class="custom-control custom-switch mb-1">
+        <input type="radio" class="custom-control-input" name="width" value="fluid" id="fluid-check" checked />
+        <label class="custom-control-label" for="fluid-check">Fluid</label>
+    </div>
+    <div class="custom-control custom-switch mb-1">
+        <input type="radio" class="custom-control-input" name="width" value="boxed" id="boxed-check" />
+        <label class="custom-control-label" for="boxed-check">Boxed</label>
+    </div>-->
+    <!-- Left Sidebar-->
+    <!--<h5 class="mt-4">Left Sidebar</h5>
+        <hr class="mt-1" />
+        <div class="custom-control custom-switch mb-1">
+            <input type="radio" class="custom-control-input" name="theme" value="default" id="default-check" checked />
+            <label class="custom-control-label" for="default-check">Default</label>
+        </div>
 
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="color-scheme-mode" value="dark" id="dark-mode-check" />
-                    <label class="custom-control-label" for="dark-mode-check">Dark Mode</label>
-                </div>-->
+        <div class="custom-control custom-switch mb-1">
+            <input type="radio" class="custom-control-input" name="theme" value="light" id="light-check" />
+            <label class="custom-control-label" for="light-check">Light</label>
+        </div>
 
-                <!-- Width -->
-                <!--<h5 class="mt-4">Width</h5>
-                <hr class="mt-1" />
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="width" value="fluid" id="fluid-check" checked />
-                    <label class="custom-control-label" for="fluid-check">Fluid</label>
-                </div>
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="width" value="boxed" id="boxed-check" />
-                    <label class="custom-control-label" for="boxed-check">Boxed</label>
-                </div>-->
+        <div class="custom-control custom-switch mb-3">
+            <input type="radio" class="custom-control-input" name="theme" value="dark" id="dark-check" />
+            <label class="custom-control-label" for="dark-check">Dark</label>
+        </div>
 
-                <!-- Left Sidebar-->
-                <!--<h5 class="mt-4">Left Sidebar</h5>
-                <hr class="mt-1" />
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="theme" value="default" id="default-check" checked />
-                    <label class="custom-control-label" for="default-check">Default</label>
-                </div>
+        <div class="custom-control custom-switch mb-1">
+            <input type="radio" class="custom-control-input" name="compact" value="fixed" id="fixed-check" checked />
+            <label class="custom-control-label" for="fixed-check">Fixed</label>
+        </div>
 
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="theme" value="light" id="light-check" />
-                    <label class="custom-control-label" for="light-check">Light</label>
-                </div>
+        <div class="custom-control custom-switch mb-1">
+            <input type="radio" class="custom-control-input" name="compact" value="condensed" id="condensed-check" />
+            <label class="custom-control-label" for="condensed-check">Condensed</label>
+        </div>
 
-                <div class="custom-control custom-switch mb-3">
-                    <input type="radio" class="custom-control-input" name="theme" value="dark" id="dark-check" />
-                    <label class="custom-control-label" for="dark-check">Dark</label>
-                </div>
+        <div class="custom-control custom-switch mb-1">
+            <input type="radio" class="custom-control-input" name="compact" value="scrollable" id="scrollable-check" />
+            <label class="custom-control-label" for="scrollable-check">Scrollable</label>
+        </div>
 
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="compact" value="fixed" id="fixed-check" checked />
-                    <label class="custom-control-label" for="fixed-check">Fixed</label>
-                </div>
+        <button class="btn btn-primary btn-block mt-4" id="resetBtn">Reset to Default</button>
 
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="compact" value="condensed" id="condensed-check" />
-                    <label class="custom-control-label" for="condensed-check">Condensed</label>
-                </div>
-
-                <div class="custom-control custom-switch mb-1">
-                    <input type="radio" class="custom-control-input" name="compact" value="scrollable" id="scrollable-check" />
-                    <label class="custom-control-label" for="scrollable-check">Scrollable</label>
-                </div>
-
-                <button class="btn btn-primary btn-block mt-4" id="resetBtn">Reset to Default</button>
-
-                <a href="https://themes.getbootstrap.com/product/hyper-responsive-admin-dashboard-template/" class="btn btn-danger btn-block mt-3" target="_blank"><i class="mdi mdi-basket mr-1"></i> Purchase Now</a>
-            </div>-->
-            <!-- end padding-->
-
-        <!--</div>
+        <a href="https://themes.getbootstrap.com/product/hyper-responsive-admin-dashboard-template/" class="btn btn-danger btn-block mt-3" target="_blank"><i class="mdi mdi-basket mr-1"></i> Purchase Now</a>
+    </div>-->
+    <!-- end padding-->
+    <!--</div>
     </div>-->
 
     <div class="rightbar-overlay"></div>

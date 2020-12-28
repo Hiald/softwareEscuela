@@ -8,10 +8,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
-                        <li class="breadcrumb-item active">Gestion clases</li>
+                        <li class="breadcrumb-item active">Gestion Asignación</li>
                     </ol>
                 </div>
-                <h4 class="page-title">MÓDULO CLASE</h4>
+                <h4 class="page-title">MÓDULO ASIGNACIÓN</h4>
             </div>
         </div>
     </div>
@@ -21,19 +21,24 @@
             <div class="card">
                 <div class="card-body">
                     <p class="text-muted font-14">
-                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalClase">Agregar Clase</button>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalClase">Agregar Asignación</button>
                     </p>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="tblClase" class="table dt-responsive nowrap w-100">
+                            <table id="tblAsignacion" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Clase</th>
-                                        <th>Nombre Curso</th>
-                                        <th>Descripción</th>
-                                        <th>Ruta Enlace</th>
-                                        <th>Ruta Video</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Nivel</th>
+                                        <th>Grado</th>
+                                        <th>Curso</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -58,11 +63,17 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-dark">
-                    <h4 class="modal-title" id="dark-header-modalLabel">Clase</h4>
+                    <h4 class="modal-title" id="dark-header-modalLabel">Asignación</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="idUsuario">Usuario</label>
+                                <select class="form-control" id="idUsuario"></select>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idNivel">Nivel</label>
@@ -72,7 +83,6 @@
                                     <option value="2">Secundaria</option>
                                 </select>
                             </div>
-
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
@@ -88,74 +98,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idCurso">Curso</label>
                                 <select class="form-control" id="idCurso"></select>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="simpleinput">Nombre</label>
-                                <input type="text" id="txtNombre" class="form-control" placeholder="Clase">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="idSemana">Número de semana</label>
-                                <select class="form-control" id="idSemana">
-                                    <option>Seleccionar</option>
-                                    <option value="1">Semana 1</option>
-                                    <option value="2">Semana 2</option>
-                                    <option value="3">Semana 3</option>
-                                    <option value="4">Semana 4</option>
-                                    <option value="5">Semana 5</option>
-                                    <option value="6">Semana 6</option>
-                                    <option value="7">Semana 7</option>
-                                    <option value="8">Semana 8</option>
-                                    <option value="9">Semana 9</option>
-                                    <option value="10">Semana 10</option>
-                                    <option value="11">Semana 11</option>
-                                    <option value="12">Semana 12</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <form>
-                                <div class="form-group mb-3">
-                                    <label for="example-textarea">Descripcion clase</label>
-                                    <textarea class="form-control" id="txtDescripcion" placeholder="Descripción..." rows="5"></textarea>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Ruta enlace</label>
-                                    <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Ruta video</label>
-                                    <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
-                                </div>
-
-                                <!--<div class="form-group mb-3">
-                                    <label for="example-select">Categoria</label>
-                                    <select class="form-control" id="idCategoria">
-                                        <option>Seleccionar</option>
-                                        <option value="1">Clase Normal</option>
-                                        <option value="2">Clase Especial</option>
-                                    </select>
-                                </div>-->
-                                <!--   <div class="form-group mb-3">
-                                    <label for="example-email">Imagen</label>
-                                    <input type="file" id="fImagen" name="example-email" class="form-control" placeholder="Email">
-                                </div>  -->
-                                <!--
-                                <div class="form-group mb-3">
-                                    <label for="example-email">Ruta Imagen</label>
-                                    <input type="text" id="txtRutaImagen" name="example-email" class="form-control" placeholder="Email">
-                                </div>
-                                    -->
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -239,7 +186,6 @@
         <!-- /.modal-dialog -->
     </div>
 
-
 </div>
 
 <div id="modal-eliminar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -258,3 +204,169 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+<script>
+    function fn_ListarUsuario() {
+
+        $('#idUsuario').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/login/ListarUsuarioGestion",
+            data: {
+                "usuario": '',
+                "tipousuario": 2
+            },
+            success: function (data) {
+                if (data.aaData === "") {
+                    alert("¡No hay usuarios, intenta agregar una en el módulo usuario!");
+                }
+                $('#idUsuario').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idUsuario').append($("<option></option>")
+                        .attr("value", value.idusuario)
+                        .text(value.Snombres + " " + value.SApellidoPaterno + " " + value.SApellidoMaterno));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    function fn_ListarCategoria() {
+        var slcnivel = $('#idNivel option:selected').attr('value');
+        var slcgrado = $('#idGrado option:selected').attr('value');
+        $('#idCurso').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/clase/ListarClaseGestion",
+            data: {
+                "idgrado": parseInt(slcgrado),
+                "idnivel": parseInt(slcnivel)
+            },
+            success: function (data) {
+                if (data.data === "") {
+                    alert("¡No hay categorias, intenta agregar una!");
+                }
+                $('#idCurso').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data, function (index, value) {
+                    $('#idCurso').append($("<option></option>")
+                        .attr("value", value.idcurso)
+                        .text(value.Snombre));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    $(document).ready(function () {
+        fn_ListarUsuario();
+
+        $('#tblAsignacion').DataTable(
+            {
+                "ajax": {
+                    "url": "/Curso/ListarCursoGestion",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "widusuario": 0,
+                        "idnivel": 0,
+                        "idgrado": 0,
+                        "idcurso": 0
+                    }
+                },
+                //"bServerSide": true,
+                "bProcessing": true,
+                "language": {
+                    "info": "",
+                    "infoEmpty": "",
+                    "infoFiltered": "",
+                    "emptyTable": "No se encontraron registros",
+                    "sZeroRecords": "No se encontraron registros.",
+                    "processing": "Cargando. Por favor espere...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "sSearch": "Buscar:"
+                },
+                "columns": [
+
+                    { "data": "Snombres" },
+                    { "data": "Sapellidos" },
+                    { "data": "SnombreNivel" },
+                    { "data": "SnombreGrado" },
+                    { "data": "SnombreCurso" }
+                ],
+                "aoColumnDefs":
+                    [
+                        {
+                            "mRender": function (data, type, row) {
+                                var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idcursodocente + "\" id='AccessEditar' >Editar</button>";
+                                return strHtml;
+                            },
+                            "sWidth": "5px",
+                            "sClass": "css-center",
+                            "bSort": false,
+                            "aTargets": [5]
+                        },
+                        {
+                            "mRender": function (data, type, row) {
+                                var strHtml = "<button class='btn btn-danger' onclick='fnAgregarClase(" + row.idcursodocente + ")' id='AccessEliminar' >Eliminar</button>";
+                                return strHtml;
+                            },
+                            "sWidth": "5px",
+                            "sClass": "css-center",
+                            "bSort": false,
+                            "aTargets": [6]
+                        }
+                    ]
+            });
+
+        $('#idGrado').on('change', function () {
+            fn_ListarCategoria();
+        });
+    });
+
+    $("#btnGuardar").click(function () {
+        var idUsuario = $('#idUsuario option:selected').attr('value');
+        var idNivel = $('#idNivel option:selected').attr('value');
+        var idGrado = $('#idGrado option:selected').attr('value');
+        var idCurso = $('#idCurso option:selected').attr('value');
+
+        $.ajax({
+            type: "POST",
+            url: '/Curso/InsertarCursoDocente',
+            data: {
+                "idusuario": idUsuario,
+                "idnivel": idNivel,
+                "idgrado": idGrado,
+                "idcurso": idCurso
+            },
+            async: false,
+            success: function (msg) {
+                $('#modalClase').modal("hide");
+                var table = $('#tblAsignacion').DataTable();
+                table.ajax.reload();
+            },
+            error: function (msg) {
+                console.log(msg);
+                //location.reload();
+            },
+            complete: function (data) {
+                // si acabo de completar
+            }
+        });
+
+    });
+
+</script>

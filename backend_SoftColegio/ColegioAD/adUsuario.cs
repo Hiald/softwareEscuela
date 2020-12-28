@@ -169,6 +169,7 @@ namespace ColegioAD
                         {
                             edUsuario enUsuario = null;
                             int pos_idnivel = mdrd.GetOrdinal("idnivel");
+                            int pos_idusuario = mdrd.GetOrdinal("idusuario");
                             int pos_idgrado = mdrd.GetOrdinal("idgrado");
                             int pos_idsede = mdrd.GetOrdinal("idsede");
                             int pos_idseccion = mdrd.GetOrdinal("idseccion");
@@ -183,6 +184,7 @@ namespace ColegioAD
                             {
                                 enUsuario = new edUsuario();
                                 enUsuario.idnivel = (mdrd.IsDBNull(pos_idnivel) ? 0 : mdrd.GetInt32(pos_idnivel));
+                                enUsuario.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
                                 enUsuario.idgrado = (mdrd.IsDBNull(pos_idgrado) ? 0 : mdrd.GetInt32(pos_idgrado));
                                 enUsuario.idsede = (mdrd.IsDBNull(pos_idsede) ? 0 : mdrd.GetInt32(pos_idsede));
                                 enUsuario.idseccion = (mdrd.IsDBNull(pos_idseccion) ? 0 : mdrd.GetInt32(pos_idseccion));
