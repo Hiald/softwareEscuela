@@ -99,7 +99,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResWSApi = await client.
                         GetAsync("api/Calificacion/wsListarCalificacion?widusuario="
-                            + idUsuario + "&wtiponota=" + tiponota + tiponota + "&wnota=" + idnota);
+                            + idUsuario + "&wtiponota=" + tiponota + "&wnota=" + idnota);
                     if (ResWSApi.IsSuccessStatusCode)
                     {
                         var rwsapilu = ResWSApi.Content.ReadAsAsync<string>().Result;

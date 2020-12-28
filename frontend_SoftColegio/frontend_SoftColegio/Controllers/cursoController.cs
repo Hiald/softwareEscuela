@@ -73,13 +73,12 @@ namespace frontend_SoftColegio.Controllers
 
         //ACTIVO : lista los cursos asignados: admin, docente
         [HttpPost]
-        public async Task<JsonResult> ListarCursoGestion(int widusuario, int idnivel, int idgrado, int idcurso)
+        public async Task<JsonResult> ListarCursoGestion(int valoritipousuario,int widusuario, int idnivel, int idgrado, int idcurso)
         {
             try
             {
                 var objResultado = new object();
                 int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
-                int valoritipousuario = 0; //si desea filtrar por otras vistas
                 int IidUsuario = UtlAuditoria.ObtenerIdUsuario();
                 int idusuario = widusuario;
                 if (ItipoUsuario != 1)
@@ -92,7 +91,7 @@ namespace frontend_SoftColegio.Controllers
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/curso/wsListarCurso?wsitipousuario=" + ItipoUsuario
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/curso/wsListarCurso?wsitipousuario=" + valoritipousuario
                         + "&widusuario=" + idusuario + "&widnivel=" + idnivel
                         + "&widgrado=" + idgrado + "&widcurso=" + idcurso);
                     if (Reslistarusu.IsSuccessStatusCode)
