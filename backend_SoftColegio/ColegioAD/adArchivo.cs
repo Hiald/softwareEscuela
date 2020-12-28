@@ -73,6 +73,7 @@ namespace ColegioAD
                             int pos_vimagen = mdrd.GetOrdinal("v_imagen");
                             int pos_bestado = mdrd.GetOrdinal("b_estado");
                             int pos_dtfecharegistro = mdrd.GetOrdinal("dt_fecharegistro");
+                            int pos_isemana = mdrd.GetOrdinal("i_semana");
 
                             while (mdrd.Read())
                             {
@@ -89,6 +90,7 @@ namespace ColegioAD
                                 senArchivo.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
                                 senArchivo.Bestado = (mdrd.IsDBNull(pos_bestado) ? 0 : mdrd.GetInt16(pos_bestado));
                                 senArchivo.SfechaRegistro = (mdrd.IsDBNull(pos_dtfecharegistro) ? "-" : mdrd.GetString(pos_dtfecharegistro));
+                                senArchivo.isemana = (mdrd.IsDBNull(pos_isemana) ? 0 : mdrd.GetInt32(pos_isemana));
                                 slenUsuario.Add(senArchivo);
                             }
                         }

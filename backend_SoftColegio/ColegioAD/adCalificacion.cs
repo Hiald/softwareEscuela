@@ -13,7 +13,7 @@ namespace ColegioAD
             cnMysql = cn;
         }
 
-        public List<edCalificacion> adListarCalificacion(int adidusuario, int adtiponota, int adnota)
+        public List<edCalificacion> adListarCalificacion(int adidusuario, int adtiponota, int adnota, int adisemana)
         {
             try
             {
@@ -24,6 +24,7 @@ namespace ColegioAD
                     cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                     cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = adtiponota;
                     cmd.Parameters.Add("_idnota", MySqlDbType.Int32).Value = adnota;
+                    cmd.Parameters.Add("_isemana", MySqlDbType.Int32).Value = adisemana;
 
                     using (MySqlDataReader mdrd = cmd.ExecuteReader())
                     {
@@ -44,6 +45,8 @@ namespace ColegioAD
                             int pos_inota = mdrd.GetOrdinal("i_nota");
                             int pos_vobservacion = mdrd.GetOrdinal("v_observacion");
                             int pos_snombrecurso = mdrd.GetOrdinal("snombrecurso");
+                            int pos_idclase = mdrd.GetOrdinal("idclase");
+                            int pos_isemana = mdrd.GetOrdinal("i_semana");
 
                             while (mdrd.Read())
                             {
@@ -62,6 +65,8 @@ namespace ColegioAD
                                 senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
                                 senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
                                 senUsuario.Snombrecurso = (mdrd.IsDBNull(pos_snombrecurso) ? "-" : mdrd.GetString(pos_snombrecurso));
+                                senUsuario.idclase = (mdrd.IsDBNull(pos_idclase) ? 0 : mdrd.GetInt32(pos_idclase));
+                                senUsuario.isemana = (mdrd.IsDBNull(pos_isemana) ? 0 : mdrd.GetInt32(pos_isemana));
 
                                 loenusuario.Add(senUsuario);
                             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ColegioED
 {
-   public class edArchivo
+    public class edArchivo
     {
         public int idarchivo { get; set; }
         public int idarchivodetalle { get; set; }
@@ -32,7 +32,7 @@ namespace ColegioED
         public string Sobservacion { get; set; }
         public int Bestado { get; set; }
         public string SfechaRegistro { get; set; }
-
+        public int isemana { get; set; }
 
     }
 }

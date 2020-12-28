@@ -36,7 +36,7 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: lista las calificaciones por cada usuario o en general: alumno
         [HttpPost]
-        public async Task<JsonResult> ListarCalificacionGestion(int tiponota, int idnota)
+        public async Task<JsonResult> ListarCalificacionGestion(int tiponota, int idnota, int isemana)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResWSApi = await client.
                         GetAsync("api/Calificacion/wsListarCalificacion?widusuario="
-                            + IvalorTipoUsuario + "&wtiponota=" + tiponota + tiponota + "&wnota=" + idnota);
+                            + IvalorTipoUsuario + "&wtiponota=" + tiponota + "&wnota=" + idnota + "&wisemana=" + isemana);
                     if (ResWSApi.IsSuccessStatusCode)
                     {
                         var rwsapilu = ResWSApi.Content.ReadAsAsync<string>().Result;

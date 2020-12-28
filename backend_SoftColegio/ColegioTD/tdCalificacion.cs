@@ -10,7 +10,7 @@ namespace ColegioTD
     {
         adCalificacion iadCalificacion;
 
-        public List<edCalificacion> tdListarCalificacion(int tdidusuario, int tdtiponota, int tdnota)
+        public List<edCalificacion> tdListarCalificacion(int tdidusuario, int tdtiponota, int tdnota, int tdisemana)
         {
             List<edCalificacion> renUsuario = new List<edCalificacion>();
             try
@@ -21,7 +21,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadCalificacion = new adCalificacion(con);
-                        renUsuario = iadCalificacion.adListarCalificacion(tdidusuario, tdtiponota, tdnota);
+                        renUsuario = iadCalificacion.adListarCalificacion(tdidusuario, tdtiponota, tdnota, tdisemana);
                         scope.Commit();
                     }
                 }

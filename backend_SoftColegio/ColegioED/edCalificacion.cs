@@ -17,5 +17,7 @@ namespace ColegioED
         public int Inota { get; set; }
         public string Sobservacion { get; set; }
         public string Snombrecurso { get; set; }
+        public int idclase { get; set; }
+        public int isemana { get; set; }
     }
 }
