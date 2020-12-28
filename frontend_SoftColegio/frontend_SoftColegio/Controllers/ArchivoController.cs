@@ -26,7 +26,9 @@ namespace frontend_SoftColegio.Controllers
         public ActionResult archivoGestionAlumno()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            int idusuario = UtlAuditoria.ObtenerIdUsuario();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GIDUsuario = idusuario;
             return View();
         }
 

@@ -394,25 +394,25 @@
     }
 
     function fn_ListarClase() {
-        var inivelvalor = $('#idNivelg option:selected').attr('value');
-        $('#idGradog').find('option').remove();
+        var inivelcurso = $('#idCursog option:selected').attr('value');
+        $('#idClaseg').find('option').remove();
         $.ajax({
             type: "POST",
             url: "/Clase/ListarClaseGeneral",
             data: {
-                "idcurso": 0
+                "idcurso": inivelcurso
             },
             success: function (data) {
                 if (data.aaData === "") {
                     alert("¡No hay categorias, intenta agregar una!");
                 }
-                $('#idGradog').append($("<option></option>")
+                $('#idClaseg').append($("<option></option>")
                     .attr("value", "")
                     .text("Seleccione una opción"));
                 $.each(data.aaData, function (index, value) {
-                    $('#idGradog').append($("<option></option>")
-                        .attr("value", value.idgrado)
-                        .text(value.SnombreGrado));
+                    $('#idClaseg').append($("<option></option>")
+                        .attr("value", value.idclase)
+                        .text(value.Snombre));
                 });
             },
             error: function (data) {
@@ -491,8 +491,6 @@
     $(document).ready(function () {
         fn_ListarNivel();
 
-        fn_listartabla(0);
-
         $('#idNivelg').on('change', function () {
             fn_ListarGrado();
         });
@@ -505,7 +503,11 @@
             fn_ListarClase();
         });
 
-    });
+        $('#idClaseg').on('change', function () {
+            GvalorIdCurso = parseInt($('#idClaseg option:selected').attr('value'));
+            fn_listartabla(GvalorIdCurso);
+        });
 
+    });
 
 </script>
