@@ -35,7 +35,7 @@ namespace ColegioTD
 
         }
 
-        public List<edCurso> tdListarCurso(int tditipousuario)
+        public List<edCurso> tdListarCurso(int tditipousuario, int tdidusuario, int tdidnivel, int tdidgrado, int tdidcurso)
         {
             List<edCurso> renClase = new List<edCurso>();
             try
@@ -46,7 +46,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadCurso = new adCurso(con);
-                        renClase = iadCurso.adListarCurso(tditipousuario);
+                        renClase = iadCurso.adListarCurso(tditipousuario, tdidusuario, tdidnivel, tdidgrado, tdidcurso);
                         scope.Commit();
                     }
                 }

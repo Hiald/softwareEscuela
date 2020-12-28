@@ -37,7 +37,7 @@ namespace ColegioAD
             }
         }
 
-        public List<edCurso> adListarCurso(int aditipousuario)
+        public List<edCurso> adListarCurso(int aditipousuario, int adidusuario, int adidnivel, int adidgrado, int adidcurso)
         {
             try
             {
@@ -46,6 +46,10 @@ namespace ColegioAD
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("_tipo_usuario", MySqlDbType.Int32).Value = aditipousuario;
+                    cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                    cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = adidnivel;
+                    cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = adidgrado;
+                    cmd.Parameters.Add("_idcurso", MySqlDbType.Int32).Value = adidcurso;
 
                     using (MySqlDataReader mdrd = cmd.ExecuteReader())
                     {

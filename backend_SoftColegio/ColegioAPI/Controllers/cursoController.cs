@@ -29,13 +29,13 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string wsListarCurso(int wsitipousuario)
+        public string wsListarCurso(int wsitipousuario, int widusuario, int widnivel, int widgrado, int widcurso)
         {
             List<edCurso> wsenCurso = new List<edCurso>();
             try
             {
                 itdCurso = new tdCurso();
-                wsenCurso = itdCurso.tdListarCurso(wsitipousuario);
+                wsenCurso = itdCurso.tdListarCurso(wsitipousuario, widusuario, widnivel, widgrado, widcurso);
                 return JsonConvert.SerializeObject(wsenCurso);
             }
             catch (Exception ex)
