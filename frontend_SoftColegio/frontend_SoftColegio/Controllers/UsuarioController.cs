@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using frontend_SoftColegio.Filters;
 using frontendUtil;
 
 namespace frontend_SoftColegio.Controllers
@@ -10,6 +7,7 @@ namespace frontend_SoftColegio.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
+        [SecuritySession]
         public ActionResult Index()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -17,13 +15,5 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
-        
-        public ActionResult Ejemplo(string p1, string p2,string p3 , string p4)
-        {
-            return View("Index");
-        }
-
-
-                
     }
 }

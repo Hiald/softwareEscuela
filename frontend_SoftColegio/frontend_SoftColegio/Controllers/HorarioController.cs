@@ -1,4 +1,5 @@
-﻿using frontendUtil;
+﻿using frontend_SoftColegio.Filters;
+using frontendUtil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace frontend_SoftColegio.Controllers
     public class HorarioController : Controller
     {
         // GET: Horario
+        [SecuritySession]
         public ActionResult Index()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();

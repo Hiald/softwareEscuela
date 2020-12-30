@@ -533,10 +533,26 @@
         fn_ListarNivel();
 
         $('#idNivelg').on('change', function () {
+            if ($('#idNivelg option:selected').attr('value') == "") {
+                $('#idGradog').find('option').remove();
+                $('#idCursog').find('option').remove();
+                $('#idClaseg').find('option').remove();
+                return;
+            }
+            $('#idGradog').find('option').remove();
+            $('#idCursog').find('option').remove();
+            $('#idClaseg').find('option').remove();
             fn_ListarGrado();
         });
 
         $('#idGradog').on('change', function () {
+            if ($('#idGradog option:selected').attr('value') == "") {
+                $('#idCursog').find('option').remove();
+                $('#idClaseg').find('option').remove();
+                return;
+            }
+            $('#idCursog').find('option').remove();
+            $('#idClaseg').find('option').remove();
             fn_ListarCurso();
         });
 

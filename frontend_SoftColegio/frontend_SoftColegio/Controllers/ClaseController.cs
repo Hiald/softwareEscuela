@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using frontendED;
 using frontendUtil;
+using frontend_SoftColegio.Filters;
 
 namespace frontend_SoftColegio.Controllers
 {
     public class ClaseController : Controller
     {
         //CRUD para administrar
+        [SecuritySession]
         public ActionResult claseGestion()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -22,6 +24,7 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
+        [SecuritySession]
         public async Task<ActionResult> Clase(int idcurso, string nombreCurso)
         {
             //int irolusuario = UtlAuditoria.ObtenerTipoUsuario();            
@@ -58,6 +61,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         //ACTIVO : muestra la vista y obtiene los cursos por cada grado y nivel : alumno
+        [SecuritySession]
         public async Task<ActionResult> Curso()
         {
             try

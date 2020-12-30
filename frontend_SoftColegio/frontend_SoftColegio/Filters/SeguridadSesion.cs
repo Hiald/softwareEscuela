@@ -11,31 +11,15 @@ namespace frontend_SoftColegio.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             bool bValidar = UtlAuditoria.ValidarSession();
-            string Url = HttpContext.Current.Request.Url.AbsolutePath;
-            string res = Url.Remove(0, 1);
-            //string sMenu = UtlAuditoria.ObtenerMenu();
 
             if (bValidar)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "principal", action = "timeout" }));
-
-            }
-            base.OnActionExecuting(filterContext);
-        }
-    }
-
-    public class SecuritySessionSales : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            bool bValidar = UtlAuditoria.ValidarSession();
-            string Url = HttpContext.Current.Request.Url.AbsolutePath;
-            string res = Url.Remove(0, 1);
-            //string sMenu = UtlAuditoria.ObtenerMenu();
-
-            if (bValidar)
-            {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "vendedor", action = "Index" }));
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {
+                            { "controller", "Login" },
+                            { "action", "Index" },
+                            { "ivalorsesion", 1 }
+                        });
 
             }
             base.OnActionExecuting(filterContext);
@@ -47,7 +31,6 @@ namespace frontend_SoftColegio.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             bool bValidar = UtlAuditoria.ValidarSession();
-
             if (bValidar)
             {
 

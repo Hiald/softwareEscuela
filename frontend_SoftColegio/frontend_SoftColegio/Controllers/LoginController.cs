@@ -14,8 +14,13 @@ namespace frontend_SoftColegio.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int? ivalorsesion)
         {
+            if (ivalorsesion != 1 || ivalorsesion == null)
+            {
+                ivalorsesion = 0;
+            }
+            ViewBag.GIvalorSesion = ivalorsesion;
             return View();
         }
 
@@ -218,6 +223,36 @@ namespace frontend_SoftColegio.Controllers
                 return Json(ex);
             }
 
+        }
+
+        [HttpPost]
+        public JsonResult cerrarSesion()
+        {
+            var objResultado = new object();
+            try
+            {
+                bool bResultado = UtlAuditoria.CerrarSession();
+                if (bResultado)
+                {
+                    objResultado = new
+                    {
+                        iResultado = 1
+                    };
+                }
+                else
+                {
+                    objResultado = new
+                    {
+                        iResultado = 2
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+            return Json(objResultado);
         }
 
     }

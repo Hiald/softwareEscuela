@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using frontendED;
 using frontendUtil;
+using frontend_SoftColegio.Filters;
 
 namespace frontend_SoftColegio.Controllers
 {
     public class ArchivoController : Controller
     {
         // admin y profesor gestion
+        [SecuritySession]
         public ActionResult archivoGestion()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -23,6 +25,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         // admin y profesor gestion
+        [SecuritySession]
         public ActionResult archivoGestionAlumno()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -33,6 +36,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         // alumno
+        [SecuritySession]
         public ActionResult examen()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -41,6 +45,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         // alumno
+        [SecuritySession]
         public async Task<ActionResult> Tarea(int idclase)
         {
             try
@@ -69,10 +74,7 @@ namespace frontend_SoftColegio.Controllers
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 return Json(ex);
             }
-
-
-
-
+            
         }
 
         // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using frontendED;
 using frontendUtil;
+using frontend_SoftColegio.Filters;
 
 namespace frontend_SoftColegio.Controllers
 {
     public class CursoController : Controller
     {
+        [SecuritySession]
         public ActionResult asignacion()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -73,7 +75,7 @@ namespace frontend_SoftColegio.Controllers
 
         //ACTIVO : lista los cursos asignados: admin, docente
         [HttpPost]
-        public async Task<JsonResult> ListarCursoGestion(int valoritipousuario,int widusuario, int idnivel, int idgrado, int idcurso)
+        public async Task<JsonResult> ListarCursoGestion(int valoritipousuario, int widusuario, int idnivel, int idgrado, int idcurso)
         {
             try
             {

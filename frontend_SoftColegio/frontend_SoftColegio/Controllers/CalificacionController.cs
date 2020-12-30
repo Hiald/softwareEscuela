@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using frontendED;
 using frontendUtil;
+using frontend_SoftColegio.Filters;
 
 namespace frontend_SoftColegio.Controllers
 {
     public class CalificacionController : Controller
     {
         // vista admin y profesor
+        [SecuritySession]
         public ActionResult calificacionGestion()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
@@ -23,6 +23,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         // vista usuario
+        [SecuritySession]
         public ActionResult Calificacion()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();

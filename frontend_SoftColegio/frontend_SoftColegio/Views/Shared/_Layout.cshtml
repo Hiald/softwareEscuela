@@ -109,63 +109,63 @@
                             </a>
                         }
 
-                            <ul class="side-nav-second-level" aria-expanded="false">
-                                @if (ViewBag.GrolUsuario == 1)
-                                {
-                                    <li>
-                                        <a href="/Usuario/Index">Usuario</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Clase/ClaseGestion">Clase</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Archivo/archivoGestion">Archivo</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Calificacion/calificacionGestion">Calificación</a>
-                                    </li>
-                                    <li>
-                                        <a href="/curso/asignacion">Asignación</a>
-                                    </li>
-                                }
-                                else if (ViewBag.GrolUsuario == 2)
-                                {
-                                    <li>
-                                        <a href="/Clase/ClaseGestion">Clase</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Archivo/archivoGestion">Archivo</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Calificacion/calificacionGestion">Calificación</a>
-                                    </li>
+                        <ul class="side-nav-second-level" aria-expanded="false">
+                            @if (ViewBag.GrolUsuario == 1)
+                            {
+                                <li>
+                                    <a href="/Usuario/Index">Usuario</a>
+                                </li>
+                                <li>
+                                    <a href="/Clase/ClaseGestion">Clase</a>
+                                </li>
+                                <li>
+                                    <a href="/Archivo/archivoGestion">Archivo</a>
+                                </li>
+                                <li>
+                                    <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
+                                </li>
+                                <li>
+                                    <a href="/Calificacion/calificacionGestion">Calificación</a>
+                                </li>
+                                <li>
+                                    <a href="/curso/asignacion">Asignación</a>
+                                </li>
+                            }
+                            else if (ViewBag.GrolUsuario == 2)
+                            {
+                                <li>
+                                    <a href="/Clase/ClaseGestion">Clase</a>
+                                </li>
+                                <li>
+                                    <a href="/Archivo/archivoGestion">Archivo</a>
+                                </li>
+                                <li>
+                                    <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
+                                </li>
+                                <li>
+                                    <a href="/Calificacion/calificacionGestion">Calificación</a>
+                                </li>
 
-                                }
-                                else if (ViewBag.GrolUsuario == 3)
-                                {
-                                    <li>
-                                        <a href="/Clase/Curso">Cursos</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Horario/Index">Horario</a>
-                                    </li>
-                                    @*<li>
-                <a href="/Archivo/tarea">Tareas</a>
-            </li>*@
-                                    @*<li>
-                <a href="/Archivo/examen">Exámenes</a>
-            </li>*@
-                                    <li>
-                                        <a href="/Calificacion/Calificacion">Calificaciones</a>
-                                    </li>
-                                }
-                            </ul>
+                            }
+                            else if (ViewBag.GrolUsuario == 3)
+                            {
+                                <li>
+                                    <a href="/Clase/Curso">Cursos</a>
+                                </li>
+                                <li>
+                                    <a href="/Horario/Index">Horario</a>
+                                </li>
+                                @*<li>
+                                        <a href="/Archivo/tarea">Tareas</a>
+                                    </li>*@
+                                @*<li>
+                                        <a href="/Archivo/examen">Exámenes</a>
+                                    </li>*@
+                                <li>
+                                    <a href="/Calificacion/Calificacion">Calificaciones</a>
+                                </li>
+                            }
+                        </ul>
                     </li>
 
                     @if (ViewBag.GrolUsuario == 3)
@@ -229,7 +229,7 @@
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <a onclick="fnDesconectar();" style="cursor:pointer;" class="dropdown-item notify-item">
                                     <i class="mdi mdi-logout mr-1"></i>
                                     <span>Desconectar</span>
                                 </a>
@@ -403,6 +403,26 @@
             });
 
         }
+
+        function fnDesconectar() {
+            $.ajax({
+                type: "POST",
+                url: RutaPrincipal + 'Login/cerrarSesion',
+                async: false,
+                success: function (msg) {
+                    window.location.href = RutaPrincipal + "Login/Index?ivalorsesion=0";
+
+                },
+                error: function (msg) {
+
+                    //location.reload();
+                },
+                complete: function (data) {
+                    // si acabo de completar
+                }
+            });
+        }
+
     </script>
     <!-- end demo js-->
 </body>
