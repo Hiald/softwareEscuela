@@ -21,7 +21,9 @@
             <div class="card">
                 <div class="card-body">
                     <p class="text-muted font-14">
-                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalClase">Agregar Clase</button>
+                        <button type="button" class="btn btn-success btn-rounded mb-3" data-toggle="modal" data-target="#modalClase">
+                            <i class="mdi mdi-plus"></i>Agregar Clase
+                        </button>
                     </p>
                     <div class="row">
                         <div class="col-md-4">
@@ -77,8 +79,8 @@
     <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header modal-colored-header bg-dark">
-                    <h4 class="modal-title" id="dark-header-modalLabel">Clase</h4>
+                <div class="modal-header modal-colored-header bg-success">
+                    <h4 class="modal-title" id="dark-header-modalLabel">CLASE</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -112,7 +114,7 @@
                             <div class="form-group mb-3">
                                 <label for="idSemana">Número de semana</label>
                                 <select class="form-control" id="idSemana">
-                                    <option>Seleccionar</option>
+                                    <option value="0">Seleccionar</option>
                                     <option value="1">Semana 1</option>
                                     <option value="2">Semana 2</option>
                                     <option value="3">Semana 3</option>
@@ -150,8 +152,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar">Guardar</button>
+                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardar"><i class="mdi mdi-plus"></i>Guardar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -163,8 +165,8 @@
     <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header modal-colored-header bg-dark">
-                    <h4 class="modal-title" id="dark-header-modalLabel">Archivo</h4>
+                <div class="modal-header modal-colored-header bg-success">
+                    <h4 class="modal-title" id="dark-header-modalLabel">ARCHIVO</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -179,7 +181,7 @@
                             <div class="form-group mb-3">
                                 <label for="txttipoarchivo">Tipo de archivo</label>
                                 <select class="form-control" id="txttipoarchivo">
-                                    <option>Seleccionar</option>
+                                    <option value="0">Seleccionar</option>
                                     <option value="1">Tarea (Calificable)</option>
                                     <option value="2">Teoría</option>
                                     <option value="3">Texto</option>
@@ -220,8 +222,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardarArchivo">Guardar</button>
+                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardarArchivo"><i class="mdi mdi-plus"></i>Guardar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -246,6 +248,24 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+<div id="modalSuccess" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-success">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-checkmark h1"></i>
+                    <h4 class="mt-2">DATOS AGREGADOS CORRECTAMENTE!</h4>
+                    @*<p class="mt-3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>*@
+                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Continuar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
 
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
@@ -756,6 +776,27 @@
         var txtRutaImagen = $('#txtRutaImagen').val();
         var slcSemana = $('#idSemana option:selected').attr('value');
 
+        if (txtNombre.trim() == "")
+        {
+            NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA CLASE");
+            return;
+        }
+        if (slcSemana.trim() == 0)
+        {
+            NotificacionAvisoDerecha("SELECCIONE EL NÚMERO DE SEMANA");
+            return;
+        }
+        if (txtRutaEnlace.trim() == "")
+        {
+            NotificacionAvisoDerecha("INGRESE LA RUTA DEL ENLACE");
+            return;
+        }
+        if (txtRutaVideo.trim() == "")
+        {
+            NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
+            return;
+        }
+
         $.ajax({
             type: "POST",
             url: '/Clase/InsertarClaseGestion',
@@ -774,6 +815,7 @@
             async: false,
             success: function (msg) {
                 $('#modalClase').modal("hide");
+                $('#modalSuccess').modal("show");
                 GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
                 fn_listartabla(GvalorIdCurso);
             },
@@ -796,6 +838,21 @@
         var txtfechafin = $('#txtfechafin').val();
         var itipoarchivo = $('#txttipoarchivo option:selected').attr('value');
 
+        if (txtNombre.trim() == "")
+        {
+            NotificacionAvisoDerecha("INGRESE EL NOMBRE DEL ARCHIVO");
+            return;
+        }
+        if (itipoarchivo.trim == 0) {
+            NotificacionAvisoDerecha("SELECCIONE EL TIPO DE ARCHIVO");
+            return;
+        }
+        if (txtenlace.trim() == "") {
+            NotificacionAvisoDerecha("INGRESE EL NOMBRE DEL ENLACE");
+            return;
+        }
+
+
         $.ajax({
             type: "POST",
             url: '/archivo/InsertarArchivoGestion',
@@ -810,6 +867,7 @@
             },
             async: false,
             success: function (msg) {
+                NotificacionSuccessDerecha("Datos ingresados correctamente");
                 $('#modalArchivo').modal("hide");
                 var table = $('#tblClase').DataTable();
                 table.ajax.reload();

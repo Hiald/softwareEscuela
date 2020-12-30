@@ -67,6 +67,8 @@
         $("#IdArchivo").val(parametro);
     }
 
+
+
     $("#btnSubirTarea").click(function () {
         var idarchivo = $("#IdArchivo").val();
         var imagen = "-";
@@ -86,6 +88,7 @@
             async: false,
             success: function (msg) {
                 $('#modalSubirTarea').modal("hide");
+                NotificacionSuccessDerecha("Tarea enviada correctamente");
             },
             error: function (msg) {
                 console.log(msg);

@@ -49,6 +49,7 @@
     <script src="~/assets/js/vendor/buttons.print.min.js"></script>
     <script src="~/assets/js/vendor/dataTables.keyTable.min.js"></script>
     <script src="~/assets/js/vendor/dataTables.select.min.js"></script>
+    @*<script src="~/assets/js/pages/demo.toastr.js"></script>*@
 
     @*<script src="~/assets/js/vendor/apexcharts.min.js"></script>
         <script src="~/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
@@ -364,6 +365,19 @@
     <!-- /Right-bar -->
     <!-- bundle -->
     <script>
+
+        function NotificacionInfoDerecha(mensajes) {
+            $.NotificationApp.send("Aviso!", mensajes, "top-right", "rgba(0,0,0,0.2)", "info")
+        }
+
+        function NotificacionSuccessDerecha(mensaje) {
+            $.NotificationApp.send("DATOS CORRECTOS!", mensaje, "top-right", "rgba(0,0,0,0.2)", "success")
+        }
+
+        function NotificacionAvisoDerecha(mensaje) {
+            $.NotificationApp.send("AVISO!", mensaje, "top-right", "rgba(0,0,0,0.2)", "warning")
+        }
+
         function fn_ArmadoAJAX(pstrMetodo, pParam, successFn, errorFn) {
             var oParametros = JSON.stringify(pParam);
 

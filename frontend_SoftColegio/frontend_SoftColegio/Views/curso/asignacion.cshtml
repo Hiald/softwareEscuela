@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="text-muted font-14">
-                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalClase">Agregar Asignación</button>
+                        <button type="button" class="btn btn-success btn-rounded mb-3" data-toggle="modal" data-target="#modalClase"><i class="mdi mdi-plus"></i>Agregar Asignación</button>
                     </p>
                     <!-- end nav-->
                     <div class="tab-content">
@@ -57,8 +57,8 @@
     <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header modal-colored-header bg-dark">
-                    <h4 class="modal-title" id="dark-header-modalLabel">Asignación</h4>
+                <div class="modal-header modal-colored-header bg-success">
+                    <h4 class="modal-title" id="dark-header-modalLabel">ASIGNACIÓN</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -73,7 +73,7 @@
                             <div class="form-group mb-3">
                                 <label for="idNivel">Nivel</label>
                                 <select class="form-control" id="idNivel">
-                                    <option>Seleccionar</option>
+                                    <option value="0">Seleccionar</option>
                                     <option value="1">Primaria</option>
                                     <option value="2">Secundaria</option>
                                 </select>
@@ -83,7 +83,7 @@
                             <div class="form-group mb-3">
                                 <label for="idGrado">Grado</label>
                                 <select class="form-control" id="idGrado">
-                                    <option>Seleccionar</option>
+                                    <option value="0">Seleccionar</option>
                                     <option value="1">Primero</option>
                                     <option value="2">Segundo</option>
                                     <option value="3">Tercero</option>
@@ -102,8 +102,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar">Guardar</button>
+                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardar"><i class="mdi mdi-plus" ></i>Guardar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -338,6 +338,24 @@
         var idGrado = $('#idGrado option:selected').attr('value');
         var idCurso = $('#idCurso option:selected').attr('value');
 
+        if (idUsuario.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONE UN USUARIO");
+            return;
+        }
+        if (idNivel.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONE UN NIVEL");
+            return;
+        }
+        if (idGrado.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONE UN GRADO");
+            return;
+        }
+        if (idCurso == undefined) {
+            NotificacionAvisoDerecha("SELECCIONE UN CURSO");
+            return;
+        }
+
+
         $.ajax({
             type: "POST",
             url: '/Curso/InsertarCursoDocente',
@@ -349,6 +367,7 @@
             },
             async: false,
             success: function (msg) {
+                NotificacionSuccessDerecha("DATOS INGRESADOS CORRECTAMENTE");
                 $('#modalClase').modal("hide");
                 var table = $('#tblAsignacion').DataTable();
                 table.ajax.reload();

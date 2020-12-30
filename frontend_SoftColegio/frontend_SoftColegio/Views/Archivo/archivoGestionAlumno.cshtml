@@ -211,7 +211,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" onclick="fn_ConfirmarAgregarNota()" id="mdEliminar" class="btn btn-success my-2" data-dismiss="modal">Guardar nota</button>
+                    <button type="button" onclick="fn_ConfirmarAgregarNota()" id="mdEliminar" class="btn btn-success my-2">Guardar nota</button>
                     <button type="button" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
@@ -314,6 +314,10 @@
     function fn_ConfirmarAgregarNota() {
         var inota = $("#txtnota").val();
         var sobservacion = $("#txtobservacion").val();
+        if (inota.trim() == "") {
+            NotificacionAvisoDerecha("INGRESAR UNA NOTA");
+            return;
+        }
 
               $.ajax({
                   type: "POST",
@@ -328,6 +332,7 @@
                   },
                   async: false,
                   success: function (msg) {
+                      NotificacionSuccessDerecha("Nota ingresada correctamente");
                       $('#modal-agregarnota').modal("hide");
                       var table = $('#tblArchivo').DataTable();
                       table.ajax.reload();

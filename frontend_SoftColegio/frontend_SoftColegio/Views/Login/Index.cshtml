@@ -126,11 +126,43 @@
 </html>
 
 <script>
-    $('#frm2').submit(false);
+    $('#frm2').submit(false);    
+
+    function NotificacionInfoDerecha(mensaje)
+    {
+        $.NotificationApp.send("Aviso!", mensaje, "top-right", "rgba(0,0,0,0.2)", "info")
+    }
+
+    function NotificacionAvisoIzquierda(mensaje)
+    {
+        $.NotificationApp.send("AVISO!", mensaje, "top-left", "rgba(0,0,0,0.2)", "warning")
+    }
+
+    function NotificacionErrorIzquierda(mensaje)
+    {
+        $.NotificationApp.send("ERROR!", mensaje, "top-left", "rgba(0,0,0,0.2)", "error")
+    }
+
+    function NotificacionSuccessIzquierda(mensaje)
+    {
+        $.NotificationApp.send("DATOS CORRECTOS!", mensaje, "top-left", "rgba(0,0,0,0.2)", "success")
+    }
+
 
     $("#btnLogin").click(function () {
         var ipUsuario = $('#emailaddress').val();
         var ipClave = $('#password').val();
+        var mensaje = "";
+        if (ipUsuario.trim() == "")
+        {
+            NotificacionAvisoIzquierda("INGRESAR SU CORREO");
+            return;
+        }
+        if (ipClave.trim() == "")
+        {
+            NotificacionAvisoIzquierda("INGRESE SU CLAVE");
+            return;
+        }
 
         $.ajax({
             type: "POST",
@@ -142,8 +174,10 @@
             async: false,
             success: function (msg) {
                 if (msg.iResultado === -3) {
-                    alert("usuario o clave incorrecta");
+                    NotificacionErrorIzquierda("USUARIO O CLAVE INCORRECTO");
+                    return;
                 } else {
+                    
                     window.location.href = RutaPrincipal + "Home/Index";
 
                 }
