@@ -171,5 +171,61 @@ namespace ColegioTD
 
         }
 
+        public int tdActualizarArchivo(int tditipoactualizar, int tdidarchivo, string tdnombre, string tdenlace
+                                       , string tditipoarchivo, int tdipuntajeminimo, int tdipuntajemaximo
+                                       , DateTime? tdfechainicio, DateTime? tdfechafin)
+        {
+            int iRespuesta = -1;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadArchivo = new adArchivo(con);
+                        iRespuesta = iadArchivo.adActualizarArchivo(tditipoactualizar, tdidarchivo, tdnombre, tdenlace
+                                                           , tditipoarchivo, tdipuntajeminimo, tdipuntajemaximo
+                                                           ,  tdfechainicio, tdfechafin);
+                        scope.Commit();
+                    }
+                }
+                return (iRespuesta);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
+        public int tdActualizarArchivoDetalle(int tditipoactualizar, int tdidarchivodetalle, int tdidarchivo
+                                        , int tdidusuario, int tdidnota, string tdobservacion, string tdenlace)
+        {
+            int iRespuesta = -1;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadArchivo = new adArchivo(con);
+                        iRespuesta = iadArchivo.adActualizarArchivoDetalle(tditipoactualizar, tdidarchivodetalle
+                                                , tdidarchivo, tdidusuario, tdidnota, tdobservacion, tdenlace);
+                        scope.Commit();
+                    }
+                }
+                return (iRespuesta);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }

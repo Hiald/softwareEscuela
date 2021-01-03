@@ -45,7 +45,7 @@ namespace ColegioAD
                 throw ex;
             }
         }
-
+        //no va
         public int adActualizarClase(int adidclase, int adidgrado, string adnombre, string addescripcion, string adrutaenlace, string adrutavideo, int adcategoria
                               , string adimagen, string adimagenruta, int adorden, Int16 adestado, DateTime adfecharegistro)
         {
@@ -207,6 +207,36 @@ namespace ColegioAD
             catch (Exception ex)
             {
                 //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+        public int adActualizarClaseGestion(int adtiproceso, int adidclase, int adidcurso, int adidsemana
+                                    , string adnombre, string addescripcion, string adrutaenlace
+                                    , string adrutavideo, string adimagenruta)
+        {
+            try
+            {
+                int result = -1;
+                MySqlCommand cmd = new MySqlCommand("sp_actualizar_clase", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("_tipoactualizar", MySqlDbType.Int32).Value = adtiproceso;
+                cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
+                cmd.Parameters.Add("_idcurso", MySqlDbType.Int32).Value = adidcurso;
+                cmd.Parameters.Add("_i_semana", MySqlDbType.Int32).Value = adidsemana;
+                cmd.Parameters.Add("_v_nombre", MySqlDbType.VarChar, 100).Value = adnombre;
+                cmd.Parameters.Add("_v_descripcion", MySqlDbType.VarChar, 100).Value = addescripcion;
+                cmd.Parameters.Add("_v_ruta_enlace", MySqlDbType.VarChar, 500).Value = adrutaenlace;
+                cmd.Parameters.Add("_v_ruta_video", MySqlDbType.VarChar, 500).Value = adrutavideo;
+                cmd.Parameters.Add("_v_imagen_ruta", MySqlDbType.VarChar, 500).Value = adimagenruta;
+
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
                 throw ex;
             }
         }

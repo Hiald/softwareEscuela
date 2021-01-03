@@ -294,5 +294,62 @@ namespace ColegioAD
             }
         }
 
+        public int adActualizarArchivo(int aditipoactualizar, int adidarchivo, string adnombre, string adenlace
+                                       , string aditipoarchivo, int adipuntajeminimo, int adipuntajemaximo
+                                       , DateTime? adfechainicio, DateTime? adfechafin)
+        {
+            try
+            {
+                int result = -1;
+                MySqlCommand cmd = new MySqlCommand("sp_actualizar_archivo", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("_tipoactualizar", MySqlDbType.Int32).Value = aditipoactualizar;
+                cmd.Parameters.Add("_idarchivo", MySqlDbType.Int32).Value = adidarchivo;
+                cmd.Parameters.Add("_v_nombre", MySqlDbType.VarChar, 50).Value = adnombre;
+                cmd.Parameters.Add("_v_enlace", MySqlDbType.VarChar, 500).Value = adenlace;
+                cmd.Parameters.Add("_i_tipo_archivo", MySqlDbType.Int32).Value = aditipoarchivo;
+                cmd.Parameters.Add("_i_puntaje_minimo", MySqlDbType.Int32).Value = adipuntajeminimo;
+                cmd.Parameters.Add("_i_puntaje_maximo", MySqlDbType.Int32).Value = adipuntajemaximo;
+                cmd.Parameters.Add("_d_fecha_inicio", MySqlDbType.DateTime).Value = adfechainicio;
+                cmd.Parameters.Add("_d_fecha_fin", MySqlDbType.DateTime).Value = adfechafin;
+
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
+                throw ex;
+            }
+        }
+
+        public int adActualizarArchivoDetalle(int aditipoactualizar, int adidarchivodetalle, int adidarchivo
+                                        , int adidusuario, int adidnota, string adobservacion, string adenlace)
+        {
+            try
+            {
+                int result = -1;
+                MySqlCommand cmd = new MySqlCommand("sp_actualizar_archivo_detalle", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("_tipoactualizar", MySqlDbType.Int32).Value = aditipoactualizar;
+                cmd.Parameters.Add("_idarchivodetalle", MySqlDbType.Int32).Value = adidarchivodetalle;
+                cmd.Parameters.Add("_idarchivo", MySqlDbType.Int32).Value = adidarchivo;
+                cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                cmd.Parameters.Add("_i_nota", MySqlDbType.Int32).Value = adidnota;
+                cmd.Parameters.Add("_v_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
+                cmd.Parameters.Add("_v_enlace", MySqlDbType.VarChar, 500).Value = adenlace;
+
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
+                throw ex;
+            }
+        }
+
     }
 }

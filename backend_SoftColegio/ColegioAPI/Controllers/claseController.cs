@@ -97,5 +97,24 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public int wsActualizarClaseGestion(int wstiproceso, int wsidclase, int wsidcurso, int wsidsemana
+                                    , string wsnombre, string wsdescripcion, string wsrutaenlace
+                                    , string wsrutavideo, string wsimagenruta)
+        {
+            int iresultado = -1;
+            try
+            {
+                itdClase = new tdClase();
+                iresultado = itdClase.tdActualizarClaseGestion(wstiproceso, wsidclase, wsidcurso, wsidsemana
+                                                , wsnombre, wsdescripcion, wsrutaenlace, wsrutavideo, wsimagenruta);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
     }
 }

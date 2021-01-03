@@ -98,5 +98,21 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public int wsActualizarAcceso(int wstipoproceso, int wsidusuario, string wsusuario, string wsclave)
+        {
+            int iresultado = -4;
+            try
+            {
+                itdUsuario = new tdUsuario();
+                iresultado = itdUsuario.tdActualizarAcceso(wstipoproceso, wsidusuario, wsusuario, wsclave);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
     }
 }

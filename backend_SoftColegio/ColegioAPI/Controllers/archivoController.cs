@@ -118,5 +118,45 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public int wsActualizarArchivo(int wsitipoactualizar, int wsidarchivo, string wsnombre, string wsenlace
+                                       , string wsitipoarchivo, int wsipuntajeminimo, int wsipuntajemaximo
+                                       , string wfechainicio, string wfechafin)
+        {
+            int iresultado = -1;
+            try
+            {
+                DateTime? wsfechainicio = DateTime.Parse(wfechainicio);
+                DateTime? wsfechafin = DateTime.Parse(wfechafin);
+                itdArchivo = new tdArchivo();
+                iresultado = itdArchivo.tdActualizarArchivo(wsitipoactualizar, wsidarchivo, wsnombre, wsenlace
+                                                       , wsitipoarchivo, wsipuntajeminimo, wsipuntajemaximo
+                                                       , wsfechainicio, wsfechafin);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
+        [HttpGet]
+        public int wsActualizarArchivoDetalle(int wsitipoactualizar, int wsidarchivodetalle, int wsidarchivo
+                                        , int wsidusuario, int wsidnota, string wsobservacion, string wsenlace)
+        {
+            int iresultado = -1;
+            try
+            {
+                itdArchivo = new tdArchivo();
+                iresultado = itdArchivo.tdActualizarArchivoDetalle(wsitipoactualizar, wsidarchivodetalle, wsidarchivo
+                                                                    , wsidusuario, wsidnota, wsobservacion, wsenlace);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
+
     }
 }

@@ -141,5 +141,33 @@ namespace ColegioTD
 
         }
 
+        public int tdActualizarClaseGestion(int tdtiproceso, int tdidclase, int tdidcurso, int tdidsemana
+                                    , string tdnombre, string tddescripcion, string tdrutaenlace
+                                    , string tdrutavideo, string tdimagenruta)
+        {
+            int iRespuesta = -1;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadClase = new adClase(con);
+                        iRespuesta = iadClase.adActualizarClaseGestion(tdtiproceso, tdidclase, tdidcurso, tdidsemana
+                                                , tdnombre, tddescripcion, tdrutaenlace, tdrutavideo, tdimagenruta);
+                        scope.Commit();
+                    }
+                }
+                return (iRespuesta);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }

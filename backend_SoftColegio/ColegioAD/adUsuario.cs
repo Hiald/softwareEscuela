@@ -232,5 +232,28 @@ namespace ColegioAD
             }
         }
 
+        public int adActualizarAcceso(int adtipoproceso, int adidusuario, string adusuario, string adclave)
+        {
+            try
+            {
+                int result = -1;
+                MySqlCommand cmd = new MySqlCommand("sp_actualizar_acceso", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@_tipoactualizar", MySqlDbType.Int32).Value = adtipoproceso;
+                cmd.Parameters.Add("@_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                cmd.Parameters.Add("@_v_usuario", MySqlDbType.VarChar, 45).Value = adusuario;
+                cmd.Parameters.Add("@_v_clave", MySqlDbType.VarChar, 45).Value = adclave;
+
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
+                throw ex;
+            }
+        }
+
     }
 }

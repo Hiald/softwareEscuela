@@ -139,5 +139,30 @@ namespace ColegioTD
 
         }
 
+        public int tdActualizarAcceso(int tdtipoproceso, int tdidusuario, string tdusuario, string tdclave)
+        {
+            int iRespuesta = -3;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadUsuario = new adUsuario(con);
+                        iRespuesta = iadUsuario.adActualizarAcceso(tdtipoproceso, tdidusuario, tdusuario, tdclave);
+                        scope.Commit();
+                    }
+                }
+                return (iRespuesta);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }
