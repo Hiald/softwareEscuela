@@ -67,20 +67,20 @@
             <!-- LOGO -->
             <a href="/Home/Index" class="logo text-center logo-light">
                 <span class="logo-lg">
-                    <img src="~/assets/images/logo.png" alt="" height="16">
+                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
                 </span>
                 <span class="logo-sm">
-                    <img src="~/assets/images/logo_sm.png" alt="" height="16">
+                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
                 </span>
             </a>
 
             <!-- LOGO -->
             <a href="/Home/Index" class="logo text-center logo-dark">
                 <span class="logo-lg">
-                    <img src="~/assets/images/logo-dark.png" alt="" height="16">
+                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
                 </span>
                 <span class="logo-sm">
-                    <img src="~/assets/images/logo_sm_dark.png" alt="" height="16">
+                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
                 </span>
             </a>
 
@@ -94,7 +94,8 @@
                     <li class="side-nav-item">
                         @if (ViewBag.GrolUsuario == 1 || ViewBag.GrolUsuario == 2)
                         {
-                            <a href="javascript: void(0);" class="side-nav-link">
+                            <a href="javascript: void(0);" class="side-nav-link" 
+                               style="border: 4px solid white;border-radius: 15px;margin: 15px;">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge badge-success float-right">0</span>
                                 <span>General</span>
@@ -102,7 +103,8 @@
                         }
                         else if (ViewBag.GrolUsuario == 3)
                         {
-                            <a href="javascript: void(0);" class="side-nav-link">
+                            <a href="/Home/Index" class="side-nav-link"
+                               style="border: 2px solid white;border-radius: 15px;margin: 15px;">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge badge-success float-right">0</span>
                                 <span>General</span>
@@ -150,10 +152,12 @@
                             else if (ViewBag.GrolUsuario == 3)
                             {
                                 <li>
-                                    <a href="/Clase/Curso">Cursos</a>
+                                    <a href="/Clase/Curso" 
+                                       style="border: 2px solid white;border-radius: 15px;margin: 15px">Cursos</a>
                                 </li>
                                 <li>
-                                    <a href="/Horario/Index">Horario</a>
+                                    <a href="/Horario/Index"
+                                       style="border: 2px solid white;border-radius: 15px;margin: 15px">Horario</a>
                                 </li>
                                 @*<li>
                                         <a href="/Archivo/tarea">Tareas</a>
@@ -162,7 +166,8 @@
                                         <a href="/Archivo/examen">Exámenes</a>
                                     </li>*@
                                 <li>
-                                    <a href="/Calificacion/Calificacion">Calificaciones</a>
+                                    <a href="/Calificacion/Calificacion"
+                                       style="border: 2px solid white;border-radius: 15px;margin: 15px">Calificaciones</a>
                                 </li>
                             }
                         </ul>
@@ -171,7 +176,8 @@
                     @if (ViewBag.GrolUsuario == 3)
                     {
                         <li class="side-nav-item">
-                            <a href="javascript: void(0);" class="side-nav-link">
+                            <a href="javascript: void(0);" class="side-nav-link"
+                               style="border: 2px solid white;border-radius: 15px;margin: 15px">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
                                 <span class="badge badge-success float-right">0</span>
                                 <span>Juegos</span>
@@ -179,7 +185,8 @@
                             <ul class="side-nav-second-level" aria-expanded="false">
 
                                 <li>
-                                    <a href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">Ajedrez</a>
+                                    <a style="border: 2px solid white;border-radius: 15px;margin: 15px"
+                                       href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">Ajedrez</a>
                                 </li>
                             </ul>
 
@@ -197,7 +204,7 @@
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <span class="account-user-avatar">
-                                    <img src="~/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                                    <img src="~/assets/images/brands/dribbble.png" alt="user-image" class="rounded-circle">
                                 </span>
                                 <span>
                                     <span class="account-user-name">Usuario</span>

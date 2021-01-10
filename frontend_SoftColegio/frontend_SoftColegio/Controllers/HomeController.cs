@@ -15,7 +15,10 @@ namespace frontend_SoftColegio.Controllers
         {
             ViewBag.MenuPrincipal = "active";
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            string susuario = UtlAuditoria.ObtenerNombre()
+                    + " " + UtlAuditoria.ObtenerApellidoPaterno() + " " + UtlAuditoria.ObtenerApellidoMaterno();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GNombreUsuario = susuario;
             return View();
         }
 
