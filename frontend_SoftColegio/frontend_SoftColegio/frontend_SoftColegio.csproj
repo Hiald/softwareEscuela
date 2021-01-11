@@ -138,6 +138,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Filters\SeguridadSesion.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -413,6 +414,7 @@
     <Content Include="Views\Calificacion\calificacionGestion.cshtml" />
     <Content Include="Views\Calificacion\Calificacion.cshtml" />
     <Content Include="Views\curso\asignacion.cshtml" />
+    <Content Include="Views\Pago\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">
