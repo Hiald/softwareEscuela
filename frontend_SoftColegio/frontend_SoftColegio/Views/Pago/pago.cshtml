@@ -72,162 +72,104 @@
             </div>
         </div>
     </div>
-    <!-- MODAL -->
-    <div id="modalPago" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header modal-colored-header bg-success">
-                    <h4 class="modal-title" id="dark-header-modalLabel">PAGO</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label for="idNivel">Nivel</label>
-                                <select class="form-control" id="idNivel"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label for="idGrado">Grado</label>
-                                <select class="form-control" id="idGrado"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label for="idCurso">Curso</label>
-                                <select class="form-control" id="idCurso"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtnrooperacion">Nro de operación</label>
-                                <input type="text" id="txtnrooperacion" class="form-control" placeholder="Número de Operación">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="slctipopago">Tipo de pago</label>
-                                <select class="form-control" id="slctipopago">
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Transferencia</option>
-                                    <option value="2">Efectivo</option>
-                                    <option value="3">Otro</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="slctipomoneda">Tipo de moneda</label>
-                                <select class="form-control" id="slctipomoneda">
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Soles</option>
-                                    <option value="2">Dólares</option>
-                                    <option value="3">Otro</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                                <div class="form-group mb-3">
-                                    <label for="example-textarea">Descripcion clase</label>
-                                    <textarea class="form-control" id="txtDescripcion" placeholder="Descripción..." rows="5"></textarea>
-                                </div>
-                        </div>
 
-                        <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label for="simpleinput">Ruta enlace</label>
-                                <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
-                            </div>
+    <div class="modal-body">
+        <div class="row">
+            @using (Html.BeginForm("RegistrarPago", "pago", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" name="widpago" value="0" />
+                <input type="hidden" name="widpagodetalle" value="0" />
+                <input type="hidden" name="widusuario" value="@ViewBag.Gidusuario" />
 
-                            <div class="form-group mb-3">
-                                <label for="simpleinput">Ruta video</label>
-                                <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
-                            </div>
-                        </div>
-
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="idNivel">Nivel</label>
+                        <select class="form-control" name="widnivel" id="idNivel"></select>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardarPago">
-                    <i class="mdi mdi-plus"></i>Guardar</button>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="idGrado">Grado</label>
+                        <select class="form-control" name="widgrado" id="idGrado"></select>
+                    </div>
                 </div>
-            </div>
-            <!-- /.modal-content -->
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="idCurso">Curso</label>
+                        <select class="form-control" name="widcurso" id="idCurso"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="txtnrooperacion">Nro de operación</label>
+                        <input type="text" id="txtnrooperacion" name="woperacion"
+                               class="form-control" placeholder="Número de Operación">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="slctipopago">Tipo de pago</label>
+                        <select class="form-control" name="wtipopago" id="slctipopago">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Transferencia</option>
+                            <option value="2">Efectivo</option>
+                            <option value="3">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="slctipomoneda">Tipo de moneda</label>
+                        <select class="form-control" name="wtipomoneda" id="slctipomoneda">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Soles</option>
+                            <option value="2">Dólares</option>
+                            <option value="3">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="example-textarea">Descripcion clase</label>
+                        <textarea class="form-control" name="wdescripcion"
+                                  id="txtDescripcion" placeholder="Descripción..." rows="5"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" name="wanio" value="2021" />
+                <input type="hidden" name="whora" value="0" />
+
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="slciMes">Monto</label>
+                        <input type="text" id="txtnrooperacion" name="wmonto"
+                               class="form-control" placeholder="Número de Operación">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="flImagen1">Imagen de comprobante</label>
+                    <input type="file" name="FRutaImagenes"
+                           id="flImagen1" accept="image/jpeg,image/jpg">
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="flImagen2">Imagen 2 de comprobante (opcional)</label>
+                    <input type="file" name="FRutaImagenes"
+                           id="flImagen2" accept="image/jpeg,image/jpg">
+                </div>
+
+                <input type="hidden" name="wfecha_ini_pago" value="" />
+                <input type="hidden" name="wbestado" value="1" />
+                <input type="hidden" name="wfr" value="" />
+                <input type="hidden" name="wff" value="" />
+            }
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- end row-->
-    <!--MODAL AGREGAR ARCHIVO-->
-    <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header modal-colored-header bg-success">
-                    <h4 class="modal-title" id="dark-header-modalLabel">ARCHIVO</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtNombreArc">Nombre</label>
-                                <input type="text" id="txtNombreArc" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txttipoarchivo">Tipo de archivo</label>
-                                <select class="form-control" id="txttipoarchivo">
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Tarea (Calificable)</option>
-                                    <option value="2">Teoría</option>
-                                    <option value="3">Texto</option>
-                                    <option value="4">Otro</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group mb-3">
-                                <label for="txtdescripcion">Descripción</label>
-                                <textarea class="form-control" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtenlace">Enlace del archivo</label>
-                                <input type="text" id="txtenlace" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtvideo">Enlace del Video (opcional)</label>
-                                <input type="text" id="txtvideo" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtfechaini">Fecha Inicio</label>
-                                <input type="date" id="txtfechaini" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtfechafin">Fecha Fin</label>
-                                <input type="date" id="txtfechafin" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success btn-rounded mb-3" id=""><i class="mdi mdi-plus"></i>Guardar</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardarPago">
+            <i class="mdi mdi-plus"></i>Guardar
+        </button>
     </div>
 
 </div>
@@ -421,86 +363,6 @@
 
     }
 
-    function fn_listartabla() {
-        $('#tblPago').DataTable(
-            {
-                "ajax": {
-                    "url": "/Pago/ListarPago",
-                    "type": "POST",
-                    "datatype": "json",
-                    "data": {
-                        "wcuenta": "",
-                        "widusuario": 0,
-                        "widnivel": 0,
-                        "widgrado": 0,
-                        "widcurso": 0,
-                        "wivigente": 0,
-                        "wnombre": "",
-                        "wfechaini": "",
-                        "wfechafin": "",
-                        "wimes": 0,
-                        "wianio": 0
-                    }
-                },
-                //"bServerSide": true,
-                "bProcessing": true,
-                "bDestroy": true,
-                "language": {
-                    "info": "",
-                    "infoEmpty": "",
-                    "infoFiltered": "",
-                    "emptyTable": "No se encontraron registros",
-                    "sZeroRecords": "No se encontraron registros.",
-                    "processing": "Cargando. Por favor espere...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "sSearch": "Buscar:"
-                },
-                "columns": [
-
-                    { "data": "SnombreCurso" },
-                    {
-                        "data": "Imes",
-                        "mRender": function (data, type, value) {
-                            return value.Imes;
-                        }
-                    },
-                    { "data": "Ianio" },
-                    { "data": "Dmonto" },
-                    { "data": "Iestado" },
-                    {},
-                    {}
-                ],
-                "aoColumnDefs":
-                    [
-                        {
-                            "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idpago + "\" id='AccessEditar' >Editar</button>";
-                                return strHtml;
-                            },
-                            "sWidth": "5px",
-                            "sClass": "css-center",
-                            "bSort": false,
-                            "aTargets": [5]
-                        },
-                        {
-                            "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idpago + ")' data-delet=\"" + row.idpago + "\" id='AccessEliminar' >Agregar archivo</button>";
-                                return strHtml;
-                            },
-                            "sWidth": "5px",
-                            "sClass": "css-center",
-                            "bSort": false,
-                            "aTargets": [6]
-                        }
-                    ]
-            });
-    }
-
     $(document).ready(function () {
         fn_ListarNivel();
 
@@ -525,152 +387,6 @@
         });
 
         fn_listartabla();
-    });
-
-    function fnEditar() {
-        $('body').on("click", "#AccessEdita", function (e) {
-            e.preventDefault();
-            var id_categoria = $(this).attr("data-edit");
-            alert("Valor : " + id_categoria);
-            //$('#txNombreEditar').val(ArrayCategoria[1]);
-        });
-    }
-    var idClase = 0;
-
-    function fnAgregarClase(idclasem) {
-        idClase = parseInt(idclasem);
-        $("#modalPago").modal("show");
-    }
-
-    function fn_ConfimarEliminar() {
-
-        $.ajax({
-            type: "POST",
-            url: "/Clase/EliminarClaseGestion",
-            data: {
-                "widclase": idClase
-            },
-            success: function (data) {
-                $('#modal-eliminar').modal("hide");
-                var table = $('#tblClase').DataTable();
-                table.ajax.reload();
-
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
-    $("#btnGuardar").click(function () {
-        var slcCurso = $('#idCurso option:selected').attr('value');
-        var slcCategoria = $('#idCategoria option:selected').attr('value');
-        var txtNombre = $('#txtNombre').val();
-        var txtDescripcion = $('#txtDescripcion').val();
-        var txtRutaEnlace = $('#txtRutaEnlace').val();
-        var txtRutaVideo = $('#txtRutaVideo').val();
-        var txtRutaImagen = $('#txtRutaImagen').val();
-        var slcSemana = $('#idSemana option:selected').attr('value');
-
-        if (txtNombre.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA CLASE");
-            return;
-        }
-        if (slcSemana.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONE EL NÚMERO DE SEMANA");
-            return;
-        }
-        if (txtRutaEnlace.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE LA RUTA DEL ENLACE");
-            return;
-        }
-        if (txtRutaVideo.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: '/Clase/InsertarClaseGestion',
-            data: {
-                "idgrado": slcCurso,
-                "isemana": slcSemana,
-                "nombre": txtNombre,
-                "descripcion": txtDescripcion,
-                "rutaenlace": txtRutaEnlace,
-                "rutavideo": txtRutaVideo,
-                "categoria": 1,
-                "imagen": "",
-                "imagenruta": "",
-                "orden": 0
-            },
-            async: false,
-            success: function (msg) {
-                $('#modalClase').modal("hide");
-                $('#modalSuccess').modal("show");
-                GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
-                fn_listartabla(GvalorIdCurso);
-            },
-            error: function (msg) {
-                console.log(msg);
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
-        });
-
-    });
-
-    $("#btnGuardarPago").click(function () {
-        var txtNombre = $('#txtNombreArc').val();
-        var txtenlace = $('#txtenlace').val();
-        var txtvideo = $('#txtvideo').val();
-        var txtfechaini = $('#txtfechaini').val();
-        var txtfechafin = $('#txtfechafin').val();
-        var itipoarchivo = $('#txttipoarchivo option:selected').attr('value');
-
-        if (txtNombre.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DEL ARCHIVO");
-            return;
-        }
-        if (itipoarchivo.trim == 0) {
-            NotificacionAvisoDerecha("SELECCIONE EL TIPO DE ARCHIVO");
-            return;
-        }
-        if (txtenlace.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DEL ENLACE");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: '/archivo/InsertarArchivoGestion',
-            data: {
-                "idgrado": idClase,
-                "nombre": txtNombre,
-                "rutaenlace": txtenlace,
-                "rutavideo": txtvideo,
-                "fechaini": txtfechaini,
-                "fechafin": txtfechafin,
-                "itipoarchivo": itipoarchivo
-            },
-            async: false,
-            success: function (msg) {
-                NotificacionSuccessDerecha("Datos ingresados correctamente");
-                $('#modalArchivo').modal("hide");
-                var table = $('#tblClase').DataTable();
-                table.ajax.reload();
-            },
-            error: function (msg) {
-                console.log(msg);
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
-        });
-
     });
 
 </script>

@@ -204,7 +204,6 @@ namespace frontend_SoftColegio.Controllers
                 var objResultado = new object();
                 int idGenerado = -1;
                 Int16 estado = 1;
-
                 Random random = new Random();
                 const string alfabeto = "abcdefghijklmnopqrstuvwxyz0123456789";
                 var releaseUris = new List<string>();
