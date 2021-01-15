@@ -331,6 +331,8 @@
     <Content Include="assets\js\vendor\simplemde.min.js" />
     <Content Include="assets\js\vendor\summernote-bs4.min.js" />
     <Content Include="assets\js\vendor\typeahead.bundle.min.js" />
+    <Content Include="Content\img\calendario.png" />
+    <Content Include="Content\img\calificacion.png" />
     <Content Include="Content\img\cimg1.png" />
     <Content Include="Content\img\cimg2.png" />
     <Content Include="Content\img\cimg3.png" />
@@ -342,6 +344,8 @@
     <Content Include="Content\img\cimg9.png" />
     <Content Include="Content\img\cimg_fondo.png" />
     <Content Include="Content\img\cimg_logo.png" />
+    <Content Include="Content\img\horario.png" />
+    <Content Include="Content\img\imagenlogin.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">

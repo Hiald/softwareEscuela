@@ -94,20 +94,20 @@
                     <li class="side-nav-item">
                         @if (ViewBag.GrolUsuario == 1 || ViewBag.GrolUsuario == 2)
                         {
-                            <a href="javascript: void(0);" class="side-nav-link" 
-                               style="border: 4px solid white;border-radius: 15px;margin: 15px;">
+                            <a href="javascript: void(0);" class="side-nav-link"
+                               style="font-weight: bold; border: 4px solid white; border-radius: 15px; margin: 15px;">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge badge-success float-right">0</span>
-                                <span>General</span>
+                                <span>GENERAL</span>
                             </a>
                         }
                         else if (ViewBag.GrolUsuario == 3)
                         {
                             <a href="/Home/Index" class="side-nav-link"
-                               style="border: 2px solid white;border-radius: 15px;margin: 15px;">
+                               style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px;">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge badge-success float-right">0</span>
-                                <span>General</span>
+                                <span>GENERAL</span>
                             </a>
                         }
 
@@ -152,22 +152,16 @@
                             else if (ViewBag.GrolUsuario == 3)
                             {
                                 <li>
-                                    <a href="/Clase/Curso" 
-                                       style="border: 2px solid white;border-radius: 15px;margin: 15px">Cursos</a>
+                                    <a href="/Clase/Curso"
+                                       style="font-weight:bold; border: 2px solid white;border-radius: 15px;margin: 15px">CURSOS</a>
                                 </li>
                                 <li>
                                     <a href="/Horario/Index"
-                                       style="border: 2px solid white;border-radius: 15px;margin: 15px">Horario</a>
+                                       style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">HORARIO</a>
                                 </li>
-                                @*<li>
-                                        <a href="/Archivo/tarea">Tareas</a>
-                                    </li>*@
-                                @*<li>
-                                        <a href="/Archivo/examen">Exámenes</a>
-                                    </li>*@
                                 <li>
                                     <a href="/Calificacion/Calificacion"
-                                       style="border: 2px solid white;border-radius: 15px;margin: 15px">Calificaciones</a>
+                                       style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">CALIFICACIONES</a>
                                 </li>
                             }
                         </ul>
@@ -177,22 +171,48 @@
                     {
                         <li class="side-nav-item">
                             <a href="javascript: void(0);" class="side-nav-link"
-                               style="border: 2px solid white;border-radius: 15px;margin: 15px">
+                               style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
                                 <span class="badge badge-success float-right">0</span>
-                                <span>Juegos</span>
+                                <span>JUEGOS-PC</span>
                             </a>
                             <ul class="side-nav-second-level" aria-expanded="false">
 
                                 <li>
-                                    <a style="border: 2px solid white;border-radius: 15px;margin: 15px"
-                                       href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">Ajedrez</a>
+                                    <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
+                                       href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">AJEDREZ</a>
                                 </li>
                             </ul>
 
                         </li>
+                        <li class="side-nav-item">
+                            <a href="javascript: void(0);" class="side-nav-link"
+                               style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
+                                <i class="mdi mdi-gamepad-variant-outline"></i>
+                                <span class="badge badge-success float-right">0</span>
+                                <span>JUEGOS PARA CELULAR</span>
+                            </a>
+                            <ul class="side-nav-second-level" aria-expanded="false">
+
+                                <li>
+                                    <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
+                                       href="https://play.google.com/store/apps/details?id=com.fanatee.cody" target="_blank">CRUCIGRAMA</a>
+                                </li>
+                            </ul>
+                            <ul class="side-nav-second-level" aria-expanded="false">
+
+                                <li>
+                                    <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
+                                       href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">HOMESCAPES</a>
+                                </li>
+                            </ul>
+                        </li>
                     }
+
                 </ul>
+                <div>
+                    <img src="~/Content/img/calendario.png" height="320" />
+                </div>
                 <div class="clearfix"></div>
             </div>
         </div>

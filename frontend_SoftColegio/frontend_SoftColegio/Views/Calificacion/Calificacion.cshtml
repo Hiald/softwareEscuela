@@ -3,17 +3,32 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">CALIFICACIONES</h4>
+                <div class="col-12">
+                    @*col-lg-7*@
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h4 class="page-title" style="font-size:40px">CALIFICACIONES</h4>
+                        </div>
+                        <div class="col-lg-4">
+                            <img src="~/Content/img/calificacion.png" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+
+
+
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="text-muted font-14">
+                    <p class="text-muted font-14" >
                         <label for="idSemana">Semana</label>
-                        <select class="form-control" id="idSemana">
+                        <select class="form-control" id="idSemana" style="border-style:solid; border-color:black;">
                             <option>Seleccionar</option>
                             <option value="1">Semana 1</option>
                             <option value="2">Semana 2</option>
@@ -27,7 +42,7 @@
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="tblCalificacion" class="table table-striped dt-responsive nowrap w-100">
+                            <table style="border-style:solid; border-color:black;" id="tblCalificacion" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
                                         <th>CURSO</th>
