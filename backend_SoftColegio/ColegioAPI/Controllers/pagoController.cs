@@ -47,18 +47,35 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsRegistrarPago(int widusuario, int widnivel, int widgrado, int widcurso, string woperacion
-                , int wtipopago, int wtipomoneda, string wdescripcion, int wdia, int wmes, int wanio
-                , string whora, decimal wmonto, decimal wigv, string wimgr1, string wimgr2
-                , string wfinip, string wffinp, string wfr, string wff)
+        public string wListarPagoDetalle(int idpago, int bactivo, int bestado, string fechaini, string fechafin)
+        {
+            List<edPago> enPago = new List<edPago>();
+            try
+            {
+                itdPago = new tdPago();
+                enPago = itdPago.tdListarPagoDetalle(idpago, bactivo, bestado, fechaini, fechafin);
+                return JsonConvert.SerializeObject(enPago);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
+        [HttpGet]
+        public int wsRegistrarPago(int widpago, int widpagodetalle, int widusuario, int widnivel
+                , int widgrado, int widcurso, string woperacion
+                , int wtipopago, int wtipomoneda, string wdescripcion, int wmes, int wanio
+                , string whora, decimal wmonto, string wimg_ruta_1, string wimg_ruta_2
+                , string wfecha_ini_pago, Int16 wbestado, string wfr, string wff)
         {
             int iresultado = -4;
             try
             {
                 itdPago = new tdPago();
-                iresultado = itdPago.tdRegistrarPago(widusuario, widnivel, widgrado, widcurso, woperacion
-                , wtipopago, wtipomoneda, wdescripcion, wdia, wmes, wanio
-                , whora, wmonto, wigv, wimgr1, wimgr2, wfinip, wffinp, wfr, wff);
+                iresultado = itdPago.tdRegistrarPago(widpago, widpagodetalle, widusuario, widnivel
+                , widgrado, widcurso, woperacion, wtipopago, wtipomoneda, wdescripcion, wmes, wanio
+                , whora, wmonto, wimg_ruta_1, wimg_ruta_2, wfecha_ini_pago, wbestado, wfr, wff);
                 return iresultado;
             }
             catch (Exception ex)
@@ -68,13 +85,13 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsNotificarPago(int widusuario, string wfechaacceso, string wfechavalidar)
+        public int wsNotificarPago(int widusuario, int imes, string fechaacceso, string fechavalidar)
         {
             int iresultado = -4;
             try
             {
                 itdPago = new tdPago();
-                iresultado = itdPago.tdNotificarPago(widusuario, wfechaacceso, wfechavalidar);
+                iresultado = itdPago.tdNotificarPago(widusuario, imes, fechaacceso, fechavalidar);
                 return iresultado;
             }
             catch (Exception ex)
@@ -114,6 +131,24 @@ namespace ColegioAPI.Controllers
             catch (Exception ex)
             {
                 return iresultado;
+            }
+        }
+
+        [HttpGet]
+        public string tdListarPagoPendiente(int wsidusuario, int wsidnivel, int wsidgrado
+                                            , int wsidcurso, int wsbactivo)
+        {
+            List<edPago> enPago = new List<edPago>();
+            try
+            {
+                itdPago = new tdPago();
+                enPago = itdPago.tdListarPagoPendiente(wsidusuario, wsidnivel, wsidgrado
+                                                        , wsidcurso, wsbactivo);
+                return JsonConvert.SerializeObject(enPago);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
             }
         }
 

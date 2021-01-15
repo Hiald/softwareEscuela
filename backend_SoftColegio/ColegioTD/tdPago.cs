@@ -64,10 +64,38 @@ namespace ColegioTD
 
         }
 
-        public int tdRegistrarPago(int tdidusuario, int tdidnivel, int tdidgrado, int tdidcurso, string tdoperacion
-                , int tdtipopago, int tdtipomoneda, string tddescripcion, int tddia, int tdmes, int tdanio
-                , string tdhora, decimal tdmonto, decimal tdigv, string tdimg_ruta_1, string tdimg_ruta_2
-            , string tdfecha_ini_pago, string tdfecha_fin_pago, string tdfecharegistro, string tdfechafin)
+        public List<edPago> tdListarPagoDetalle(int tdidpago, int tdbactivo, int tdbestado, string tdfechaini
+                                        , string tdfechafin)
+        {
+
+            List<edPago> renPago = new List<edPago>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadPago = new adPago(con);
+                        renPago = iadPago.adListarPagoDetalle(tdidpago, tdbactivo, tdbestado, tdfechaini, tdfechafin);
+                        scope.Commit();
+                    }
+                }
+                return (renPago);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
+        public int tdRegistrarPago(int tdidpago, int tdidpagodetalle, int tdidusuario, int tdidnivel
+                , int tdidgrado, int tdidcurso, string tdoperacion
+                , int tdtipopago, int tdtipomoneda, string tddescripcion, int tdmes, int tdanio
+                , string tdhora, decimal tdmonto, string tdimg_ruta_1, string tdimg_ruta_2
+            , string tdfecha_ini_pago, Int16 tdbestado, string tdfecharegistro, string tdfechafin)
         {
             int iRespuesta = -1;
             try
@@ -78,10 +106,11 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadPago = new adPago(con);
-                        iRespuesta = iadPago.adRegistrarPago(tdidusuario, tdidnivel, tdidgrado, tdidcurso
-                            , tdoperacion, tdtipopago, tdtipomoneda, tddescripcion, tddia, tdmes, tdanio
-                , tdhora, tdmonto, tdigv, tdimg_ruta_1, tdimg_ruta_2, tdfecha_ini_pago, tdfecha_fin_pago
-                , tdfecharegistro, tdfechafin);
+                        iRespuesta = iadPago.adRegistrarPago(tdidpago, tdidpagodetalle, tdidusuario
+                                , tdidnivel, tdidgrado, tdidcurso, tdoperacion
+                                , tdtipopago, tdtipomoneda, tddescripcion, tdmes, tdanio
+                                , tdhora, tdmonto, tdimg_ruta_1, tdimg_ruta_2
+                                , tdfecha_ini_pago, tdbestado, tdfecharegistro, tdfechafin);
                         scope.Commit();
                     }
                 }
@@ -95,7 +124,7 @@ namespace ColegioTD
 
         }
 
-        public int tdNotificarPago(int tdidusuario, string tdfechaacceso, string tdfechavalidar)
+        public int tdNotificarPago(int tdidusuario, int tdimes, string tdfechaacceso, string tdfechavalidar)
         {
             int iRespuesta = -1;
             try
@@ -106,7 +135,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadPago = new adPago(con);
-                        iRespuesta = iadPago.adNotificarPago(tdidusuario, tdfechaacceso, tdfechavalidar);
+                        iRespuesta = iadPago.adNotificarPago(tdidusuario, tdimes, tdfechaacceso, tdfechavalidar);
                         scope.Commit();
                     }
                 }
@@ -172,5 +201,34 @@ namespace ColegioTD
             }
 
         }
+
+        public List<edPago> tdListarPagoPendiente(int tdidusuario, int tdidnivel, int tdidgrado
+                                                    , int tdidcurso, int tdbactivo)
+        {
+
+            List<edPago> renPago = new List<edPago>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadPago = new adPago(con);
+                        renPago = iadPago.adListarPagoPendiente(tdidusuario, tdidnivel, tdidgrado
+                                                                , tdidcurso, tdbactivo);
+                        scope.Commit();
+                    }
+                }
+                return (renPago);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }

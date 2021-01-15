@@ -4,6 +4,7 @@ namespace frontendED
     public class edPago
     {
         public int idpago { get; set; }
+        public int idpagodetalle { get; set; }
         public int idgrado { get; set; }
         public int idusuario { get; set; }
         public int idnivel { get; set; }
