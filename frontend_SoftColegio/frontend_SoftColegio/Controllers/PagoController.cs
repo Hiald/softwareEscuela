@@ -51,7 +51,7 @@ namespace frontend_SoftColegio.Controllers
 
         //ACTIVO : actualiza la clave del usuario seleccionado
         [HttpPost]
-        public async Task<JsonResult> ActualizarCursoClave(int widusuario, string wnuevaclave)
+        public async Task<JsonResult> ActualizarUsuarioClave(int widusuario, string wnuevaclave)
         {
             try
             {
@@ -109,20 +109,65 @@ namespace frontend_SoftColegio.Controllers
             try
             {
                 var objResultado = new object();
-                List<edCurso> loenClase = new List<edCurso>();
+                List<edPago> loenClase = new List<edPago>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage Reslistarusu = await client.GetAsync("api/pago/wsListarPago?wcuenta=" + wcuenta
-                        + "&widusuario=" + widusuario + "&widnivel=" + widnivel + "&widgrado=" + widgrado
-                        + "&widcurso=" + widcurso + "&wivigente=" + wivigente + "&wnombre=" + wnombre
-                        + "&wfechaini=" + wfechaini + "&wfechafin=" + wfechafin + "&wimes=" + wimes + "&wianio=" + wianio);
+                    + "&widusuario=" + widusuario + "&widnivel=" + widnivel + "&widgrado=" + widgrado
+                    + "&widcurso=" + widcurso + "&wivigente=" + wivigente + "&wnombre=" + wnombre
+                    + "&wfechaini=" + wfechaini + "&wfechafin=" + wfechafin + "&wimes=" + wimes
+                    + "&wianio=" + wianio);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
-                        loenClase = JsonConvert.DeserializeObject<List<edCurso>>(rwsapilu);
+                        loenClase = JsonConvert.DeserializeObject<List<edPago>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = loenClase.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = loenClase
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
+        //ACTIVO : lista los pagos de los usuarios y admin
+        [HttpPost]
+        public async Task<JsonResult> ListarPagoDetalle(int widpago, int wbactivo, int wbestado
+                                                        , string wfechaini, string wfechafin)
+        {
+            try
+            {
+                var objResultado = new object();
+                List<edPago> loenClase = new List<edPago>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/pago/wListarPagoDetalle?idpago=" + widpago
+                        + "&bactivo=" + wbactivo + "&bestado=" + wbestado
+                        + "&fechaini=" + wfechaini + "&fechafin=" + wfechafin);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edPago>>(rwsapilu);
                     }
                 }
 
@@ -148,12 +193,11 @@ namespace frontend_SoftColegio.Controllers
 
         //ACTIVO : registra los pagos tanto como admin y como usuario
         [HttpPost]
-        public async Task<JsonResult> RegistrarPago(int widusuario, int widnivel, int widgrado
-                , int widcurso, string woperacion, int wtipopago, int wtipomoneda
-                , string wdescripcion, int wdia, int wmes, int wanio
-                , string whora, decimal wmonto, decimal wigv
-                , IEnumerable<HttpPostedFileBase> FRutaImagenes
-                , string wfinip, string wffinp, string wfr, string wff)
+        public async Task<JsonResult> RegistrarPago(int widpago, int widpagodetalle, int widusuario
+                , int widnivel, int widgrado, int widcurso, string woperacion
+                , int wtipopago, int wtipomoneda, string wdescripcion, int wmes, int wanio
+                , string whora, decimal wmonto, IEnumerable<HttpPostedFileBase> FRutaImagenes
+                , string wfecha_ini_pago, Int16 wbestado, string wfr, string wff)
         {
             try
             {
@@ -194,13 +238,13 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResRegistrarCuenta = await client.
-                    GetAsync("api/pago/wsRegistrarPago?widusuario=" + widusuario + "&widnivel=" + widnivel
-                    + "&widgrado=" + widgrado + "&widcurso=" + widcurso + "&woperacion=" + woperacion
-                    + "&wtipopago=" + wtipopago + "&wtipomoneda=" + wtipomoneda + "&wdescripcion=" + wdescripcion
-                    + "&wdia=" + wdia + "&wmes=" + wmes + "&wanio=" + wanio
-                    + "&whora=" + whora + "&wmonto=" + wmonto + "&wigv=" + wigv
-                    + "&wimgr1=" + valorimg1 + "&wimgr2=" + valorimg2
-                    + "&wfinip=" + wfinip + "&wffinp=" + wffinp + "&wfr=" + wfr + "&wff=" + wff);
+                    GetAsync("api/pago/wsRegistrarPago?widpago=" + widpago + "&widpagodetalle=" + widpagodetalle
+                    + "&widusuario=" + widusuario + "&widnivel=" + widnivel + "&widgrado=" + widgrado
+                    + "&widcurso=" + widcurso + "&woperacion=" + woperacion + "&wtipopago=" + wtipopago
+                    + "&wtipomoneda=" + wtipomoneda + "&wdescripcion=" + wdescripcion + "&wmes=" + wmes
+                    + "&wanio=" + wanio + "&whora=" + whora + "&wmonto=" + wmonto + "&wimg_ruta_1=" + releaseUris[0]
+                    + "&wimg_ruta_2=" + releaseUris[1] + "&wfecha_ini_pago=" + wfecha_ini_pago
+                    + "&wbestado=" + wbestado + "&wfr=" + wfr + "&wff=" + wff);
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
                     {
@@ -236,7 +280,7 @@ namespace frontend_SoftColegio.Controllers
 
         //ACTIVO : lista un valor para el modo usuario si faltan pocos tiempo al dia de pago
         [HttpPost]
-        public async Task<JsonResult> NotificarPago(int widusuario, string wfechaacceso
+        public async Task<JsonResult> NotificarPago(int widusuario, int wimes, string wfechaacceso
                                                 , string wfechavalidar)
         {
             try
@@ -250,7 +294,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResRegistrarCuenta = await client.
                             GetAsync("api/pago/wsNotificarPago?widusuario=" + widusuario
-                        + "&wfechaacceso=" + wfechaacceso + "&wfechavalidar=" + wfechavalidar);
+                        + "&imes=" + wimes + "&wfechaacceso=" + wfechaacceso + "&wfechavalidar=" + wfechavalidar);
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
                     {
@@ -368,6 +412,51 @@ namespace frontend_SoftColegio.Controllers
                 {
                     iResultado = 1,
                     iResultadoIns = "Registrado correctamente"
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
+        //ACTIVO : lista los pagos de los usuarios y admin
+        [HttpPost]
+        public async Task<JsonResult> ListarPagoPendiente(int wsidusuario, int wsidnivel, int wsidgrado
+                                                             , int wsidcurso, int wsbactivo)
+        {
+            try
+            {
+                var objResultado = new object();
+                List<edPago> loenClase = new List<edPago>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.
+                        GetAsync("api/pago/wsListarPagoPendiente?wsidusuario=" + wsidusuario
+                        + "&wsidnivel=" + wsidnivel + "&wsidgrado=" + wsidgrado
+                        + "&wsidcurso=" + wsidcurso + "&wsbactivo=" + wsbactivo);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edPago>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = loenClase.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = loenClase
                 };
                 return Json(objResultado);
             }

@@ -135,7 +135,7 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string tdListarPagoPendiente(int wsidusuario, int wsidnivel, int wsidgrado
+        public string wsListarPagoPendiente(int wsidusuario, int wsidnivel, int wsidgrado
                                             , int wsidcurso, int wsbactivo)
         {
             List<edPago> enPago = new List<edPago>();
