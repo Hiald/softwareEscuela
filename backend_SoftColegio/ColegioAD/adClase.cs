@@ -46,7 +46,7 @@ namespace ColegioAD
             }
         }
         //no va
-        public int adActualizarClase(int adidclase, int adidgrado, string adnombre, string addescripcion, string adrutaenlace, string adrutavideo, int adcategoria
+        public int adActualizarClase(int adtipoactualizar, int adidclase, int adidgrado, string adnombre, string addescripcion, string adrutaenlace, string adrutavideo, int adcategoria
                               , string adimagen, string adimagenruta, int adorden, Int16 adestado, DateTime adfecharegistro)
         {
             try
@@ -54,6 +54,7 @@ namespace ColegioAD
                 int result = -1;
                 MySqlCommand cmd = new MySqlCommand("sp_actualizar_clase", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("_tipoactualizar", MySqlDbType.Int32).Value = adtipoactualizar;
                 cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
                 cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = adidgrado;
                 cmd.Parameters.Add("_nombre", MySqlDbType.VarChar, 100).Value = adnombre;

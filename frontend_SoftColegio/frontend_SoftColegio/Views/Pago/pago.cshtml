@@ -1,0 +1,392 @@
+﻿@{
+    ViewBag.Title = "pago";
+}
+
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
+                        <li class="breadcrumb-item active">Gestion Pago</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">MÓDULO PAGO</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted font-14">
+                        <button type="button" class="btn btn-success btn-rounded mb-3" data-toggle="modal" data-target="#modalClase">
+                            <i class="mdi mdi-plus"></i>Agregar Pago
+                        </button>
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="idNivelg">Curso</label>
+                                <select class="form-control" id="idNivelg"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="idGradog">Mes</label>
+                                <select class="form-control" id="idGradog"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="idCursog">Año</label>
+                                <select class="form-control" id="idCursog"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end nav-->
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="basic-datatable-preview">
+                            <table id="tblPago" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Curso</th>
+                                        <th>Mes</th>
+                                        <th>Año</th>
+                                        <th>Monto</th>
+                                        <th>Estado</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                        <!-- end preview code-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            @using (Html.BeginForm("RegistrarPago", "pago", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" name="widpago" value="0" />
+                <input type="hidden" name="widpagodetalle" value="0" />
+                <input type="hidden" name="widusuario" value="@ViewBag.Gidusuario" />
+
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="idNivel">Nivel</label>
+                        <select class="form-control" name="widnivel" id="idNivel"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="idGrado">Grado</label>
+                        <select class="form-control" name="widgrado" id="idGrado"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="idCurso">Curso</label>
+                        <select class="form-control" name="widcurso" id="idCurso"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="txtnrooperacion">Nro de operación</label>
+                        <input type="text" id="txtnrooperacion" name="woperacion"
+                               class="form-control" placeholder="Número de Operación">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="slctipopago">Tipo de pago</label>
+                        <select class="form-control" name="wtipopago" id="slctipopago">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Transferencia</option>
+                            <option value="2">Efectivo</option>
+                            <option value="3">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="slctipomoneda">Tipo de moneda</label>
+                        <select class="form-control" name="wtipomoneda" id="slctipomoneda">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Soles</option>
+                            <option value="2">Dólares</option>
+                            <option value="3">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="example-textarea">Descripcion clase</label>
+                        <textarea class="form-control" name="wdescripcion"
+                                  id="txtDescripcion" placeholder="Descripción..." rows="5"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" name="wanio" value="2021" />
+                <input type="hidden" name="whora" value="0" />
+
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="slciMes">Monto</label>
+                        <input type="text" id="txtnrooperacion" name="wmonto"
+                               class="form-control" placeholder="Número de Operación">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="flImagen1">Imagen de comprobante</label>
+                    <input type="file" name="FRutaImagenes"
+                           id="flImagen1" accept="image/jpeg,image/jpg">
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="flImagen2">Imagen 2 de comprobante (opcional)</label>
+                    <input type="file" name="FRutaImagenes"
+                           id="flImagen2" accept="image/jpeg,image/jpg">
+                </div>
+
+                <input type="hidden" name="wfecha_ini_pago" value="" />
+                <input type="hidden" name="wbestado" value="1" />
+                <input type="hidden" name="wfr" value="" />
+                <input type="hidden" name="wff" value="" />
+            }
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardarPago">
+            <i class="mdi mdi-plus"></i>Guardar
+        </button>
+    </div>
+
+</div>
+<input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
+<input type="hidden" value="@ViewBag.Gidusuario" id="hddidsuario" />
+
+<script>
+    var GvalorIdCurso = 0;
+
+    function fn_ListarNivel() {
+        var dtipousuario = $('#hddtipousuario').val();
+        var idusuarioparam = $('#hddidusuario').val();
+        if (dtipousuario == 1) {
+            idusuarioparam = 0;
+
+            $('#idNivelg').find('option').remove();
+            $('#idNivelg').append($("<option></option>")
+                .attr("value", "0")
+                .text("Seleccione una opción"));
+            $('#idNivelg').append($("<option></option>")
+                .attr("value", "1").text("Primaria"));
+            $('#idNivelg').append($("<option></option>")
+                .attr("value", "2").text("Secundaria"));
+
+        } else {
+            $('#idNivelg').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/curso/ListarCursoGestion",
+                data: {
+                    "valoritipousuario": 2,
+                    "widusuario": idusuarioparam,
+                    "idnivel": 0,
+                    "idgrado": 0,
+                    "idcurso": 0
+                },
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay datos, ¡intenta agregar algunos!");
+                    }
+                    $('#idNivelg').append($("<option></option>")
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idNivelg').append($("<option></option>")
+                            .attr("value", value.idnivel)
+                            .text(value.SnombreNivel));
+                    });
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+
+    }
+
+    function fn_ListarGrado() {
+        var dtipousuario = $('#hddtipousuario').val();
+        var idusuarioparam = $('#hddidusuario').val();
+        if (dtipousuario == 1) {
+            idusuarioparam = 0;
+
+            $('#idGradog').find('option').remove();
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "0")
+                .text("Seleccione una opción"));
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "1").text("Primero"));
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "2").text("Segundo"));
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "3").text("Tercero"));
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "4").text("Cuarto"));
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "5").text("Quinto"));
+            $('#idGradog').append($("<option></option>")
+                .attr("value", "6").text("Sexto"));
+
+
+        } else {
+            var inivelvalor = $('#idNivelg option:selected').attr('value');
+            $('#idGradog').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/curso/ListarCursoGestion",
+                data: {
+                    "valoritipousuario": 3,
+                    "widusuario": idusuarioparam,
+                    "idnivel": inivelvalor,
+                    "idgrado": 0,
+                    "idcurso": 0
+                },
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay datos, ¡intenta agregar algunos!");
+                    }
+                    $('#idGradog').append($("<option></option>")
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idGradog').append($("<option></option>")
+                            .attr("value", value.idgrado)
+                            .text(value.SnombreGrado));
+                    });
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+
+    }
+
+    function fn_ListarCurso() {
+        var slcnivelg = $('#idNivelg option:selected').attr('value');
+        var slcgradog = $('#idGradog option:selected').attr('value');
+
+        var dtipousuario = $('#hddtipousuario').val();
+        var idusuarioparam = $('#hddidusuario').val();
+        if (dtipousuario == 1) {
+            idusuarioparam = 0;
+
+            $('#idCursog').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/clase/ListarClaseGestion",
+                data: {
+                    "idgrado": parseInt(slcgradog),
+                    "idnivel": parseInt(slcnivelg)
+                },
+                success: function (data) {
+                    if (data.data === "") {
+                        alert("¡No hay datos, ¡intenta agregar algunos!");
+                    }
+                    $('#idCursog').append($("<option></option>")
+                        .attr("value", "0")
+                        .text("Seleccione una opción"));
+                    $.each(data, function (index, value) {
+                        $('#idCursog').append($("<option></option>")
+                            .attr("value", value.idcurso)
+                            .text(value.Snombre));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        } else {
+            var inivelvalor = $('#idNivelg option:selected').attr('value');
+            var igradovalor = $('#idGradog option:selected').attr('value');
+            $('#idCursog').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/curso/ListarCursoGestion",
+                data: {
+                    "valoritipousuario": 4,
+                    "widusuario": idusuarioparam,
+                    "idnivel": inivelvalor,
+                    "idgrado": igradovalor,
+                    "idcurso": 0
+                },
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay datos, intenta agregar una!");
+                    }
+                    $('#idCursog').append($("<option></option>")
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idCursog').append($("<option></option>")
+                            .attr("value", value.idcurso)
+                            .text(value.SnombreCurso));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+
+    }
+
+    $(document).ready(function () {
+        fn_ListarNivel();
+
+        $('#idNivelg').on('change', function () {
+            if ($('#idNivelg option:selected').attr('value') == "") {
+                $('#idGradog').find('option').remove();
+                $('#idCursog').find('option').remove();
+                return;
+            }
+            $('#idGradog').find('option').remove();
+            $('#idCursog').find('option').remove();
+            fn_ListarGrado();
+        });
+
+        $('#idGradog').on('change', function () {
+            fn_ListarCurso();
+        });
+
+        $('#idCursog').on('change', function () {
+            GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+            fn_listartabla();
+        });
+
+        fn_listartabla();
+    });
+
+</script>

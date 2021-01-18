@@ -128,6 +128,7 @@
     <Compile Include="Controllers\claseController.cs" />
     <Compile Include="Controllers\cursoController.cs" />
     <Compile Include="Controllers\homeController.cs" />
+    <Compile Include="Controllers\pagoController.cs" />
     <Compile Include="Controllers\usuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -149,11 +150,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\curso\" />
+    <Folder Include="Views\pago\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\home\index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\gruposancarlos.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ColegioED\ColegioED.csproj">

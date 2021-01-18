@@ -104,7 +104,7 @@
                         else if (ViewBag.GrolUsuario == 3)
                         {
                             <a href="/Home/Index" class="side-nav-link"
-                               style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px;">
+                               style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge badge-success float-right">0</span>
                                 <span>GENERAL</span>
@@ -152,6 +152,22 @@
                             else if (ViewBag.GrolUsuario == 3)
                             {
                                 <li>
+                                    <a href="/Clase/Curso" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                        <i class="uil-graduation-hat"></i>
+                                        <span>CURSOS</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Horario/Index" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                        <i class="uil-graduation-hat"></i>
+                                        <span>HORARIO</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Calificacion/Calificacion" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                        <i class="uil-file-plus-alt"></i>
+                                        <span>CALIFICACIÓN</span>
+                                    </a>
                                     <a href="/Clase/Curso"
                                        style="font-weight:bold; border: 2px solid white;border-radius: 15px;margin: 15px">CURSOS</a>
                                 </li>
@@ -216,6 +232,10 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+
+
+
+
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
@@ -453,8 +473,5 @@
     </script>
     <!-- end demo js-->
 </body>
-
-
-<!-- Mirrored from coderthemes.com/hyper/saas/dashboard-analytics.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Sep 2020 22:25:20 GMT -->
 
 </html>
