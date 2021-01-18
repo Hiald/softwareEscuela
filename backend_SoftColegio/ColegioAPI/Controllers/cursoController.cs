@@ -44,5 +44,22 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string wsListarGrado(int widnivel)
+        {
+            List<edCurso> wsenCurso = new List<edCurso>();
+            try
+            {
+                itdCurso = new tdCurso();
+                wsenCurso = itdCurso.tdListarGrado(widnivel);
+                return JsonConvert.SerializeObject(wsenCurso);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
+
     }
 }
