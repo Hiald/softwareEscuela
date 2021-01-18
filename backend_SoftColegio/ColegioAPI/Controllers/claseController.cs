@@ -32,24 +32,6 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsActualizarClase(int widclase, int wsidgrado, string wsnombre, string wsdescripcion, string wsrutaenlace, string wsrutavideo
-                                    , int wscategoria, string wsimagen, string wsimagenruta, int wsorden, Int16 wsestado, string fecharegistro)
-        {
-            int iresultado = -1;
-            try
-            {
-                itdClase = new tdClase();
-                iresultado = itdClase.tdActualizarClase(widclase, wsidgrado, wsnombre, wsdescripcion, wsrutaenlace, wsrutavideo, wscategoria
-                                , wsimagen, wsimagenruta, wsorden, wsestado, DateTime.Now);
-                return iresultado;
-            }
-            catch (Exception ex)
-            {
-                return iresultado;
-            }
-        }
-
-        [HttpGet]
         public int wsEliminarClase(int wsidclase)
         {
             int iresultado = -1;

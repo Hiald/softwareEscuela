@@ -45,40 +45,7 @@ namespace ColegioAD
                 throw ex;
             }
         }
-        //no va
-        public int adActualizarClase(int adtipoactualizar, int adidclase, int adidgrado, string adnombre, string addescripcion, string adrutaenlace, string adrutavideo, int adcategoria
-                              , string adimagen, string adimagenruta, int adorden, Int16 adestado, DateTime adfecharegistro)
-        {
-            try
-            {
-                int result = -1;
-                MySqlCommand cmd = new MySqlCommand("sp_actualizar_clase", cnMysql);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("_tipoactualizar", MySqlDbType.Int32).Value = adtipoactualizar;
-                cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
-                cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = adidgrado;
-                cmd.Parameters.Add("_nombre", MySqlDbType.VarChar, 100).Value = adnombre;
-                cmd.Parameters.Add("_descripcion", MySqlDbType.VarChar, 500).Value = addescripcion;
-                cmd.Parameters.Add("_rutaenlace", MySqlDbType.VarChar, 500).Value = adrutaenlace;
-                cmd.Parameters.Add("_rutavideo", MySqlDbType.VarChar, 500).Value = adrutavideo;
-                cmd.Parameters.Add("_categoria", MySqlDbType.Int32).Value = adcategoria;
-                cmd.Parameters.Add("_imagen", MySqlDbType.Blob).Value = adimagen;
-                cmd.Parameters.Add("_imagenruta", MySqlDbType.VarChar, 500).Value = adimagenruta;
-                cmd.Parameters.Add("_orden", MySqlDbType.Int32).Value = adorden;
-                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = adestado;
-                cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
-
-                result = Convert.ToInt32(cmd.ExecuteScalar());
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
-                throw ex;
-            }
-        }
-
+       
         public int adEliminarClase(int adidclase)
         {
             try
