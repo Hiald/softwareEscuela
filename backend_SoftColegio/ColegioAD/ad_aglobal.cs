@@ -6,4 +6,5 @@ namespace ColegioAD
     {
         public MySqlConnection cnMysql { get; set; }
     }
+    // SAN CARLOS EDUCA
 }
