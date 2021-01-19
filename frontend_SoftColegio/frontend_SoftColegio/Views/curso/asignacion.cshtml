@@ -83,13 +83,6 @@
                             <div class="form-group mb-3">
                                 <label for="idGrado">Grado</label>
                                 <select class="form-control" id="idGrado">
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Primero</option>
-                                    <option value="2">Segundo</option>
-                                    <option value="3">Tercero</option>
-                                    <option value="4">Cuarto</option>
-                                    <option value="5">Quinto</option>
-                                    <option value="6">Sexto</option>
                                 </select>
                             </div>
                         </div>
@@ -99,16 +92,22 @@
                                 <select class="form-control" id="idCurso"></select>
                             </div>
                         </div>
+                        <!--<div class="col-md-6">
+                            <label for="">Cursos</label>
+                            <div class="form-group mb-3" id="idCurso">-->
+                               @*  Here *@
+
+                            <!--</div>
+                        </div>-->
+
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-light btn-rounded mb-3" id="btnCerrar" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardar"><i class="mdi mdi-plus"></i>Guardar</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
     <!-- end row-->
     <!--MODAL AGREGAR ARCHIVO-->
@@ -230,10 +229,38 @@
 
     }
 
-    function fn_ListarCategoria() {
+    function fn_listarGrado() {
+        var slcnivel = $('#idNivel option:selected').attr('value');
+        $('#idGrado').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/Curso/ListarGrado",
+            data: {
+                "widnivel": parseInt(slcnivel)
+            },
+            success: function (data) {
+                if (data.aaData === "") {
+                    alert("¡No hay categorias, intenta agregar una!");
+                }
+                $('#idGrado').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idGrado').append($("<option></option>")
+                        .attr("value", value.idgrado)
+                        .text(value.SnombreGrado));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function fn_ListarCurso() {
         var slcnivel = $('#idNivel option:selected').attr('value');
         var slcgrado = $('#idGrado option:selected').attr('value');
-        $('#idCurso').find('option').remove();
+        $('#idCurso').html("");
         $.ajax({
             type: "POST",
             url: "/clase/ListarClaseGestion",
@@ -242,9 +269,10 @@
                 "idnivel": parseInt(slcnivel)
             },
             success: function (data) {
-                if (data.data === "") {
+                if (data === "") {
                     alert("¡No hay categorias, intenta agregar una!");
                 }
+
                 $('#idCurso').append($("<option></option>")
                     .attr("value", "")
                     .text("Seleccione una opción"));
@@ -253,6 +281,13 @@
                         .attr("value", value.idcurso)
                         .text(value.Snombre));
                 });
+
+                //$.each(data, function (index, value) {
+                //    $('#idCurso').append("<div class='custom-control custom-checkbox custom-control-inline'>" +
+                //                            "<input type='checkbox' class='custom-control-input' value='" + value.idcurso + "'>" +
+                //                            "<label class='custom-control-label' for='" + value.idcurso+"'>"+value.Snombre+"</label>"+
+                //                         "</div>"); 
+                //});                
             },
             error: function (data) {
                 console.log(data);
@@ -328,9 +363,25 @@
                     ]
             });
 
-        $('#idGrado').on('change', function () {
-            fn_ListarCategoria();
+        $('#idNivel').on('change', function () {
+            fn_listarGrado();
         });
+
+        $('#idGrado').on('change', function () {
+            fn_ListarCurso();
+        });
+
+        
+
+    });
+
+    $("#btnCerrar").click(function () {
+        $('#idGrado').find('option').remove();
+        $('#idCurso').find('option').remove();
+        $("#idNivel").prop('selectedIndex', 0);
+        $("#idUsuario").prop('selectedIndex', 0);
+        fn_ListarUsuario();
+        
     });
 
     $("#btnGuardar").click(function () {

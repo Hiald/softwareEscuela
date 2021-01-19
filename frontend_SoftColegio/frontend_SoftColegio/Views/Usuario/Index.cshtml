@@ -81,13 +81,6 @@
                                 <div class="form-group mb-3">
                                     <label for="example-select">Grado</label>
                                     <select class="form-control" id="idGrado">
-                                        <option value="0">Seleccionar</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
                                     </select>
                                 </div>
 
@@ -157,6 +150,41 @@
     $("#frmUsuario").submit(false);
     $('#frm2').submit(false);
 
+    $('#idNivel').on('change', function () {
+        fn_listarGrado();
+    });
+
+    function fn_listarGrado() {
+        var slcnivel = $('#idNivel option:selected').attr('value');
+        $('#idGrado').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/Curso/ListarGrado",
+            data: {
+                "widnivel": parseInt(slcnivel)
+            },
+            success: function (data) {
+                if (data.aaData === "") {
+                    alert("¡No hay categorias, intenta agregar una!");
+                }
+                $('#idGrado').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idGrado').append($("<option></option>")
+                        .attr("value", value.idgrado)
+                        .text(value.SnombreGrado));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+
+
     $("#btnAgregar").click(function () {
         var slcNivel = $('#idNivel option:selected').attr('value');
         var slcGrado = $('#idGrado option:selected').attr('value');
@@ -223,6 +251,14 @@
             async: false,
             success: function (msg) {
                 NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
+
+                $('#idGrado').find('option').remove();
+                $("#idNivel").prop('selectedIndex', 0);
+                $("#idTipoUsuario").prop('selectedIndex', 0);
+
+
+
+
                 $('#idNombres').val("");
                 $('#idApPaterno').val("");
                 $('#idApMaterno').val("");
@@ -305,6 +341,10 @@
                             case 4: valorGrado = "Cuarto"; break;
                             case 5: valorGrado = "Quinto"; break;
                             case 6: valorGrado = "Sexto"; break;
+                            case 7: valorGrado = "Primero"; break;
+                            case 8: valorGrado = "Segundo"; break;
+                            case 9: valorGrado = "Tercero"; break;
+                            case 10: valorGrado = "PRE"; break;
                         }
                         return valorNivel + " / " + valorGrado;
                     }
