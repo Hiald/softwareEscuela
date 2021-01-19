@@ -193,7 +193,7 @@ namespace frontend_SoftColegio.Controllers
 
         //ACTIVO : registra los pagos tanto como admin y como usuario
         [HttpPost]
-        public async Task<JsonResult> RegistrarPago(int widpago, int widpagodetalle, int widusuario
+        public async Task<ActionResult> RegistrarPago(int widpago, int widpagodetalle, int widusuario
                 , int widnivel, int widgrado, int widcurso, string woperacion
                 , int wtipopago, int wtipomoneda, string wdescripcion, int wmes, int wanio
                 , string whora, decimal wmonto, IEnumerable<HttpPostedFileBase> FRutaImagenes
@@ -226,10 +226,11 @@ namespace frontend_SoftColegio.Controllers
                 if (releaseUris.Count == 1)
                 {
                     valorimg1 = releaseUris[0];
-                    if (releaseUris.Count == 2)
-                    {
-                        valorimg2 = releaseUris[1];
-                    }
+                }
+                if (releaseUris.Count == 2)
+                {
+                    valorimg1 = releaseUris[0];
+                    valorimg2 = releaseUris[1];
                 }
                 using (var client = new HttpClient())
                 {
@@ -241,8 +242,8 @@ namespace frontend_SoftColegio.Controllers
                     + "&widusuario=" + widusuario + "&widnivel=" + widnivel + "&widgrado=" + widgrado
                     + "&widcurso=" + widcurso + "&woperacion=" + woperacion + "&wtipopago=" + wtipopago
                     + "&wtipomoneda=" + wtipomoneda + "&wdescripcion=" + wdescripcion + "&wmes=" + wmes
-                    + "&wanio=" + wanio + "&whora=" + whora + "&wmonto=" + wmonto + "&wimg_ruta_1=" + releaseUris[0]
-                    + "&wimg_ruta_2=" + releaseUris[1] + "&wfecha_ini_pago=" + wfecha_ini_pago
+                    + "&wanio=" + wanio + "&whora=" + whora + "&wmonto=" + wmonto + "&wimg_ruta_1=" + valorimg1
+                    + "&wimg_ruta_2=" + valorimg2 + "&wfecha_ini_pago=" + wfecha_ini_pago
                     + "&wbestado=" + wbestado + "&wfr=" + wfr + "&wff=" + wff);
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
@@ -267,12 +268,12 @@ namespace frontend_SoftColegio.Controllers
                     iResultado = 1,
                     iResultadoIns = "Registrado correctamente"
                 };
-                return Json(objResultado);
+                return RedirectToAction("pago", "pago");
             }
             catch (Exception ex)
             {
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
-                return Json(ex);
+                return RedirectToAction("pago", "pago");
             }
 
         }
