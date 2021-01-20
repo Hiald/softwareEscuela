@@ -250,7 +250,7 @@ namespace frontend_SoftColegio.Controllers
                     {
                         var rwsapi = ResRegistrarCuenta.Content.ReadAsAsync<string>().Result;
                         idGenerado = int.Parse(rwsapi);
-                        if (idGenerado == -1 || idGenerado == 0)
+                        if (idGenerado == -1)
                         {
                             //error
                             objResultado = new

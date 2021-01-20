@@ -31,20 +31,24 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label for="idNivelg">Curso</label>
-                                <select class="form-control" id="idNivelg"></select>
+                                <label for="idNivel">Nivel</label>
+                                <select class="form-control" name="widnivel" id="idNivel">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Primaria</option>
+                                    <option value="2">Secundaria</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label for="idGradog">Mes</label>
-                                <select class="form-control" id="idGradog"></select>
+                                <label for="idGrado">Grado</label>
+                                <select class="form-control" name="widgrado" id="idGrado"></select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label for="idCursog">Año</label>
-                                <select class="form-control" id="idCursog"></select>
+                                <label for="idCurso">Curso</label>
+                                <select class="form-control" name="widcurso" id="idCurso"></select>
                             </div>
                         </div>
                     </div>
@@ -54,11 +58,9 @@
                             <table id="tblPago" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Curso</th>
-                                        <th>Mes</th>
-                                        <th>Año</th>
-                                        <th>Monto</th>
-                                        <th>Estado</th>
+                                        <th>Alumno</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Inscripción</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -164,7 +166,7 @@
     </div>
     <!-- end row-->
     <!--MODAL AGREGAR ARCHIVO-->
-    <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+    <div id="modalDetalle" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-success">
@@ -239,191 +241,74 @@
 <script>
     var GvalorIdCurso = 0;
 
-    function fn_ListarNivel() {
-        var dtipousuario = $('#hddtipousuario').val();
-        var idusuarioparam = $('#hddidusuario').val();
-        if (dtipousuario == 1) {
-            idusuarioparam = 0;
-
-            $('#idNivelg').find('option').remove();
-            $('#idNivelg').append($("<option></option>")
-                .attr("value", "0")
-                .text("Seleccione una opción"));
-            $('#idNivelg').append($("<option></option>")
-                .attr("value", "1").text("Primaria"));
-            $('#idNivelg').append($("<option></option>")
-                .attr("value", "2").text("Secundaria"));
-
-        } else {
-            $('#idNivelg').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarCursoGestion",
-                data: {
-                    "valoritipousuario": 2,
-                    "widusuario": idusuarioparam,
-                    "idnivel": 0,
-                    "idgrado": 0,
-                    "idcurso": 0
-                },
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay datos, ¡intenta agregar algunos!");
-                    }
-                    $('#idNivelg').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivelg').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
-
-    }
-
     function fn_ListarGrado() {
-        var dtipousuario = $('#hddtipousuario').val();
-        var idusuarioparam = $('#hddidusuario').val();
-        if (dtipousuario == 1) {
-            idusuarioparam = 0;
+        var inivelvalor = $('#idNivel option:selected').attr('value');
+        $('#idGrado').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/curso/ListarGrado",
+            data: {
+                "widnivel": parseInt(inivelvalor),
+            },
+            success: function (data) {
 
-            $('#idGradog').find('option').remove();
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "0")
-                .text("Seleccione una opción"));
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "1").text("Primero"));
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "2").text("Segundo"));
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "3").text("Tercero"));
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "4").text("Cuarto"));
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "5").text("Quinto"));
-            $('#idGradog').append($("<option></option>")
-                .attr("value", "6").text("Sexto"));
-
-
-        } else {
-            var inivelvalor = $('#idNivelg option:selected').attr('value');
-            $('#idGradog').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarCursoGestion",
-                data: {
-                    "valoritipousuario": 3,
-                    "widusuario": idusuarioparam,
-                    "idnivel": inivelvalor,
-                    "idgrado": 0,
-                    "idcurso": 0
-                },
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay datos, ¡intenta agregar algunos!");
-                    }
-                    $('#idGradog').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idGradog').append($("<option></option>")
-                            .attr("value", value.idgrado)
-                            .text(value.SnombreGrado));
-                    });
-
-                },
-                error: function (data) {
-                    console.log(data);
+                if (data.aaData === "") {
+                    alert("¡No hay datos, ¡intenta agregar algunos!");
                 }
-            });
+                $('#idGrado').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idGrado').append($("<option></option>")
+                        .attr("value", value.idgrado)
+                        .text(value.SnombreGrado));
+                });
 
-        }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
 
 
     }
 
     function fn_ListarCurso() {
-        var slcnivelg = $('#idNivelg option:selected').attr('value');
-        var slcgradog = $('#idGradog option:selected').attr('value');
-
+        var slcnivelg = $('#idNivel option:selected').attr('value');
+        var slcgradog = $('#idGrado option:selected').attr('value');
         var dtipousuario = $('#hddtipousuario').val();
         var idusuarioparam = $('#hddidusuario').val();
-        if (dtipousuario == 1) {
-            idusuarioparam = 0;
 
-            $('#idCursog').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/clase/ListarClaseGestion",
-                data: {
-                    "idgrado": parseInt(slcgradog),
-                    "idnivel": parseInt(slcnivelg)
-                },
-                success: function (data) {
-                    if (data.data === "") {
-                        alert("¡No hay datos, ¡intenta agregar algunos!");
-                    }
-                    $('#idCursog').append($("<option></option>")
-                        .attr("value", "0")
-                        .text("Seleccione una opción"));
-                    $.each(data, function (index, value) {
-                        $('#idCursog').append($("<option></option>")
-                            .attr("value", value.idcurso)
-                            .text(value.Snombre));
-                    });
-                },
-                error: function (data) {
-                    console.log(data);
+        $('#idCurso').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/clase/ListarClaseGestion",
+            data: {
+                "idgrado": parseInt(slcgradog),
+                "idnivel": parseInt(slcnivelg)
+            },
+            success: function (data) {
+                if (data.data === "") {
+                    alert("¡No hay datos, ¡intenta agregar algunos!");
                 }
-            });
-
-        } else {
-            var inivelvalor = $('#idNivelg option:selected').attr('value');
-            var igradovalor = $('#idGradog option:selected').attr('value');
-            $('#idCursog').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarCursoGestion",
-                data: {
-                    "valoritipousuario": 4,
-                    "widusuario": idusuarioparam,
-                    "idnivel": inivelvalor,
-                    "idgrado": igradovalor,
-                    "idcurso": 0
-                },
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay datos, intenta agregar una!");
-                    }
-                    $('#idCursog').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idCursog').append($("<option></option>")
-                            .attr("value", value.idcurso)
-                            .text(value.SnombreCurso));
-                    });
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
+                $('#idCurso').append($("<option></option>")
+                    .attr("value", "0")
+                    .text("Listar todo"));
+                $.each(data, function (index, value) {
+                    $('#idCurso').append($("<option></option>")
+                        .attr("value", value.idcurso)
+                        .text(value.Snombre));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
 
     }
 
     function fn_listartabla() {
+
         $('#tblPago').DataTable(
             {
                 "ajax": {
@@ -431,15 +316,15 @@
                     "type": "POST",
                     "datatype": "json",
                     "data": {
-                          "wcuenta": ""
+                        "wcuenta": ""
                         , "widusuario": 0
                         , "widnivel": 0
                         , "widgrado": 0
-                        , "widcurso": 0
+                        , "widcurso": GvalorIdCurso
                         , "wivigente": 0
                         , "wnombre": ""
-                        , "wfechaini": ""
-                        , "wfechafin": ""
+                        , "wfechaini": "vacio"
+                        , "wfechafin": "vacio"
                         , "wimes": 0
                         , "wianio": 0
                     }
@@ -463,17 +348,35 @@
                     "sSearch": "Buscar:"
                 },
                 "columns": [
-
-                    { "data": "SnombreCurso" },
+                    { "data": "Susuario" },
                     {
                         "data": "Imes",
                         "mRender": function (data, type, value) {
-                            return value.Imes;
+                            var valormes = "";
+                            switch (value.Imes) {
+                                case 1: valormes = "Enero"; break;
+                                case 2: valormes = "Febrero"; break;
+                                case 3: valormes = "Marzo"; break;
+                                case 4: valormes = "Abril"; break;
+                                case 5: valormes = "Mayo"; break;
+                                case 6: valormes = "Junio"; break;
+                                case 7: valormes = "Julio"; break;
+                                case 8: valormes = "Agosto"; break;
+                                case 9: valormes = "Septiembre"; break;
+                                case 10: valormes = "Octubre"; break;
+                                case 11: valormes = "Noviembre"; break;
+                                case 12: valormes = "Diciembre"; break;
+                            }
+                            return valormes + " / " + value.Ianio;
                         }
                     },
-                    { "data": "Ianio" },
-                    { "data": "Dmonto" },
-                    { "data": "Iestado" },
+                    {
+                        "data": "Ianio",
+                        "mRender": function (data, type, value) {
+                            return value.SnivelNombre + "/" + value.SnombreCurso;
+                        }
+                    },
+
                     {},
                     {}
                 ],
@@ -481,68 +384,139 @@
                     [
                         {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idpago + "\" id='AccessEditar' >Editar</button>";
+                                var strHtml = "<button class='btn btn-info' onclick='fnVerDetalle(" + row.idpago + ")' >Ver detalle</button>";
                                 return strHtml;
                             },
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [5]
+                            "aTargets": [3]
                         },
                         {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idpago + ")' data-delet=\"" + row.idpago + "\" id='AccessEliminar' >Agregar archivo</button>";
+                                var strHtml = "<button class='btn btn-warning' onclick='fnAgregarClase(" + row.idpago + ")' data-delet=\"" + row.idpago + "\" id='AccessEliminar' >Editar</button>";
                                 return strHtml;
                             },
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [6]
+                            "aTargets": [4]
                         }
                     ]
             });
     }
 
     $(document).ready(function () {
-        fn_ListarNivel();
 
-        $('#idNivelg').on('change', function () {
-            if ($('#idNivelg option:selected').attr('value') == "") {
-                $('#idGradog').find('option').remove();
-                $('#idCursog').find('option').remove();
-                return;
-            }
-            $('#idGradog').find('option').remove();
-            $('#idCursog').find('option').remove();
+        $('#idNivel').on('change', function () {
             fn_ListarGrado();
         });
 
-        $('#idGradog').on('change', function () {
+        $('#idGrado').on('change', function () {
             fn_ListarCurso();
         });
 
-        $('#idCursog').on('change', function () {
-            GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+        $('#idCurso').on('change', function () {
+            GvalorIdCurso = $('#idCurso option:selected').attr('value');
             fn_listartabla();
         });
 
         fn_listartabla();
     });
 
-    function fnEditar() {
-        $('body').on("click", "#AccessEdita", function (e) {
-            e.preventDefault();
-            var id_categoria = $(this).attr("data-edit");
-            alert("Valor : " + id_categoria);
-            //$('#txNombreEditar').val(ArrayCategoria[1]);
-        });
+    function fnVerDetalle(ivaloridpago) {
+        $('#modalDetalle').modal("show");
+        $('#tblPagoDetalle').DataTable(
+            {
+                "ajax": {
+                    "url": "/Pago/ListarPagoDetalle",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "widpago": 0,
+                        "wbactivo": 0,
+                        "wbestado": 0,
+                        "wfechaini": '',
+                        "wfechafin": ''
+                    }
+                },
+                //"bServerSide": true,
+                "bProcessing": true,
+                "bDestroy": true,
+                "language": {
+                    "info": "",
+                    "infoEmpty": "",
+                    "infoFiltered": "",
+                    "emptyTable": "No se encontraron registros",
+                    "sZeroRecords": "No se encontraron registros.",
+                    "processing": "Cargando. Por favor espere...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "sSearch": "Buscar:"
+                },
+                "columns": [
+                    { "data": "Susuario" },
+                    {
+                        "data": "Imes",
+                        "mRender": function (data, type, value) {
+                            var valormes = "";
+                            switch (value.Imes) {
+                                case 1: valormes = "Enero"; break;
+                                case 2: valormes = "Febrero"; break;
+                                case 3: valormes = "Marzo"; break;
+                                case 4: valormes = "Abril"; break;
+                                case 5: valormes = "Mayo"; break;
+                                case 6: valormes = "Junio"; break;
+                                case 7: valormes = "Julio"; break;
+                                case 8: valormes = "Agosto"; break;
+                                case 9: valormes = "Septiembre"; break;
+                                case 10: valormes = "Octubre"; break;
+                                case 11: valormes = "Noviembre"; break;
+                                case 12: valormes = "Diciembre"; break;
+                            }
+                            return valormes + " / " + value.Ianio;
+                        }
+                    },
+                    {
+                        "data": "Ianio",
+                        "mRender": function (data, type, value) {
+                            return value.SnivelNombre + "/" + value.SnombreCurso;
+                        }
+                    },
+
+                    {},
+                    {}
+                ],
+                "aoColumnDefs":
+                    [
+                        {
+                            "mRender": function (data, type, row) {
+                                var strHtml = "<button class='btn btn-info' onclick='fnVerDetalle(" + row.idpago + ")' >Ver detalle</button>";
+                                return strHtml;
+                            },
+                            "sWidth": "5px",
+                            "sClass": "css-center",
+                            "bSort": false,
+                            "aTargets": [3]
+                        },
+                        {
+                            "mRender": function (data, type, row) {
+                                var strHtml = "<button class='btn btn-warning' onclick='fnAgregarClase(" + row.idpago + ")' data-delet=\"" + row.idpago + "\" id='AccessEliminar' >Editar</button>";
+                                return strHtml;
+                            },
+                            "sWidth": "5px",
+                            "sClass": "css-center",
+                            "bSort": false,
+                            "aTargets": [4]
+                        }
+                    ]
+            });
     }
     var idClase = 0;
-
-    function fnAgregarClase(idclasem) {
-        idClase = parseInt(idclasem);
-        $("#modalPago").modal("show");
-    }
 
     function fn_ConfimarEliminar() {
 
@@ -564,65 +538,7 @@
         });
     }
 
-    $("#btnGuardar").click(function () {
-        var slcCurso = $('#idCurso option:selected').attr('value');
-        var slcCategoria = $('#idCategoria option:selected').attr('value');
-        var txtNombre = $('#txtNombre').val();
-        var txtDescripcion = $('#txtDescripcion').val();
-        var txtRutaEnlace = $('#txtRutaEnlace').val();
-        var txtRutaVideo = $('#txtRutaVideo').val();
-        var txtRutaImagen = $('#txtRutaImagen').val();
-        var slcSemana = $('#idSemana option:selected').attr('value');
 
-        if (txtNombre.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA CLASE");
-            return;
-        }
-        if (slcSemana.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONE EL NÚMERO DE SEMANA");
-            return;
-        }
-        if (txtRutaEnlace.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE LA RUTA DEL ENLACE");
-            return;
-        }
-        if (txtRutaVideo.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: '/Clase/InsertarClaseGestion',
-            data: {
-                "idgrado": slcCurso,
-                "isemana": slcSemana,
-                "nombre": txtNombre,
-                "descripcion": txtDescripcion,
-                "rutaenlace": txtRutaEnlace,
-                "rutavideo": txtRutaVideo,
-                "categoria": 1,
-                "imagen": "",
-                "imagenruta": "",
-                "orden": 0
-            },
-            async: false,
-            success: function (msg) {
-                $('#modalClase').modal("hide");
-                $('#modalSuccess').modal("show");
-                GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
-                fn_listartabla(GvalorIdCurso);
-            },
-            error: function (msg) {
-                console.log(msg);
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
-        });
-
-    });
 
     $("#btnGuardarArchivo").click(function () {
         var txtNombre = $('#txtNombreArc').val();

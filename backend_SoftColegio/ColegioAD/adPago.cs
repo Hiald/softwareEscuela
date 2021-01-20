@@ -40,6 +40,14 @@ namespace ColegioAD
         {
             try
             {
+                if (adcuenta == null)
+                {
+                    adcuenta = "";
+                }
+                if (adnombre == null)
+                {
+                    adnombre = "";
+                }
                 List<edPago> slenUsuario = new List<edPago>();
                 using (MySqlCommand cmd = new MySqlCommand("sp_listar_pago", cnMysql))
                 {
@@ -80,7 +88,7 @@ namespace ColegioAD
                             int pos_vfechainipago = mdrd.GetOrdinal("v_fecha_ini_pago");
                             int pos_vfechafinpago = mdrd.GetOrdinal("v_fecha_fin_pago");
                             int pos_bvigente = mdrd.GetOrdinal("b_vigente");
-                            int pos_dtfecharegistro = mdrd.GetOrdinal("dt_fecharegistro");
+                            int pos_dtfecharegistro = mdrd.GetOrdinal("v_fecharegistro");
 
                             while (mdrd.Read())
                             {
