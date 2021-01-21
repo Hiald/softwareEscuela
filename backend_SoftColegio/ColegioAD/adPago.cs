@@ -146,50 +146,42 @@ namespace ColegioAD
                         if (mdrd != null)
                         {
                             edPago enUsuario = null;
+                            int pos_idpagodetalle = mdrd.GetOrdinal("idpagodetalle");
                             int pos_idpago = mdrd.GetOrdinal("idpago");
-                            int pos_idusuario = mdrd.GetOrdinal("idusuario");
-                            int pos_vnombres = mdrd.GetOrdinal("v_nombres");
-                            int pos_vapellidopaterno = mdrd.GetOrdinal("v_apellido_paterno");
-                            int pos_vapellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
-                            int pos_usuario = mdrd.GetOrdinal("usuario");
-                            int pos_idnivel = mdrd.GetOrdinal("idnivel");
-                            int pos_nivelNombre = mdrd.GetOrdinal("nivelNombre");
-                            int pos_idcurso = mdrd.GetOrdinal("idcurso");
-                            int pos_nombrecurso = mdrd.GetOrdinal("nombreCurso");
+                            int pos_operaciondata = mdrd.GetOrdinal("v_operacion_data");
+                            int pos_itipopago = mdrd.GetOrdinal("i_tipopago");
+                            int pos_itipomoneda = mdrd.GetOrdinal("i_tipomoneda");
                             int pos_vdescripcion = mdrd.GetOrdinal("v_descripcion");
-                            int pos_vusuario = mdrd.GetOrdinal("v_usuario");
                             int pos_idia = mdrd.GetOrdinal("i_dia");
                             int pos_imes = mdrd.GetOrdinal("i_mes");
                             int pos_ianio = mdrd.GetOrdinal("i_anio");
-                            int pos_vhora = mdrd.GetOrdinal("v_hora");
-                            int pos_vfechainipago = mdrd.GetOrdinal("v_fecha_ini_pago");
-                            int pos_vfechafinpago = mdrd.GetOrdinal("v_fecha_fin_pago");
-                            int pos_bvigente = mdrd.GetOrdinal("b_vigente");
-                            int pos_dtfecharegistro = mdrd.GetOrdinal("dt_fecharegistro");
+                            int pos_dmonto = mdrd.GetOrdinal("d_monto");
+                            int pos_vimgruta1 = mdrd.GetOrdinal("v_img_ruta_1");
+                            int pos_vimgruta2 = mdrd.GetOrdinal("v_img_ruta_2");
+                            int pos_pasarelapagonombre = mdrd.GetOrdinal("v_pasarela_pago_nombre");
+                            int pos_bestado = mdrd.GetOrdinal("b_estado");
+                            int pos_vfecharegistro = mdrd.GetOrdinal("v_fecharegistro");
+                            int pos_dtfechapago = mdrd.GetOrdinal("v_dt_fechapago");
 
                             while (mdrd.Read())
                             {
                                 enUsuario = new edPago();
+                                enUsuario.idpagodetalle = (mdrd.IsDBNull(pos_idpagodetalle) ? 0 : mdrd.GetInt32(pos_idpagodetalle));
                                 enUsuario.idpago = (mdrd.IsDBNull(pos_idpago) ? 0 : mdrd.GetInt32(pos_idpago));
-                                enUsuario.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
-                                enUsuario.Snombres = (mdrd.IsDBNull(pos_vnombres) ? "-" : mdrd.GetString(pos_vnombres));
-                                enUsuario.Sapellido_paterno = (mdrd.IsDBNull(pos_vapellidopaterno) ? "-" : mdrd.GetString(pos_vapellidopaterno));
-                                enUsuario.Sapellido_materno = (mdrd.IsDBNull(pos_vapellidomaterno) ? "-" : mdrd.GetString(pos_vapellidomaterno));
-                                enUsuario.Susuario = (mdrd.IsDBNull(pos_usuario) ? "-" : mdrd.GetString(pos_usuario));
-                                enUsuario.idnivel = (mdrd.IsDBNull(pos_idnivel) ? 0 : mdrd.GetInt32(pos_idnivel));
-                                enUsuario.SnivelNombre = (mdrd.IsDBNull(pos_nivelNombre) ? "-" : mdrd.GetString(pos_nivelNombre));
-                                enUsuario.idcurso = (mdrd.IsDBNull(pos_idcurso) ? 0 : mdrd.GetInt32(pos_idcurso));
-                                enUsuario.SnombreCurso = (mdrd.IsDBNull(pos_nombrecurso) ? "-" : mdrd.GetString(pos_nombrecurso));
+                                enUsuario.Soperacion = (mdrd.IsDBNull(pos_operaciondata) ? "-" : mdrd.GetString(pos_operaciondata));
+                                enUsuario.Itipopago = (mdrd.IsDBNull(pos_itipopago) ? 0 : mdrd.GetInt32(pos_itipopago));
+                                enUsuario.Itipomoneda = (mdrd.IsDBNull(pos_itipomoneda) ? 0 : mdrd.GetInt32(pos_itipomoneda));
                                 enUsuario.Sdescripcion = (mdrd.IsDBNull(pos_vdescripcion) ? "-" : mdrd.GetString(pos_vdescripcion));
-                                enUsuario.SusuarioAcceso = (mdrd.IsDBNull(pos_vusuario) ? "-" : mdrd.GetString(pos_vusuario));
                                 enUsuario.Idia = (mdrd.IsDBNull(pos_idia) ? 0 : mdrd.GetInt32(pos_idia));
                                 enUsuario.Imes = (mdrd.IsDBNull(pos_imes) ? 0 : mdrd.GetInt32(pos_imes));
                                 enUsuario.Ianio = (mdrd.IsDBNull(pos_ianio) ? 0 : mdrd.GetInt32(pos_ianio));
-                                enUsuario.Shora = (mdrd.IsDBNull(pos_vhora) ? "-" : mdrd.GetString(pos_vhora));
-                                enUsuario.Sfecha_ini_pago = (mdrd.IsDBNull(pos_vfechainipago) ? "-" : mdrd.GetString(pos_vfechainipago));
-                                enUsuario.Sfecha_fin_pago = (mdrd.IsDBNull(pos_vfechafinpago) ? "-" : mdrd.GetString(pos_vfechafinpago));
-                                enUsuario.Ivigente = (mdrd.IsDBNull(pos_bvigente) ? 0 : mdrd.GetInt16(pos_bvigente));
-                                enUsuario.Sfecharegistro = (mdrd.IsDBNull(pos_dtfecharegistro) ? "-" : mdrd.GetString(pos_dtfecharegistro));
+                                enUsuario.Dmonto = (mdrd.IsDBNull(pos_dmonto) ? 0 : mdrd.GetDecimal(pos_dmonto));
+                                enUsuario.Simg_ruta_1 = (mdrd.IsDBNull(pos_vimgruta1) ? "-" : mdrd.GetString(pos_vimgruta1));
+                                enUsuario.Simg_ruta_2 = (mdrd.IsDBNull(pos_vimgruta2) ? "-" : mdrd.GetString(pos_vimgruta2));
+                                enUsuario.Spasarela_pago_nombre = (mdrd.IsDBNull(pos_pasarelapagonombre) ? "-" : mdrd.GetString(pos_pasarelapagonombre));
+                                enUsuario.Iestado = (mdrd.IsDBNull(pos_bestado) ? 0 : mdrd.GetInt16(pos_bestado));
+                                enUsuario.Sfecharegistro = (mdrd.IsDBNull(pos_vfecharegistro) ? "-" : mdrd.GetString(pos_vfecharegistro));
+                                enUsuario.Sfecha_ini_pago = (mdrd.IsDBNull(pos_dtfechapago) ? "-" : mdrd.GetString(pos_dtfechapago));
                                 slenUsuario.Add(enUsuario);
                             }
                         }
