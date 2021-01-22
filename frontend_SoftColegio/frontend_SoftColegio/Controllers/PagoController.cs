@@ -27,6 +27,30 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
+        [SecuritySession]
+        public ActionResult Index()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            int idGrado = UtlAuditoria.ObtenerIdGrado();
+            int idNivel = UtlAuditoria.ObtenerIdNivel();
+            ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GidNivel = idNivel;
+            ViewBag.GidGrado = idGrado;
+            return View();
+        }
+
+        [SecuritySession]
+        public ActionResult Reporte()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            int idGrado = UtlAuditoria.ObtenerIdGrado();
+            int idNivel = UtlAuditoria.ObtenerIdNivel();
+            ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GidNivel = idNivel;
+            ViewBag.GidGrado = idGrado;
+            return View();
+        }
+
         // admin
         [SecuritySession]
         public ActionResult pagoGestion()
