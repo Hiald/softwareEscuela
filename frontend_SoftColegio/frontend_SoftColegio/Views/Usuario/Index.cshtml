@@ -74,15 +74,14 @@
                                     <select class="form-control" id="idNivel">
                                         <option value="0">Seleccionar</option>
                                         @*<option value="1">Primaria</option>
-                                          <option value="2">Secundaria</option>*@
+                                            <option value="2">Secundaria</option>*@
                                         <option value="1">Principal</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="example-select">Grado</label>
-                                    <select class="form-control" id="idGrado">
-                                    </select>
+                                    <select class="form-control" id="idGrado"></select>
                                 </div>
 
                                 <div class="form-group mb-3">
@@ -155,12 +154,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-
-
                         <div class="col-lg-6">
-                            <form id="frmUsuario">
+                            <form id="frmUsuarioEditar">
                                 <div class="form-group mb-3">
-                                    <label for="example-select">Nivel (Primaria / Secundaria)</label>
+                                    <label for="idNivelEditar">Nivel (Primaria / Secundaria)</label>
                                     <select class="form-control" id="idNivelEditar">
                                         <option value="0">Seleccionar</option>
                                         <option value="1">Primaria</option>
@@ -169,13 +166,12 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="example-select">Grado</label>
-                                    <select class="form-control" id="idGradoEditar">
-                                    </select>
+                                    <label for="idGradoEditar">Grado</label>
+                                    <select class="form-control" id="idGradoEditar"></select>
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="example-select">Sede</label>
+                                    <label for="idSedeEditar">Sede</label>
                                     <select class="form-control" id="idSedeEditar">
                                         <option value="0">Seleccionar</option>
                                         <option value="1">Principal</option>
@@ -183,27 +179,27 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="simpleinput">Nombres</label>
+                                    <label for="idNombresEditar">Nombres</label>
                                     <input type="text" id="idNombresEditar" placeholder="Nombres" class="form-control">
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="simpleinput">Apellido Paterno</label>
+                                    <label for="idApPaternoEditar">Apellido Paterno</label>
                                     <input type="text" id="idApPaternoEditar" placeholder="Apellido Paterno" class="form-control">
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="simpleinput">Apellido Materno</label>
+                                    <label for="idApMaternoEditar">Apellido Materno</label>
                                     <input type="text" id="idApMaternoEditar" placeholder="Apellido Materno" class="form-control">
                                 </div>
                             </form>
                         </div> <!-- end col -->
 
                         <div class="col-lg-6">
-                            <form id="frm2">
+                            <form id="frm2Editar">
                                 <div class="form-group mb-3">
-                                    <label for="example-select">Tipo Usuario</label>
-                                    <select class="form-control" id="idTipoUsuario">
+                                    <label for="idTipoUsuarioEditar">Tipo Usuario</label>
+                                    <select class="form-control" id="idTipoUsuarioEditar">
                                         <option value="0">Seleccionar</option>
                                         <option value="1">Administrador</option>
                                         <option value="2">Profesor</option>
@@ -212,13 +208,13 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="example-email">Usuario</label>
-                                    <input type="text" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
+                                    <label for="idUsuarioEditar">Usuario</label>
+                                    <input type="text" id="idUsuarioEditar" name="example-email" class="form-control" placeholder="Usuario">
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="example-password">Contraseña</label>
-                                    <input type="password" id="idContrasenia" class="form-control">
+                                    <label for="idContraseniaEditar">Contraseña</label>
+                                    <input type="password" id="idContraseniaEditar" class="form-control">
                                 </div>
 
                             </form>
@@ -227,7 +223,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnAgregar" onclick="fn_Actualizar()"><i class="mdi mdi-plus"></i>Guardar</button>
+                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnActualizar" onclick="fn_Actualizar()"><i class="mdi mdi-plus"></i>Actualizar</button>
                 </div>
             </div>
         </div>
@@ -236,9 +232,10 @@
 </div>
 
 <script>
-    
+
     $("#frmUsuario").submit(false);
     $('#frm2').submit(false);
+    $('#frm2Editar').submit(false);
 
     $('#idNivel').on('change', function () {
         fn_listarGrado();
@@ -272,8 +269,37 @@
         });
     }
 
+    function fn_listarGradoEditar(slcnivel, vidgrado) {
 
+        $('#idGradoEditar').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/Curso/ListarGrado",
+            async: false,
+            data: {
+                "widnivel": parseInt(slcnivel)
+            },
+            success: function (data) {
+                if (data.aaData === "") {
+                    alert("¡No hay categorias, intenta agregar una!");
+                }
+                $('#idGradoEditar').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idGradoEditar').append($("<option></option>")
+                        .attr("value", value.idgrado)
+                        .text(value.SnombreGrado));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        console.log(vidgrado);
+        $('#idGradoEditar option[value="' + vidgrado + '"]').attr('selected', 'selected');
 
+    }
 
     $("#btnAgregar").click(function () {
         var slcNivel = $('#idNivel option:selected').attr('value');
@@ -372,7 +398,6 @@
         });
 
     });
-
 
 
     $(document).ready(function () {
@@ -485,7 +510,17 @@
                 [
                     {
                         "mRender": function (data, type, row) {
-                            var strHtml = "<button class='btn btn-warning' onclick='fn_Editar()' data-cat=\"" + row.idusuario + "|" + row.idnivel + "|" + row.tipousuario + "|" + row.idgrado + "|" + row.idsede + "|" + row.Snombres + "|" + row.SApellidoPaterno + "|" + row.SApellidoMaterno + "|" + "\" id='AccessEditar' >Editar</button>";
+                            console.log(row.idgrado);
+                            var strHtml = "<button class='btn btn-warning' onclick='fn_Editar("
+                                + row.idusuario + ", " +
+                                row.idnivel + ", " +
+                                row.tipousuario + ", " +
+                                row.idgrado + ", " +
+                                row.idsede + ", " +
+                                "\"" + row.Snombres + "\"" + ", " +
+                                "\"" + row.SApellidoPaterno + "\"" + ", " +
+                                "\"" + row.SApellidoMaterno + "\"" +
+                                ")' >Editar</button>";
                             return strHtml;
                         },
                         "sWidth": "5px",
@@ -508,22 +543,30 @@
 
     });
 
-    function fn_Editar() {
-        $('body').on("click", "#AccessEditar", function () {
-            var id_usuario = $(this).attr("data-cat");
-            var ArrayUsuario = id_usuario.split("|");   
+    function fn_Editar(idusuario, idnivel, tipousuario, idgrado,
+        idsede, Snombres, SApellidoPaterno, SApellidoMaterno) {
 
-            $('#hddusuario').attr("data-idusuario", ArrayUsuario[0]);
-            $('#idNivelEditar option[value="' + ArrayUsuario[1] + '"]').attr('selected', 'selected');
-            $('#idTipoUsuarioEditar option[value="' + ArrayUsuario[2] + '"]').attr('selected', 'selected');
-            $('#idGradoEditar option[value="' + ArrayUsuario[3] + '"]').attr('selected', 'selected');
+        $('#idNivelEditar option').removeAttr('selected');
+        $('#idTipoUsuarioEditar option').removeAttr('selected');
+        $('#idGradoEditar option').removeAttr('selected');
+        $('#idSedeEditar option').removeAttr('selected');
 
-            $('#idSedeEditar option[value="' + ArrayUsuario[4] + '"]').attr('selected', 'selected');
-            $("#idNombresEditar").val(ArrayUsuario[5]);
-            $("#idApMaternoEditar").val(ArrayUsuario[6]);
-            $("#idApPaternoEditar").val(ArrayUsuario[7]);
-            $('#modalEditarUsuario').modal("show");    
-        });
+        $('#hddusuario').attr("data-idusuario", idusuario);
+
+        $('#idNivelEditar option[value="' + idnivel + '"]').attr('selected', 'selected');
+        $('#idTipoUsuarioEditar option[value="' + tipousuario + '"]').attr('selected', 'selected');
+
+        var slcnivel = $('#idNivelEditar option:selected').attr('value');
+        fn_listarGradoEditar(slcnivel, idgrado);
+
+        $('#idSedeEditar option[value="' + idsede + '"]').attr('selected', 'selected');
+        $("#idNombresEditar").val(Snombres);
+        $("#idApMaternoEditar").val(SApellidoMaterno);
+        $("#idApPaternoEditar").val(SApellidoPaterno);
+
+
+        $('#modalEditarUsuario').modal("show");
+
     }
 
     function fn_Actualizar() {
@@ -531,7 +574,7 @@
         var iIdNivel = $('#idNivelEditar option:selected').attr('value');
         var iIdTipoUsuario = $('#idTipoUsuarioEditar option:selected').attr('value');
         var iIdGrado = $('#idGradoEditar option:selected').attr('value');
-        var iIdSede = $('#idSedeEditar option:selected').attr('value'); 
+        var iIdSede = $('#idSedeEditar option:selected').attr('value');
         var sNombre = $('#idNombresEditar').val();
         var sApellidoPaterno = $("#idApPaternoEditar").val();
         var sApellidoMaterno = $("#idApMaternoEditar").val();

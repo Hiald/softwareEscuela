@@ -496,8 +496,8 @@
     <Content Include="Views\Pago\Index.cshtml" />
     <Content Include="Views\Pago\pagoGestion.cshtml" />
     <Content Include="Views\Pago\pago.cshtml" />
-    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
     <Content Include="Views\Pago\Reporte.cshtml" />
+    <None Include="Properties\PublishProfiles\sancarloseduca_frontendDemo.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">
