@@ -144,9 +144,98 @@
         </div>
     </div>
 
+    <div id="modalEditarUsuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+        <input type="hidden" value="" data-idusuario="" id="hddusuario" />
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-success">
+                    <h4 class="modal-title" id="dark-header-modalLabel">EDITAR USUARIO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+
+                        <div class="col-lg-6">
+                            <form id="frmUsuario">
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Nivel (Primaria / Secundaria)</label>
+                                    <select class="form-control" id="idNivelEditar">
+                                        <option value="0">Seleccionar</option>
+                                        <option value="1">Primaria</option>
+                                        <option value="2">Secundaria</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Grado</label>
+                                    <select class="form-control" id="idGradoEditar">
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Sede</label>
+                                    <select class="form-control" id="idSedeEditar">
+                                        <option value="0">Seleccionar</option>
+                                        <option value="1">Principal</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Nombres</label>
+                                    <input type="text" id="idNombresEditar" placeholder="Nombres" class="form-control">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Apellido Paterno</label>
+                                    <input type="text" id="idApPaternoEditar" placeholder="Apellido Paterno" class="form-control">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Apellido Materno</label>
+                                    <input type="text" id="idApMaternoEditar" placeholder="Apellido Materno" class="form-control">
+                                </div>
+                            </form>
+                        </div> <!-- end col -->
+
+                        <div class="col-lg-6">
+                            <form id="frm2">
+                                <div class="form-group mb-3">
+                                    <label for="example-select">Tipo Usuario</label>
+                                    <select class="form-control" id="idTipoUsuario">
+                                        <option value="0">Seleccionar</option>
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Profesor</option>
+                                        <option value="3">Alumno</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-email">Usuario</label>
+                                    <input type="text" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-password">Contraseña</label>
+                                    <input type="password" id="idContrasenia" class="form-control">
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnAgregar" onclick="fn_Actualizar()"><i class="mdi mdi-plus"></i>Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
+    
     $("#frmUsuario").submit(false);
     $('#frm2').submit(false);
 
@@ -255,10 +344,6 @@
                 $('#idGrado').find('option').remove();
                 $("#idNivel").prop('selectedIndex', 0);
                 $("#idTipoUsuario").prop('selectedIndex', 0);
-
-
-
-
                 $('#idNombres').val("");
                 $('#idApPaterno').val("");
                 $('#idApMaterno').val("");
@@ -399,7 +484,7 @@
                 [
                     {
                         "mRender": function (data, type, row) {
-                            var strHtml = "<button class='btn btn-warning' onclick='' data-cat=\"" + row.pos_idnivel + "|" + "\" id='AcessEliminar' >Editar</button>";
+                            var strHtml = "<button class='btn btn-warning' onclick='fn_Editar()' data-cat=\"" + row.idusuario + "|" + row.idnivel + "|" + row.tipousuario + "|" + row.idgrado + "|" + row.idsede + "|" + row.Snombres + "|" + row.SApellidoPaterno + "|" + row.SApellidoMaterno + "|" + "\" id='AccessEditar' >Editar</button>";
                             return strHtml;
                         },
                         "sWidth": "5px",
@@ -421,5 +506,53 @@
         });
 
     });
+
+    function fn_Editar() {
+        $('body').on("click", "#AccessEditar", function () {
+            var id_usuario = $(this).attr("data-cat");
+            var ArrayUsuario = id_usuario.split("|");   
+
+            $('#hddusuario').attr("data-idusuario", ArrayUsuario[0]);
+            $('#idNivelEditar option[value="' + ArrayUsuario[1] + '"]').attr('selected', 'selected');
+            $('#idTipoUsuarioEditar option[value="' + ArrayUsuario[2] + '"]').attr('selected', 'selected');
+            $('#idGradoEditar option[value="' + ArrayUsuario[3] + '"]').attr('selected', 'selected');
+
+            $('#idSedeEditar option[value="' + ArrayUsuario[4] + '"]').attr('selected', 'selected');
+            $("#idNombresEditar").val(ArrayUsuario[5]);
+            $("#idApMaternoEditar").val(ArrayUsuario[6]);
+            $("#idApPaternoEditar").val(ArrayUsuario[7]);
+            $('#modalEditarUsuario').modal("show");    
+        });
+    }
+
+    function fn_Actualizar() {
+        var iIdUsuario = $('#hddusuario').attr("data-idusuario");
+        var iIdNivel = $('#idNivelEditar option:selected').attr('value');
+        var iIdTipoUsuario = $('#idTipoUsuarioEditar option:selected').attr('value');
+        var iIdGrado = $('#idGradoEditar option:selected').attr('value');
+        var iIdSede = $('#idSedeEditar option:selected').attr('value'); 
+        var sNombre = $('#idNombresEditar').val();
+        var sApellidoPaterno = $("#idApPaternoEditar").val();
+        var sApellidoMaterno = $("#idApMaternoEditar").val();
+
+        $.ajax({
+            type: "POST",
+            url: gRoute + "categoria/ActualizarCategoria",
+            data: {
+                "wcategoriaid": iIdCategoria,
+                "wnombre": sNombre,
+                "wcodigo": slcIcono
+            },
+            success: function (data) {
+                $('#modalEditarUsuario').modal("hide");
+                var table = $('#tblCategoria').DataTable();
+                table.clear().draw();
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
 
 </script>

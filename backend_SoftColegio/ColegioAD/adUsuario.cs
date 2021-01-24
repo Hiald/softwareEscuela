@@ -43,6 +43,38 @@ namespace ColegioAD
             }
         }
 
+        //Actualiza los datos del usuario (Nombre,Grado,Nivel,Tipo de Usuario,Sede, Apellidos)
+        //CREADO 23/01/2021
+        public int adActualizarCuenta(int adidusuario, int adidnivel, int adidgrado, int adidsede, string adnombres, string adamaterno, string adapaterno, string adgenero
+                                    , string adcorreo, Int16 adestado, DateTime adfechaRegistro)
+        {
+            try
+            {
+                int result = -2;
+                MySqlCommand cmd = new MySqlCommand("sp_actualizar_usuario", cnMysql);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = adidnivel;
+                cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = adidgrado;
+                cmd.Parameters.Add("_idsede", MySqlDbType.Int32).Value = adidsede;
+                cmd.Parameters.Add("_nombres", MySqlDbType.VarChar, 50).Value = adnombres;
+                cmd.Parameters.Add("_apellido_materno", MySqlDbType.VarChar, 50).Value = adamaterno;
+                cmd.Parameters.Add("_apellido_paterno", MySqlDbType.VarChar, 50).Value = adapaterno;
+                cmd.Parameters.Add("_genero", MySqlDbType.VarChar, 1).Value = adgenero;
+                cmd.Parameters.Add("_correo", MySqlDbType.VarChar, 50).Value = adcorreo;
+                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = 1;
+                cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = DateTime.Now;
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.ventaAD, UtlConstantes.LogNamespace_ventaAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+
         public int adInsertarUsuario(int adidusuario, int aditipousuario, string adusuario, string adclave, string adtoken, Int16 adestado, DateTime adfechaRegistro)
         {
             try
@@ -68,6 +100,13 @@ namespace ColegioAD
                 throw ex;
             }
         }
+
+
+
+
+
+
+
 
         public int adObtenerAcceso(string adusuario, string adclave)
         {

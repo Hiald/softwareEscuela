@@ -186,6 +186,54 @@ namespace frontend_SoftColegio.Controllers
         }
 
         [HttpPost]
+        public async Task<JsonResult> ActualizarUsuario(int wcategoriaid, string wnombre, string wcodigo)
+        {
+            try
+            {
+                var objResultado = new object();
+
+                int iresultadoreg = -1;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reswsru = await client.GetAsync("api/usuario/wsActualizarCuenta?wscategoriaid=" + wcategoriaid
+                        + "&wsnombre=" + wnombre + "&wscodigo=" + wcodigo);
+                    if (Reswsru.IsSuccessStatusCode)
+                    {
+                        var lpoEnCategoriaReg = Reswsru.Content.ReadAsAsync<string>().Result;
+                        iresultadoreg = int.Parse(lpoEnCategoriaReg);
+
+                        if (iresultadoreg == -1)
+                        {
+                            objResultado = new
+                            {
+                                iResultado = -5,
+                                iResultadoIns = "Ha ocurrido un error, inténtelo nuevamente"
+                            };
+                        }
+                    }
+                }
+
+                objResultado = new
+                {
+                    iResultado = 1,
+                    iResultadoIns = "registrado"
+                };
+
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+
+
+        [HttpPost]
         public async Task<JsonResult> ListarUsuarioGestion(string usuario, int tipousuario)
         {
             try

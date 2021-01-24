@@ -29,6 +29,24 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        //23/01/2021
+        [HttpGet]
+        public int wsActualizarCuenta(int widusuario,int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno, string wgenero
+                                    , string wcorreo, Int16 westado, string wfechaRegistro)
+        {
+            int iresultado = -4;
+            try
+            {
+                itdUsuario = new tdUsuario();
+                iresultado = itdUsuario.tdActualizarCuenta(widusuario,widnivel, widgrado, widsede, wnombres, wamaterno, wapaterno, wgenero
+                                                        , wcorreo, westado, DateTime.Now);
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                return iresultado;
+            }
+        }
         [HttpGet]
         public int wsInsertarUsuario(int widusuario, int wtipousuario, string wusuario, string wclave, string wtoken, Int16 westado, string wfechaRegistro)
         {

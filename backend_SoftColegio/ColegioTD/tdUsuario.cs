@@ -59,8 +59,31 @@ namespace ColegioTD
                 //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 throw ex;
             }
-
         }
+
+        public int tdActualizarCuenta(int tdidusuario, int tdidnivel, int tdidgrado, int tdidsede, string tdnombres, string tdamaterno, string tdapaterno, string tdgenero
+                                    , string tdcorreo, Int16 tdestado, DateTime tdfechaRegistro)
+        {
+            try
+            {
+                int iresultado = -3;
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    iadUsuario = new adUsuario(con);
+                    iresultado = iadUsuario.adActualizarCuenta(tdidusuario, tdidnivel, tdidgrado, tdidsede, tdnombres, tdamaterno, tdapaterno, tdgenero
+                                                                , tdcorreo, tdestado, tdfechaRegistro);
+                }
+                return iresultado;
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.ventaRN, UtlConstantes.LogNamespace_ventaRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+
 
         public int tdObtenerAcceso(string tdusuario, string tdclave)
         {
