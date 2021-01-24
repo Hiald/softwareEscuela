@@ -417,6 +417,7 @@
     <Content Include="Content\img\cimg_logo.png" />
     <Content Include="Content\img\horario.png" />
     <Content Include="Content\img\imagenlogin.jpg" />
+    <Content Include="Content\img\sancarloseduca.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">

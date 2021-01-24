@@ -76,10 +76,12 @@
             <!-- LOGO -->
             <a href="/Home/Index" class="logo text-center logo-light">
                 <span class="logo-lg">
-                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
+                    <img src="~/Content/img/sancarloseduca.png" alt="" height="45">
+                    @*<img src="~/Content/img/cimg_logo.png" alt="" height="45">*@
                 </span>
                 <span class="logo-sm">
-                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
+                    <img src="~/Content/img/sancarloseduca.png" alt="" height="45">
+                    @*<img src="~/Content/img/cimg_logo.png" alt="" height="45">*@
                 </span>
             </a>
 
@@ -120,71 +122,87 @@
                             </a>
                         }
 
-                        <ul class="side-nav-second-level" aria-expanded="false">
-                            @if (ViewBag.GrolUsuario == 1)
-                            {
-                                <li>
-                                    <a href="/Usuario/Index">Usuario</a>
-                                </li>
-                                <li>
-                                    <a href="/Clase/ClaseGestion">Clase</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestion">Archivo</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
-                                </li>
-                                <li>
-                                    <a href="/Calificacion/calificacionGestion">Calificación</a>
-                                </li>
-                                <li>
-                                    <a href="/curso/asignacion">Asignación</a>
-                                </li>
-                            }
-                            else if (ViewBag.GrolUsuario == 2)
-                            {
-                                <li>
-                                    <a href="/Clase/ClaseGestion">Clase</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestion">Archivo</a>
-                                </li>
-                                <li>
-                                    <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
-                                </li>
-                                <li>
-                                    <a href="/Calificacion/calificacionGestion">Calificación</a>
-                                </li>
+                            <ul class="side-nav-second-level" aria-expanded="false">
+                                @if (ViewBag.GrolUsuario == 1)
+                                {
+                                    <li>
+                                        <a href="/Usuario/Index">Usuario</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Clase/ClaseGestion">Clase</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestion">Archivo</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
+                                    </li>
+                                    @*<li>
+                <a href="/Calificacion/calificacionGestion">Calificación</a>
+            </li>*@
+                                    <li>
+                                        <a href="/curso/asignacion">Asignación</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Pago/pagoGestion">
+                                            <span>Pago gestión</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Pago/Reporte">
+                                            <span>Reporte</span>
+                                        </a>
+                                    </li>
+                                }
+                                else if (ViewBag.GrolUsuario == 2)
+                                {
+                                    <li>
+                                        <a href="/Clase/ClaseGestion">Clase</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestion">Archivo</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Archivo/archivoGestionAlumno">Archivo Alumno</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Calificacion/calificacionGestion">Calificación</a>
+                                    </li>
 
-                            }
-                            else if (ViewBag.GrolUsuario == 3)
-                            {
-                                <li>
-                                    <a href="/Clase/Curso" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
-                                        <i class="uil-graduation-hat"></i>
-                                        <span>CURSOS</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Horario/Index" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
-                                        <i class="uil-graduation-hat"></i>
-                                        <span>HORARIO</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Calificacion/Calificacion" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
-                                        <i class="uil-file-plus-alt"></i>
-                                        <span>CALIFICACIÓN</span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
+                                }
+                                else if (ViewBag.GrolUsuario == 3)
+                                {
+                                    <li>
+                                        <a href="/Clase/Curso" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                            <i class="uil-graduation-hat"></i>
+                                            <span>CURSOS</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Horario/Index" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                            <i class="uil-graduation-hat"></i>
+                                            <span>HORARIO</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Calificacion/Calificacion" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                            <i class="uil-file-plus-alt"></i>
+                                            <span>CALIFICACIÓN</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Pago/Pago" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                            <i class="uil-file-plus-alt"></i>
+                                            <span>PAGO</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
                     </li>
 
                     @if (ViewBag.GrolUsuario == 3)
                     {
-                        <li class="side-nav-item">
+                        @*<li class="side-nav-item">
                             <a href="javascript: void(0);" class="side-nav-link"
                                style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
@@ -199,8 +217,8 @@
                                 </li>
                             </ul>
 
-                        </li>
-                        <li class="side-nav-item">
+                        </li>*@
+                        @*<li class="side-nav-item">
                             <a href="javascript: void(0);" class="side-nav-link"
                                style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
@@ -221,12 +239,12 @@
                                        href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">HOMESCAPES</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                     }
 
                 </ul>
                 <div>
-                    <img src="~/Content/img/calendario.png" height="320" />
+                    @*<img src="~/Content/img/calendario.png" height="320" />*@
                 </div>
                 <div class="clearfix"></div>
             </div>

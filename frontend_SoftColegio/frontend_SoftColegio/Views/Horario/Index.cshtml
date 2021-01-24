@@ -6,11 +6,9 @@
                 <div class="col-12">
                     @*col-lg-7*@
                     <div class="row">
-                        <div class="col-lg-2">
-                            <h4 class="page-title" style="font-size:40px">HORARIO</h4>
-                        </div>
-                        <div class="col-lg-4">
-                            <img src="~/Content/img/horario.png" />
+                        <div class="col-lg-12">
+                            <h4 class="page-title" style="font-size:30px;display:inline-block;">HORARIO</h4>
+                            <img src="~/Content/img/horario.png" height="90" />
                         </div>
                     </div>
                 </div>
@@ -28,8 +26,10 @@
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
-                            <table id="tablaHorario"  border="1" class="table table-striped dt-responsive nowrap w-100">
-                                @if (ViewBag.GrolUsuario == 3 &&  ViewBag.GidNivel == 1 && ViewBag.GidGrado == 5)
+                            <table id="tablaHorario" border="1" class="table table-striped dt-responsive nowrap w-100">
+                                @*ViewBag.GrolUsuario == 3 &&  ViewBag.GidNivel == 1 && ViewBag.GidGrado == 5*@
+                                @if (ViewBag.GrolUsuario == 3)
+
                                 {
                                     <thead>
                                         <tr>
@@ -49,8 +49,8 @@
                                                 <p class="m-0 d-inline-block align-middle font-16">9:00 AM - 10:00 AM</p>
                                             </td>
                                             <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
-                                                <p class="m-0 d-inline-block align-middle font-16" >ARITMÉTICA</p>
-                                                <img class="" height="40"  src="~/Content/img/cimg2.png" />
+                                                <p class="m-0 d-inline-block align-middle font-16">ARITMÉTICA</p>
+                                                <img class="" height="40" src="~/Content/img/cimg2.png" />
                                             </td>
                                             <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                                 <p class="m-0 d-inline-block align-middle font-16">AJEDREZ</p>
@@ -88,13 +88,13 @@
                                             <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
                                                 <p class="m-0 d-inline-block align-middle font-16">11:30 AM - 12:30 PM</p>
                                             </td>
-                                            <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">                                                
+                                            <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
                                                 <p class="m-0 d-inline-block align-middle font-16">PERCENTIL ORTOGRÁFICO</p>
                                                 <img class="" height="40" src="~/Content/img/cimg9.png" />
                                             </td>
                                             <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
                                                 <p class="m-0 d-inline-block align-middle font-16">QUÍMICA</p>
-                                                <img class="" height="40" src="~/Content/img/cimg5.png" />                                                
+                                                <img class="" height="40" src="~/Content/img/cimg5.png" />
                                             </td>
                                             <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
                                                 <p class="m-0 d-inline-block align-middle font-16">GEOMETRÍA</p>
