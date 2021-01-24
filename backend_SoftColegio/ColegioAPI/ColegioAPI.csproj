@@ -156,6 +156,7 @@
     <None Include="packages.config" />
     <Content Include="Views\home\index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\gruposancarlos.pubxml" />
   </ItemGroup>
   <ItemGroup>

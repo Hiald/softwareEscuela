@@ -422,6 +422,7 @@
     <Content Include="Views\Pago\Index.cshtml" />
     <Content Include="Views\Pago\pagoGestion.cshtml" />
     <Content Include="Views\Pago\pago.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">
