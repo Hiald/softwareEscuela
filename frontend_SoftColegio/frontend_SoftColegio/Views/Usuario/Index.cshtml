@@ -73,9 +73,9 @@
                                     <label for="example-select">Nivel (Primaria / Secundaria)</label>
                                     <select class="form-control" id="idNivel">
                                         <option value="0">Seleccionar</option>
-                                        @*<option value="1">Primaria</option>
-                                            <option value="2">Secundaria</option>*@
-                                        <option value="1">Principal</option>
+                                        <option value="1">Primaria</option>
+                                        <option value="2">Secundaria</option>
+                                        @*<option value="1">Principal</option>*@
                                     </select>
                                 </div>
 
@@ -207,7 +207,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group mb-3">
+                                @*<div class="form-group mb-3">
                                     <label for="idUsuarioEditar">Usuario</label>
                                     <input type="text" id="idUsuarioEditar" name="example-email" class="form-control" placeholder="Usuario">
                                 </div>
@@ -215,7 +215,7 @@
                                 <div class="form-group mb-3">
                                     <label for="idContraseniaEditar">Contraseña</label>
                                     <input type="password" id="idContraseniaEditar" class="form-control">
-                                </div>
+                                </div>*@
 
                             </form>
                         </div>
@@ -411,6 +411,7 @@
                 ]
             },
             "bServerSide": true,
+            //"bDestroy": true,
             "sAjaxSource": RutaPrincipal + 'Login/ListarUsuarioGestion',
             "bProcessing": true,
             "pageLength": 10,
@@ -563,33 +564,35 @@
         $("#idNombresEditar").val(Snombres);
         $("#idApMaternoEditar").val(SApellidoMaterno);
         $("#idApPaternoEditar").val(SApellidoPaterno);
-
-
         $('#modalEditarUsuario').modal("show");
-
     }
 
     function fn_Actualizar() {
         var iIdUsuario = $('#hddusuario').attr("data-idusuario");
         var iIdNivel = $('#idNivelEditar option:selected').attr('value');
-        var iIdTipoUsuario = $('#idTipoUsuarioEditar option:selected').attr('value');
         var iIdGrado = $('#idGradoEditar option:selected').attr('value');
+
         var iIdSede = $('#idSedeEditar option:selected').attr('value');
+        //var iIdTipoUsuario = $('#idTipoUsuarioEditar option:selected').attr('value');
         var sNombre = $('#idNombresEditar').val();
         var sApellidoPaterno = $("#idApPaternoEditar").val();
         var sApellidoMaterno = $("#idApMaternoEditar").val();
 
         $.ajax({
             type: "POST",
-            url: gRoute + "categoria/ActualizarCategoria",
+            url: RutaPrincipal + "Login/ActualizarUsuario",
             data: {
-                "wcategoriaid": iIdCategoria,
-                "wnombre": sNombre,
-                "wcodigo": slcIcono
+                "widusuario": iIdUsuario,
+                "widnivel": iIdNivel,
+                "widgrado": iIdGrado,
+                "widsede": iIdSede,
+                "wnombres": sNombre,
+                "wamaterno": sApellidoMaterno,
+                "wapaterno": sApellidoPaterno
             },
             success: function (data) {
                 $('#modalEditarUsuario').modal("hide");
-                var table = $('#tblCategoria').DataTable();
+                var table = $('#basic-datatable').DataTable();
                 table.clear().draw();
             },
             error: function (data) {

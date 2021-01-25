@@ -53,7 +53,7 @@ namespace ColegioAD
                 int result = -2;
                 MySqlCommand cmd = new MySqlCommand("sp_actualizar_usuario", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@_idusuario", MySqlDbType.Int32).Value = adidusuario;
+                cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = adidnivel;
                 cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = adidgrado;
                 cmd.Parameters.Add("_idsede", MySqlDbType.Int32).Value = adidsede;

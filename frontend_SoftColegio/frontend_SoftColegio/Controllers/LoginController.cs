@@ -186,20 +186,25 @@ namespace frontend_SoftColegio.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ActualizarUsuario(int wcategoriaid, string wnombre, string wcodigo)
+        public async Task<JsonResult> ActualizarUsuario(int widusuario, int widnivel, int widgrado, int widsede, string wnombres, string wamaterno
+                                                    , string wapaterno)
         {
             try
             {
                 var objResultado = new object();
-
+                Int16 westado = 1;
+                string wfechaRegistro = DateTime.Now.ToString();
+                string wgenero = "0";
+                string wcorreo = "vacio";
                 int iresultadoreg = -1;
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reswsru = await client.GetAsync("api/usuario/wsActualizarCuenta?wscategoriaid=" + wcategoriaid
-                        + "&wsnombre=" + wnombre + "&wscodigo=" + wcodigo);
+                    HttpResponseMessage Reswsru = await client.GetAsync("api/usuario/wsActualizarCuenta?widusuario=" + widusuario + "&widnivel=" + widnivel + "&widgrado=" + widgrado
+                        + "&widsede=" + widsede + "&wnombres=" + wnombres + "&wamaterno=" + wamaterno + "&wapaterno=" + wapaterno
+                        + "&wgenero=" + wgenero + "&wcorreo=" + wcorreo + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro);
                     if (Reswsru.IsSuccessStatusCode)
                     {
                         var lpoEnCategoriaReg = Reswsru.Content.ReadAsAsync<string>().Result;
