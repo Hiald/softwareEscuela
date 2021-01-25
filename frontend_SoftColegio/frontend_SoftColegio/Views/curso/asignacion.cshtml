@@ -72,19 +72,13 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idNivel">Nivel</label>
-                                <select class="form-control" id="idNivel">
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Primaria</option>
-                                    <option value="2">Secundaria</option>
-                                    @*<option value="1">Principal</option>*@
-                                </select>
+                                <select class="form-control" id="idNivel"></select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idGrado">Grado</label>
-                                <select class="form-control" id="idGrado">
-                                </select>
+                                <select class="form-control" id="idGrado"></select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -96,9 +90,9 @@
                         <!--<div class="col-md-6">
                             <label for="">Cursos</label>
                             <div class="form-group mb-3" id="idCurso">-->
-                               @*  Here *@
+                        @*  Here *@
 
-                            <!--</div>
+                        <!--</div>
                         </div>-->
 
                     </div>
@@ -200,6 +194,33 @@
 </div>
 
 <script>
+    function fn_ListarNivel() {
+
+        $('#idNivel').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/curso/ListarNivel",
+            success: function (data) {
+                if (data.aaData === "") {
+                    alert("¡No hay niveles, intenta agregar algunos!");
+                }
+                $('#idNivel').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idNivel').append($("<option></option>")
+                        .attr("value", value.idnivel)
+                        .text(value.SnombreNivel));
+                });
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
     function fn_ListarUsuario() {
 
         $('#idUsuario').find('option').remove();
@@ -287,8 +308,8 @@
                 //    $('#idCurso').append("<div class='custom-control custom-checkbox custom-control-inline'>" +
                 //                            "<input type='checkbox' class='custom-control-input' value='" + value.idcurso + "'>" +
                 //                            "<label class='custom-control-label' for='" + value.idcurso+"'>"+value.Snombre+"</label>"+
-                //                         "</div>"); 
-                //});                
+                //                         "</div>");
+                //});
             },
             error: function (data) {
                 console.log(data);
@@ -298,6 +319,7 @@
     }
 
     $(document).ready(function () {
+        fn_ListarNivel();
         fn_ListarUsuario();
 
         $('#tblAsignacion').DataTable(
@@ -372,8 +394,6 @@
             fn_ListarCurso();
         });
 
-        
-
     });
 
     $("#btnCerrar").click(function () {
@@ -382,7 +402,7 @@
         $("#idNivel").prop('selectedIndex', 0);
         $("#idUsuario").prop('selectedIndex', 0);
         fn_ListarUsuario();
-        
+
     });
 
     $("#btnGuardar").click(function () {

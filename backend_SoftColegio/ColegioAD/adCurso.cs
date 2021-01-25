@@ -129,5 +129,42 @@ namespace ColegioAD
             }
         }
 
+        public List<edCurso> adListarNivel()
+        {
+            try
+            {
+                List<edCurso> slClase = new List<edCurso>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_listar_nivel", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = 1;
+
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edCurso sClase = null;
+                            int pos_idnivel = mdrd.GetOrdinal("idnivel");
+                            int pos_vnombre = mdrd.GetOrdinal("v_nombre");
+
+                            while (mdrd.Read())
+                            {
+                                sClase = new edCurso();
+                                sClase.idnivel = (mdrd.IsDBNull(pos_idnivel) ? 0 : mdrd.GetInt32(pos_idnivel));
+                                sClase.SnombreNivel = (mdrd.IsDBNull(pos_vnombre) ? "-" : mdrd.GetString(pos_vnombre));
+                                slClase.Add(sClase);
+                            }
+                        }
+                    }
+                    return slClase;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
     }
 }

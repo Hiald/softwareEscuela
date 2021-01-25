@@ -60,6 +60,21 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string wsListarNivel()
+        {
+            List<edCurso> wsenCurso = new List<edCurso>();
+            try
+            {
+                itdCurso = new tdCurso();
+                wsenCurso = itdCurso.tdListarNivel();
+                return JsonConvert.SerializeObject(wsenCurso);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
 
     }
 }

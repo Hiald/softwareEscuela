@@ -123,7 +123,6 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
-
         //ACTIVO : lista los grados dependiendo del nivel
         [HttpPost]
         public async Task<JsonResult> ListarGrado(int widnivel)
@@ -164,6 +163,47 @@ namespace frontend_SoftColegio.Controllers
                 return Json(ex);
             }
 
+        }
+
+        //ACTIVO : lista los niveles sin parametros
+        [HttpPost]
+        public async Task<JsonResult> ListarNivel()
+        {
+            try
+            {
+                var objResultado = new object();
+                List<edCurso> loenClase = new List<edCurso>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client
+                            .GetAsync("api/curso/wsListarNivel");
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edCurso>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = loenClase.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = loenClase
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
         }
 
     }

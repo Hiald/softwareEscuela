@@ -85,6 +85,30 @@ namespace ColegioTD
 
         }
 
+        public List<edCurso> tdListarNivel()
+        {
+            List<edCurso> renClase = new List<edCurso>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadCurso = new adCurso(con);
+                        renClase = iadCurso.adListarNivel();
+                        scope.Commit();
+                    }
+                }
+                return (renClase);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
 
     }
 }

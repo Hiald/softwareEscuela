@@ -86,12 +86,7 @@
                 <div class="col-md-4">
                     <div class="form-group mb-3">
                         <label for="idNivel">Nivel</label>
-                        <select class="form-control" name="widnivel" id="idNivel">
-                            <option value="">Seleccione</option>
-                            <option value="1">Principal</option>
-                            @*<option value="1">Primaria</option>
-                            <option value="2">Secundaria</option>*@
-                        </select>
+                        <select class="form-control" name="widnivel" id="idNivel"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -192,6 +187,33 @@
 <script>
     var GvalorIdCurso = 0;
 
+    function fn_ListarNivel() {
+
+        $('#idNivel').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/curso/ListarNivel",
+            success: function (data) {
+                if (data.aaData === "") {
+                    alert("¡No hay niveles, intenta agregar algunos!");
+                }
+                $('#idNivel').append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccione una opción"));
+                $.each(data.aaData, function (index, value) {
+                    $('#idNivel').append($("<option></option>")
+                        .attr("value", value.idnivel)
+                        .text(value.SnombreNivel));
+                });
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
     function fn_ListarMesPendiente() {
         var slcnivelg = $('#idNivel option:selected').attr('value');
         var slcgradog = $('#idGrado option:selected').attr('value');
@@ -227,7 +249,7 @@
 
                 $.each(data.aaData, function (index, value) {
                     var valormes = "";
-                   
+
                     switch (value.Imes) {
                         case 1: valormes = "Enero"; break;
                         case 2: valormes = "Febrero"; break;
@@ -267,7 +289,6 @@
                 "widnivel": parseInt(inivelvalor),
             },
             success: function (data) {
-                
                 if (data.aaData === "") {
                     alert("¡No hay datos, ¡intenta agregar algunos!");
                 }
@@ -285,7 +306,6 @@
                 console.log(data);
             }
         });
-
 
     }
 
@@ -324,6 +344,8 @@
     }
 
     $(document).ready(function () {
+        fn_ListarNivel();
+
         $('#idNivel').on('change', function () {
             fn_ListarGrado();
         });
