@@ -108,7 +108,11 @@
                 <div class="col-md-4">
                     <div class="form-group mb-3">
                         <label for="slcpagoindimult">Tipo de pago</label>
-                        <select class="form-control" id="slcpagoindimult">
+                        <select data-toggle="tooltip" data-placement="top" data-html="true"
+                                title="Pago individual: si ha realizado solo un pago de un mes. <br>
+                                Pago múltiple: si desea pagar varias mensualidades en una sola operación bancaria, agente, etc.
+                                Adjuntar el número de operación y/o imagen e indicar los meses que se han pagado"
+                                class="form-control" id="slcpagoindimult">
                             <option value="0">Seleccionar</option>
                             <option value="1">Pago individual</option>
                             <option value="2">Pago múltiple</option>
@@ -123,11 +127,10 @@
                                class="form-control" placeholder="Número de Operación">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group mb-3">
-                        <label for="slcmes">Mes de pago</label>
-                        <select class="form-control" name="wmes" id="slcmes"></select>
-                    </div>
+
+
+                <div class="col-md-3" id="divMesesPago">
+
                 </div>
 
                 <div class="col-md-3">
@@ -162,8 +165,6 @@
                                class="form-control" placeholder="Número de Operación">
                     </div>
                 </div>
-
-
 
                 <div class="col-lg-4 mb-3">
                     <label for="flImagen1">Imagen de comprobante</label>
@@ -242,6 +243,11 @@
         var idusuarioparam = $('#hddidusuario').val();
         if (slccursog == 0) {
             $('#slcmes').find('option').remove();
+            return;
+        }
+
+        var slcpago = $('#slcpagoindimult option:selected').attr('value');
+        if (slcpago == 0) {
             return;
         }
 
@@ -453,6 +459,310 @@
 
     }
 
+
+    function fn_ArmarMultipleMeses() {
+        var slcnivelg = $('#idNivel option:selected').attr('value');
+        var slcgradog = $('#idGrado option:selected').attr('value');
+        var slccursog = $('#idCurso option:selected').attr('value');
+        var idusuarioparam = $('#hddidusuario').val();
+        if (slccursog == 0) {
+            $('#slcmes').find('option').remove();
+            return;
+        }
+
+        $('#slcmes').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/pago/ListarPagoPendiente",
+            data: {
+                "wsidusuario": parseInt(idusuarioparam),
+                "wsidnivel": parseInt(1),//slcnivelg
+                "wsidgrado": parseInt(1), //slcgradog
+                "wsidcurso": parseInt(slccursog),
+                "wsbactivo": 0,
+            },
+            success: function (data) {
+                $('#divMesesPago').html("");
+                if (data.aaData.length === 0) {
+                    if (slccursog == 1) { // Auxiliar Inicial
+                        $('#divMesesPago').html(
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >1ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >2da Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label">3ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >4ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >5ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >6ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >7ma Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >8va Mensualidad</label>' +
+                            '</div>');
+                    } else if (slccursog == 2) { // Auxiliar Primaria
+                        $('#divMesesPago').html(
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >1ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >2da Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label">3ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >4ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >5ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >6ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >7ma Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >8va Mensualidad</label>' +
+                            '</div>');
+                    } else if (slccursog == 3) { // Auxiliar Secundaria
+                        $('#divMesesPago').html(
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >1ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >2da Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label">3ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >4ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >5ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >6ta Mensualidad</label>' +
+                            '</div>');
+                    } else if (slccursog == 4) { // Didáctica
+                        $('#divMesesPago').html(
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >1ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >2da Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label">3ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >4ta Mensualidad</label>' +
+                            '</div>');
+                    } else if (slccursog == 5) { // Terapia
+                        $('#divMesesPago').html(
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >1ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >2da Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label">3ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >4ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >5ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >6ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >7ma Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >8va Mensualidad</label>' +
+                            '</div>');
+                    } else if (slccursog == 6) { // Estimulación temprana
+                        $('#divMesesPago').html(
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >1ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >2da Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label">3ra Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >4ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >5ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >6ta Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >7ma Mensualidad</label>' +
+                            '</div>' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox">' +
+                            '<label class="form-check-label" >8va Mensualidad</label>' +
+                            '</div>');
+                    }
+                } else {
+                    if (slccursog == 1) { // Auxiliar Inicial
+                        $.each(data.aaData, function (index, value) {
+                            switch (value.Imes) {
+                                case 1: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >1ra Mensualidad</label>' + '</div>'); break;
+                                case 2: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >2da Mensualidad</label>' + '</div>'); break;
+                                case 3: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >3ra Mensualidad</label>' + '</div>'); break;
+                                case 4: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >4ta Mensualidad</label>' + '</div>'); break;
+                                case 5: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >5ta Mensualidad</label>' + '</div>'); break;
+                                case 6: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >6ta Mensualidad</label>' + '</div>'); break;
+                                case 7: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >7ma Mensualidad</label>' + '</div>'); break;
+                                case 8: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >8va Mensualidad</label>' + '</div>'); break;
+                            }
+                        });
+
+                    } else if (slccursog == 2) { // Auxiliar Primaria
+                        $.each(data.aaData, function (index, value) {
+                            switch (value.Imes) {
+                                case 1: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >1ra Mensualidad</label>' + '</div>'); break;
+                                case 2: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >2da Mensualidad</label>' + '</div>'); break;
+                                case 3: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >3ra Mensualidad</label>' + '</div>'); break;
+                                case 4: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >4ta Mensualidad</label>' + '</div>'); break;
+                                case 5: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >5ta Mensualidad</label>' + '</div>'); break;
+                                case 6: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >6ta Mensualidad</label>' + '</div>'); break;
+                                case 7: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >7ma Mensualidad</label>' + '</div>'); break;
+                                case 8: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >8va Mensualidad</label>' + '</div>'); break;
+                            }
+                        });
+                    } else if (slccursog == 3) { // Auxiliar Secundaria
+                        $.each(data.aaData, function (index, value) {
+                            switch (value.Imes) {
+                                case 1: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >1ra Mensualidad</label>' + '</div>'); break;
+                                case 2: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >2da Mensualidad</label>' + '</div>'); break;
+                                case 3: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >3ra Mensualidad</label>' + '</div>'); break;
+                                case 4: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >4ta Mensualidad</label>' + '</div>'); break;
+                                case 5: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >5ta Mensualidad</label>' + '</div>'); break;
+                                case 6: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >6ta Mensualidad</label>' + '</div>'); break;
+                            }
+                        });
+                    } else if (slccursog == 4) { // Didáctica
+                        $.each(data.aaData, function (index, value) {
+                            switch (value.Imes) {
+                                case 1: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >1ra Mensualidad</label>' + '</div>'); break;
+                                case 2: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >2da Mensualidad</label>' + '</div>'); break;
+                                case 3: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >3ra Mensualidad</label>' + '</div>'); break;
+                                case 4: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >4ta Mensualidad</label>' + '</div>'); break;
+                            }
+                        });
+                    } else if (slccursog == 5) { // Terapia
+                        $.each(data.aaData, function (index, value) {
+                            switch (value.Imes) {
+                                case 1: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >1ra Mensualidad</label>' + '</div>'); break;
+                                case 2: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >2da Mensualidad</label>' + '</div>'); break;
+                                case 3: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >3ra Mensualidad</label>' + '</div>'); break;
+                                case 4: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >4ta Mensualidad</label>' + '</div>'); break;
+                                case 5: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >5ta Mensualidad</label>' + '</div>'); break;
+                                case 6: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >6ta Mensualidad</label>' + '</div>'); break;
+                                case 7: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >7ma Mensualidad</label>' + '</div>'); break;
+                                case 8: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >8va Mensualidad</label>' + '</div>'); break;
+                            }
+                        });
+                    } else if (slccursog == 6) { // Estimulación temprana
+                        $.each(data.aaData, function (index, value) {
+                            switch (value.Imes) {
+                                case 1: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >1ra Mensualidad</label>' + '</div>'); break;
+                                case 2: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >2da Mensualidad</label>' + '</div>'); break;
+                                case 3: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >3ra Mensualidad</label>' + '</div>'); break;
+                                case 4: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >4ta Mensualidad</label>' + '</div>'); break;
+                                case 5: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >5ta Mensualidad</label>' + '</div>'); break;
+                                case 6: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >6ta Mensualidad</label>' + '</div>'); break;
+                                case 7: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >7ma Mensualidad</label>' + '</div>'); break;
+                                case 8: $('#divMesesPago').append('<div class="form-check">' + '<input class="form-check-input" type="checkbox">' + '<label class="form-check-label" >8va Mensualidad</label>' + '</div>'); break;
+                            }
+                        });
+                    }
+                }
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+
+
+
+    }
+
+    function fn_ArmarUnicoMes() {
+        $('#divMesesPago').html('<div class="form-group mb-3">' +
+            '<label for="slcmes"> Mes de pago</label>' +
+            '<select class="form-control" name="wmes" id="slcmes"></select>' +
+            '</div>');
+
+        fn_ListarMesPendiente();
+
+    }
+
     function fn_ListarGrado() {
         var inivelvalor = $('#idNivel option:selected').attr('value');
         $('#idGrado').find('option').remove();
@@ -520,13 +830,23 @@
 
     $(document).ready(function () {
         fn_ListarNivel();
-        
+        $('#slcpagoindimult').tooltip();
+        $('#slcpagoindimult').on('change', function () {
+            $('#slcpagoindimult').tooltip('hide');
+        });
+
+        fn_ArmarUnicoMes();
         $('#slcpagoindimult').on('change', function () {
             var slcpago = $('#slcpagoindimult option:selected').attr('value');
-            if (slcpago == 1) {
-
+            if (slcpago == 0) {
+                $('#divMesesPago').html('<div class="form-group mb-3">' +
+                    '<label for="slcmes"> Mes de pago</label>' +
+                    '<select class="form-control" name="wmes" id="slcmes"></select>' +
+                    '</div>');
+            } else if (slcpago == 1) {
+                fn_ArmarUnicoMes();
             } else {
-
+                fn_ArmarMultipleMeses();
             }
         });
 
@@ -539,7 +859,12 @@
         });
 
         $('#idCurso').on('change', function () {
-            fn_ListarMesPendiente();
+            var slcpago = $('#slcpagoindimult option:selected').attr('value');
+            if (slcpago == 1) {
+                fn_ArmarUnicoMes();
+            } else if (slcpago == 2) {
+                fn_ArmarMultipleMeses();
+            }
         });
 
         //fn_listartabla();
