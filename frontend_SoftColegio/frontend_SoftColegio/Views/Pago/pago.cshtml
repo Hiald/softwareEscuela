@@ -1,6 +1,4 @@
 ﻿@{
-    /**/
-
     ViewBag.Title = "pago";
 }
 
@@ -183,9 +181,10 @@
 
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
 <input type="hidden" value="@ViewBag.Gidusuario" id="hddidusuario" />
-
+<script src="~/assets/js/moment.js"></script>
 <script>
     var GvalorIdCurso = 0;
+    $('#whora').val(moment().format("hh:mm"));
 
     function fn_ListarNivel() {
 
