@@ -31,13 +31,13 @@
                             </button>*@
                     </p>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="display:none">
                             <div class="form-group mb-3">
                                 <label for="idNivelg">Nivel</label>
                                 <select class="form-control" name="widnivel" id="idNivelg"></select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="display:none">
                             <div class="form-group mb-3">
                                 <label for="idGradog">Grado</label>
                                 <select class="form-control" name="widgrado" id="idGradog"></select>
@@ -58,7 +58,7 @@
                                     <tr>
                                         <th>Alumno</th>
                                         <th>Fecha Inicio</th>
-                                        <th>Inscripción</th>
+                                        <th>Curso inscrito</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -209,14 +209,13 @@
                             <table id="tblDetalle" class="table table-bordered dt-responsive w-100">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Fecha</th>
                                         <th>Estado</th>
-                                        <th>Descripción</th>
+                                        <th>Nro Operación</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-
+                                <tbody id="tblDetallePagoRes"></tbody>
                             </table>
                         </div>
 
@@ -377,8 +376,8 @@
             type: "POST",
             url: "/clase/ListarClaseGestion",
             data: {
-                "idgrado": parseInt(slcgradog),
-                "idnivel": parseInt(slcnivelg)
+                "idgrado": parseInt(1), //slcgradog
+                "idnivel": parseInt(1) //slcnivelg
             },
             success: function (data) {
                 if (data.data === "") {
@@ -467,7 +466,7 @@
                     {
                         "data": "Ianio",
                         "mRender": function (data, type, value) {
-                            return value.SnivelNombre + "/" + value.SnombreCurso;
+                            return value.SnombreCurso;
                         }
                     },
 
@@ -477,7 +476,7 @@
                     [
                         {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-info' onclick='fnVerDetalle(" + row.idpago + ")' >Ver detalle</button>";
+                                var strHtml = "<button class='btn btn-info' onclick='fnVerDetalle(" + row.idpago + ", " + row.idcurso + ")' >Ver detalle</button>";
                                 return strHtml;
                             },
                             "sWidth": "5px",
@@ -491,6 +490,7 @@
 
     $(document).ready(function () {
         fn_ListarNivel();
+        fn_ListarCursoGeneral(); //temporal
 
         $('#idNivel').on('change', function () {
             fn_ListarGrado();
@@ -513,121 +513,231 @@
             fn_listartabla();
         });
 
+        $('#idCursog').on('change', function () {
+            GvalorIdCurso = $('#idCursog option:selected').attr('value');
+            fn_listartabla();
+        });
+
         fn_listartabla();
     });
 
     var valorObjetoDetallePago = {};
-    function fnVerDetalle(ivaloridpago) {
+    function fnVerDetalle(ivaloridpago, idcurso) {
+        $('#tblDetallePagoRes').html("");
         $('#modalDetalle').modal("show");
-        $('#tblDetalle').DataTable(
-            {
-                "ajax": {
-                    "url": "/Pago/ListarPagoDetalle",
-                    "type": "POST",
-                    "datatype": "json",
-                    "data": {
-                        "widpago": ivaloridpago,
-                        "wbactivo": 99,
-                        "wbestado": 99,
-                        "wfechaini": 'vacio',
-                        "wfechafin": 'vacio'
-                    }
-                },
-                //"bServerSide": true,
-                "bFilter": false,
-                "bProcessing": true,
-                "order": [[0, "asc"]],
-                "bDestroy": true,
-                "paging": false,
-                "language": {
-                    "info": "",
-                    "infoEmpty": "",
-                    "infoFiltered": "",
-                    "emptyTable": "No se encontraron registros",
-                    "sZeroRecords": "No se encontraron registros.",
-                    "processing": "Cargando. Por favor espere..."
-                    //"sSearch": "Buscar:"
-                },
-                "columns": [
-                    { "data": "Imes" },
-                    {
-                        "data": "Imes",
-                        "mRender": function (data, type, value) {
-                            var valormes = "";
-                            switch (value.Imes) {
-                                case 1: valormes = "Enero"; break;
-                                case 2: valormes = "Febrero"; break;
-                                case 3: valormes = "Marzo"; break;
-                                case 4: valormes = "Abril"; break;
-                                case 5: valormes = "Mayo"; break;
-                                case 6: valormes = "Junio"; break;
-                                case 7: valormes = "Julio"; break;
-                                case 8: valormes = "Agosto"; break;
-                                case 9: valormes = "Septiembre"; break;
-                                case 10: valormes = "Octubre"; break;
-                                case 11: valormes = "Noviembre"; break;
-                                case 12: valormes = "Diciembre"; break;
-                            }
-                            return valormes + " / " + value.Ianio;
+        $.ajax({
+            "url": "/Pago/ListarPagoDetalle",
+            "type": "POST",
+            "datatype": "json",
+            "data": {
+                "widpago": ivaloridpago,
+                "wbactivo": 99,
+                "wbestado": 99,
+                "wfechaini": 'vacio',
+                "wfechafin": 'vacio'
+            },
+            success: function (data) {
+                if (idcurso == 1) {
+                    $.each(data.aaData, function (index, value) {
+                        var wvalor = "";
+                        var westado = "No pagado";
+                        if (value.Iestado == 1) {
+                            westado = "Pagado";
                         }
-                    },
-                    {
-                        "data": "Ianio",
-                        "mRender": function (data, type, value) {
-                            if (value.Iestado == 1) {
-                                return "Pagado";
-                            } else {
-                                return "No Pagado";
-                            }
+                        switch (value.Imes) {
+                            case 1: wvalor = "1ra Mensualidad"; break;
+                            case 2: wvalor = "2da Mensualidad"; break;
+                            case 3: wvalor = "3ra Mensualidad"; break;
+                            case 4: wvalor = "4ta Mensualidad"; break;
+                            case 5: wvalor = "5ta Mensualidad"; break;
+                            case 6: wvalor = "6ta Mensualidad"; break;
+                            case 7: wvalor = "7ma Mensualidad"; break;
+                            case 8: wvalor = "8va Mensualidad"; break;
+                        }
 
+                        if (value.Imes >= 1 && value.Imes <= 8) {
+                            $('#tblDetallePagoRes').append('<tr>'
+                                + '<td>' + wvalor + '</td>'
+                                + '<td>' + westado + '</td>'
+                                + '<td>' + value.Soperacion + '</td>'
+                                + '<td>' + '</td>'
+                                + '</tr>');
                         }
-                    },
-                    {
-                        "data": "Sdescripcion",
-                        "mRender": function (data, type, value) {
-                            if (value.Sdescripcion == "-") {
-                                return "-";
-                            } else {
-                                return value.Sdescripcion;
-                            }
 
+                    });
+                } else if (idcurso == 2) {
+                    $.each(data.aaData, function (index, value) {
+                        var wvalor = "";
+                        var westado = "No pagado";
+                        if (value.Iestado == 1) {
+                            westado = "Pagado";
                         }
-                    },
-                    //{}
-                ],
-                "aoColumnDefs":
-                    [
-                        /*{
-                            "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-sm btn-success' onclick='fnVerPago(" +
-                                    1 + "," +
-                                    row.Idia + "," +
-                                    row.Dmonto + "," +
-                                    row.Ianio + "," +
-                                    row.Iestado + "," +
-                                    row.Imes + "," +
-                                    row.Itipomoneda + "," +
-                                    row.Itipopago + "," +
-                                    "\"" + row.Sdescripcion + ", " +
-                                    row.Sfecharegistro + ", " +
-                                    row.Simg_ruta_1 + ", " +
-                                    row.Simg_ruta_2 + ", " +
-                                    row.Soperacion + "\"" + ", " +
-                                    row.idpagodetalle + "," +
-                                    row.idpago
-                                    + ")'>Ver</button>";
-                                if (row.Iestado == 0) {
-                                    strHtml = "<button class='btn btn-sm btn-info' onclick='fnVerPago(" + 0 + ")' >Pagar</button>";
-                                }
-                                return strHtml;
-                            },
-                            "sWidth": "5px",
-                            "sClass": "css-center",
-                            "bSort": false,
-                            "aTargets": [4]
-                        }*/
-                    ]
-            });
+                        switch (value.Imes) {
+                            case 1: wvalor = "1ra Mensualidad"; break;
+                            case 2: wvalor = "2da Mensualidad"; break;
+                            case 3: wvalor = "3ra Mensualidad"; break;
+                            case 4: wvalor = "4ta Mensualidad"; break;
+                            case 5: wvalor = "5ta Mensualidad"; break;
+                            case 6: wvalor = "6ta Mensualidad"; break;
+                            case 7: wvalor = "7ma Mensualidad"; break;
+                            case 8: wvalor = "8va Mensualidad"; break;
+                        }
+
+                        if (value.Imes >= 1 && value.Imes <= 8) {
+                            $('#tblDetallePagoRes').append('<tr>'
+                                + '<td>' + wvalor + '</td>'
+                                + '<td>' + westado + '</td>'
+                                + '<td>' + value.Soperacion + '</td>'
+                                + '<td>' + '</td>'
+                                + '</tr>');
+                        }
+
+                    });
+                } else if (idcurso == 3) {
+                    $.each(data.aaData, function (index, value) {
+                        var wvalor = "";
+                        var westado = "No pagado";
+                        if (value.Iestado == 1) {
+                            westado = "Pagado";
+                        }
+                        switch (value.Imes) {
+                            case 1: wvalor = "1ra Mensualidad"; break;
+                            case 2: wvalor = "2da Mensualidad"; break;
+                            case 3: wvalor = "3ra Mensualidad"; break;
+                            case 4: wvalor = "4ta Mensualidad"; break;
+                            case 5: wvalor = "5ta Mensualidad"; break;
+                            case 6: wvalor = "6ta Mensualidad"; break;
+                        }
+
+                        if (value.Imes >= 1 && value.Imes <= 6) {
+                            $('#tblDetallePagoRes').append('<tr>'
+                                + '<td>' + wvalor + '</td>'
+                                + '<td>' + westado + '</td>'
+                                + '<td>' + value.Soperacion + '</td>'
+                                + '<td>' + '</td>'
+                                + '</tr>');
+                        }
+
+                    });
+                } else if (idcurso == 4) {
+                    $.each(data.aaData, function (index, value) {
+                        var wvalor = "";
+                        var westado = "No pagado";
+                        if (value.Iestado == 1) {
+                            westado = "Pagado";
+                        }
+                        switch (value.Imes) {
+                            case 1: wvalor = "1ra Mensualidad"; break;
+                            case 2: wvalor = "2da Mensualidad"; break;
+                            case 3: wvalor = "3ra Mensualidad"; break;
+                            case 4: wvalor = "4ta Mensualidad"; break;
+                        }
+
+                        if (value.Imes >= 1 && value.Imes <= 4) {
+                            $('#tblDetallePagoRes').append('<tr>'
+                                + '<td>' + wvalor + '</td>'
+                                + '<td>' + westado + '</td>'
+                                + '<td>' + value.Soperacion + '</td>'
+                                + '<td>' + '</td>'
+                                + '</tr>');
+                        }
+
+                    });
+                } else if (idcurso == 5) {
+                    $.each(data.aaData, function (index, value) {
+                        var wvalor = "";
+                        var westado = "No pagado";
+                        if (value.Iestado == 1) {
+                            westado = "Pagado";
+                        }
+                        switch (value.Imes) {
+                            case 1: wvalor = "1ra Mensualidad"; break;
+                            case 2: wvalor = "2da Mensualidad"; break;
+                            case 3: wvalor = "3ra Mensualidad"; break;
+                            case 4: wvalor = "4ta Mensualidad"; break;
+                            case 5: wvalor = "5ta Mensualidad"; break;
+                            case 6: wvalor = "6ta Mensualidad"; break;
+                            case 7: wvalor = "7ma Mensualidad"; break;
+                            case 8: wvalor = "8va Mensualidad"; break;
+                        }
+
+                        if (value.Imes >= 1 && value.Imes <= 8) {
+                            $('#tblDetallePagoRes').append('<tr>'
+                                + '<td>' + wvalor + '</td>'
+                                + '<td>' + westado + '</td>'
+                                + '<td>' + value.Soperacion + '</td>'
+                                + '<td>' + '</td>'
+                                + '</tr>');
+                        }
+                    });
+                } else if (idcurso == 6) {
+                    $.each(data.aaData, function (index, value) {
+                        var wvalor = "";
+                        var westado = "No pagado";
+                        if (value.Iestado == 1) {
+                            westado = "Pagado";
+                        }
+                        switch (value.Imes) {
+                            case 1: wvalor = "1ra Mensualidad"; break;
+                            case 2: wvalor = "2da Mensualidad"; break;
+                            case 3: wvalor = "3ra Mensualidad"; break;
+                            case 4: wvalor = "4ta Mensualidad"; break;
+                            case 5: wvalor = "5ta Mensualidad"; break;
+                            case 6: wvalor = "6ta Mensualidad"; break;
+                            case 7: wvalor = "7ma Mensualidad"; break;
+                            case 8: wvalor = "8va Mensualidad"; break;
+                        }
+
+                        if (value.Imes >= 1 && value.Imes <= 8) {
+                            $('#tblDetallePagoRes').append('<tr>'
+                                + '<td>' + wvalor + '</td>'
+                                + '<td>' + westado + '</td>'
+                                + '<td>' + value.Soperacion + '</td>'
+                                + '<td>' + '</td>'
+                                + '</tr>');
+                        }
+
+                    });
+                }
+
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+
+
+        /*{
+          "mRender": function (data, type, row) {
+            var strHtml = "<button class='btn btn-sm btn-success' onclick='fnVerPago(" +
+                1 + "," +
+                row.Idia + "," +
+                row.Dmonto + "," +
+                row.Ianio + "," +
+                row.Iestado + "," +
+                row.Imes + "," +
+                row.Itipomoneda + "," +
+                row.Itipopago + "," +
+                "\"" + row.Sdescripcion + ", " +
+                row.Sfecharegistro + ", " +
+                row.Simg_ruta_1 + ", " +
+                row.Simg_ruta_2 + ", " +
+                row.Soperacion + "\"" + ", " +
+                row.idpagodetalle + "," +
+                row.idpago
+                + ")'>Ver</button>";
+            if (row.Iestado == 0) {
+                strHtml = "<button class='btn btn-sm btn-info' onclick='fnVerPago(" + 0 + ")' >Pagar</button>";
+            }
+            return strHtml;
+        },
+        "sWidth": "5px",
+        "sClass": "css-center",
+        "bSort": false,
+        "aTargets": [4]
+    }*/
+
     }
 
     function fnVerPago(tipo, a, b, c, d, e, f, g, h, i, j, k, l, m, n) {

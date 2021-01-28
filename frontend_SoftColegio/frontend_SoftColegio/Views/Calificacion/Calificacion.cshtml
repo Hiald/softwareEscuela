@@ -18,22 +18,48 @@
 
     </div>
     <div class="row">
+        @*<div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="idNivelg">Nivel</label>
+                <select class="form-control" id="idNivelg"></select>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="idGradog">Grado</label>
+                <select class="form-control" id="idGradog"></select>
+            </div>
+        </div>*@
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="idCursog">Curso</label>
+                <select class="form-control" id="idCursog"></select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="text-muted font-14">
+                <label for="idSemana">Semana</label>
+                <select class="form-control" id="idSemana">
+                    <option>Seleccionar</option>
+                    <option value="1">Semana 1</option>
+                    <option value="2">Semana 2</option>
+                    <option value="3">Semana 3</option>
+                    <option value="4">Semana 4</option>
+                    <option value="5">Semana 5</option>
+                    <option value="6">Semana 6</option>
+                    <option value="7">Semana 7</option>
+                    <option value="8">Semana 8</option>
+                    <option value="9">Semana 8</option>
+                    <option value="10">Semana 10</option>
+                </select>
+            </p>
+        </div>
+
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="text-muted font-14" >
-                        <label for="idSemana">Semana</label>
-                        <select class="form-control" id="idSemana" style="border-style:solid; border-color:black;">
-                            <option>Seleccionar</option>
-                            <option value="1">Semana 1</option>
-                            <option value="2">Semana 2</option>
-                            <option value="3">Semana 3</option>
-                            <option value="4">Semana 4</option>
-                            <option value="5">Semana 5</option>
-                            <option value="6">Semana 6</option>
-                            <option value="7">Semana 7</option>
-                        </select>
-                    </p>
+                    
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
@@ -58,6 +84,7 @@
 <script>
     $(document).ready(function () {
         var isemana = 0;
+        fn_ListarCurso();
         $(document).ready(function () {           
 
             $('#idSemana').on('change', function () {
@@ -106,6 +133,40 @@
                     { "data": "isemana" }
                 ]
             });
+    }
+
+    function fn_ListarCurso() {
+        var slcnivelg = $('#idNivelg option:selected').attr('value');
+        var slcgradog = $('#idGradog option:selected').attr('value');
+
+        var dtipousuario = $('#hddtipousuario').val();
+        var idusuarioparam = $('#hddidusuario').val();
+        $('#idCursog').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/clase/ListarClaseGestion",
+            data: {
+                "idgrado": parseInt(1), //slcgradog
+                "idnivel": parseInt(1) //slcnivelg
+            },
+            success: function (data) {
+                if (data.data === "") {
+                    alert("¡No hay categorias, intenta agregar una!");
+                }
+                $('#idCursog').append($("<option></option>")
+                    .attr("value", "0")
+                    .text("Seleccione una opción"));
+                $.each(data, function (index, value) {
+                    $('#idCursog').append($("<option></option>")
+                        .attr("value", value.idcurso)
+                        .text(value.Snombre));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
     }
 
 </script>

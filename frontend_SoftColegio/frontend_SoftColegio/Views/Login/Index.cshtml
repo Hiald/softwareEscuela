@@ -31,18 +31,18 @@
             <div class="align-items-center d-flex h-100">
                 <div class="card-body text-center">
 
-                    <img src="~/Content/img/imagenlogin.jpg" height="200" />
-                    @*<img src="~/Content/img/sancarloseduca.png" height="200" />*@
+                    @*<img src="~/Content/img/imagenlogin.jpg" height="200" />*@
+                    <img src="~/Content/img/sancarloseduca.png" height="200" />
 
-                     @*Logo*@
-        <div class="auth-brand text-center text-lg-left">
-            @*<a href="index.html" class="logo-dark">
-                <span><img src="assets/images/logo-dark.png" alt="" height="18"></span>
-            </a>*@
-            @*<a href="index.html" class="logo-light">
-                <span><img src="assets/images/logo.png" alt="" height="18"></span>
-            </a>*@
-        </div>
+                    @*Logo*@
+                    <div class="auth-brand text-center text-lg-left">
+                        @*<a href="index.html" class="logo-dark">
+                                <span><img src="assets/images/logo-dark.png" alt="" height="18"></span>
+                            </a>*@
+                        @*<a href="index.html" class="logo-light">
+                                <span><img src="assets/images/logo.png" alt="" height="18"></span>
+                            </a>*@
+                    </div>
                     <!-- title-->
                     <h4 class="mt-0">Iniciar sesión</h4>
                     <p class="text-muted mb-4">Ingrese su usuario y contraseña para acceder a la cuenta.</p>
@@ -70,20 +70,20 @@
                         <!-- social-->
                         <div class="text-center mt-4">
                             <!-- <p class="text-muted font-16">Sign in with</p>
-            <ul class="social-list list-inline mt-3">
-                <li class="list-inline-item">
-                    <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github-circle"></i></a>
-                </li>
-            </ul> -->
+                            <ul class="social-list list-inline mt-3">
+                                <li class="list-inline-item">
+                                    <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github-circle"></i></a>
+                                </li>
+                            </ul> -->
                         </div>
                     </form>
                     <!-- end form-->
@@ -155,6 +155,48 @@
         NotificacionAvisoIzquierdaAbajo("La sesión ha terminado, por favor ingrese nuevamente sus credenciales.")
     }
 
+    $(document).on('keypress', function (e) {
+        if (e.which == 13) {
+            var ipUsuario = $('#emailaddress').val();
+            var ipClave = $('#password').val();
+            var mensaje = "";
+            if (ipUsuario.trim() == "") {
+                NotificacionAvisoIzquierda("INGRESAR SU CORREO");
+                return;
+            }
+            if (ipClave.trim() == "") {
+                NotificacionAvisoIzquierda("INGRESE SU CLAVE");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: RutaPrincipal + 'Login/Loginusuario',
+                data: {
+                    "wusuario": ipUsuario,
+                    "wclave": ipClave
+                },
+                async: false,
+                success: function (msg) {
+                    if (msg.iResultado === -3) {
+                        NotificacionErrorIzquierda("USUARIO O CLAVE INCORRECTO");
+                        return;
+                    } else {
+
+                        window.location.href = RutaPrincipal + "Home/Index";
+
+                    }
+                },
+                error: function (msg) {
+
+                    //location.reload();
+                },
+                complete: function (data) {
+                    // si acabo de completar
+                }
+            });
+        }
+    });
 
     $("#btnLogin").click(function () {
         var ipUsuario = $('#emailaddress').val();

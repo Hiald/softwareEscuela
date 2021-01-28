@@ -357,13 +357,9 @@
         $('#idGradog').find('option').remove();
         $.ajax({
             type: "POST",
-            url: "/curso/ListarCursoGestion",
+            url: "/curso/ListarGrado",
             data: {
-                "valoritipousuario": dtipousuario,
-                "widusuario": idusuarioparam,
-                "idnivel": inivelvalor,
-                "idgrado": 0,
-                "idcurso": 0
+                "widnivel": parseInt(inivelvalor),
             },
             success: function (data) {
                 if (data.aaData === "") {
