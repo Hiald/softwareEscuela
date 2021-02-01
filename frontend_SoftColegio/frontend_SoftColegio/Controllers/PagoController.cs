@@ -57,7 +57,9 @@ namespace frontend_SoftColegio.Controllers
         [SecuritySession]
         public ActionResult pagoGestion()
         {
+            int idusuario = UtlAuditoria.ObtenerIdUsuario();
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.Gidusuario = idusuario;
             ViewBag.GrolUsuario = irolusuario;
             return View();
         }

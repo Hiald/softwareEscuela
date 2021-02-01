@@ -8,19 +8,19 @@
                 <select class="form-control form-control-light" name="widcurso" id="idCursog"></select>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <div class="form-group">
                 <label for="fi">Fecha inicio</label>
-                <input type="text" class="form-control form-control-light" id="fi">
+                <input type="date" class="form-control form-control-light" id="fi">
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <div class="form-group">
                 <label for="ff">Fecha fin</label>
-                <input type="text" class="form-control form-control-light" id="ff">
+                <input type="date" class="form-control form-control-light" id="ff">
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <div class="form-group">
                 <label for="idrangofecha">Fechas automáticas</label>
                 <select class="form-control form-control-light" name="widcurso" id="idrangofecha">
@@ -34,8 +34,11 @@
                 </select>
             </div>
         </div>
-        <div class="col-3" style="margin-top: 2.8%;margin-bottom: auto;">
-            <a href="" class="btn btn-success ml-2" data-toggle="tooltip" data-placement="top" data-html="true"
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="" onclick="fn_ActualizarDatos();" class="btn btn-success" data-toggle="tooltip" data-placement="top" data-html="true"
                title="Actualiza y busca la información." id="btnActualizar">
                 Buscar&nbsp;<i class="mdi mdi-autorenew"></i>
             </a>
@@ -44,9 +47,8 @@
                 Imprimir&nbsp;<i class="mdi mdi-filter-variant"></i>
             </a>
         </div>
-
     </div>
-
+    <br />
     <div class="row">
         <div class="col-xl-5 col-lg-6">
             <div class="row">
@@ -56,7 +58,7 @@
                             <div class="float-right">
                                 <i class="mdi mdi-account-multiple widget-icon"></i>
                             </div>
-                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Customers">Alumnos</h5>
+                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Customers">Alumnos registrados</h5>
                             <h3 class="mt-3 mb-3" id="rptTotalAlumno">0</h3>
                         </div>
                     </div>
@@ -68,7 +70,7 @@
                             <div class="float-right">
                                 <i class="mdi mdi-cart-plus widget-icon"></i>
                             </div>
-                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Orders">Alumnos de Pago inscritos</h5>
+                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Orders">Alumnos inscritos</h5>
                             <h3 class="mt-3 mb-3" id="rptTotalAlumnoPago">0</h3>
                         </div>
                     </div>
@@ -341,6 +343,9 @@
 <input type="hidden" value="@ViewBag.Gidusuario" id="hddidusuario" />
 <script src="~/assets/js/moment.js"></script>
 <script>
+    $('#fi').val(moment().format("YYYY-MM-DD"));
+    $('#ff').val(moment().add(1, 'month').format("YYYY-MM-DD"));
+
     function fn_ListarCurso() {
         //var slcnivelg = $('#idNivel option:selected').attr('value');
         //var slcgradog = $('#idGrado option:selected').attr('value');
@@ -417,6 +422,8 @@
     }
 
     function fn_ListarPagos() {
+        var fechainicial = $('#fi').val();
+        var fechafinal = $('#ff').val();
 
         $.ajax({
             type: "POST",
@@ -425,13 +432,12 @@
                 "widnivel": 0,
                 "widgrado": 0,
                 "widcurso": gidcurso,
-                "wfechaini": '2021-01-01',
-                "wfechafin": '2021-03-01',
+                "wfechaini": fechainicial,
+                "wfechafin": fechafinal,
                 "wmes": 0,
                 "wanio": 2021
             },
             success: function (data) {
-                console.log(data);
                 $('#rptTotalGanancia').text("S/. " + data.aaData[0].Dmonto);
                 $('#rptCantidadPagos').text(data.aaData[0].idpago);
                 /*
@@ -445,14 +451,32 @@
 
     }
 
+    function fn_ActualizarDatos() {
+        var tipoFiltroFecha = $('#idCurso option:selected').attr('value');
+        if (tipoFiltroFecha == 1) { // hoy
+    
+        } else if (tipoFiltroFecha == 2) { // ultima semana
+
+        } else if (tipoFiltroFecha == 3) { // ultimos 15 dias
+
+        } else if (tipoFiltroFecha == 4) { // ultimo mes
+
+        } else if (tipoFiltroFecha == 5) { // ultimos 90 dias
+
+        } else if (tipoFiltroFecha == 6) { // ultimos 365 dias
+
+        }
+
+    }
+
     $(document).ready(function () {
+        var gvalofechaini = $('#fi').val();
+        $('#ff').attr({ "min": gvalofechaini });
         $('#btnActualizar').tooltip();
         $('#btnImprimir').tooltip();
         fn_ListarUsuarios();
         fn_ListarUsuariosPago();
         fn_ListarCurso();
-        $('#fi').daterangepicker({ singleDatePicker: !0 });
-        $('#ff').daterangepicker({ singleDatePicker: !0 });
 
         $('#idCursog').on('change', function () {
             gidcurso = $('#idCursog option:selected').attr('value');
@@ -461,7 +485,11 @@
         });
 
         fn_ListarPagos();
-
+        $('#fi').on('change', function () {
+            var valofechaini = $('#fi').val();
+            $('#ff').val(valofechaini);
+            $('#ff').attr({ "min": valofechaini });
+        });
     });
 
 </script>
