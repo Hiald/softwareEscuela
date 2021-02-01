@@ -18,7 +18,8 @@ namespace frontend_SoftColegio.Filters
                     new RouteValueDictionary {
                             { "controller", "Login" },
                             { "action", "Index" },
-                            { "ivalorsesion", 1 }
+                            { "ivalorsesion", 1 },
+                            { "valorlogin", "vacio" }
                         });
 
             }
