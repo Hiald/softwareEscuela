@@ -455,7 +455,42 @@ namespace ColegioAD
             }
         }
 
+        public List<edPago> adRptVentasTotales()
+        {
+            try
+            {
+                List<edPago> slenPago = new List<edPago>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_reporte_ventas_totales", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edPago enPago = null;
+                            int pos_monto_total = mdrd.GetOrdinal("MONTO_TOTAL");
+                            int pos_idcurso = mdrd.GetOrdinal("ID_CURSO");
+                            int pos_curso = mdrd.GetOrdinal("CURSO");
 
+                            while (mdrd.Read())
+                            {
+                                enPago = new edPago();
+                                enPago.Dmonto = (mdrd.IsDBNull(pos_monto_total) ? 0 : mdrd.GetDecimal(pos_monto_total));
+                                enPago.idcurso = (mdrd.IsDBNull(pos_idcurso) ? 0 : mdrd.GetInt32(pos_idcurso));
+                                enPago.SnombreCurso = (mdrd.IsDBNull(pos_curso) ? "-" : mdrd.GetString(pos_curso));
+                                slenPago.Add(enPago);
+                            }
+                        }
+                    }
+                    return slenPago;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
     }
 }

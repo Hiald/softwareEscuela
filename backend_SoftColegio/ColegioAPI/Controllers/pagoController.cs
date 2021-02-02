@@ -169,6 +169,22 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string wsRptVentasTotales()
+        {
+            List<edPago> enPago = new List<edPago>();
+            try
+            {
+                itdPago = new tdPago();
+                enPago = itdPago.tdRptVentasTotales();
+                return JsonConvert.SerializeObject(enPago);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
 
     }
 }
