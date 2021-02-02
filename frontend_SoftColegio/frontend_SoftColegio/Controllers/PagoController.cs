@@ -42,12 +42,14 @@ namespace frontend_SoftColegio.Controllers
         [SecuritySession]
         public ActionResult Reporte()
         {
+            int idusuario = UtlAuditoria.ObtenerIdUsuario();
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             int idGrado = UtlAuditoria.ObtenerIdGrado();
             int idNivel = UtlAuditoria.ObtenerIdNivel();
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GidNivel = idNivel;
             ViewBag.GidGrado = idGrado;
+            ViewBag.Gidusuario = idusuario;
             return View();
         }
 
@@ -55,7 +57,9 @@ namespace frontend_SoftColegio.Controllers
         [SecuritySession]
         public ActionResult pagoGestion()
         {
+            int idusuario = UtlAuditoria.ObtenerIdUsuario();
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.Gidusuario = idusuario;
             ViewBag.GrolUsuario = irolusuario;
             return View();
         }
@@ -369,10 +373,7 @@ namespace frontend_SoftColegio.Controllers
                         , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
                         , wbestado, wfr, wff);
                     }
-
-
                 }
-
                 objResultado = new
                 {
                     iResultado = 1,
@@ -383,7 +384,7 @@ namespace frontend_SoftColegio.Controllers
             catch (Exception ex)
             {
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
-                return RedirectToAction("pago", "pago");
+                return RedirectToAction("index", "Login", new { ivalorsesion = 1, valorlogin = ex.Message });
             }
 
         }
@@ -477,7 +478,7 @@ namespace frontend_SoftColegio.Controllers
             try
             {
                 var objResultado = new object();
-                List<edCurso> loenClase = new List<edCurso>();
+                List<edPago> loenClase = new List<edPago>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
@@ -491,7 +492,7 @@ namespace frontend_SoftColegio.Controllers
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
-                        loenClase = JsonConvert.DeserializeObject<List<edCurso>>(rwsapilu);
+                        loenClase = JsonConvert.DeserializeObject<List<edPago>>(rwsapilu);
                     }
                 }
 
@@ -541,7 +542,7 @@ namespace frontend_SoftColegio.Controllers
                             //error
                             objResultado = new
                             {
-                                iResultado = -1,
+                                iResultado = idGenerado,
                                 iResultadoIns = "Ha ocurrido un error, intentalo nuevamente. Error: BCK"
                             };
                             return Json(objResultado);
@@ -551,7 +552,7 @@ namespace frontend_SoftColegio.Controllers
 
                 objResultado = new
                 {
-                    iResultado = 1,
+                    iResultado = idGenerado,
                     iResultadoIns = "Registrado correctamente"
                 };
                 return Json(objResultado);

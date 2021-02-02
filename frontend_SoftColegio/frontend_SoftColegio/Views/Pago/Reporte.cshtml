@@ -1,38 +1,56 @@
 ﻿<div class="container-fluid">
-
-    <!-- start page title -->
+    <br />
+    <h4 class="page-title">REPORTE</h4>
     <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <div class="page-title-right">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-light" id="dash-daterange">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-primary border-primary text-white">
-                                        <i class="mdi mdi-calendar-range font-13"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="javascript: void(0);" class="btn btn-primary ml-2">
-                            <i class="mdi mdi-autorenew"></i>
-                        </a>
-                        <a href="javascript: void(0);" class="btn btn-primary ml-1">
-                            <i class="mdi mdi-filter-variant"></i>
-                        </a>
-                    </form>
-                </div>
-                <h4 class="page-title">REPORTE</h4>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="idCursog">Curso</label>
+                <select class="form-control form-control-light" name="widcurso" id="idCursog"></select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="fi">Fecha inicio</label>
+                <input type="date" class="form-control form-control-light" id="fi">
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="ff">Fecha fin</label>
+                <input type="date" class="form-control form-control-light" id="ff">
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="idrangofecha">Fechas automáticas</label>
+                <select class="form-control form-control-light" name="widcurso" id="idrangofecha">
+                    <option value="0">Selecione</option>
+                    <option value="1">Hoy</option>
+                    <option value="2">Última semana</option>
+                    <option value="3">Últimos 15 días</option>
+                    <option value="4">Último mes</option>
+                    <option value="5">Últimos 90 días</option>
+                    <option value="6">Últimos 365 días</option>
+                </select>
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
+        <div class="col-md-6">
+            <a href="" onclick="fn_ActualizarDatos();" class="btn btn-success" data-toggle="tooltip" data-placement="top" data-html="true"
+               title="Actualiza y busca la información." id="btnActualizar">
+                Buscar&nbsp;<i class="mdi mdi-autorenew"></i>
+            </a>
+            <a href="javascript: void(0);" data-toggle="tooltip" data-placement="top" data-html="true"
+               title="Imprime y descarga la información." id="btnImprimir" class="btn btn-primary ml-1">
+                Imprimir&nbsp;<i class="mdi mdi-filter-variant"></i>
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
         <div class="col-xl-5 col-lg-6">
-
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card widget-flat">
@@ -40,11 +58,11 @@
                             <div class="float-right">
                                 <i class="mdi mdi-account-multiple widget-icon"></i>
                             </div>
-                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Customers">USUARIOS</h5>
-                            <h3 class="mt-3 mb-3">0</h3>
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
+                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Customers">Alumnos registrados</h5>
+                            <h3 class="mt-3 mb-3" id="rptTotalAlumno">0</h3>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-lg-6">
                     <div class="card widget-flat">
@@ -52,12 +70,12 @@
                             <div class="float-right">
                                 <i class="mdi mdi-cart-plus widget-icon"></i>
                             </div>
-                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Orders">PAGOS</h5>
-                            <h3 class="mt-3 mb-3">0</h3>
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
-            </div> <!-- end row -->
+                            <h5 class="text-muted font-weight-normal mt-0" title="Number of Orders">Alumnos inscritos</h5>
+                            <h3 class="mt-3 mb-3" id="rptTotalAlumnoPago">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-lg-6">
@@ -66,11 +84,11 @@
                             <div class="float-right">
                                 <i class="mdi mdi-currency-usd widget-icon"></i>
                             </div>
-                            <h5 class="text-muted font-weight-normal mt-0" title="Average Revenue">GANANCIAS</h5>
-                            <h3 class="mt-3 mb-3">0</h3>
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
+                            <h5 class="text-muted font-weight-normal mt-0" title="Average Revenue">Ganancias</h5>
+                            <h3 class="mt-3 mb-3" id="rptTotalGanancia">0</h3>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-lg-6">
                     <div class="card widget-flat">
@@ -78,14 +96,13 @@
                             <div class="float-right">
                                 <i class="mdi mdi-pulse widget-icon"></i>
                             </div>
-                            <h5 class="text-muted font-weight-normal mt-0" title="Growth">PORCENTAJE</h5>
-                            <h3 class="mt-3 mb-3">0</h3>
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div> <!-- end col-->
-            </div> <!-- end row -->
-
-        </div> <!-- end col -->
+                            <h5 class="text-muted font-weight-normal mt-0" title="Growth">Cantidad Pagos</h5>
+                            <h3 class="mt-3 mb-3" id="rptCantidadPagos">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="col-xl-7  col-lg-6">
             <div class="card">
@@ -95,27 +112,17 @@
                             <i class="mdi mdi-dots-vertical"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                            <a href="javascript:void(0);" class="dropdown-item">Exportar este reporte</a>
+                            <a href="javascript:void(0);" class="dropdown-item">Actualizar</a>
                         </div>
                     </div>
                     <h4 class="header-title mb-3">GANANCIAS POR MES</h4>
-
                     <div id="high-performing-product" class="apex-charts"
                          data-colors="#727cf5,#e3eaef"></div>
-
-                </div> <!-- end card-body-->
-            </div> <!-- end card-->
-
-        </div> <!-- end col -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- end row -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -169,8 +176,6 @@
 
     </div>
     <!-- end row -->
-
-
     <div class="row">
         <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
             <div class="card">
@@ -321,7 +326,7 @@
                             <a href="javascript:void(0);" class="dropdown-item">Action</a>
                         </div>
                     </div>
-                    
+
                 </div>
                 <!-- end card-body -->
             </div>
@@ -333,3 +338,158 @@
     <!-- end row -->
 
 </div>
+
+<input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
+<input type="hidden" value="@ViewBag.Gidusuario" id="hddidusuario" />
+<script src="~/assets/js/moment.js"></script>
+<script>
+    $('#fi').val(moment().format("YYYY-MM-DD"));
+    $('#ff').val(moment().add(1, 'month').format("YYYY-MM-DD"));
+
+    function fn_ListarCurso() {
+        //var slcnivelg = $('#idNivel option:selected').attr('value');
+        //var slcgradog = $('#idGrado option:selected').attr('value');
+        var dtipousuario = $('#hddtipousuario').val();
+        var idusuarioparam = $('#hddidusuario').val();
+
+        $('#idCursog').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/clase/ListarClaseGestion",
+            data: {
+                "idgrado": parseInt(1),//slcgradog
+                "idnivel": parseInt(1) //slcnivelg
+            },
+            success: function (data) {
+                if (data.data === "") {
+                    alert("¡No hay datos, ¡intenta agregar algunos!");
+                }
+                $('#idCursog').append($("<option></option>")
+                    .attr("value", "0")
+                    .text("Listar todo"));
+                $.each(data, function (index, value) {
+                    $('#idCursog').append($("<option></option>")
+                        .attr("value", value.idcurso)
+                        .text(value.Snombre));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    var gidcurso = 0;
+    function fn_ListarUsuarios() {
+
+        $.ajax({
+            type: "POST",
+            url: "/pago/ListarUsuarioTotal",
+            data: {
+                "widnivel": 1,
+                "widgrado": 0,
+                "widcurso": gidcurso
+            },
+            success: function (data) {
+                $('#rptTotalAlumno').text(data.iResultado);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    function fn_ListarUsuariosPago() {
+
+        $.ajax({
+            type: "POST",
+            url: "/pago/ListarUsuarioTotal",
+            data: {
+                "widnivel": 2,
+                "widgrado": 0,
+                "widcurso": gidcurso
+            },
+            success: function (data) {
+                $('#rptTotalAlumnoPago').text(data.iResultado);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    function fn_ListarPagos() {
+        var fechainicial = $('#fi').val();
+        var fechafinal = $('#ff').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/pago/RptListarSumPago",
+            data: {
+                "widnivel": 0,
+                "widgrado": 0,
+                "widcurso": gidcurso,
+                "wfechaini": fechainicial,
+                "wfechafin": fechafinal,
+                "wmes": 0,
+                "wanio": 2021
+            },
+            success: function (data) {
+                $('#rptTotalGanancia').text("S/. " + data.aaData[0].Dmonto);
+                $('#rptCantidadPagos').text(data.aaData[0].idpago);
+                /*
+                 Dcomision_nombre
+                 */
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    function fn_ActualizarDatos() {
+        var tipoFiltroFecha = $('#idCurso option:selected').attr('value');
+        if (tipoFiltroFecha == 1) { // hoy
+    
+        } else if (tipoFiltroFecha == 2) { // ultima semana
+
+        } else if (tipoFiltroFecha == 3) { // ultimos 15 dias
+
+        } else if (tipoFiltroFecha == 4) { // ultimo mes
+
+        } else if (tipoFiltroFecha == 5) { // ultimos 90 dias
+
+        } else if (tipoFiltroFecha == 6) { // ultimos 365 dias
+
+        }
+
+    }
+
+    $(document).ready(function () {
+        var gvalofechaini = $('#fi').val();
+        $('#ff').attr({ "min": gvalofechaini });
+        $('#btnActualizar').tooltip();
+        $('#btnImprimir').tooltip();
+        fn_ListarUsuarios();
+        fn_ListarUsuariosPago();
+        fn_ListarCurso();
+
+        $('#idCursog').on('change', function () {
+            gidcurso = $('#idCursog option:selected').attr('value');
+            fn_ListarUsuarios();
+            fn_ListarUsuariosPago();
+        });
+
+        fn_ListarPagos();
+        $('#fi').on('change', function () {
+            var valofechaini = $('#fi').val();
+            $('#ff').val(valofechaini);
+            $('#ff').attr({ "min": valofechaini });
+        });
+    });
+
+</script>

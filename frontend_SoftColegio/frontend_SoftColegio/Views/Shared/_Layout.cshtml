@@ -25,7 +25,8 @@
     <link href="~/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
 
     <script>
-         var RutaPrincipal = "@Url.Content("~")";
+        var RutaPrincipal = "@Url.Content("~")";
+        var valorfecha = "";
     </script>
 </head>
 
@@ -475,7 +476,7 @@
                 url: RutaPrincipal + 'Login/cerrarSesion',
                 async: false,
                 success: function (msg) {
-                    window.location.href = RutaPrincipal + "Login/Index?ivalorsesion=0";
+                    window.location.href = RutaPrincipal + "Login/Index?ivalorsesion=0&valorlogin=vacio";
 
                 },
                 error: function (msg) {
