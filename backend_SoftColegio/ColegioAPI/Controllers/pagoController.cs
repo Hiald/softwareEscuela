@@ -152,5 +152,23 @@ namespace ColegioAPI.Controllers
             }
         }
 
+
+        [HttpGet]
+        public string wsRptListarUsuarioPagos(string wsusuario, string wsfechaini, string wsfechafin, int wsidcurso)
+        {
+            List<edPago> enPago = new List<edPago>();
+            try
+            {
+                itdPago = new tdPago();
+                enPago = itdPago.tdRptListarUsuarioPagos(wsusuario, wsfechaini, wsfechafin, wsidcurso);
+                return JsonConvert.SerializeObject(enPago);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
+
     }
 }

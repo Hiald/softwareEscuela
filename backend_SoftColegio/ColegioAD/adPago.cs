@@ -401,5 +401,57 @@ namespace ColegioAD
             }
         }
 
+        public List<edPago> adRptListarUsuarioPagos(string adusuario, string adfechaini, string adfechafin, int adidcurso)
+        {
+            try
+            {
+                List<edPago> slenPago = new List<edPago>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_reporte_usuario_pagos", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("_usuario", MySqlDbType.VarChar, 100).Value = adusuario;
+                    cmd.Parameters.Add("_fechaini", MySqlDbType.VarChar, 25).Value = adfechaini;
+                    cmd.Parameters.Add("_fechafin", MySqlDbType.VarChar, 25).Value = adfechafin;
+                    cmd.Parameters.Add("_idcurso", MySqlDbType.Int32).Value = adidcurso;
+
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edPago enPago = null;
+                            int pos_usuario = mdrd.GetOrdinal("APELLIDO_NOMBRES");
+                            int pos_curso = mdrd.GetOrdinal("CURSO");
+                            int pos_fechapago = mdrd.GetOrdinal("FECHA_PAGO");
+                            int pos_monto = mdrd.GetOrdinal("MONTO");
+                            int pos_mes = mdrd.GetOrdinal("MESES_QUE_PAGO");
+                            int pos_anio = mdrd.GetOrdinal("i_anio");
+
+                            while (mdrd.Read())
+                            {
+                                enPago = new edPago();
+                                //Nombre y apellidos concatenado
+                                enPago.Snombres = (mdrd.IsDBNull(pos_usuario) ? "-" : mdrd.GetString(pos_usuario));
+                                //Nombre y apellidos concatenado
+                                enPago.SnombreCurso = (mdrd.IsDBNull(pos_curso) ? "-" : mdrd.GetString(pos_curso));
+                                enPago.Sfecharegistro = (mdrd.IsDBNull(pos_fechapago) ? "-" : mdrd.GetString(pos_fechapago));
+                                enPago.Dmonto = (mdrd.IsDBNull(pos_monto) ? 0 : mdrd.GetDecimal(pos_monto));
+                                enPago.Imes = (mdrd.IsDBNull(pos_mes) ? 0 : mdrd.GetInt32(pos_mes));
+                                enPago.Ianio = (mdrd.IsDBNull(pos_anio) ? 0 : mdrd.GetInt32(pos_anio));
+                                slenPago.Add(enPago);
+                            }
+                        }
+                    }
+                    return slenPago;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
+
+
     }
 }
