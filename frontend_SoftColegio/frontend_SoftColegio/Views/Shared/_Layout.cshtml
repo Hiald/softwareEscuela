@@ -144,7 +144,7 @@
                                     <li>
                                         <a href="/curso/asignacion">Asignación</a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a href="/Pago/pagoGestion">
                                             <span>Gestión de pagos</span>
                                         </a>
@@ -153,7 +153,7 @@
                                         <a href="/Pago/Reporte">
                                             <span>Reporte</span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                 }
                                 else if (ViewBag.GrolUsuario == 2)
                                 {
@@ -191,17 +191,17 @@
                                             <span>CALIFICACIÓN</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a href="/Pago/Pago" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
                                             <i class="uil-file-plus-alt"></i>
                                             <span>PAGO</span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                 }
                             </ul>
                     </li>
 
-                    @*@if (ViewBag.GrolUsuario == 3)
+                    @if (ViewBag.GrolUsuario == 3)
                     {
                         <li class="side-nav-item">
                             <a href="javascript: void(0);" class="side-nav-link"
@@ -242,7 +242,7 @@
                                 </li>
                             </ul>
                         </li>
-                    }*@
+                    }
 
                 </ul>
                 <div>

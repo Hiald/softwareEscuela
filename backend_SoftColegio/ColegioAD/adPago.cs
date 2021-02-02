@@ -405,6 +405,10 @@ namespace ColegioAD
         {
             try
             {
+                if(adusuario == null )
+                {
+                    adusuario = "";
+                }
                 List<edPago> slenPago = new List<edPago>();
                 using (MySqlCommand cmd = new MySqlCommand("sp_reporte_usuario_pagos", cnMysql))
                 {

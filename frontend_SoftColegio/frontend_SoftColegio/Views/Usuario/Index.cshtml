@@ -240,6 +240,7 @@
             type: "POST",
             url: "/curso/ListarNivel",
             success: function (data) {
+                console.log(data);
                 if (data.aaData === "") {
                     alert("¡No hay niveles, intenta agregar algunos!");
                 }

@@ -41,10 +41,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                             <button type="button" class="btn btn-success btn-rounded mb-3" id="btnBuscar">Buscar<i class="dripicons-search"></i></button>
+                            <button type="button" class="btn btn-success btn-rounded mb-3" id="btnBuscar">Buscar<i class="dripicons-search"></i></button>
                             @*<a href="" onclick="fn_ActualizarDatos();" class="btn btn-success mb-3" data-toggle="tooltip" data-placement="top" data-html="true" title="" id="btnActualizar" data-original-title="Actualiza y busca la información.">
-                                Buscar&nbsp;<i class="mdi mdi-autorenew"></i>
-                            </a>*@
+                                    Buscar&nbsp;<i class="mdi mdi-autorenew"></i>
+                                </a>*@
                         </div>
                     </div>
                     <!-- end nav-->
@@ -57,12 +57,11 @@
                                         <th style="text-align:center">CURSO</th>
                                         <th style="text-align:center">FECHA_PAGO</th>
                                         <th style="text-align:center">MONTO</th>
-                                        <th style="text-align:center">MESES QUE PAGO</th>
+                                        <th style="text-align:center">NRO MENSUALIDAD</th>
                                         <th style="text-align:center">AÑO</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -72,102 +71,17 @@
     </div>
 </div>
 
+<script src="~/assets/js/moment.js"></script>
 <script>
     var GvalorIdCurso = 0;
-    var fechainicial = "";
-    var fechafinal = "";
+    $('#fi').val(moment().format("YYYY-MM-DD"));
+    $('#ff').val(moment().add(1, 'month').format("YYYY-MM-DD"));
+
+    var fechainicial = moment().format("YYYY-MM-DD");
+    var fechafinal = moment().add(1, 'month').format("YYYY-MM-DD");
     var usuario = "";
-    $(document).ready(function () {
-        fn_ListarCursoGeneral();
-        
-    //$('#tblPago').DataTable({
-    //        responsive: "true",
-    //        dom: 'Bfrtilp',
-    //        buttons: [
-    //            {
-    //                extend: 'excelHtml5',
-    //                text: '<i class="fas fa-file-excel"></i> ',
-    //                titleAttr: 'Exportar a Excel',
-    //                className: 'btn btn-success'
-    //            },
-    //            {
-    //                extend: 'pdfHtml5',
-    //                text: '<i class="fas fa-file-pdf"></i> ',
-    //                titleAttr: 'Exportar a PDF',
-    //                className: 'btn btn-danger'
-    //            },
-    //            {
-    //                extend: 'print',
-    //                text: '<i class="fa fa-print"></i> ',
-    //                titleAttr: 'Imprimir',
-    //                className: 'btn btn-info'
-    //            },
-    //        ]
-    //    });
-    });
 
-    function fn_ListarCursoGeneral() {
-        var inivelvalor = parseInt(1); //$('#idNivelg option:selected').attr('value');
-        $('#idGradog').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/curso/ListarGrado",
-            data: {
-                "widnivel": parseInt(inivelvalor),
-            },
-            success: function (data) {
-                if (data.aaData === "") {
-                    alert("¡No hay datos, ¡intenta agregar algunos!");
-                }
-                $('#idGradog').append($("<option></option>")
-                    .attr("value", "")
-                    .text("Seleccione una opción"));
-                $.each(data.aaData, function (index, value) {
-                    $('#idGradog').append($("<option></option>")
-                        .attr("value", value.idgrado)
-                        .text(value.SnombreGrado));
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
-    function fn_ListarCursoGeneral() {
-        var slcnivelg = $('#idNivelg option:selected').attr('value');
-        var slcgradog = $('#idGradog option:selected').attr('value');
-        var dtipousuario = $('#hddtipousuario').val();
-        var idusuarioparam = $('#hddidusuario').val();
-
-        $('#idCursog').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/clase/ListarClaseGestion",
-            data: {
-                "idgrado": parseInt(1), //slcgradog
-                "idnivel": parseInt(1) //slcnivelg
-            },
-            success: function (data) {
-                if (data.data === "") {
-                    alert("¡No hay datos, ¡intenta agregar algunos!");
-                }
-                $('#idCursog').append($("<option></option>")
-                    .attr("value", "0")
-                    .text("Listar todo"));
-                $.each(data, function (index, value) {
-                    $('#idCursog').append($("<option></option>")
-                        .attr("value", value.idcurso)
-                        .text(value.Snombre));
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
-    function fn_listartabla() {        
+    function fn_listartabla() {
         $('#tblPago').DataTable(
             {
                 "ajax": {
@@ -175,13 +89,14 @@
                     "type": "POST",
                     "datatype": "json",
                     "data": {
-                        "wsusuario": usuario
-                        , "wsfechaini": fechainicial
-                        , "wsfechafin": fechafinal
+                        "wusuario": usuario
+                        , "wfechaini": '2021-01-01'
+                        , "wfechafin": '2021-05-01'
                         , "widcurso": GvalorIdCurso
                     }
                 },
                 //"bServerSide": true,
+                "order": [[4, "asc"]],
                 "bProcessing": true,
                 "bDestroy": true,
                 "language": {
@@ -212,25 +127,85 @@
                 //    [
                 //        {
                 //            "mRender": function (data, type, row) {
-                //                var strHtml = "<button class='btn btn-info' onclick='fnVerDetalle(" + row.idpago + ", " + row.idcurso + ", " + row.idusuario + ")' >Ver detalle</button>";
-                //                return strHtml;
+                //                console.log(row);
+                //                // var strHtml = "<button class='btn btn-info' onclick='fnVerDetalle(" + row.idpago + ", " + row.idcurso + ", " + row.idusuario + ")' >Ver detalle</button>";
+                //                // return strHtml;
                 //            },
                 //            "sWidth": "5px",
                 //            "sClass": "css-center",
                 //            "bSort": false,
-                //            "aTargets": [3]
+                //            "aTargets": [5]
                 //        },
                 //    ]
             });
     }
 
-   $("#btnBuscar").click(function ()
-   {
-       GvalorIdCurso = $('#idCursog option:selected').attr('value');
-       fechainicial = $('#fi').val();
-       fechafinal = $('#ff').val();
-       usuario = $('#NombreALumno').val();
-       fn_listartabla();
-   });
+    function fn_ListarCursoGeneral() {
+        var inivelvalor = parseInt(1); //$('#idNivelg option:selected').attr('value');
+        $('#idCursog').find('option').remove();
+        $.ajax({
+            type: "POST",
+            url: "/clase/ListarClaseGestion",
+            data: {
+                "idgrado": parseInt(1),//slcgradog
+                "idnivel": parseInt(1) //slcnivelg
+            },
+            success: function (data) {
+                if (data.data === "") {
+                    alert("¡No hay datos, ¡intenta agregar algunos!");
+                }
+                $('#idCursog').append($("<option></option>")
+                    .attr("value", "0")
+                    .text("Listar todo"));
+                $.each(data, function (index, value) {
+                    $('#idCursog').append($("<option></option>")
+                        .attr("value", value.idcurso)
+                        .text(value.Snombre));
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fn_ListarCursoGeneral();
+        fn_listartabla();
+
+        //$('#tblPago').DataTable({
+        //        responsive: "true",
+        //        dom: 'Bfrtilp',
+        //        buttons: [
+        //            {
+        //                extend: 'excelHtml5',
+        //                text: '<i class="fas fa-file-excel"></i> ',
+        //                titleAttr: 'Exportar a Excel',
+        //                className: 'btn btn-success'
+        //            },
+        //            {
+        //                extend: 'pdfHtml5',
+        //                text: '<i class="fas fa-file-pdf"></i> ',
+        //                titleAttr: 'Exportar a PDF',
+        //                className: 'btn btn-danger'
+        //            },
+        //            {
+        //                extend: 'print',
+        //                text: '<i class="fa fa-print"></i> ',
+        //                titleAttr: 'Imprimir',
+        //                className: 'btn btn-info'
+        //            },
+        //        ]
+        //    });
+    });
+
+    
+    $("#btnBuscar").click(function () {
+        GvalorIdCurso = $('#idCursog option:selected').attr('value');
+        fechainicial = $('#fi').val();
+        fechafinal = $('#ff').val();
+        usuario = $('#NombreALumno').val();
+        fn_listartabla();
+    });
 
 </script>
