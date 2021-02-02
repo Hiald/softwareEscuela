@@ -1,3 +1,5 @@
+
+
 !(function (o) {
     "use strict";
     function e() {
@@ -12,13 +14,13 @@
             dataLabels: { enabled: !1 },
             stroke: { curve: "smooth", width: 4 },
             series: [
-                { name: "Mes Actual", data: [10, 20, 15, 25, 20, 30, 20] },
-                { name: "Mes Pasado", data: [0, 15, 10, 30, 15, 35, 25] },
+                { name: "Current Week", data: [10, 20, 15, 25, 20, 30, 20] },
+                { name: "Previous Week", data: [0, 15, 10, 30, 15, 35, 25] },
             ],
             colors: e,
             zoom: { enabled: !1 },
             legend: { show: !1 },
-            xaxis: { type: "string", categories: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"], tooltip: { enabled: !1 }, axisBorder: { show: !1 } },
+            xaxis: { type: "string", categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], tooltip: { enabled: !1 }, axisBorder: { show: !1 } },
             yaxis: {
                 labels: {
                     formatter: function (e) {
@@ -28,6 +30,8 @@
                 },
             },
         };
+        var tx = {};
+        //diagrama de ganancia por mes
         new ApexCharts(document.querySelector("#revenue-chart"), t).render();
         e = ["#727cf5", "#e3eaef"];
         (r = o("#high-performing-product").data("colors")) && (e = r.split(","));
@@ -37,17 +41,17 @@
             dataLabels: { enabled: !1 },
             stroke: { show: !0, width: 2, colors: ["transparent"] },
             series: [
-                { name: "Actual", data: [65, 59, 80, 81, 56, 89, 40, 32, 65, 59, 80, 81] },
-                { name: "Projection", data: [89, 40, 32, 65, 59, 80, 81, 56, 89, 40, 65, 59] },
+                { name: "Monto: ", data: [1, 2,3,4,5,6,7,8,9,10,11,12] },
+                //{ name: "Projection", data: [89, 40, 32, 65, 59, 80, 81, 56, 89, 40, 65, 59] },
             ],
             zoom: { enabled: !1 },
             legend: { show: !1 },
             colors: e,
-            xaxis: { categories: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"], axisBorder: { show: !1 } },
+            xaxis: { categories: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"], axisBorder: { show: !1 } },
             yaxis: {
                 labels: {
                     formatter: function (e) {
-                        return e + "k";
+                        return e; // + "k";
                     },
                     offsetX: -15,
                 },
@@ -56,11 +60,13 @@
             tooltip: {
                 y: {
                     formatter: function (e) {
-                        return "$" + e + "k";
+                        //return "$" + e + "k";
+                        return "S/." + e;
                     },
                 },
             },
         };
+        
         new ApexCharts(document.querySelector("#high-performing-product"), t).render();
         var r;
         e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
@@ -70,7 +76,7 @@
             legend: { show: !1 },
             stroke: { colors: ["transparent"] },
             series: [44, 55, 41, 17],
-            labels: ["ARITMETICA", "ALGEBRA", "GEOMETRIA", "TRIGONOMETRIA"],
+            labels: ["Direct", "Affilliate", "Sponsored", "E-mail"],
             colors: e,
             responsive: [{ breakpoint: 480, options: { chart: { width: 200 }, legend: { position: "bottom" } } }],
         };
@@ -96,7 +102,7 @@
                 });
         }),
         (e.prototype.init = function () {
-            o("#" + valorfecha).daterangepicker({ singleDatePicker: !0 }), this.initCharts(), this.initMaps();
+            o("#dash-daterange").daterangepicker({ singleDatePicker: !0 }), this.initCharts(), this.initMaps();
         }),
         (o.Dashboard = new e()),
         (o.Dashboard.Constructor = e);
