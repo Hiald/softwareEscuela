@@ -28,7 +28,7 @@
                             <div class="list-group">
                                 @foreach (var @item in ViewBag.Lista)
                                 {
-                                    <button onclick="rutaClase('@item.Srutaenlace.ToString()', @item.idclase)" data-toggle="modal"  data-target="#modalClase" class="list-group-item list-group-item-action">@item.Snombre</button>
+                                    <button onclick="rutaClase('@item.Srutaenlace.ToString()', @item.idclase)" data-toggle="modal"  data-target="#modalClase" class="list-group-item list-group-item-action"> SEMANA @item.Isemana : @item.Snombre</button>
                                 }
                             </div>
                         </div>

@@ -203,9 +203,19 @@
                                         <option value="3">Alumno</option>
                                     </select>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="idUsuarioEditar">Usuario</label>
+                                    <input type="text" id="idUsuarioEditar" name="example-email" class="form-control" placeholder="Usuario">
+                                </div>
 
+                                <div class="form-group mb-3">
+                                    <label for="idContraseniaEditar">Contraseña</label>
+                                    <input type="password" id="idContraseniaEditar" class="form-control">
+                                </div>
                             </form>
                         </div>
+
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -497,8 +507,8 @@
                             case 9: valorGrado = "Tercero"; break;
                             case 10: valorGrado = "PRE"; break;
                         }
-                        // return valorNivel + " / " + valorGrado;
-                        return "Principal";
+                         return valorNivel + " / " + valorGrado;
+                        //return "Principal";
                     }
                 },
                 { "sName": "Susuario", "mDataProp": "Susuario" },
@@ -557,6 +567,7 @@
                                 row.tipousuario + ", " +
                                 row.idgrado + ", " +
                                 row.idsede + ", " +
+                                "\"" + row.Susuario + "\"" + ", " +
                                 "\"" + row.Snombres + "\"" + ", " +
                                 "\"" + row.SApellidoPaterno + "\"" + ", " +
                                 "\"" + row.SApellidoMaterno + "\"" +
@@ -584,7 +595,7 @@
     });
 
     function fn_Editar(idusuario, idnivel, tipousuario, idgrado,
-        idsede, Snombres, SApellidoPaterno, SApellidoMaterno) {
+        idsede, Susuario, Snombres, SApellidoPaterno, SApellidoMaterno) {
 
         $('#idNivelEditar option').removeAttr('selected');
         $('#idTipoUsuarioEditar option').removeAttr('selected');
@@ -600,6 +611,8 @@
         fn_listarGradoEditar(slcnivel, idgrado);
 
         $('#idSedeEditar option[value="' + idsede + '"]').attr('selected', 'selected');
+        $("#idUsuarioEditar").val(Susuario);
+        $('#idContraseniaEditar').val("");
         $("#idNombresEditar").val(Snombres);
         $("#idApMaternoEditar").val(SApellidoMaterno);
         $("#idApPaternoEditar").val(SApellidoPaterno);
@@ -608,26 +621,69 @@
 
     function fn_Actualizar() {
         var iIdUsuario = $('#hddusuario').attr("data-idusuario");
-        var iIdNivel = $('#idNivelEditar option:selected').attr('value');
-        var iIdGrado = $('#idGradoEditar option:selected').attr('value');
 
-        var iIdSede = $('#idSedeEditar option:selected').attr('value');
-        //var iIdTipoUsuario = $('#idTipoUsuarioEditar option:selected').attr('value');
-        var sNombre = $('#idNombresEditar').val();
-        var sApellidoPaterno = $("#idApPaternoEditar").val();
-        var sApellidoMaterno = $("#idApMaternoEditar").val();
+        var idIdNivelEdit = $('#idNivelEditar option:selected').attr('value');
+        var iIdTipoUsuarioEdit = $('#idTipoUsuarioEditar option:selected').attr('value');
+        var iIdGradoEdit = $('#idGradoEditar option:selected').attr('value');
+        var ipUsuarioEdit = $('#idUsuarioEditar').val();
+        var iIdSedeEditEdit = $('#idSedeEditar option:selected').attr('value');
+        var ipContraseniEdit = $('#idContraseniaEditar').val();
+        var sNombreEdit = $('#idNombresEditar').val();
+        var sApellidoPaternoEdit = $("#idApPaternoEditar").val();
+        var sApellidoMaternoEdit = $("#idApMaternoEditar").val();
+
+        if (idIdNivelEdit.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
+            return;
+        }
+        if (iIdTipoUsuarioEdit.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
+            return;
+        }
+        if (iIdGradoEdit.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONA EL GRADO");
+            return;
+        }
+        if (ipUsuarioEdit.trim() == "") {
+            NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
+            return;
+        }
+        if (iIdSedeEditEdit.trim() == 0) {
+            NotificacionAvisoDerecha("SELECCIONA LA SEDE");
+            return;
+        }
+
+        if (ipContraseniEdit.trim() == "") {
+            NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
+            return;
+        }
+        if (sNombreEdit.trim() == "") {
+            NotificacionAvisoDerecha("INGRESE EL NOMBRE");
+            return;
+        }
+        if (sApellidoPaternoEdit.trim() == "") {
+            NotificacionAvisoDerecha("INGRESE EL APELLIDO PATERNO");
+            return;
+        }
+        if (sApellidoMaternoEdit.trim() == "") {
+            NotificacionAvisoDerecha("INGRESE EL APELLIDO MATERNO");
+            return;
+        }
 
         $.ajax({
             type: "POST",
             url: RutaPrincipal + "Login/ActualizarUsuario",
             data: {
                 "widusuario": iIdUsuario,
-                "widnivel": iIdNivel,
-                "widgrado": iIdGrado,
-                "widsede": iIdSede,
-                "wnombres": sNombre,
-                "wamaterno": sApellidoMaterno,
-                "wapaterno": sApellidoPaterno
+                "widnivel": idIdNivelEdit,
+                "widgrado": iIdGradoEdit,
+                "wsusuario": ipUsuarioEdit,
+                "wsclave": ipContraseniEdit,
+                "wstipousuario": iIdTipoUsuarioEdit,
+                "widsede": iIdSedeEditEdit,
+                "wnombres": sNombreEdit,
+                "wamaterno": sApellidoMaternoEdit,
+                "wapaterno": sApellidoPaternoEdit
             },
             success: function (data) {
                 $('#modalEditarUsuario').modal("hide");

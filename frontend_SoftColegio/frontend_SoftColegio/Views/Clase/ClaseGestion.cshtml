@@ -233,7 +233,8 @@
 
 </div>
 
-<div id="modal-eliminar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modalEliminarClase" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <input type="hidden" value="" data-idclaseEliminar="" id="hddclaseEliminar" />
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body p-4">
@@ -578,7 +579,8 @@
                     [
                         {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idclase + "\" id='AccessEditar' >Editar</button>";
+                                var strHtml = "<button class='btn btn-danger' onclick='fn_Eliminar()' data-cat=\"" + row.idclase + "|" + "\" id='AcessEliminar' >Eliminar</button>";
+
                                 return strHtml;
                             },
                             "sWidth": "5px",
@@ -656,24 +658,53 @@
         $("#modalArchivo").modal("show");
     }
 
-    function fn_ConfimarEliminar() {
+    function fn_Eliminar() {
+        $('body').on("click", "#AcessEliminar", function () {
+            var id_clase = $(this).attr("data-cat");
+            var ArrayClase = id_clase.split("|");
+            //alert(ArrayClase[0]);
+            $('#hddclaseEliminar').attr("data-idclaseEliminar", ArrayClase[0]);
+            $('#modalEliminarClase').modal("show");
+        });
+    }
 
+    function fn_ConfimarEliminar() {
+        var idclase = $('#hddclaseEliminar').attr("data-idclaseEliminar");
+        alert(idclase);
         $.ajax({
             type: "POST",
             url: "/Clase/EliminarClaseGestion",
+            //contentType: "application/json; charset=utf-8",
             data: {
-                "widclase": idClase
+                "widclase": idclase
             },
+            //dataType: "json",
+            //async: true,
             success: function (data) {
-                $('#modal-eliminar').modal("hide");
+                $('#modalEliminarClase').modal("hide");
                 var table = $('#tblClase').DataTable();
-                table.ajax.reload();
-
+                table.clear().draw();
             },
             error: function (data) {
                 console.log(data);
             }
         });
+        //$.ajax({
+        //    type: "POST",
+        //    url: "Clase/EliminarClaseGestion",
+        //    data: {
+        //        "widclase": idclase
+        //    },
+        //    success: function (data) {
+        //        $('#modalEliminarClase').modal("hide");
+        //        var table = $('#tblClase').DataTable();
+        //        table.ajax.reload();
+
+        //    },
+        //    error: function (data) {
+        //        console.log(data);
+        //    }
+        //});
     }
 
     $("#btnGuardar").click(function () {

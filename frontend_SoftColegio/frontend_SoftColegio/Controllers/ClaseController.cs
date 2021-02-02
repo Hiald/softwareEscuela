@@ -246,6 +246,7 @@ namespace frontend_SoftColegio.Controllers
                 };
                 return Json(objResultado);
             }
+            
             catch (Exception ex)
             {
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());

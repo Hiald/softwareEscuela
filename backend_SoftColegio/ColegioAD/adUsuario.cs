@@ -271,7 +271,7 @@ namespace ColegioAD
             }
         }
 
-        public int adActualizarAcceso(int adtipoproceso, int adidusuario, string adusuario, string adclave)
+        public int adActualizarAcceso(int adtipoproceso, int adidusuario, string adusuario, string adclave, int tipousuario)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("@_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("@_v_usuario", MySqlDbType.VarChar, 45).Value = adusuario;
                 cmd.Parameters.Add("@_v_clave", MySqlDbType.VarChar, 45).Value = adclave;
-
+                cmd.Parameters.Add("@_i_tipo_usuario", MySqlDbType.Int32).Value = tipousuario;
                 result = Convert.ToInt32(cmd.ExecuteScalar());
 
                 return result;

@@ -138,6 +138,7 @@ namespace frontend_SoftColegio.Controllers
                         + "&widsede=" + widsede + "&wnombres=" + wnombres + "&wamaterno=" + wamaterno + "&wapaterno=" + wapaterno
                         + "&wgenero=" + wgenero + "&wcorreo=" + wcorreo + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro);
 
+
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
                     {
                         var rwsapi = ResRegistrarCuenta.Content.ReadAsAsync<string>().Result;
@@ -188,7 +189,7 @@ namespace frontend_SoftColegio.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ActualizarUsuario(int widusuario, int widnivel, int widgrado, int widsede, string wnombres, string wamaterno
+        public async Task<JsonResult> ActualizarUsuario(int widusuario,string wsusuario,string wsclave, int wstipousuario, int widnivel, int widgrado, int widsede, string wnombres, string wamaterno
                                                     , string wapaterno)
         {
             try
@@ -198,7 +199,7 @@ namespace frontend_SoftColegio.Controllers
                 string wfechaRegistro = DateTime.Now.ToString();
                 string wgenero = "0";
                 string wcorreo = "vacio";
-                int iresultadoreg = -1;
+                int idusuarioGenerado = -1;
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
@@ -207,19 +208,53 @@ namespace frontend_SoftColegio.Controllers
                     HttpResponseMessage Reswsru = await client.GetAsync("api/usuario/wsActualizarCuenta?widusuario=" + widusuario + "&widnivel=" + widnivel + "&widgrado=" + widgrado
                         + "&widsede=" + widsede + "&wnombres=" + wnombres + "&wamaterno=" + wamaterno + "&wapaterno=" + wapaterno
                         + "&wgenero=" + wgenero + "&wcorreo=" + wcorreo + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro);
+
                     if (Reswsru.IsSuccessStatusCode)
                     {
-                        var lpoEnCategoriaReg = Reswsru.Content.ReadAsAsync<string>().Result;
-                        iresultadoreg = int.Parse(lpoEnCategoriaReg);
+                        var rwsapi = Reswsru.Content.ReadAsAsync<string>().Result;
+                        idusuarioGenerado = int.Parse(rwsapi);
 
-                        if (iresultadoreg == -1)
+                        if (idusuarioGenerado == -1 || idusuarioGenerado == 0)
                         {
+                            //error
                             objResultado = new
                             {
-                                iResultado = -5,
-                                iResultadoIns = "Ha ocurrido un error, inténtelo nuevamente"
+                                iResultado = -1,
+                                iResultadoIns = "El usuario o clave son incorrectos"
                             };
+                            return Json(objResultado);
                         }
+                    }
+
+                    //if (Reswsru.IsSuccessStatusCode)
+                    //{
+                    //    var lpoEnCategoriaReg = Reswsru.Content.ReadAsAsync<string>().Result;
+                    //    iresultadoreg = int.Parse(lpoEnCategoriaReg);
+
+                    //    if (iresultadoreg == -1)
+                    //    {
+                    //        objResultado = new
+                    //        {
+                    //            iResultado = -5,
+                    //            iResultadoIns = "Ha ocurrido un error, inténtelo nuevamente"
+                    //        };
+                    //    }
+                    //}
+                }
+
+                int idcuentagenerada = 0;
+                using (var client = new HttpClient())
+                {
+                    int wstipoproceso = 1;
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage ResCrearCuenta = await client.GetAsync("api/usuario/wsActualizarAcceso?wstipoproceso=" + wstipoproceso
+                        + "&wsidusuario=" + idusuarioGenerado + "&wsusuario=" + wsusuario + "&wsclave=" + wsclave + "&wstipousuario=" + wstipousuario);
+                    if (ResCrearCuenta.IsSuccessStatusCode)
+                    {
+                        var rwsapi = ResCrearCuenta.Content.ReadAsAsync<string>().Result;
+                        idcuentagenerada = int.Parse(rwsapi);
                     }
                 }
 
