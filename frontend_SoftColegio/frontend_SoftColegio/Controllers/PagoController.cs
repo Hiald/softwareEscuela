@@ -607,7 +607,55 @@ namespace frontend_SoftColegio.Controllers
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 return Json(ex);
             }
+        }
 
+        [HttpPost]
+        public async Task<JsonResult> rptListarUsuarioPagos(string wusuario, string wfechaini, string wfechafin, int widcurso)
+        {
+            try
+            {
+                var objResultado = new object();
+                List<edPago> lenPago = new List<edPago>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/pago/wsRptListarUsuarioPagos?wsusuario=" +
+                        wusuario + "&wsfechaini=" + wfechaini + "&wsfechafin=" + wfechafin + "&wsidcurso=" + widcurso);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        lenPago = JsonConvert.DeserializeObject<List<edPago>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = lenPago.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = lenPago
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
+        [SecuritySession]
+        public ActionResult ReporteUsuarioPago()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            return View();
         }
 
     }
