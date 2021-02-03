@@ -85,7 +85,7 @@
                     <button type="button" id="btnguardarpagoCancelar" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("RegistrarPago", "pago", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("RegistrarPagoAdministrador", "pago", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <div class="row">
                             <input type="hidden" name="widpago" value="0" id="hddwidpago" />
@@ -1091,7 +1091,8 @@
         $('#slctipopago option').removeAttr('selected', 'selected');
         $('#slctipomoneda option').removeAttr('selected', 'selected');
         $('#modalDetalle').modal("hide");
-
+        $('#slcoptionmes').val("");
+        $('#slcoptionmes').text("");
         var valorMes = "";
         switch (paramImes) {
             case 1: valorMes = "1ra Mensualidad"; break;
@@ -1116,7 +1117,7 @@
             $('#idCurso option[value="' + paramidcurso + '"]').attr('selected', 'selected');
             $('#txtnrooperacion').val(paramSoperacion);
 
-            $('#slcmes').html("<option val='" + paramImes + "'>" + valorMes + "</option>");
+            //$('#slcmes').html("<option val='" + paramImes + "'>" + valorMes + "</option>");
             $('#slctipopago option[value="' + paramItipopago + '"]').attr('selected', 'selected');
             $('#slctipomoneda option[value="' + paramItipomoneda + '"]').attr('selected', 'selected');
             $('#txtmonto').val(paramDmonto);
@@ -1143,6 +1144,7 @@
             $('#divimg2_E').css("display", "none");
             $('#divimg1').css("display", "block");
             $('#divimg2').css("display", "block");
+            $('#btnGuardarPago').css("display", "block");
         }
         $('#modalPago').modal("show");
     }

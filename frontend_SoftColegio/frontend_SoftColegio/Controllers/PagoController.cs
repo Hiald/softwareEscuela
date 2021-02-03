@@ -389,6 +389,176 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+        //ACTIVO : registra los pagos tanto como admin y como usuario
+        [HttpPost]
+        public async Task<ActionResult> RegistrarPagoAdministrador(int widpago, int widpagodetalle, int widusuario
+                /*, int widnivel, int widgrado*/
+                , int widcurso, string woperacion, int slcPagoIndiMult
+                , int wtipopago, int wtipomoneda, string wdescripcion, int wmes, int wanio
+                , string whora, decimal wmonto, IEnumerable<HttpPostedFileBase> FRutaImagenes
+                , string wfecha_ini_pago, Int16 wbestado, string wfr, string wff
+                , string chk1, string chk2, string chk3, string chk4, string chk5
+                , string chk6, string chk7, string chk8)
+        {
+            try
+            {
+                var objResultado = new object();
+                int idGenerado = -1;
+                Random random = new Random();
+                const string alfabeto = "abcdefghijklmnopqrstuvwxyz0123456789";
+                var releaseUris = new List<string>();
+                foreach (var file in FRutaImagenes)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string sTipoImagen = System.IO.Path.GetFileName(file.ContentType);
+                        string sRandom = new string(Enumerable.Repeat(alfabeto, 10).Select(s => s[random.Next(s.Length)]).ToArray());
+                        string sRutaLocal = System.IO.Path.Combine(Server.MapPath("~/Content/imgpago/"), sRandom + "." + sTipoImagen);
+
+                        string sRutaServidor = "/Content/imgpago/" + sRandom + "." + sTipoImagen;
+                        // sRuta es para la bd                        
+                        file.SaveAs(sRutaLocal);
+                        releaseUris.Add(sRutaServidor);
+                    }
+                }
+                string valorimg1 = "/Content/imgpago/vacio.png";
+                string valorimg2 = "/Content/imgpago/vacio.png";
+                if (releaseUris.Count == 1)
+                {
+                    valorimg1 = releaseUris[0];
+                }
+                if (releaseUris.Count == 2)
+                {
+                    valorimg1 = releaseUris[0];
+                    valorimg2 = releaseUris[1];
+                }
+
+                if (slcPagoIndiMult == 1)
+                {
+                    //si el pago es individual
+                    using (var client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                        client.DefaultRequestHeaders.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        HttpResponseMessage ResRegistrarCuenta = await client.
+                        GetAsync("api/pago/wsRegistrarPago?widpago=" + widpago + "&widpagodetalle=" + widpagodetalle
+                        + "&widusuario=" + widusuario + "&widnivel=" + /*widnivel*/ 1 + "&widgrado=" + 1 /*widgrado*/
+                        + "&widcurso=" + widcurso + "&woperacion=" + woperacion + "&wtipopago=" + wtipopago
+                        + "&wtipomoneda=" + wtipomoneda + "&wdescripcion=" + wdescripcion + "&wmes=" + wmes
+                        + "&wanio=" + wanio + "&whora=" + whora + "&wmonto=" + wmonto + "&wimg_ruta_1=" + valorimg1
+                        + "&wimg_ruta_2=" + valorimg2 + "&wfecha_ini_pago=" + wfecha_ini_pago
+                        + "&wbestado=" + wbestado + "&wfr=" + wfr + "&wff=" + wff);
+
+                        if (ResRegistrarCuenta.IsSuccessStatusCode)
+                        {
+                            var rwsapi = ResRegistrarCuenta.Content.ReadAsAsync<string>().Result;
+                            idGenerado = int.Parse(rwsapi);
+                            if (idGenerado == -1)
+                            {
+                                //error
+                                objResultado = new
+                                {
+                                    iResultado = -1,
+                                    iResultadoIns = "Ha ocurrido un error, intentalo nuevamente. Error: BCK"
+                                };
+                                return Json(objResultado);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //si el pago es multiple
+                    if (chk1 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 1, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+
+                    if (chk2 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 2, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                    if (chk3 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 3, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                    if (chk4 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 4, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                    if (chk5 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 5, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                    if (chk6 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 6, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                    if (chk7 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 7, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                    if (chk8 == "on")
+                    {
+                        await PagoMultiple(widpago, widpagodetalle, widusuario
+                        /*int widnivel, int widgrado, */
+                        , widcurso, woperacion, slcPagoIndiMult
+                        , wtipopago, wtipomoneda, wdescripcion, 8, wanio
+                        , whora, wmonto, valorimg1, valorimg2, wfecha_ini_pago
+                        , wbestado, wfr, wff);
+                    }
+                }
+                objResultado = new
+                {
+                    iResultado = 1,
+                    iResultadoIns = "Registrado correctamente"
+                };
+                return RedirectToAction("pagoGestion", "pago");
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return RedirectToAction("index", "Login", new { ivalorsesion = 1, valorlogin = ex.Message });
+            }
+
+        }
+
         public async Task<int> PagoMultiple(int widpago, int widpagodetalle, int widusuario
                 , /*int widnivel, int widgrado, */ int widcurso, string woperacion, int slcPagoIndiMult
                 , int wtipopago, int wtipomoneda, string wdescripcion, int wmes, int wanio
