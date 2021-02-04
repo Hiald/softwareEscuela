@@ -226,6 +226,22 @@
         </div>
     </div>
 
+    <div id="modalEliminarAlumno" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <input type="hidden" value="" data-idalumnoEliminar="" id="hddAlumnoEliminar" />
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body p-4">
+                    <div class="text-center">
+                        <i class="dripicons-wrong h1 text-danger"></i>
+                        <h4 class="mt-2">¿Seguro de Eliminar este alumno?</h4>
+                        <button type="button" onclick="fn_ConfirmarEliminar()" id="mdEliminar" class="btn btn-success my-2" data-dismiss="modal">Eliminar</button>
+                        <button type="button" id="" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -582,7 +598,7 @@
                     },
                     {
                         "mRender": function (data, type, row) {
-                            var strHtml = "<button class='btn btn-danger' onclick='' data-cat=\"" + row.pos_idnivel + "|" + "\" id='AcessEliminar' >Eliminar</button>";
+                            var strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + idusuario +");' >Eliminar</button>";
                             return strHtml;
                         },
                         "sWidth": "5px",
@@ -695,6 +711,33 @@
                 console.log(data);
             }
         });
+    }
+
+    function fnEliminar(widalumno){
+        $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", widalumno);
+        $('#modalEliminarAlumno').modal("show");
+    }
+
+    function fn_ConfirmarEliminar() {
+        var pidalumno = $('#hddAlumnoEliminar').attr("data-idalumnoEliminar");
+        $.ajax({
+            type: "POST",
+            url: "/Login/DesactivarUsuario",
+            data: {
+                "widusuario": pidalumno
+            },
+            async: false,
+            success: function (data) {
+                $('#modalEliminarAlumno').modal("hide");
+                $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", "");
+                var table = $('#basic-datatable').DataTable();
+                table.clear().draw();
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+      
     }
 
 </script>
