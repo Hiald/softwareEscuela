@@ -51,7 +51,6 @@
     <script src="~/assets/js/vendor/dataTables.keyTable.min.js"></script>
     <script src="~/assets/js/vendor/dataTables.select.min.js"></script>
 
-
     <script src="~/assets/datatables/Buttons-1.6.5/js/dataTables.buttons.min.js"></script>
     <script src="~/assets/datatables/JSZip-2.5.0/jszip.min.js"></script>
     <script src="~/assets/datatables/pdfmake-0.1.36/pdfmake.min.js"></script>
@@ -77,12 +76,12 @@
             <!-- LOGO -->
             <a href="/Home/Index" class="logo text-center logo-light">
                 <span class="logo-lg">
-                    @*<img src="~/Content/img/sancarloseduca.png" alt="" height="45">*@
-                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
+                    <img src="~/Content/img/sancarloseduca.png" alt="" height="45">
+                    @*<img src="~/Content/img/cimg_logo.png" alt="" height="45">*@
                 </span>
                 <span class="logo-sm">
-                    @*<img src="~/Content/img/sancarloseduca.png" alt="" height="45">*@
-                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
+                    <img src="~/Content/img/sancarloseduca.png" alt="" height="45">
+                    @*<img src="~/Content/img/cimg_logo.png" alt="" height="45">*@
                 </span>
             </a>
 
@@ -144,7 +143,7 @@
                                     <li>
                                         <a href="/curso/asignacion">Asignación</a>
                                     </li>
-                                    @*<li>
+                                    <li>
                                         <a href="/Pago/pagoGestion">
                                             <span>Gestión de pagos</span>
                                         </a>
@@ -158,7 +157,7 @@
                                         <a href="/Pago/ReporteUsuarioPago">
                                             <span>Reporte de Pagos</span>
                                         </a>
-                                    </li>*@
+                                    </li>
                                 }
                                 else if (ViewBag.GrolUsuario == 2)
                                 {
@@ -196,19 +195,19 @@
                                             <span>CALIFICACIÓN</span>
                                         </a>
                                     </li>
-                                    @*<li>
+                                    <li>
                                         <a href="/Pago/Pago" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
                                             <i class="uil-file-plus-alt"></i>
                                             <span>PAGO</span>
                                         </a>
-                                    </li>*@
+                                    </li>
                                 }
                             </ul>
                     </li>
 
                     @if (ViewBag.GrolUsuario == 3)
                     {
-                        <li class="side-nav-item">
+                        @*<li class="side-nav-item">
                             <a href="javascript: void(0);" class="side-nav-link"
                                style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
@@ -216,13 +215,11 @@
                                 <span>JUEGOS-PC</span>
                             </a>
                             <ul class="side-nav-second-level" aria-expanded="false">
-
                                 <li>
                                     <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
                                        href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">AJEDREZ</a>
                                 </li>
                             </ul>
-
                         </li>
 
                         <li class="side-nav-item">
@@ -233,25 +230,23 @@
                                 <span>JUEGOS PARA CELULAR</span>
                             </a>
                             <ul class="side-nav-second-level" aria-expanded="false">
-
                                 <li>
                                     <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
                                        href="https://play.google.com/store/apps/details?id=com.fanatee.cody" target="_blank">CRUCIGRAMA</a>
                                 </li>
                             </ul>
                             <ul class="side-nav-second-level" aria-expanded="false">
-
                                 <li>
                                     <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
                                        href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">HOMESCAPES</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                     }
 
                 </ul>
                 <div>
-                    <img src="~/Content/img/calendario.png" height="320" />
+                    @*<img src="~/Content/img/calendario.png" height="320" />*@
                 </div>
                 <div class="clearfix"></div>
             </div>
