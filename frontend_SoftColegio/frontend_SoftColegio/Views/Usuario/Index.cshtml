@@ -445,29 +445,20 @@
 
     });
 
-    $(document).ready(function () {
-        fn_ListarNivel();
-        fn_ListarNivelEditar();
-        $('#idNivel').on('change', function () {
-            fn_listarGrado();
-        });
-
+    function fnlistarTabla() {
         $('#basic-datatable').dataTable({
-            "responsive": {
-                "details": true,
-                "columnDefs": [
-                    { "responsivePriority": 1 },
-                    { "responsivePriority": 2 }
-                ]
+            "ajax": {
+                "url": RutaPrincipal + 'Login/ListarUsuarioGestion',
+                "type": "POST",
+                "datatype": "json",
+                "data": {
+                    "usuario": "vacio",
+                    "tipousuario": 0
+                }
             },
-            "bServerSide": true,
-            //"bDestroy": true,
-            "sAjaxSource": RutaPrincipal + 'Login/ListarUsuarioGestion',
+            //"bServerSide": true,
             "bProcessing": true,
-            "pageLength": 10,
-            //"sPaginationType": "full_numbers",
-            "bFilter": true,
-            //"bSort": false,
+            "bDestroy": true,
             "language": {
                 "info": "",
                 "infoEmpty": "",
@@ -481,13 +472,10 @@
                     "sNext": "Siguiente",
                     "sPrevious": "Anterior"
                 },
+                "sLengthMenu": "Mostrando _MENU_ filas",
                 "sSearch": "Buscar:"
             },
-            //"bLengthChange": false,
-            "fnDrawCallback": function (oSettings) {
-                //si esta cargando la data
-            },
-            "aoColumns": [
+            "columns": [
                 {
                     "mData": "idnivel",
                     "sClass": "center",
@@ -508,7 +496,7 @@
                             case 9: valorGrado = "Tercero"; break;
                             case 10: valorGrado = "PRE"; break;
                         }
-                         return valorNivel + " / " + valorGrado;
+                        return valorNivel + " / " + valorGrado;
                         //return "Principal";
                     }
                 },
@@ -539,26 +527,7 @@
                 {},
                 {}
             ],
-            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-                var sEcho = aoData[0].value;
-                var iNroPagina = 1;
-                var iCantMostrar = 1;
-
-                var sParams = {
-                    "usuario": "vacio",
-                    "tipousuario": 0
-                };
-
-                oSettings.jqXHR = fn_ArmadoAJAX(
-                    sSource,
-                    sParams,
-                    function (result) {
-                        fnCallback(result);
-                    }, function (error) {
-                        // mostrar si hay un error
-                        console.log(error);
-                    });
-            }, "aoColumnDefs":
+            "aoColumnDefs":
                 [
                     {
                         "mRender": function (data, type, row) {
@@ -592,6 +561,16 @@
                     }
                 ]
         });
+    }
+
+    $(document).ready(function () {
+        fn_ListarNivel();
+        fn_ListarNivelEditar();
+        $('#idNivel').on('change', function () {
+            fn_listarGrado();
+        });
+
+        fnlistarTabla();
 
     });
 
