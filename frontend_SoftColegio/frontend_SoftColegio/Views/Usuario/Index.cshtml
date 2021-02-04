@@ -567,7 +567,7 @@
                     },
                     {
                         "mRender": function (data, type, row) {
-                            var strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + idusuario +");' >Eliminar</button>";
+                            var strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idusuario + ");' >Eliminar</button>";
                             return strHtml;
                         },
                         "sWidth": "5px",
@@ -692,7 +692,7 @@
         });
     }
 
-    function fnEliminar(widalumno){
+    function fnEliminar(widalumno) {
         $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", widalumno);
         $('#modalEliminarAlumno').modal("show");
     }
@@ -709,14 +709,13 @@
             success: function (data) {
                 $('#modalEliminarAlumno').modal("hide");
                 $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", "");
-                var table = $('#basic-datatable').DataTable();
-                table.clear().draw();
+                fnlistarTabla();
             },
             error: function (data) {
                 console.log(data);
             }
         });
-      
+
     }
 
 </script>
