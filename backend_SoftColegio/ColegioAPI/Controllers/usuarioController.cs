@@ -117,13 +117,13 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsActualizarAcceso(int wstipoproceso, int wsidusuario, string wsusuario, string wsclave, int wstipousuario)
+        public int wsActualizarAcceso(int wstipoproceso, int wsidusuario, string wsdusuario, string wsdclave)
         {
             int iresultado = -4;
             try
             {
                 itdUsuario = new tdUsuario();
-                iresultado = itdUsuario.tdActualizarAcceso(wstipoproceso, wsidusuario, wsusuario, wsclave, wstipousuario);
+                iresultado = itdUsuario.tdActualizarAcceso(wstipoproceso, wsidusuario, wsdusuario, wsdclave);
                 return iresultado;
             }
             catch (Exception ex)

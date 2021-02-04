@@ -162,7 +162,7 @@ namespace ColegioTD
 
         }
 
-        public int tdActualizarAcceso(int tdtipoproceso, int tdidusuario, string tdusuario, string tdclave, int tdtipousuario)
+        public int tdActualizarAcceso(int tdtipoproceso, int tdidusuario, string wusuario, string wclave)
         {
             int iRespuesta = -3;
             try
@@ -173,7 +173,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadUsuario = new adUsuario(con);
-                        iRespuesta = iadUsuario.adActualizarAcceso(tdtipoproceso, tdidusuario, tdusuario, tdclave, tdtipousuario);
+                        iRespuesta = iadUsuario.adActualizarAcceso(tdtipoproceso, tdidusuario, wusuario, wclave);
                         scope.Commit();
                     }
                 }

@@ -256,5 +256,31 @@ namespace ColegioTD
 
         }
 
+        public List<edPago> tdRptVentasTotales()
+        {
+
+            List<edPago> renPago = new List<edPago>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadPago = new adPago(con);
+                        renPago = iadPago.adRptVentasTotales();
+                        scope.Commit();
+                    }
+                }
+                return (renPago);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }

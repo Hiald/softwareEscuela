@@ -84,17 +84,42 @@
     function fn_listartabla() {
         $('#tblPago').DataTable(
             {
+
+                responsive: "true",
+                dom: 'Bfrtilp',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fas fa-file-excel"></i> ',
+                        titleAttr: 'Exportar a Excel',
+                        className: 'btn btn-success'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fas fa-file-pdf"></i> ',
+                        titleAttr: 'Exportar a PDF',
+                        className: 'btn btn-danger'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> ',
+                        titleAttr: 'Imprimir',
+                        className: 'btn btn-info'
+                    },
+                ],
+
                 "ajax": {
                     "url": "/Pago/rptListarUsuarioPagos",
                     "type": "POST",
                     "datatype": "json",
                     "data": {
                         "wusuario": usuario
-                        , "wfechaini": '2021-01-01'
-                        , "wfechafin": '2021-05-01'
+                        , "wfechaini": fechainicial
+                        , "wfechafin": fechafinal
                         , "widcurso": GvalorIdCurso
                     }
                 },
+                "bFilter":false, 
                 //"bServerSide": true,
                 "order": [[4, "asc"]],
                 "bProcessing": true,
@@ -102,6 +127,7 @@
                 "language": {
                     "info": "",
                     "infoEmpty": "",
+                    //"searching": false,
                     "infoFiltered": "",
                     "emptyTable": "No se encontraron registros",
                     "sZeroRecords": "No se encontraron registros.",
@@ -112,8 +138,7 @@
                         "sNext": "Siguiente",
                         "sPrevious": "Anterior"
                     },
-                    "sLengthMenu": "Mostrando _MENU_ filas",
-                    "sSearch": "Buscar:"
+                    "sLengthMenu": "Mostrando _MENU_ filas"
                 },
                 "columns": [
                     { "sName": "Snombres", "mDataProp": "Snombres" },
