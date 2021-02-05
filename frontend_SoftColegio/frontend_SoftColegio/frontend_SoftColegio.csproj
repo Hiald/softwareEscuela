@@ -500,6 +500,7 @@
     <Content Include="Views\Pago\Reporte.cshtml" />
     <None Include="Properties\PublishProfiles\sancarloseduca_frontendDemo.pubxml" />
     <Content Include="Views\Pago\ReporteUsuarioPago.cshtml" />
+    <Content Include="Views\Pago\Usuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

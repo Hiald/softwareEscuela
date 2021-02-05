@@ -22,10 +22,13 @@ namespace frontend_SoftColegio.Controllers
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             int idusuario = UtlAuditoria.ObtenerIdUsuario();
+           
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.Gidusuario = idusuario;
             return View();
         }
+
+
 
         [SecuritySession]
         public ActionResult Index()
@@ -783,7 +786,12 @@ namespace frontend_SoftColegio.Controllers
         public async Task<JsonResult> rptListarUsuarioPagos(string wusuario, string wfechaini, string wfechafin, int widcurso)
         {
             try
-            {
+            {                
+                if (UtlAuditoria.ObtenerTipoUsuario() == 3)
+                {
+                    wusuario = UtlAuditoria.ObtenerApellidoPaterno() + ' ' + UtlAuditoria.ObtenerApellidoMaterno() + ' ' + UtlAuditoria.ObtenerNombre();
+                }
+
                 var objResultado = new object();
                 List<edPago> lenPago = new List<edPago>();
                 using (var client = new HttpClient())
@@ -820,6 +828,17 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+
+        //VISTA PARA QUE EL USUARIO (ALUMNO) PUEDA VER SOLO SUS REPORTES
+        [SecuritySession]
+        public ActionResult Usuario()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GrolUsuario = irolusuario;
+            return View();
+        }
+
+        //VISTA PARA QUE EL ADMINISTRADOR PUEDA VER LOS PAGOS DE TODOS LOS USUARIOS (ALUMNOS)
         [SecuritySession]
         public ActionResult ReporteUsuarioPago()
         {
