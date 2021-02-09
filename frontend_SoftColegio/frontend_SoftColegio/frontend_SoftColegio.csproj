@@ -437,6 +437,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="clasevideo\" />
     <Folder Include="Content\imgpago\" />
     <Folder Include="fonts\" />
     <Folder Include="Models\" />

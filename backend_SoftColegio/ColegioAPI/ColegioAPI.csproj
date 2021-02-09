@@ -157,6 +157,7 @@
     <Content Include="Views\home\index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\gruposancarlos.pubxml" />
+    <None Include="Properties\PublishProfiles\nidoperulina_smarterasp.pubxml" />
     <None Include="Properties\PublishProfiles\SanCarlosEducaFinal.pubxml" />
   </ItemGroup>
   <ItemGroup>
