@@ -43,6 +43,8 @@
 
 <input type="hidden" value="" id="IdClase" />
 
+<input type="hidden" value="@ViewBag.IdCurso" id="IdCurso" />
+
 <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -61,6 +63,11 @@
 
 <script>
 
+    $(document).ready(function () {
+        fn_ListarClase();
+    });
+
+
     function rutaClase(rutaEnlace, parametro2) {
         //Me envia al modal
         $("#Rutaenlace").val(rutaEnlace);
@@ -70,6 +77,24 @@
     function IraTarea() {
         var IdClase1 = $("#IdClase").val();
         window.open("/Archivo/Tarea?idclase=" + IdClase1);        
+    }
+
+    function fn_ListarClase() {
+        var idCurso = $("#IdCurso").val();
+        $.ajax({
+            type: "POST",
+            url: "/Clase/ListarClase",
+            data: {
+                "idcurso": idCurso
+            },
+            async: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 
     function Iraclase() {

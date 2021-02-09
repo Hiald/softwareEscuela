@@ -77,6 +77,43 @@ namespace frontend_SoftColegio.Controllers
             
         }
 
+        //06/02/2021 Lista los archivos que el profesor sube a la clase.
+        public async Task<JsonResult> ListarArchivos(int idclase)
+        {
+            try
+            {
+                var objResultado = new object();
+                int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                List<edArchivo> loenArchivo = new List<edArchivo>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/archivo/wsObtenerArchivo?widclase=" + idclase);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenArchivo = JsonConvert.DeserializeObject<List<edArchivo>>(rwsapilu);
+                    }
+                }                
+                return Json(loenArchivo);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
+
+
+
+
+
+
+
         // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
         [HttpPost]
         public async Task<JsonResult> InsertarArchivoGestion(int idgrado, string nombre, string rutaenlace
