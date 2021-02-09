@@ -437,12 +437,12 @@
                     { "data": "Simagen" },
                     { "data": "SfechaInicio" },
                     { "data": "SfechaFin" },
-                    {},
-                    {}
+                    //{},
+                    //{}
                 ],
                 "aoColumnDefs":
                     [
-                        {
+                        @*{
                             "mRender": function (data, type, row) {
                                 var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idarchivo + "\" id='AccessEditar' >Editar</button>";
                                 return strHtml;
@@ -464,7 +464,7 @@
                             "sClass": "css-center",
                             "bSort": false,
                             "aTargets": [6]
-                        }
+                        }*@
                     ]
             });
     }
