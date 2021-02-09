@@ -166,7 +166,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-success">
-                    <h4 class="modal-title" id="dark-header-modalLabel">ARCHIVO</h4>
+                    <h4 class="modal-title" id="dark-header-modalLabel">Tarea</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -179,7 +179,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="txttipoarchivo">Tipo de archivo</label>
+                                <label for="txttipoarchivo">Tipo de Tarea</label>
                                 <select class="form-control" id="txttipoarchivo">
                                     <option value="0">Seleccionar</option>
                                     <option value="1">Tarea (Calificable)</option>
@@ -197,7 +197,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="txtenlace">Enlace del archivo</label>
+                                <label for="txtenlace">Enlace de la tarea</label>
                                 <input type="text" id="txtenlace" class="form-control">
                             </div>
                         </div>
@@ -266,12 +266,15 @@
 </div>
 
 
+<script src="~/assets/js/moment.js"></script>
 
 
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
 <script>
     var GvalorIdCurso = 0;
+    $('#txtfechaini').val(moment().format("YYYY-MM-DD"));
+    $('#txtfechafin').val(moment().format("YYYY-MM-DD"));
 
     function fn_ListarNivelAgregar() {
         $('#idNivel').find('option').remove();
@@ -590,7 +593,7 @@
                         },
                         {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Agregar archivo</button>";
+                                var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Agregar tarea</button>";
                                 return strHtml;
                             },
                             "sWidth": "5px",
@@ -681,8 +684,8 @@
             //async: true,
             success: function (data) {
                 $('#modalEliminarClase').modal("hide");
-                var table = $('#tblClase').DataTable();
-                table.clear().draw();
+                GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+                fn_listartabla(GvalorIdCurso);
             },
             error: function (data) {
                 console.log(data);
@@ -775,11 +778,11 @@
         var itipoarchivo = $('#txttipoarchivo option:selected').attr('value');
 
         if (txtNombre.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DEL ARCHIVO");
+            NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA TAREA");
             return;
         }
         if (itipoarchivo.trim == 0) {
-            NotificacionAvisoDerecha("SELECCIONE EL TIPO DE ARCHIVO");
+            NotificacionAvisoDerecha("SELECCIONE EL TIPO DE LA TAREA");
             return;
         }
         if (txtenlace.trim() == "") {
