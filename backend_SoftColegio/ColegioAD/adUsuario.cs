@@ -283,7 +283,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("@_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("@_v_usuario", MySqlDbType.VarChar, 45).Value = wusuario;
                 cmd.Parameters.Add("@_v_clave", MySqlDbType.VarChar, 45).Value = wclave;
-                result = Convert.ToInt32(cmd.ExecuteScalar());
+                result = Convert.ToInt32(cmd.ExecuteNonQuery());
 
                 return result;
             }

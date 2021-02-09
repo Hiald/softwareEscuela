@@ -116,6 +116,7 @@
                                         <option value="1">Administrador</option>
                                         <option value="2">Profesor</option>
                                         <option value="3">Alumno</option>
+                                        <option value="4">Supervisor</option>
                                     </select>
                                 </div>
 
@@ -683,8 +684,11 @@
             },
             success: function (data) {
                 $('#modalEditarUsuario').modal("hide");
+                //var table = $('#basic-datatable').DataTable();
+                //table.clear().draw();
                 var table = $('#basic-datatable').DataTable();
-                table.clear().draw();
+                table.ajax.reload();
+
             },
             error: function (data) {
                 console.log(data);
