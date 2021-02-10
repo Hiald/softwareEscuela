@@ -169,62 +169,70 @@
                     <h4 class="modal-title" id="dark-header-modalLabel">Tarea</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtNombreArc">Nombre</label>
-                                <input type="text" id="txtNombreArc" class="form-control">
+
+                @using (Html.BeginForm("AgregarArchivo", "archivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" name="idgrado" value="" id="hddidclase" />
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="txtNombreArc">Nombre</label>
+                                    <input type="text" name="nombre" id="txtNombreArc" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txttipoarchivo">Tipo de Tarea</label>
-                                <select class="form-control" id="txttipoarchivo">
-                                    <option value="0">Seleccionar</option>
-                                    <option value="1">Tarea (Calificable)</option>
-                                    <option value="2">Teoría</option>
-                                    <option value="3">Texto</option>
-                                    <option value="4">Otro</option>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="txttipoarchivo">Tipo de Tarea</label>
+                                    <select class="form-control" name="itipoarchivo" id="txttipoarchivo">
+                                        <option value="0">Seleccionar</option>
+                                        <option value="1">Tarea (Calificable)</option>
+                                        <option value="2">Teoría</option>
+                                        <option value="3">Texto</option>
+                                        <option value="4">Otro</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group mb-3">
-                                <label for="txtdescripcion">Descripción</label>
-                                <textarea class="form-control" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
+                            <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="txtdescripcion">Descripción</label>
+                                    <textarea class="form-control" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtenlace">Enlace de la tarea</label>
-                                <input type="text" id="txtenlace" class="form-control">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="txtenlace">Enlace de la tarea</label>
+                                    <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtvideo">Enlace del Video (opcional)</label>
-                                <input type="text" id="txtvideo" class="form-control">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="txtvideo">Archivo de la tarea</label>
+                                    <input type="file" id="txtvideo" name="FRutaArchivo" class="form-control"
+                                           accept="application/msword, application/vnd.ms-powerpoint, text/plain
+                                                , application/pdf, image/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                                                 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtfechaini">Fecha Inicio</label>
-                                <input type="date" id="txtfechaini" class="form-control">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="txtfechaini">Fecha Inicio</label>
+                                    <input type="date" name="fechaini" id="txtfechaini" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtfechafin">Fecha Fin</label>
-                                <input type="date" id="txtfechafin" class="form-control">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="txtfechafin">Fecha Fin</label>
+                                    <input type="date" name="fechafin" id="txtfechafin" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardarArchivo"><i class="mdi mdi-plus"></i>Guardar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success btn-rounded mb-3"><i class="mdi mdi-plus"></i>Guardar</button>
+                    </div>
+                }
             </div>
             <!-- /.modal-content -->
         </div>
@@ -265,10 +273,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-
 <script src="~/assets/js/moment.js"></script>
-
-
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
 <script>
@@ -658,6 +663,7 @@
 
     function fnAgregarClase(idclasem) {
         idClase = parseInt(idclasem);
+        $('#hddidclase').val(idClase);
         $("#modalArchivo").modal("show");
     }
 
@@ -735,7 +741,7 @@
             NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
             return;
         }
-
+        var paramidusuario = $('#hddidusuario').val();
         $.ajax({
             type: "POST",
             url: '/Clase/InsertarClaseGestion',
@@ -749,7 +755,7 @@
                 "categoria": 1,
                 "imagen": "",
                 "imagenruta": "",
-                "orden": 0
+                "orden": paramidusuario
             },
             async: false,
             success: function (msg) {
@@ -807,8 +813,7 @@
             success: function (msg) {
                 NotificacionSuccessDerecha("Datos ingresados correctamente");
                 $('#modalArchivo').modal("hide");
-                var table = $('#tblClase').DataTable();
-                table.ajax.reload();
+
             },
             error: function (msg) {
                 console.log(msg);
@@ -820,6 +825,13 @@
         });
 
     });
+
+    function MostrarResultado() {
+        NotificacionSuccessDerecha("Datos ingresados correctamente");
+        $('#modalArchivo').modal("hide");
+        GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+        fn_listartabla(GvalorIdCurso);
+    }
 
 </script>
 
