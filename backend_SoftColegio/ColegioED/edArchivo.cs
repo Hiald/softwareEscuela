@@ -35,6 +35,7 @@ namespace ColegioED
         public int isemana { get; set; }
         public int idcurso { get; set; }
         public string snombreCurso { get; set; }
+        public string sdescripcion { get; set; }
 
     }
 }

@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">Nombre</label>
+                                <label for="simpleinput">Nombre de la clase</label>
                                 <input type="text" id="txtNombre" class="form-control" placeholder="Clase">
                             </div>
                         </div>
@@ -130,24 +130,23 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <form>
-                                <div class="form-group mb-3">
-                                    <label for="example-textarea">Descripcion clase</label>
-                                    <textarea class="form-control" id="txtDescripcion" placeholder="Descripción..." rows="5"></textarea>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Ruta enlace</label>
-                                    <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Ruta video</label>
-                                    <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
-                                </div>
-
-                            </form>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="example-textarea">Descripcion clase</label>
+                                <textarea class="form-control" id="txtDescripcion" placeholder="Descripción..." rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="simpleinput">Ruta enlace</label>
+                                <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="simpleinput">Ruta video</label>
+                                <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,7 +195,7 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="txtdescripcion">Descripción</label>
-                                    <textarea class="form-control" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
+                                    <textarea class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -763,57 +762,6 @@
                 $('#modalSuccess').modal("show");
                 GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
                 fn_listartabla(GvalorIdCurso);
-            },
-            error: function (msg) {
-                console.log(msg);
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
-        });
-
-    });
-
-    $("#btnGuardarArchivo").click(function () {
-        var txtNombre = $('#txtNombreArc').val();
-        var txtenlace = $('#txtenlace').val();
-        var txtvideo = $('#txtvideo').val();
-        var txtfechaini = $('#txtfechaini').val();
-        var txtfechafin = $('#txtfechafin').val();
-        var itipoarchivo = $('#txttipoarchivo option:selected').attr('value');
-
-        if (txtNombre.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA TAREA");
-            return;
-        }
-        if (itipoarchivo.trim == 0) {
-            NotificacionAvisoDerecha("SELECCIONE EL TIPO DE LA TAREA");
-            return;
-        }
-        if (txtenlace.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DEL ENLACE");
-            return;
-        }
-
-
-        $.ajax({
-            type: "POST",
-            url: '/archivo/InsertarArchivoGestion',
-            data: {
-                "idgrado": idClase,
-                "nombre": txtNombre,
-                "rutaenlace": txtenlace,
-                "rutavideo": txtvideo,
-                "fechaini": txtfechaini,
-                "fechafin": txtfechafin,
-                "itipoarchivo": itipoarchivo
-            },
-            async: false,
-            success: function (msg) {
-                NotificacionSuccessDerecha("Datos ingresados correctamente");
-                $('#modalArchivo').modal("hide");
-
             },
             error: function (msg) {
                 console.log(msg);

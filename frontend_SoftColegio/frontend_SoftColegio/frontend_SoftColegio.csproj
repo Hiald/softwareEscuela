@@ -437,6 +437,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="clasearchivoalumno\" />
     <Folder Include="clasearchivo\" />
     <Folder Include="clasevideo\" />
     <Folder Include="Content\imgpago\" />
@@ -503,6 +504,7 @@
     <None Include="Properties\PublishProfiles\sancarloseduca_frontendDemo.pubxml" />
     <Content Include="Views\Pago\ReporteUsuarioPago.cshtml" />
     <Content Include="Views\Pago\Usuario.cshtml" />
+    <Content Include="Views\Calificacion\Libreta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

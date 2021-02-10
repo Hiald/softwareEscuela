@@ -69,6 +69,7 @@ namespace frontend_SoftColegio.Controllers
                 }
                 ViewBag.GrolUsuario = ItipoUsuario;
                 ViewBag.Lista = loenArchivo;
+                ViewBag.Gidclase = idclase;
                 return View();
             }
             catch (Exception ex)
@@ -116,7 +117,7 @@ namespace frontend_SoftColegio.Controllers
 
 
 
-        // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
+        // INACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
         [HttpPost]
         public async Task<JsonResult> InsertarArchivoGestion(int idgrado, string nombre, string rutaenlace
                                                         , string rutavideo, string fechaini, string fechafin
@@ -177,7 +178,7 @@ namespace frontend_SoftColegio.Controllers
         [HttpPost]
         public async Task<ActionResult> AgregarArchivo(int idgrado, string nombre, string rutaenlace
                                     , IEnumerable<HttpPostedFileBase> FRutaArchivo, string fechaini
-                                    , string fechafin, int itipoarchivo)
+                                    , string fechafin, int itipoarchivo, string descripcion)
         {
             try
             {
@@ -205,7 +206,8 @@ namespace frontend_SoftColegio.Controllers
                         {
                             sTipoImagen = "xls";
                         }
-                        if(sTipoImagen == "vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                        if (sTipoImagen == "vnd.openxmlformats-officedocument.wordprocessingml.document" || sTipoImagen == "octet-stream")
+                        {
                             sTipoImagen = "docx";
                         }
                         if (sTipoImagen == "vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -235,7 +237,7 @@ namespace frontend_SoftColegio.Controllers
                     HttpResponseMessage ResRegistrarArchivo = await client.GetAsync("api/archivo/wsInsertarArchivo?widclase=" + idgrado +
                         "&widusuario=" + idusuario + "&wnombre=" + nombre +
                         "&wrutaenlace=" + rutaenlace + "&wtipoarchivo=" + itipoarchivo + "&wfechainicio=" + fechaini +
-                        "&wfechafin=" + fechafin + "&wrutavideo=" + valorarchivo);
+                        "&wfechafin=" + fechafin + "&wdescripcion=" + descripcion + "&wrutaarchivo=" + valorarchivo);
 
                     if (ResRegistrarArchivo.IsSuccessStatusCode)
                     {
@@ -366,8 +368,9 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: registra las TAREAS O EJERCICIOS por los alumnos: alumno
         [HttpPost]
-        public async Task<JsonResult> InsertarArchivoAlumno(int idarchivo
-                            , string imagen, int nota, string observacion, string enlace)
+        public async Task<ActionResult> InsertarArchivoAlumno(int idarchivo
+                            , IEnumerable<HttpPostedFileBase> imagen, int nota
+                            , string observacion, string descripcion, string enlace, int gidclase)
         {
             try
             {
@@ -376,40 +379,77 @@ namespace frontend_SoftColegio.Controllers
                 int idGenerado = -1;
                 int idusuario = UtlAuditoria.ObtenerIdUsuario();
                 Int16 estado = 1;
+                Random random = new Random();
+                const string alfabeto = "abcdefghijklmnopqrstuvwxyz0123456789";
+                var releaseUris = new List<string>();
+                foreach (var file in imagen)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string sTipoImagen = System.IO.Path.GetFileName(file.ContentType);
+                        if (sTipoImagen == "plain")
+                        {
+                            sTipoImagen = "txt";
+                        }
+                        if (sTipoImagen == "msword")
+                        {
+                            sTipoImagen = "doc";
+                        }
+                        if (sTipoImagen == "vnd.ms-excel")
+                        {
+                            sTipoImagen = "xls";
+                        }
+                        if (sTipoImagen == "vnd.openxmlformats-officedocument.wordprocessingml.document" || sTipoImagen == "octet-stream")
+                        {
+                            sTipoImagen = "docx";
+                        }
+                        if (sTipoImagen == "vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                        {
+                            sTipoImagen = "xlsx";
+                        }
+
+                        string sRandom = new string(Enumerable.Repeat(alfabeto, 10).Select(s => s[random.Next(s.Length)]).ToArray());
+                        string sRutaLocal = System.IO.Path.Combine(Server.MapPath("~/clasearchivoalumno/"), sRandom + "." + sTipoImagen);
+
+                        string sRutaServidor = "/clasearchivoalumno/" + sRandom + "." + sTipoImagen;
+                        // sRuta es para la bd                        
+                        file.SaveAs(sRutaLocal);
+                        releaseUris.Add(sRutaServidor);
+                    }
+                }
+                string valorarchivo = "/clasearchivoalumno/vacio.png";
+                if (releaseUris.Count == 1)
+                {
+                    valorarchivo = releaseUris[0];
+                }
 
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage ResRegistrarArchivo = await client.GetAsync("api/archivo/wsInsertarArchivoDetalle?widarchivo=" + idarchivo
-                        + "&widusuario=" + idusuario + "&wimagen=" + imagen + "&wnota=" + nota + "&wobservacion=" + observacion
-                        + "&wenlace=" + enlace + "&wfecharegistro=" + wfechaRegistro);
+                    HttpResponseMessage ResRegistrarArchivo = await client
+                        .GetAsync("api/archivo/wsInsertarArchivoDetalle?widarchivo=" + idarchivo
+                        + "&widusuario=" + idusuario + "&wimagen=" + valorarchivo + "&wnota=" + nota
+                        + "&wobservacion=" + observacion + "&wdescripcion=" + descripcion
+                        + "&wenlace=" + enlace);
 
                     if (ResRegistrarArchivo.IsSuccessStatusCode)
                     {
                         var rwsapi = ResRegistrarArchivo.Content.ReadAsAsync<string>().Result;
                         idGenerado = int.Parse(rwsapi);
 
-                        if (idGenerado == -1 || idGenerado == 0)
+                        if (idGenerado == -1)
                         {
                             //error
-                            objResultado = new
-                            {
-                                iResultado = -1,
-                                iResultadoIns = "Ha ocurrido un error, intentalo nuevamente. Error: BCK"
-                            };
-                            return Json(objResultado);
+                            //gidclase
+                            return RedirectToAction("tarea", "archivo", new { idclase = gidclase });
+
                         }
                     }
                 }
+                return RedirectToAction("tarea", "archivo", new { idclase = gidclase });
 
-                objResultado = new
-                {
-                    iResultado = 1,
-                    iResultadoIns = "Registrado correctamente"
-                };
-                return Json(objResultado);
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@ namespace ColegioAPI.Controllers
         [HttpGet]
         public int wsInsertarArchivo(int widclase, int widusuario, string wnombre
                                , string wrutaenlace, int wtipoarchivo, string wfechainicio
-                               , string wfechafin, string wrutavideo)
+                               , string wfechafin, string wdescripcion, string wrutaarchivo)
         {
             int iresultado = -1;
             try
@@ -22,8 +22,8 @@ namespace ColegioAPI.Controllers
 
                 itdArchivo = new tdArchivo();
                 iresultado = itdArchivo.tdInsertarArchivo(widclase, widusuario, wnombre
-                                                       , wrutaenlace, wtipoarchivo, wfechainicio
-                                                       , wfechafin, wrutavideo);
+                                               , wrutaenlace, wtipoarchivo, wfechainicio
+                                               , wfechafin, wdescripcion, wrutaarchivo);
                 return iresultado;
             }
             catch (Exception ex)
@@ -69,15 +69,15 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsInsertarArchivoDetalle(int widarchivo, int widusuario, string wimagen, int wnota, string wobservacion
-                                        , string wenlace, string wfecharegistro)
+        public int wsInsertarArchivoDetalle(int widarchivo, int widusuario, string wimagen
+                    , int wnota, string wobservacion, string wdescripcion, string wenlace)
         {
             int iresultado = -1;
             try
             {
                 itdArchivo = new tdArchivo();
-                iresultado = itdArchivo.tdInsertarArchivoDetalle(widarchivo, widusuario, wimagen, wnota, wobservacion
-                                                                , wenlace, DateTime.Now);
+                iresultado = itdArchivo.tdInsertarArchivoDetalle(widarchivo, widusuario, wimagen
+                                                    , wnota, wobservacion, wdescripcion, wenlace);
                 return iresultado;
             }
             catch (Exception ex)

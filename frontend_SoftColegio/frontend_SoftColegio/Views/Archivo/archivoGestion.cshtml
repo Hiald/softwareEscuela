@@ -7,10 +7,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
-                        <li class="breadcrumb-item active">Gestion archivo</li>
+                        <li class="breadcrumb-item active">Gestion lista de tareas</li>
                     </ol>
                 </div>
-                <h4 class="page-title">MÓDULO ARCHIVO</h4>
+                <h4 class="page-title">MÓDULO LISTA DE TAREAS</h4>
             </div>
         </div>
     </div>
@@ -51,11 +51,9 @@
                             <table id="tblArchivo" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Clase</th>
-                                        <th>Enlace</th>
                                         <th>Nombre tarea</th>
-                                        <th>F. Inicio</th>
-                                        <th>F. Fin</th>
+                                        <th>Enlace</th>
+                                        <th>Fechas</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -74,104 +72,74 @@
         </div>
         <!-- end col-->
     </div>
-    <!-- end row-->
+    <!-- end row -->
     <!-- MODAL -->
     <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-dark">
-                    <h4 class="modal-title" id="dark-header-modalLabel">Clase</h4>
+                    <h4 class="modal-title" id="dark-header-modalLabel">Tarea</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <input type="hidden" name="idgrado" value="" id="hddidarchivo" />
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="idNivel">Nivel</label>
-                                <select class="form-control" id="idNivel"></select>
+                                <label for="txtNombreArc">Nombre</label>
+                                <input type="text" name="nombre" id="txtNombreArc" class="form-control">
                             </div>
-
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="idGrado">Grado</label>
-                                <select class="form-control" id="idGrado"></select>
+                                <label for="txttipoarchivo">Tipo de Tarea</label>
+                                <select class="form-control" name="itipoarchivo" id="txttipoarchivo">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="1">Tarea (Calificable)</option>
+                                    <option value="2">Teoría</option>
+                                    <option value="3">Texto</option>
+                                    <option value="4">Otro</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-3">
-                                <label for="idCurso">Curso</label>
-                                <select class="form-control" id="idCurso"></select>
+                                <label for="txtdescripcion">Descripción</label>
+                                <textarea class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">Nombre</label>
-                                <input type="text" id="txtNombre" class="form-control" placeholder="Clase">
+                                <label for="txtenlace">Enlace de la tarea</label>
+                                <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="idSemana">Número de semana</label>
-                                <select class="form-control" id="idSemana">
-                                    <option>Seleccionar</option>
-                                    <option value="1">Semana 1</option>
-                                    <option value="2">Semana 2</option>
-                                    <option value="3">Semana 3</option>
-                                    <option value="4">Semana 4</option>
-                                    <option value="5">Semana 5</option>
-                                    <option value="6">Semana 6</option>
-                                    <option value="7">Semana 7</option>
-                                    <option value="8">Semana 8</option>
-                                    <option value="9">Semana 9</option>
-                                    <option value="10">Semana 10</option>
-                                    <option value="11">Semana 11</option>
-                                    <option value="12">Semana 12</option>
-                                </select>
+                                <label for="txtvideo">Archivo de la tarea</label>
+                                <br />
+                                <a class="btn btn-info" href="" target="_blank" id="arutaarchivo">Abrir enlace</a>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <form>
-                                <div class="form-group mb-3">
-                                    <label for="example-textarea">Descripcion clase</label>
-                                    <textarea class="form-control" id="txtDescripcion" placeholder="Descripción..." rows="5"></textarea>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Ruta enlace</label>
-                                    <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Ruta video</label>
-                                    <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
-                                </div>
-
-                                <!--<div class="form-group mb-3">
-                                    <label for="example-select">Categoria</label>
-                                    <select class="form-control" id="idCategoria">
-                                        <option>Seleccionar</option>
-                                        <option value="1">Clase Normal</option>
-                                        <option value="2">Clase Especial</option>
-                                    </select>
-                                </div>-->
-                                <!--   <div class="form-group mb-3">
-                                    <label for="example-email">Imagen</label>
-                                    <input type="file" id="fImagen" name="example-email" class="form-control" placeholder="Email">
-                                </div>  -->
-                                <!--
-                                <div class="form-group mb-3">
-                                    <label for="example-email">Ruta Imagen</label>
-                                    <input type="text" id="txtRutaImagen" name="example-email" class="form-control" placeholder="Email">
-                                </div>
-                                    -->
-                            </form>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechaini">Fecha Inicio</label>
+                                <input disabled type="text" name="fechaini" id="txtfechaini" class="form-control">
+                            </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechafin">Fecha Fin</label>
+                                <input disabled type="text" name="fechafin" id="txtfechafin" class="form-control">
+                            </div>
+                        </div>
+                        
+
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-dark" id="btnGuardar">Guardar</button>
+                    @*<button type="button" class="btn btn-dark" id="btnGuardar">Guardar</button>*@
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -199,6 +167,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+<script src="~/assets/js/moment.js"></script>
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
 <script>
@@ -266,7 +235,7 @@
                         .attr("value", value.idgrado)
                         .text(value.SnombreGrado));
                 });
-              
+
             },
             error: function (data) {
                 console.log(data);
@@ -429,30 +398,45 @@
                         "sPrevious": "Anterior"
                     },
                     "sSearch": "Buscar:"
-                },
-
-                "columns": [
-                    { "data": "SclaseNombre" },
-                    { "data": "Senlace" },
+                 },
+                 "columns": [
                     { "data": "Simagen" },
-                    { "data": "SfechaInicio" },
-                    { "data": "SfechaFin" },
+                    { "data": "Senlace" },
+                    {
+                        "mData": "SfechaInicio",
+                        "sClass": "center",
+                        "mRender": function (data, type, value) {
+                            return value.SfechaInicio + " / " + value.SfechaFin;
+                        }
+                    },
+                    { },
                     //{},
                     //{}
                 ],
                 "aoColumnDefs":
                     [
-                        @*{
+                        {
                             "mRender": function (data, type, row) {
-                                var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idarchivo + "\" id='AccessEditar' >Editar</button>";
+                                console.log(row);
+                                var strHtml = "<button class='btn btn-info' onclick='fnEditar(" +
+                                    row.Itipoarchivo + ", " +
+                                    row.idarchivo + ", " +
+                                    "\"" + row.SclaseNombre + "\"" + ", " +
+                                    "\"" + row.Simagen + "\"" + ", " + //nombre del archivo
+                                    "\"" + row.Senlace + "\"" + ", " +
+                                    "\"" + row.SenlaceAlumno + "\"" + ", " +
+                                    "\"" + row.SfechaInicio + "\"" + ", " +
+                                    "\"" + row.SfechaFin + "\"" + ", " +
+                                    "\"" + row.Sobservacion + "\"" +
+                                    ")'>Ver Detalle</button>";
                                 return strHtml;
                             },
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [5]
+                            "aTargets": [3]
                         },
-                        {
+                       @* {
                             "mRender": function (data, type, row) {
                                  var strHtml = "";
                                 if (@ViewBag.GrolUsuario == 1) {
@@ -467,6 +451,20 @@
                         }*@
                     ]
             });
+    }
+
+    function fnEditar(ptipoarchivo, pidarchivo, pclasenombre ,pnombrearchivo,
+        penlace, prutaarchivo, pfechaini, pfechafin, pdescripcion) {
+        $('#txttipoarchivo option').removeAttr('selected', 'selected');
+        $('#hddidarchivo').val(pidarchivo);
+        $('#txtNombreArc').val(pnombrearchivo);
+        $('#txtdescripcion').val(pdescripcion);
+        $('#txtenlace').val(penlace);
+        $('#txtfechaini').val(pfechaini);
+        $('#txtfechafin').val(pfechafin);
+        $('#txttipoarchivo option[value="' + ptipoarchivo + '"]').attr('selected', 'selected');
+        $('#arutaarchivo').attr("href", prutaarchivo);
+        $('#modalClase').modal("show");
     }
 
     $(document).ready(function () {
