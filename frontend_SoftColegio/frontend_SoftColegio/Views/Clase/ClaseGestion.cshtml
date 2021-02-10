@@ -735,7 +735,7 @@
             NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
             return;
         }
-
+        var paramidusuario = $('#hddidusuario').val();
         $.ajax({
             type: "POST",
             url: '/Clase/InsertarClaseGestion',
@@ -749,7 +749,7 @@
                 "categoria": 1,
                 "imagen": "",
                 "imagenruta": "",
-                "orden": 0
+                "orden": paramidusuario
             },
             async: false,
             success: function (msg) {
