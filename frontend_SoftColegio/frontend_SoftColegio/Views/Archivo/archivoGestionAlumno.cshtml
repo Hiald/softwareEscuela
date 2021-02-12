@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -250,7 +254,8 @@
 
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
-<script>
+@section scripts{
+    <script>
     var GvalorIdCurso = 0;
 
     function fn_listartabla(param_idclase, param_idgrado, param_idnivel, param_idcurso) {
@@ -323,7 +328,7 @@
                                             + row.idusuario + ")'>Agregar nota</button>";
                                     }
                                 }
-                               
+
 
                                 return strHtml;
                             },
@@ -646,4 +651,5 @@
 
     }
 
-</script>
+    </script>
+}

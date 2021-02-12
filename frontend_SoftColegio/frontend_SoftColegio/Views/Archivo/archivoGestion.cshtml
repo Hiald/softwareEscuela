@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -133,7 +137,7 @@
                                 <input disabled type="text" name="fechafin" id="txtfechafin" class="form-control">
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -167,10 +171,12 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<script src="~/assets/js/moment.js"></script>
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
-<script>
+@section scripts{
+    <script src="~/assets/js/moment.js"></script>
+
+    <script>
     var GvalorIdCurso = 0;
 
     function fn_ListarNivel() {
@@ -505,4 +511,5 @@
 
     });
 
-</script>
+    </script>
+}

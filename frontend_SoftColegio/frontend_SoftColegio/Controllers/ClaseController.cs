@@ -34,13 +34,14 @@ namespace frontend_SoftColegio.Controllers
             {
                 var objResultado = new object();
                 int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int Iidusuario = UtlAuditoria.ObtenerIdUsuario();
                 List<edClase> loenClase = new List<edClase>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&wtipousuario=" + ItipoUsuario);
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&widusuario=" + Iidusuario + "&wtipousuario=" + ItipoUsuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
@@ -68,13 +69,14 @@ namespace frontend_SoftColegio.Controllers
             {
                 var objResultado = new object();
                 int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int Iidusuario = UtlAuditoria.ObtenerIdUsuario();
                 List<edClase> loenClase = new List<edClase>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&wtipousuario=" + ItipoUsuario);
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&widusuario=" + Iidusuario + "&wtipousuario=" + ItipoUsuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
@@ -98,6 +100,7 @@ namespace frontend_SoftColegio.Controllers
             {
                 var objResultado = new object();
                 int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int Iidusuario = UtlAuditoria.ObtenerIdUsuario();
                 int idgrado = UtlAuditoria.ObtenerIdGrado();
                 int idnivel = UtlAuditoria.ObtenerIdNivel();
                 List<edClase> loenClase = new List<edClase>();
@@ -106,7 +109,9 @@ namespace frontend_SoftColegio.Controllers
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario);
+                    HttpResponseMessage Reslistarusu = await client.
+                        GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado 
+                        + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario + "&widusuario=" + Iidusuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
@@ -381,13 +386,14 @@ namespace frontend_SoftColegio.Controllers
             {
                 var objResultado = new object();
                 int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int IidUsuario = UtlAuditoria.ObtenerIdUsuario();
                 List<edClase> loenClase = new List<edClase>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&wtipousuario=" + ItipoUsuario);
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&widusuario=" + IidUsuario + "&wtipousuario=" + ItipoUsuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
@@ -422,13 +428,16 @@ namespace frontend_SoftColegio.Controllers
             {
                 var objResultado = new object();
                 int ItipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
+                int Iidusuario = UtlAuditoria.ObtenerIdUsuario();
                 List<edClase> loenClase = new List<edClase>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario);
+                    HttpResponseMessage Reslistarusu = await client.
+                        GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel 
+                        + "&wstipousuario=" + ItipoUsuario  + "&widusuario=" + Iidusuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;

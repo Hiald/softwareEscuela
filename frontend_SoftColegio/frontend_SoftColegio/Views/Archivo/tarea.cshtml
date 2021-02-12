@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -80,37 +84,36 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        function rutaTarea(parametro1) {
+            window.open(parametro1, '_blank');
+        }
 
-<script>
-    function rutaTarea(parametro1) {
-        window.open(parametro1, '_blank');
-    }
+        function TraerIdArchivo(parametro) {
+            $("#IdArchivo").val(parametro);
 
-    function TraerIdArchivo(parametro) {
-        $("#IdArchivo").val(parametro);
+            $.ajax({
+                type: "POST",
+                url: "/archivo/ListarArchivoAlumno",
+                data: {
+                    "idarchivo": parseInt(parametro),
+                },
+                success: function (data) {
+                    if (data.aaData.length == 0) {
 
-        $.ajax({
-            type: "POST",
-            url: "/archivo/ListarArchivoAlumno",
-            data: {
-                "idarchivo": parseInt(parametro),
-            },
-            success: function (data) {
-                if (data.aaData.length == 0) {
+                    } else {
+                        NotificacionSuccessDerecha("Ya hay una tarea subida aquí");
+                    }
 
-                } else {
-                    NotificacionSuccessDerecha("Ya hay una tarea subida aquí");
+                },
+                error: function (data) {
+                    console.log(data);
                 }
+            });
+            $('#modalSubirTarea').modal("show");
 
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-        $('#modalSubirTarea').modal("show");
+        }
 
-    }
-
-
-
-</script>
+    </script>
+}
