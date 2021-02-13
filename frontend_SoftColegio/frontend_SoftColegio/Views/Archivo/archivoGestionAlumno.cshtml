@@ -234,7 +234,7 @@
                         <div class="col-md-12">
                             <div class="form-group mb-3">
                                 <label for="txtnota">Nota</label>
-                                <input type="number" id="txtnota" class="form-control" placeholder="Ingrese una nota">
+                                <input type="text" id="txtnota" class="form-control" placeholder="Ingrese una nota">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -495,7 +495,7 @@
                 type: "POST",
                 url: "/curso/ListarCursoGestion",
                 data: {
-                    "valoritipousuario": 4,
+                    "valoritipousuario": 2,
                     "widusuario": idusuarioparam,
                     "idnivel": inivelvalor,
                     "idgrado": igradovalor,

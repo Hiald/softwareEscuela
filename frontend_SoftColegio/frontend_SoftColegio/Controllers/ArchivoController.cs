@@ -368,9 +368,9 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: registra las TAREAS O EJERCICIOS por los alumnos: alumno
         [HttpPost]
-        public async Task<ActionResult> InsertarArchivoAlumno(int idarchivo
-                            , IEnumerable<HttpPostedFileBase> imagen, int nota
-                            , string observacion, string descripcion, string enlace, int gidclase)
+        public async Task<ActionResult> InsertarArchivoAlumno(int pidcurso, string snombrecurso
+                            , int idarchivo, IEnumerable<HttpPostedFileBase> imagen, int nota
+                            , string observacion, string descripcion, string enlace)
         {
             try
             {
@@ -442,14 +442,11 @@ namespace frontend_SoftColegio.Controllers
                         if (idGenerado == -1)
                         {
                             //error
-                            //gidclase
-                            return RedirectToAction("tarea", "archivo", new { idclase = gidclase });
-
+                            return RedirectToAction("Clase", "clase", new { idcurso = pidcurso, nombreCurso = snombrecurso });
                         }
                     }
                 }
-                return RedirectToAction("tarea", "archivo", new { idclase = gidclase });
-
+                return RedirectToAction("Clase", "clase", new { idcurso = pidcurso, nombreCurso = snombrecurso });
             }
             catch (Exception ex)
             {
