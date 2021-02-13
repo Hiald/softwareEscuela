@@ -44,7 +44,7 @@
                                             <th style="text-align:center">VIERNES</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    @*<tbody>
                                         <tr>
                                             <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
                                                 1
@@ -125,7 +125,7 @@
                                                 <img class="" height="40" src="~/Content/img/cimg5.png" />
                                             </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody>*@
                                 }
                             </table>
                         </div>
@@ -139,17 +139,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-
-            $('#tablaHorario').DataTable();
-
-            //$("#tablaHorario").find('tbody').append('<tr><td>1</td>'+
-            //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">9:00 AM - 10:00 AM</td>'+
-            //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">ARITMÉTICA</td>'+
-            //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">AJEDREZ</td>'+
-            //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">INGLES</td>'+
-            //                                    '</tr>');
-
-
+        $('#tablaHorario').DataTable();
         });
 
     </script>

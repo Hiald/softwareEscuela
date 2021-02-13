@@ -415,9 +415,7 @@
                             return value.SfechaInicio + " / " + value.SfechaFin;
                         }
                     },
-                    { },
-                    //{},
-                    //{}
+                    { }
                 ],
                 "aoColumnDefs":
                     [
@@ -441,20 +439,7 @@
                             "sClass": "css-center",
                             "bSort": false,
                             "aTargets": [3]
-                        },
-                       @* {
-                            "mRender": function (data, type, row) {
-                                 var strHtml = "";
-                                if (@ViewBag.GrolUsuario == 1) {
-                                    strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idarchivo + ")' data-delet=\"" + row.idarchivo + "\" id='AccessEliminar' >Eliminar</button>";
-                                }
-                                return strHtml;
-                            },
-                            "sWidth": "5px",
-                            "sClass": "css-center",
-                            "bSort": false,
-                            "aTargets": [6]
-                        }*@
+                        }
                     ]
             });
     }

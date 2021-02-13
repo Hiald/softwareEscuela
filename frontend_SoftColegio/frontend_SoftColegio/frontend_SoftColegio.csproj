@@ -421,6 +421,7 @@
     <Content Include="Content\img\horario.png" />
     <Content Include="Content\img\imagenlogin.jpg" />
     <Content Include="Content\img\sancarloseduca.png" />
+    <Content Include="assets\PERFIL_PL.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -504,6 +505,7 @@
     <Content Include="Views\Pago\pagoGestion.cshtml" />
     <Content Include="Views\Pago\pago.cshtml" />
     <Content Include="Views\Pago\Reporte.cshtml" />
+    <None Include="Properties\PublishProfiles\nidoperulima_smarterasp.pubxml" />
     <None Include="Properties\PublishProfiles\sancarloseduca_frontendDemo.pubxml" />
     <Content Include="Views\Pago\ReporteUsuarioPago.cshtml" />
     <Content Include="Views\Pago\Usuario.cshtml" />
