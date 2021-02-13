@@ -31,7 +31,7 @@
     </script>
 </head>
 
-<body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+<body class="loading" data-layout-config='{"leftSideBarTheme":"light","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
     <!-- Begin page -->
     <!-- third party js -->
     <!-- <script src="assets/js/vendor/Chart.bundle.min.js"></script> -->
@@ -56,10 +56,12 @@
             <!-- LOGO -->
             <a href="/Home/Index" class="logo text-center logo-dark">
                 <span class="logo-lg">
-                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
+                    @*<img src="~/Content/img/cimg_logo.png" alt="" height="45">*@
+                    <img src="~/assets/PERFIL_PL.png" alt="" height="110">
                 </span>
                 <span class="logo-sm">
-                    <img src="~/Content/img/cimg_logo.png" alt="" height="45">
+                    @*<img src="~/Content/img/cimg_logo.png" alt="" height="45">*@
+                    <img src="~/assets/PERFIL_PL.png" alt="" height="110">
                 </span>
             </a>
 
@@ -74,7 +76,7 @@
                         @if (ViewBag.GrolUsuario == 1 || ViewBag.GrolUsuario == 2)
                         {
                             <a href="javascript: void(0);" class="side-nav-link"
-                               style="color:white !important;font-weight: bold; border: 4px solid white; border-radius: 15px; margin: 15px;">
+                               style="color:black !important;font-weight: bold; border: 4px solid black; border-radius: 15px; margin: 15px;">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge badge-success float-right">0</span>
                                 <span>GENERAL</span>
@@ -83,7 +85,7 @@
                         else if (ViewBag.GrolUsuario == 3)
                         {
                             <a href="javascript: void(0);" class="side-nav-link"
-                               style="color:white !important;border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                               style="color:black !important;border: 2px solid black;border-radius: 15px;margin: 15px; font-weight:bold;">
                                 <i class="uil-home-alt"></i>
                                 <span>GENERAL</span>
                             </a>
