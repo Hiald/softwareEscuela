@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -18,12 +22,15 @@
                         <div class="form-group row mb-3">
                             <label for="inputEmail3" class="col-3 col-form-label">@item.Simagen</label>
                             <div class="col-3">
-                                <button onclick="rutaTarea('@item.Senlace.ToString()')" class="btn btn-primary">Ver información</button>
+                                <button onclick="rutaTarea('@item.Senlace.ToString()')" class="btn btn-primary">Enlace</button>
                             </div>
                             @if (@item.Itipoarchivo == 1)
                             {
                                 <div class="col-3">
-                                    <button type="button" onclick="TraerIdArchivo(@item.idarchivo)" class="btn btn-success" data-toggle="modal" data-target="#modalSubirTarea">Subir Tarea</button>
+                                    <a class="btn btn-info" target="_blank" href="@item.SenlaceAlumno">Abrir tarea</a>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" onclick="TraerIdArchivo(@item.idarchivo)" class="btn btn-success">Subir Tarea</button>
                                 </div>
                             }
 
@@ -43,64 +50,70 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <label>Por favor ingresar el link del drive para su revisión.</label>
-                <input type="text" id="txtLinkTarea" placeholder="Link de tarea..." class="form-control">
-                <br />
-                <button id="btnSubirTarea" type="button" class="btn btn-info">Subir</button>
+                @using (Html.BeginForm("InsertarArchivoAlumno", "archivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" value="" name="idarchivo" id="IdArchivo" />
+                    <input type="hidden" value="0" name="nota" />
+                    <input type="hidden" value="@ViewBag.Gidclase" name="gidclase" />
+                    <input type="hidden" value="" name="observacion" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtLinkTarea">Por favor ingresar un enlace (opcional)</label>
+                            <input type="text" id="txtLinkTarea" name="enlace" placeholder="Link de tarea..." class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtarchivo">Archivo de la tarea</label>
+                                <input type="file" id="txtarchivo" name="imagen" class="form-control"
+                                       accept="application/msword, application/vnd.ms-powerpoint, text/plain
+                                                , application/pdf, image/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                                                 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="txtDescripcion">Descripción (opcional)</label>
+                            <textarea rows="4" id="txtDescripcion" name="descripcion"
+                                      placeholder="..." class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <br />
+                    <button id="btnSubirTarea" type="submit" class="btn btn-success">Subir</button>
+                }
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function rutaTarea(parametro1) {
+            window.open(parametro1, '_blank');
+        }
 
-<input type="hidden" value="" id="IdArchivo" />
+        function TraerIdArchivo(parametro) {
+            $("#IdArchivo").val(parametro);
 
+            $.ajax({
+                type: "POST",
+                url: "/archivo/ListarArchivoAlumno",
+                data: {
+                    "idarchivo": parseInt(parametro),
+                },
+                success: function (data) {
+                    if (data.aaData.length == 0) {
 
+                    } else {
+                        NotificacionSuccessDerecha("Ya hay una tarea subida aquí");
+                    }
 
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+            $('#modalSubirTarea').modal("show");
 
-<script>
-    function rutaTarea(parametro1)
-    {
-        window.open(parametro1, '_blank');
-    }
+        }
 
-    function TraerIdArchivo(parametro)
-    {
-        $("#IdArchivo").val(parametro);
-    }
-
-
-
-    $("#btnSubirTarea").click(function () {
-        var idarchivo = $("#IdArchivo").val();
-        var imagen = "-";
-        var nota = 0;
-        var observacion = "-";
-        var enlace = $('#txtLinkTarea').val();
-        $.ajax({
-            type: "POST",
-            url: '/archivo/InsertarArchivoAlumno',
-            data: {
-                "idarchivo": idarchivo,
-                "imagen": imagen,
-                "nota": nota,
-                "observacion": observacion,
-                "enlace": enlace
-            },
-            async: false,
-            success: function (msg) {
-                $('#modalSubirTarea').modal("hide");
-                NotificacionSuccessDerecha("Tarea enviada correctamente");
-            },
-            error: function (msg) {
-                console.log(msg);
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
-        });
-
-    });
-
-
-</script>
+    </script>
+}

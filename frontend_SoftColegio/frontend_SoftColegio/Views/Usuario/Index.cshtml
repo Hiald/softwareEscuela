@@ -1,6 +1,4 @@
 ﻿@{
-    /**/
-
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container-fluid">
@@ -242,9 +240,9 @@
             </div>
         </div>
     </div>
-
 </div>
 
+@section scripts {
 <script>
     $("#frmUsuario").submit(false);
     $('#frm2').submit(false);
@@ -722,4 +720,7 @@
 
     }
 
-</script>
+</script> 
+}
+
+    

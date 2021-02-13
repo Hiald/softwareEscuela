@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
 
     <div class="row">
         <div class="col-12">
@@ -13,7 +17,7 @@
                     </div>
                 </div>
                 @*<h4 class="page-title" style="font-size:40px">HORARIO</h4>
-                <img src="~/Content/img/horario.png" />*@
+                    <img src="~/Content/img/horario.png" />*@
             </div>
         </div>
     </div>
@@ -29,8 +33,8 @@
                             <table id="tablaHorario" border="1" class="table table-striped dt-responsive nowrap w-100">
                                 @*ViewBag.GrolUsuario == 3 &&  ViewBag.GidNivel == 1 && ViewBag.GidGrado == 5*@
                                 @if (ViewBag.GrolUsuario == 3)
-
                                 {
+
                                     <thead>
                                         <tr>
                                             <th style="text-align:center">NRO</th>
@@ -132,21 +136,22 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
+@section scripts{
+    <script>
+        $(document).ready(function () {
 
-        $('#tablaHorario').DataTable();
-        
-        //$("#tablaHorario").find('tbody').append('<tr><td>1</td>'+
-        //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">9:00 AM - 10:00 AM</td>'+
-        //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">ARITMÉTICA</td>'+
-        //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">AJEDREZ</td>'+
-        //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">INGLES</td>'+
-        //                                    '</tr>');
-        
+            $('#tablaHorario').DataTable();
 
-    });
+            //$("#tablaHorario").find('tbody').append('<tr><td>1</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">9:00 AM - 10:00 AM</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">ARITMÉTICA</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">AJEDREZ</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">INGLES</td>'+
+            //                                    '</tr>');
 
-    
 
-</script>
+        });
+
+    </script>
+}
+

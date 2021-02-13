@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
 
     <div class="row">
         <div class="col-12">
@@ -19,19 +23,20 @@
     </div>
     <div class="row">
         @*<div class="col-md-6">
-            <div class="form-group mb-3">
-                <label for="idNivelg">Nivel</label>
-                <select class="form-control" id="idNivelg"></select>
-            </div>
-
-        </div>
-        <div class="col-md-6">
-            <div class="form-group mb-3">
-                <label for="idGradog">Grado</label>
-                <select class="form-control" id="idGradog"></select>
+                <div class="form-group mb-3">
+                    <label for="idNivelg">Nivel</label>
+                    <select class="form-control" id="idNivelg"></select>
+                </div>
             </div>
         </div>*@
         @*<div class="col-md-6">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="idGradog">Grado</label>
+                    <select class="form-control" id="idGradog"></select>
+                </div>
+            </div>*@
+        <div class="col-md-6" style="display:none;">
             <div class="form-group mb-3">
                 <label for="idCursog">Curso</label>
                 <select class="form-control" id="idCursog"></select>
@@ -59,7 +64,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    
+
                     <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
@@ -80,93 +85,93 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var isemana = 0;
+            fn_ListarCurso();
+            $(document).ready(function () {
 
-<script>
-    $(document).ready(function () {
-        var isemana = 0;
-        fn_ListarCurso();
-        $(document).ready(function () {           
-
-            $('#idSemana').on('change', function () {
-                isemana = parseInt($('#idSemana option:selected').attr('value'));
-                listarCalificacion(isemana);
-            });
-        });
-    });
-
-
-    function listarCalificacion(isemana) {
-        $('#tblCalificacion').DataTable
-            ({
-                "ajax": {
-                    "url": "/Calificacion/ListarCalificacionGestion",
-                    "type": "POST",
-                    "datatype": "json",
-                    "data": {
-                        "tiponota": 2,
-                        "idnota": 0,
-                        "isemana": isemana,
-                    }
-                },
-                //"bServerSide": true,
-                "bDestroy": true,
-                "bProcessing": true,
-                "language": {
-                    "info": "",
-                    "infoEmpty": "",
-                    "infoFiltered": "",
-                    "emptyTable": "No se encontraron registros",
-                    "sZeroRecords": "No se encontraron registros.",
-                    "processing": "Cargando. Por favor espere...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "sSearch": "Buscar:"
-                },
-                "columns": [
-                    { "data": "Snombrecurso" },
-                    { "data": "Inota" },
-                    { "data": "Sobservacion" },
-                    { "data": "isemana" }
-                ]
-            });
-    }
-
-    function fn_ListarCurso() {
-        var slcnivelg = $('#idNivelg option:selected').attr('value');
-        var slcgradog = $('#idGradog option:selected').attr('value');
-
-        var dtipousuario = $('#hddtipousuario').val();
-        var idusuarioparam = $('#hddidusuario').val();
-        $('#idCursog').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/clase/ListarClaseGestion",
-            data: {
-                "idgrado": parseInt(1), //slcgradog
-                "idnivel": parseInt(1) //slcnivelg
-            },
-            success: function (data) {
-                if (data.data === "") {
-                    alert("¡No hay categorias, intenta agregar una!");
-                }
-                $('#idCursog').append($("<option></option>")
-                    .attr("value", "0")
-                    .text("Seleccione una opción"));
-                $.each(data, function (index, value) {
-                    $('#idCursog').append($("<option></option>")
-                        .attr("value", value.idcurso)
-                        .text(value.Snombre));
+                $('#idSemana').on('change', function () {
+                    isemana = parseInt($('#idSemana option:selected').attr('value'));
+                    listarCalificacion(isemana);
                 });
-            },
-            error: function (data) {
-                console.log(data);
-            }
+            });
         });
 
-    }
+        function listarCalificacion(isemana) {
+            $('#tblCalificacion').DataTable
+                ({
+                    "ajax": {
+                        "url": "/Calificacion/ListarCalificacionGestion",
+                        "type": "POST",
+                        "datatype": "json",
+                        "data": {
+                            "tiponota": 2,
+                            "idnota": 0,
+                            "isemana": isemana,
+                        }
+                    },
+                    //"bServerSide": true,
+                    "bDestroy": true,
+                    "bProcessing": true,
+                    "language": {
+                        "info": "",
+                        "infoEmpty": "",
+                        "infoFiltered": "",
+                        "emptyTable": "No se encontraron registros",
+                        "sZeroRecords": "No se encontraron registros.",
+                        "processing": "Cargando. Por favor espere...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "sSearch": "Buscar:"
+                    },
+                    "columns": [
+                        { "data": "Snombrecurso" },
+                        { "data": "Inota" },
+                        { "data": "Sobservacion" },
+                        { "data": "isemana" }
+                    ]
+                });
+        }
 
-</script>
+        function fn_ListarCurso() {
+            var slcnivelg = $('#idNivelg option:selected').attr('value');
+            var slcgradog = $('#idGradog option:selected').attr('value');
+
+            var dtipousuario = $('#hddtipousuario').val();
+            var idusuarioparam = $('#hddidusuario').val();
+            $('#idCursog').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/clase/ListarClaseGestion",
+                data: {
+                    "idgrado": parseInt(1), //slcgradog
+                    "idnivel": parseInt(1) //slcnivelg
+                },
+                success: function (data) {
+                    if (data.data === "") {
+                        alert("¡No hay categorias, intenta agregar una!");
+                    }
+                    $('#idCursog').append($("<option></option>")
+                        .attr("value", "0")
+                        .text("Seleccione una opción"));
+                    $.each(data, function (index, value) {
+                        $('#idCursog').append($("<option></option>")
+                            .attr("value", value.idcurso)
+                            .text(value.Snombre));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+    </script>
+}
+

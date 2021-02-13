@@ -64,7 +64,7 @@ namespace ColegioTD
 
         }
 
-        public List<edClase> tdListarCurso(int tdidgrado, int tdidnivel, int tdtipousuario)
+        public List<edClase> tdListarCurso(int tdidgrado, int tdidnivel, int tdtipousuario, int tdidusuario)
         {
             List<edClase> renClase = new List<edClase>();
             try
@@ -75,7 +75,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadClase = new adClase(con);
-                        renClase = iadClase.adListarCurso(tdidgrado, tdidnivel, tdtipousuario);
+                        renClase = iadClase.adListarCurso(tdidgrado, tdidnivel, tdtipousuario, tdidusuario);
                         scope.Commit();
                     }
                 }
@@ -89,7 +89,7 @@ namespace ColegioTD
 
         }
 
-        public List<edClase> tdListarClaseCurso(int tdidcurso, int tdtipousuario)
+        public List<edClase> tdListarClaseCurso(int tdidcurso, int tdidusuario, int tdtipousuario)
         {
             List<edClase> renClase = new List<edClase>();
             try
@@ -100,7 +100,7 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadClase = new adClase(con);
-                        renClase = iadClase.adListarClaseCurso(tdidcurso, tdtipousuario);
+                        renClase = iadClase.adListarClaseCurso(tdidcurso, tdidusuario, tdtipousuario);
                         scope.Commit();
                     }
                 }

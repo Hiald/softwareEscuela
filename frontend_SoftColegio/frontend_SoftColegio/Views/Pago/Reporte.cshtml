@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <br />
     <h4 class="page-title">REPORTE</h4>
     <div class="row">
@@ -317,229 +321,232 @@
 
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
 <input type="hidden" value="@ViewBag.Gidusuario" id="hddidusuario" />
-<script src="~/assets/js/moment.js"></script>
-<script>
-    $('#fi').val(moment().format("YYYY-MM-DD"));
-    $('#ff').val(moment().add(1, 'month').format("YYYY-MM-DD"));
+@section scripts {
+    <script src="~/assets/js/moment.js"></script>
+    <script>
+        $('#fi').val(moment().format("YYYY-MM-DD"));
+        $('#ff').val(moment().add(1, 'month').format("YYYY-MM-DD"));
 
-    function fn_ListarCurso() {
-        //var slcnivelg = $('#idNivel option:selected').attr('value');
-        //var slcgradog = $('#idGrado option:selected').attr('value');
-        var dtipousuario = $('#hddtipousuario').val();
-        var idusuarioparam = $('#hddidusuario').val();
+        function fn_ListarCurso() {
+            //var slcnivelg = $('#idNivel option:selected').attr('value');
+            //var slcgradog = $('#idGrado option:selected').attr('value');
+            var dtipousuario = $('#hddtipousuario').val();
+            var idusuarioparam = $('#hddidusuario').val();
 
-        $('#idCursog').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/clase/ListarClaseGestion",
-            data: {
-                "idgrado": parseInt(1),//slcgradog
-                "idnivel": parseInt(1) //slcnivelg
-            },
-            success: function (data) {
-                if (data.data === "") {
-                    alert("¡No hay datos, ¡intenta agregar algunos!");
-                }
-                $('#idCursog').append($("<option></option>")
-                    .attr("value", "0")
-                    .text("Listar todo"));
-                $.each(data, function (index, value) {
+            $('#idCursog').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/clase/ListarClaseGestion",
+                data: {
+                    "idgrado": parseInt(1),//slcgradog
+                    "idnivel": parseInt(1) //slcnivelg
+                },
+                success: function (data) {
+                    if (data.data === "") {
+                        alert("¡No hay datos, ¡intenta agregar algunos!");
+                    }
                     $('#idCursog').append($("<option></option>")
-                        .attr("value", value.idcurso)
-                        .text(value.Snombre));
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-
-    }
-
-    var gidcurso = 0;
-    function fn_ListarUsuarios() {
-
-        $.ajax({
-            type: "POST",
-            url: "/pago/ListarUsuarioTotal",
-            data: {
-                "widnivel": 1,
-                "widgrado": 0,
-                "widcurso": gidcurso
-            },
-            success: function (data) {
-                $('#rptTotalAlumno').text(data.iResultado);
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-
-    }
-
-    function fn_ListarUsuariosPago() {
-
-        $.ajax({
-            type: "POST",
-            url: "/pago/ListarUsuarioTotal",
-            data: {
-                "widnivel": 2,
-                "widgrado": 0,
-                "widcurso": gidcurso
-            },
-            success: function (data) {
-                $('#rptTotalAlumnoPago').text(data.iResultado);
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-
-    }
-
-    function fn_ListarPagos() {
-        var fechainicial = $('#fi').val();
-        var fechafinal = $('#ff').val();
-
-        $.ajax({
-            type: "POST",
-            url: "/pago/RptListarSumPago",
-            data: {
-                "widnivel": 0,
-                "widgrado": 0,
-                "widcurso": gidcurso,
-                "wfechaini": fechainicial,
-                "wfechafin": fechafinal,
-                "wmes": 0,
-                "wanio": 2021
-            },
-            success: function (data) {
-                $('#rptTotalGanancia').text("S/. " + data.aaData[0].Dmonto);
-                $('#rptCantidadPagos').text(data.aaData[0].idpago);
-                /*
-                 Dcomision_nombre
-                 */
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-
-    }
-
-    function fn_ActualizarDatos() {
-        var tipoFiltroFecha = $('#idCurso option:selected').attr('value');
-        fn_ListarUsuarios();
-        fn_ListarUsuariosPago();
-        fn_ListarPagos();
-        if (tipoFiltroFecha == 1) { // hoy
-
-        } else if (tipoFiltroFecha == 2) { // ultima semana
-
-        } else if (tipoFiltroFecha == 3) { // ultimos 15 dias
-
-        } else if (tipoFiltroFecha == 4) { // ultimo mes
-
-        } else if (tipoFiltroFecha == 5) { // ultimos 90 dias
-
-        } else if (tipoFiltroFecha == 6) { // ultimos 365 dias
+                        .attr("value", "0")
+                        .text("Listar todo"));
+                    $.each(data, function (index, value) {
+                        $('#idCursog').append($("<option></option>")
+                            .attr("value", value.idcurso)
+                            .text(value.Snombre));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
 
         }
 
-    }
+        var gidcurso = 0;
+        function fn_ListarUsuarios() {
 
-    function fn_ListarGananciaxMes() {
-
-        var gEne = 0;
-        var gFeb = 0;
-        var gMar = 0;
-        var gAbr = 0;
-        var gMay = 0;
-        var gJun = 0;
-        var gJul = 0;
-        var gAgo = 0;
-        var gSep = 0;
-        var gOct = 0;
-        var gNov = 0;
-        var gDic = 0;
-
-        var options = {
-            series: [{
-                name: 'Monto: ',
-                data: [gEne, gFeb, gMar, gAbr, gMay, gJun, gJul, gAgo, gSep, gOct, gNov, gDic]
-            }
-            //, {
-            //    name: 'Revenue',
-            //    data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-            //    }
-            ],
-            chart: {
-                type: 'bar',
-                height: 215
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '35%',
-                    endingShape: 'rounded'
+            $.ajax({
+                type: "POST",
+                url: "/pago/ListarUsuarioTotal",
+                data: {
+                    "widnivel": 1,
+                    "widgrado": 0,
+                    "widcurso": gidcurso
                 },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ["#727cf5", "#e3eaef"]
-            },
-            xaxis: {
-                categories: ['Ene','Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            },
-            yaxis: {
-                title: {
-                    text: 'S/. (Soles)'
+                success: function (data) {
+                    $('#rptTotalAlumno').text(data.iResultado);
+                },
+                error: function (data) {
+                    console.log(data);
                 }
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return "S/. " + val + " soles"
+            });
+
+        }
+
+        function fn_ListarUsuariosPago() {
+
+            $.ajax({
+                type: "POST",
+                url: "/pago/ListarUsuarioTotal",
+                data: {
+                    "widnivel": 2,
+                    "widgrado": 0,
+                    "widcurso": gidcurso
+                },
+                success: function (data) {
+                    $('#rptTotalAlumnoPago').text(data.iResultado);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+        function fn_ListarPagos() {
+            var fechainicial = $('#fi').val();
+            var fechafinal = $('#ff').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/pago/RptListarSumPago",
+                data: {
+                    "widnivel": 0,
+                    "widgrado": 0,
+                    "widcurso": gidcurso,
+                    "wfechaini": fechainicial,
+                    "wfechafin": fechafinal,
+                    "wmes": 0,
+                    "wanio": 2021
+                },
+                success: function (data) {
+                    $('#rptTotalGanancia').text("S/. " + data.aaData[0].Dmonto);
+                    $('#rptCantidadPagos').text(data.aaData[0].idpago);
+                    /*
+                     Dcomision_nombre
+                     */
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+        function fn_ActualizarDatos() {
+            var tipoFiltroFecha = $('#idCurso option:selected').attr('value');
+            fn_ListarUsuarios();
+            fn_ListarUsuariosPago();
+            fn_ListarPagos();
+            if (tipoFiltroFecha == 1) { // hoy
+
+            } else if (tipoFiltroFecha == 2) { // ultima semana
+
+            } else if (tipoFiltroFecha == 3) { // ultimos 15 dias
+
+            } else if (tipoFiltroFecha == 4) { // ultimo mes
+
+            } else if (tipoFiltroFecha == 5) { // ultimos 90 dias
+
+            } else if (tipoFiltroFecha == 6) { // ultimos 365 dias
+
+            }
+
+        }
+
+        function fn_ListarGananciaxMes() {
+
+            var gEne = 0;
+            var gFeb = 0;
+            var gMar = 0;
+            var gAbr = 0;
+            var gMay = 0;
+            var gJun = 0;
+            var gJul = 0;
+            var gAgo = 0;
+            var gSep = 0;
+            var gOct = 0;
+            var gNov = 0;
+            var gDic = 0;
+
+            var options = {
+                series: [{
+                    name: 'Monto: ',
+                    data: [gEne, gFeb, gMar, gAbr, gMay, gJun, gJul, gAgo, gSep, gOct, gNov, gDic]
+                }
+                    //, {
+                    //    name: 'Revenue',
+                    //    data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                    //    }
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 215
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '35%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ["#727cf5", "#e3eaef"]
+                },
+                xaxis: {
+                    categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                },
+                yaxis: {
+                    title: {
+                        text: 'S/. (Soles)'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return "S/. " + val + " soles"
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        var chart = new ApexCharts(document.querySelector("#divRptGananciaxMes"), options);
-        chart.render();
-        
-    }
+            var chart = new ApexCharts(document.querySelector("#divRptGananciaxMes"), options);
+            chart.render();
 
-    $(document).ready(function () {
-        var gvalofechaini = $('#fi').val();
-        $('#ff').attr({ "min": gvalofechaini });
-        $('#btnActualizar').tooltip();
-        $('#btnImprimir').tooltip();
-        fn_ListarUsuarios();
-        fn_ListarUsuariosPago();
-        fn_ListarCurso();
+        }
 
-        fn_ListarGananciaxMes();
+        $(document).ready(function () {
+            var gvalofechaini = $('#fi').val();
+            $('#ff').attr({ "min": gvalofechaini });
+            $('#btnActualizar').tooltip();
+            $('#btnImprimir').tooltip();
+            fn_ListarUsuarios();
+            fn_ListarUsuariosPago();
+            fn_ListarCurso();
 
-        $('#idCursog').on('change', function () {
-            gidcurso = $('#idCursog option:selected').attr('value');
+            fn_ListarGananciaxMes();
+
+            $('#idCursog').on('change', function () {
+                gidcurso = $('#idCursog option:selected').attr('value');
+            });
+
+            fn_ListarPagos();
+            $('#fi').on('change', function () {
+                var valofechaini = $('#fi').val();
+                $('#ff').val(valofechaini);
+                $('#ff').attr({ "min": valofechaini });
+            });
+
+
         });
 
-        fn_ListarPagos();
-        $('#fi').on('change', function () {
-            var valofechaini = $('#fi').val();
-            $('#ff').val(valofechaini);
-            $('#ff').attr({ "min": valofechaini });
-        });
+    </script>
+}
 
-
-    });
-
-</script>

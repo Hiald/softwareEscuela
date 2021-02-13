@@ -48,13 +48,13 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string wsListarCurso(int wsidgrado, int wsidnivel, int wstipousuario)
+        public string wsListarCurso(int wsidgrado, int wsidnivel, int wstipousuario, int widusuario)
         {
             List<edClase> wsenClase = new List<edClase>();
             try
             {
                 itdClase = new tdClase();
-                wsenClase = itdClase.tdListarCurso(wsidgrado, wsidnivel, wstipousuario);
+                wsenClase = itdClase.tdListarCurso(wsidgrado, wsidnivel, wstipousuario, widusuario);
                 return JsonConvert.SerializeObject(wsenClase);
             }
             catch (Exception ex)
@@ -64,13 +64,13 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public string wsListarClaseCurso(int widcurso, int wtipousuario)
+        public string wsListarClaseCurso(int widcurso, int widusuario, int wtipousuario)
         {
             List<edClase> wsenClase = new List<edClase>();
             try
             {
                 itdClase = new tdClase();
-                wsenClase = itdClase.tdListarClaseCurso(widcurso, wtipousuario);
+                wsenClase = itdClase.tdListarClaseCurso(widcurso, widusuario, wtipousuario);
                 return JsonConvert.SerializeObject(wsenClase);
             }
             catch (Exception ex)

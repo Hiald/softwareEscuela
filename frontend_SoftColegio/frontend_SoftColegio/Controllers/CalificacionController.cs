@@ -35,6 +35,19 @@ namespace frontend_SoftColegio.Controllers
             return View();
         }
 
+        // vista usuario
+        [SecuritySession]
+        public ActionResult Libreta()
+        {
+            int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            int idGrado = UtlAuditoria.ObtenerIdGrado();
+            int idNivel = UtlAuditoria.ObtenerIdNivel();
+            ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GidNivel = idNivel;
+            ViewBag.GidGrado = idGrado;
+            return View();
+        }
+
         // ACTIVO: lista las calificaciones por cada usuario o en general: alumno
         [HttpPost]
         public async Task<JsonResult> ListarCalificacionGestion(int tiponota, int idnota, int isemana)

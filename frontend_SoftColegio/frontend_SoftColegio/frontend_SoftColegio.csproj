@@ -439,6 +439,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="clasearchivoalumno\" />
+    <Folder Include="clasearchivo\" />
     <Folder Include="clasevideo\" />
     <Folder Include="Content\imgpago\" />
     <Folder Include="fonts\" />
@@ -506,6 +508,7 @@
     <Content Include="Views\Pago\ReporteUsuarioPago.cshtml" />
     <Content Include="Views\Pago\Usuario.cshtml" />
     <Content Include="Views\Alumno\Asistencia.cshtml" />
+    <Content Include="Views\Calificacion\Libreta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -7,10 +11,10 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
-                        <li class="breadcrumb-item active">Gestión archivo Alumno</li>
+                        <li class="breadcrumb-item active">Gestión de calificaciones</li>
                     </ol>
                 </div>
-                <h4 class="page-title">MÓDULO ARCHIVO ALUMNO</h4>
+                <h4 class="page-title">MÓDULO DE CALIFICACIONES</h4>
             </div>
         </div>
     </div>
@@ -52,9 +56,7 @@
                                 <thead>
                                     <tr>
                                         <th>Alumno</th>
-                                        <th>Nivel/Grado</th>
                                         <th>Clase</th>
-                                        <th>Enlace</th>
                                         <th>Observación</th>
                                         <th>Nota</th>
                                         <th></th>
@@ -211,8 +213,28 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group mb-3">
+                                <label for="txtdescripcion">Descripción</label>
+                                <textarea disabled class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtenlace">Enlace de la tarea</label>
+                                <br />
+                                <a class="btn btn-info" href="" target="_blank" id="txtenlace">Abrir enlace</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="arutaarchivo">Archivo de la tarea</label>
+                                <br />
+                                <a class="btn btn-info" href="" target="_blank" id="arutaarchivo">Abrir archivo</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
                                 <label for="txtnota">Nota</label>
-                                <input type="number" id="txtnota" class="form-control" placeholder="Ingrese una nota">
+                                <input type="text" id="txtnota" class="form-control" placeholder="Ingrese una nota">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -232,7 +254,8 @@
 
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
 <input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
-<script>
+@section scripts{
+    <script>
     var GvalorIdCurso = 0;
 
     function fn_listartabla(param_idclase, param_idgrado, param_idnivel, param_idcurso) {
@@ -269,9 +292,7 @@
                 },
                 "columns": [
                     { "data": "Simagen" }, // nombre alumno
-                    { "data": "SNombreGrado" }, // nivel, grado
                     { "data": "SNombreArchivo"}, // nombre de la clase
-                    { "data": "Senlace" }, //ruta de la tarea
                     { "data": "Sobservacion" }, //ruta de la imagen si es necesario tarea
                     { "data": "Inota"}, // nota de la tarea
                     {},
@@ -282,18 +303,39 @@
                         {
                             "mRender": function (data, type, row) {
                                 var strHtml = "";
-                                if (row.Inota >= 1) {
-                                    strHtml = "<button class='btn btn-warning' onclick='fnEditar(" + row.idarchivodetalle + ", " + row.idusuario + ")' data-edit=\"" + row.idclase + "\" id='AccessEditar' >Modificar nota</button>";
-                                } else {
-                                    strHtml = "<button class='btn btn-info' onclick='fnEditar(" + row.idarchivodetalle + ", " + row.idusuario + ")' data-edit=\"" + row.idclase + "\" id='AccessEditar' >Agregar nota</button>";
+                                var grolusuario = $('#hddtipousuario').val();
+                                if (grolusuario == 2) {
+                                    if (row.Inota >= 1) {
+                                    } else {
+                                        strHtml = "<button class='btn btn-info' onclick='fnEditar(" + row.idarchivodetalle + ", "
+                                            + "\"" + row.SimagenAlumno + "\"" + ", "
+                                            + "\"" + row.SenlaceAlumno + "\"" + ", "
+                                            + "\"" + row.sdescripcion + "\"" + ", "
+                                            + row.idusuario + ")'>Agregar nota</button>";
+                                    }
+                                } else if (grolusuario == 1) {
+                                    if (row.Inota >= 1) {
+                                        strHtml = "<button class='btn btn-warning' onclick='fnEditar(" + row.idarchivodetalle + ", "
+                                            + "\"" + row.SimagenAlumno + "\"" + ", "
+                                            + "\"" + row.SenlaceAlumno + "\"" + ", "
+                                            + "\"" + row.sdescripcion + "\"" + ", "
+                                            + row.idusuario + ")'>Modificar nota</button>";
+                                    } else {
+                                        strHtml = "<button class='btn btn-info' onclick='fnEditar(" + row.idarchivodetalle + ", "
+                                            + "\"" + row.SimagenAlumno + "\"" + ", "
+                                            + "\"" + row.SenlaceAlumno + "\"" + ", "
+                                            + "\"" + row.sdescripcion + "\"" + ", "
+                                            + row.idusuario + ")'>Agregar nota</button>";
+                                    }
                                 }
+
 
                                 return strHtml;
                             },
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [6]
+                            "aTargets": [4]
                         },
                         {
                             "mRender": function (data, type, row) {
@@ -306,7 +348,7 @@
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [7]
+                            "aTargets": [5]
                         }
                     ]
             });
@@ -453,7 +495,7 @@
                 type: "POST",
                 url: "/curso/ListarCursoGestion",
                 data: {
-                    "valoritipousuario": 4,
+                    "valoritipousuario": 2,
                     "widusuario": idusuarioparam,
                     "idnivel": inivelvalor,
                     "idgrado": igradovalor,
@@ -563,9 +605,12 @@
 
     var gIdArchivoDetalle = 0;
     var gIdusuario = 0;
-    function fnEditar(param_idarchivodetalle, param_idusuario) {
+    function fnEditar(param_idarchivodetalle, archivo, enlace, descripcion, param_idusuario) {
         gIdArchivoDetalle = param_idarchivodetalle;
         gIdusuario = param_idusuario;
+        $('#txtdescripcion').val(descripcion);
+        $('#txtenlace').attr("href", enlace);
+        $('#arutaarchivo').attr("href", archivo);
         $("#modal-agregarnota").modal("show");
     }
 
@@ -606,4 +651,5 @@
 
     }
 
-</script>
+    </script>
+}

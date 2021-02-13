@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -9,7 +13,6 @@
     <div class="row">
         @foreach (var @item in ViewBag.Lista)
         {
-
             <div class="col-lg-4">
                 <div class="card ribbon-box">
                     <div class="card-body">
@@ -29,8 +32,10 @@
     </div>
 </div>
 
+@section scripts{
+    <script>
+        var idCurso = 0;
+    </script>
+}
 
-<script>
-    var idCurso = 0;
-</script>
 

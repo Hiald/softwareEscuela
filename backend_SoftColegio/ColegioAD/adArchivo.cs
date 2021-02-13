@@ -15,7 +15,7 @@ namespace ColegioAD
 
         public int adInsertarArchivo(int adidclase, int adidusuario, string adnombre
                                , string adrutaenlace, int adtipoarchivo, string adfechainicio
-                               , string adfechafin, string adrutavideo)
+                               , string adfechafin, string addescripcion, string adrutaarchivo)
         {
             try
             {
@@ -31,8 +31,8 @@ namespace ColegioAD
                 cmd.Parameters.Add("_puntajemaximo", MySqlDbType.Int32).Value = 0;
                 cmd.Parameters.Add("_fechainicio", MySqlDbType.DateTime).Value = adfechainicio;
                 cmd.Parameters.Add("_fechafin", MySqlDbType.DateTime).Value = adfechafin;
-                cmd.Parameters.Add("_imagen", MySqlDbType.Blob).Value = "";
-                cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = 1;
+                cmd.Parameters.Add("_v_descripcion", MySqlDbType.VarChar, 500).Value = addescripcion;
+                cmd.Parameters.Add("_v_ruta_archivo", MySqlDbType.VarChar, 150).Value = adrutaarchivo;
                 cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 result = Convert.ToInt32(cmd.ExecuteScalar());
@@ -68,6 +68,8 @@ namespace ColegioAD
                             int pos_itipoarchivo = mdrd.GetOrdinal("i_tipo_archivo");
                             int pos_ipuntajeminimo = mdrd.GetOrdinal("i_puntaje_minimo");
                             int pos_ipuntajemaximo = mdrd.GetOrdinal("i_puntaje_maximo");
+                            int pos_vdescripcion = mdrd.GetOrdinal("v_descripcion");
+                            int pos_vrutaarchivo = mdrd.GetOrdinal("v_ruta_archivo");
                             int pos_dfechainicio = mdrd.GetOrdinal("d_fecha_inicio");
                             int pos_dfechafin = mdrd.GetOrdinal("d_fecha_fin");
                             int pos_vimagen = mdrd.GetOrdinal("v_imagen");
@@ -85,6 +87,8 @@ namespace ColegioAD
                                 senArchivo.Itipoarchivo = (mdrd.IsDBNull(pos_itipoarchivo) ? 0 : mdrd.GetInt32(pos_itipoarchivo));
                                 senArchivo.IPuntajeMinimo = (mdrd.IsDBNull(pos_ipuntajeminimo) ? 0 : mdrd.GetInt32(pos_ipuntajeminimo));
                                 senArchivo.IpuntajeMaximo = (mdrd.IsDBNull(pos_ipuntajemaximo) ? 0 : mdrd.GetInt32(pos_ipuntajemaximo));
+                                senArchivo.Sobservacion = (mdrd.IsDBNull(pos_vdescripcion) ? "-" : mdrd.GetString(pos_vdescripcion));
+                                senArchivo.SenlaceAlumno = (mdrd.IsDBNull(pos_vrutaarchivo) ? "-" : mdrd.GetString(pos_vrutaarchivo));
                                 senArchivo.SfechaInicio = (mdrd.IsDBNull(pos_dfechainicio) ? "-" : mdrd.GetString(pos_dfechainicio));
                                 senArchivo.SfechaFin = (mdrd.IsDBNull(pos_dfechafin) ? "-" : mdrd.GetString(pos_dfechafin));
                                 senArchivo.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
@@ -105,8 +109,8 @@ namespace ColegioAD
             }
         }
 
-        public int adInsertarArchivoDetalle(int adidarchivo, int adidusuario, string adimagen, int adnota, string adobservacion
-                                        , string adenlace, DateTime adfecharegistro)
+        public int adInsertarArchivoDetalle(int adidarchivo, int adidusuario, string adimagen, int adnota
+                    , string adobservacion, string addescripcion, string adenlace)
         {
             try
             {
@@ -115,9 +119,10 @@ namespace ColegioAD
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("_idarchivo", MySqlDbType.Int32).Value = adidarchivo;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
-                cmd.Parameters.Add("_imagen", MySqlDbType.VarChar, 50).Value = adimagen;
+                cmd.Parameters.Add("_imagen", MySqlDbType.VarChar, 150).Value = adimagen;
                 cmd.Parameters.Add("_nota", MySqlDbType.Int32).Value = adnota;
                 cmd.Parameters.Add("_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
+                cmd.Parameters.Add("_v_descripcion", MySqlDbType.VarChar, 500).Value = addescripcion;
                 cmd.Parameters.Add("_enlace", MySqlDbType.VarChar, 500).Value = adenlace;
                 cmd.Parameters.Add("_fecharegistro", MySqlDbType.DateTime).Value = DateTime.Now;
 
@@ -179,6 +184,7 @@ namespace ColegioAD
                             int pos_idarchivo = mdrd.GetOrdinal("idarchivo");
                             int pos_idusuario = mdrd.GetOrdinal("idusuario");
                             int pos_vimagen = mdrd.GetOrdinal("v_imagen");
+                            int pos_vdescripcion = mdrd.GetOrdinal("v_descripcion");
                             int pos_inota = mdrd.GetOrdinal("i_nota");
                             int pos_vobservacion = mdrd.GetOrdinal("v_observacion");
                             int pos_venlace = mdrd.GetOrdinal("v_enlace");
@@ -190,6 +196,7 @@ namespace ColegioAD
                                 senUsuario.idarchivo = (mdrd.IsDBNull(pos_idarchivo) ? 0 : mdrd.GetInt32(pos_idarchivo));
                                 senUsuario.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
                                 senUsuario.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
+                                senUsuario.SenlaceAlumno = (mdrd.IsDBNull(pos_vdescripcion) ? "-" : mdrd.GetString(pos_vdescripcion));
                                 senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
                                 senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
                                 senUsuario.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
@@ -250,6 +257,7 @@ namespace ColegioAD
                             int pos_enlacealumno = mdrd.GetOrdinal("enlaceAlumno");
                             int pos_idcurso = mdrd.GetOrdinal("idcurso");
                             int pos_nombrecurso = mdrd.GetOrdinal("nombreCurso");
+                            int pos_descripcion = mdrd.GetOrdinal("v_descripcion");
 
                             while (mdrd.Read())
                             {
@@ -279,6 +287,7 @@ namespace ColegioAD
                                 senUsuario.SenlaceAlumno = (mdrd.IsDBNull(pos_enlacealumno) ? "-" : mdrd.GetString(pos_enlacealumno));
                                 senUsuario.idcurso = (mdrd.IsDBNull(pos_idcurso) ? 0 : mdrd.GetInt32(pos_idcurso));
                                 senUsuario.snombreCurso = (mdrd.IsDBNull(pos_nombrecurso) ? "-" : mdrd.GetString(pos_nombrecurso));
+                                senUsuario.sdescripcion = (mdrd.IsDBNull(pos_descripcion) ? "-" : mdrd.GetString(pos_descripcion));
 
                                 loenusuario.Add(senUsuario);
                             }

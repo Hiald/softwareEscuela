@@ -12,7 +12,7 @@ namespace ColegioTD
 
         public int tdInsertarArchivo(int tdidclase, int tdidusuario, string tdnombre
                                , string tdrutaenlace, int tdtipoarchivo, string tdfechainicio
-                               , string tdfechafin, string tdrutavideo)
+                               , string tdfechafin, string tddescripcion, string tdrutaarchivo)
         {
             int iRespuesta = -1;
             try
@@ -24,8 +24,8 @@ namespace ColegioTD
                     {
                         iadArchivo = new adArchivo(con);
                         iRespuesta = iadArchivo.adInsertarArchivo(tdidclase, tdidusuario, tdnombre
-                                                       , tdrutaenlace, tdtipoarchivo, tdfechainicio
-                                                       , tdfechafin, tdrutavideo);
+                                               , tdrutaenlace, tdtipoarchivo, tdfechainicio
+                                               , tdfechafin, tddescripcion, tdrutaarchivo);
                         scope.Commit();
                     }
                 }
@@ -92,8 +92,8 @@ namespace ColegioTD
 
         }
 
-        public int tdInsertarArchivoDetalle(int tdidarchivo, int tdidusuario, string tdimagen, int tdnota, string tdobservacion
-                                        , string tdenlace, DateTime tdfecharegistro)
+        public int tdInsertarArchivoDetalle(int tdidarchivo, int tdidusuario, string tdimagen
+                    , int tdnota, string adobservacion, string tddescripcion, string tdenlace)
         {
             int iRespuesta = -1;
             try
@@ -104,8 +104,8 @@ namespace ColegioTD
                     using (MySqlTransaction scope = con.BeginTransaction())
                     {
                         iadArchivo = new adArchivo(con);
-                        iRespuesta = iadArchivo.adInsertarArchivoDetalle(tdidarchivo, tdidusuario, tdimagen, tdnota, tdobservacion
-                                                                        , tdenlace, tdfecharegistro);
+                        iRespuesta = iadArchivo.adInsertarArchivoDetalle(tdidarchivo,
+                            tdidusuario, tdimagen, tdnota, adobservacion, tddescripcion, tdenlace);
                         scope.Commit();
                     }
                 }
@@ -186,7 +186,7 @@ namespace ColegioTD
                         iadArchivo = new adArchivo(con);
                         iRespuesta = iadArchivo.adActualizarArchivo(tditipoactualizar, tdidarchivo, tdnombre, tdenlace
                                                            , tditipoarchivo, tdipuntajeminimo, tdipuntajemaximo
-                                                           ,  tdfechainicio, tdfechafin);
+                                                           , tdfechainicio, tdfechafin);
                         scope.Commit();
                     }
                 }
