@@ -131,7 +131,9 @@
     <Compile Include="App_Start\InitialPage.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\ArchivoController.cs" />
+    <Compile Include="Controllers\AsistenciaController.cs" />
     <Compile Include="Controllers\CalificacionController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
@@ -442,6 +444,7 @@
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\Asistencia\" />
     <Folder Include="Views\contenido\" />
   </ItemGroup>
   <ItemGroup>
@@ -502,6 +505,7 @@
     <None Include="Properties\PublishProfiles\sancarloseduca_frontendDemo.pubxml" />
     <Content Include="Views\Pago\ReporteUsuarioPago.cshtml" />
     <Content Include="Views\Pago\Usuario.cshtml" />
+    <Content Include="Views\Alumno\Asistencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

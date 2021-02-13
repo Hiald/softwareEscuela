@@ -124,6 +124,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\archivoController.cs" />
+    <Compile Include="Controllers\asistenciaController.cs" />
     <Compile Include="Controllers\calificacionController.cs" />
     <Compile Include="Controllers\claseController.cs" />
     <Compile Include="Controllers\cursoController.cs" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\asistencia\" />
     <Folder Include="Views\curso\" />
     <Folder Include="Views\pago\" />
   </ItemGroup>

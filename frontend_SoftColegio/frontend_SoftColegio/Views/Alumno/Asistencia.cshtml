@@ -1,0 +1,119 @@
+﻿<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="col-12">
+                    @*col-lg-7*@
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="page-title" style="font-size:30px;display:inline-block;">ASISTENCIA</h4>
+                            @*<img src="~/Content/img/horario.png" height="90" />*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- end nav-->
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="basic-datatable-preview">
+                            <table id="tblAsistencia" border="1" class="table table-striped dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr style="border-style:solid; border-top: solid">
+                                        <th style="text-align:center; color:black;">NRO</th>
+                                        <th style="text-align:center; color:black;">NOMBRE DE LA CLASE</th>
+                                        <th style="text-align:center; color:black;">DOCENTE</th>
+                                        <th style="text-align:center; color:black;">EMAIL</th>
+                                        <th style="text-align:center; color:black;">ESTADO</th>
+                                        <th style="text-align:center; color:black;">FECHA DE ASISTENCIA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
+                                            1
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">ARITMÉTICA</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">PROFESOR</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">docente@gmail.com</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <span class="badge badge-success">ASISTIÓ</span>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">13/02/2021</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
+                                            2
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">ARITMÉTICA</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">PROFESOR</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">docente@gmail.com</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <span class="badge badge-danger">FALTÓ</span>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">13/02/2021</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
+                                            3
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">ARITMÉTICA</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">PROFESOR</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">docente@gmail.com</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <span class="badge badge-warning">TARDANZA</span>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">13/02/2021</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#tblAsistencia').DataTable();
+
+    });
+
+
+
+</script>

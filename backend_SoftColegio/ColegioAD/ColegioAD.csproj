@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="adArchivo.cs" />
+    <Compile Include="adAsistencia.cs" />
     <Compile Include="adCalificacion.cs" />
     <Compile Include="adClase.cs" />
     <Compile Include="adCurso.cs" />
