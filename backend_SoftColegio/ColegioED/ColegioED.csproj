@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="edArchivo.cs" />
+    <Compile Include="edAsistencia.cs" />
     <Compile Include="edCalificacion.cs" />
     <Compile Include="edClase.cs" />
     <Compile Include="edCurso.cs" />
