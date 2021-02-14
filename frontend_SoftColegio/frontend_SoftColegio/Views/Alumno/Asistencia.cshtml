@@ -29,6 +29,7 @@
                                     <tr style="border-style:solid; border-top: solid">
                                         <th style="text-align:center; color:black;">NRO</th>
                                         <th style="text-align:center; color:black;">NOMBRE DE LA CLASE</th>
+                                        <th style="text-align:center; color:black;">CURSO</th>
                                         <th style="text-align:center; color:black;">DOCENTE</th>
                                         <th style="text-align:center; color:black;">EMAIL</th>
                                         <th style="text-align:center; color:black;">ESTADO</th>
@@ -41,16 +42,19 @@
                                             1
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
-                                            <p class="m-0 d-inline-block align-middle font-14">ARITMÉTICA</p>
+                                            <p class="m-0 d-inline-block align-middle font-14">Logica proposicional</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">Aritmética</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
-                                            <p class="m-0 d-inline-block align-middle font-14">PROFESOR</p>
+                                            <p class="m-0 d-inline-block align-middle font-14">Profesor</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                             <p class="m-0 d-inline-block align-middle font-14">docente@gmail.com</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
-                                            <span class="badge badge-success">ASISTIÓ</span>
+                                            <span class="badge badge-success">Asistió</span>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                             <p class="m-0 d-inline-block align-middle font-14">13/02/2021</p>
@@ -58,19 +62,22 @@
                                     </tr>
                                     <tr>
                                         <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
-                                            2
+                                            1
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
-                                            <p class="m-0 d-inline-block align-middle font-14">ARITMÉTICA</p>
+                                            <p class="m-0 d-inline-block align-middle font-14">Logica proposicional</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">Aritmética</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
-                                            <p class="m-0 d-inline-block align-middle font-14">PROFESOR</p>
+                                            <p class="m-0 d-inline-block align-middle font-14">Profesor</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                             <p class="m-0 d-inline-block align-middle font-14">docente@gmail.com</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
-                                            <span class="badge badge-danger">FALTÓ</span>
+                                            <span class="badge badge-danger">Faltó</span>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                             <p class="m-0 d-inline-block align-middle font-14">13/02/2021</p>
@@ -78,26 +85,29 @@
                                     </tr>
                                     <tr>
                                         <td style="border-style:solid;border-color:black; border-top: solid; text-align:center;">
-                                            3
+                                            1
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
-                                            <p class="m-0 d-inline-block align-middle font-14">ARITMÉTICA</p>
+                                            <p class="m-0 d-inline-block align-middle font-14">Logica proposicional</p>
+                                        </td>
+                                        <td style="border-style:solid;border-color:black; text-align:center; border-top: solid;">
+                                            <p class="m-0 d-inline-block align-middle font-14">Aritmética</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
-                                            <p class="m-0 d-inline-block align-middle font-14">PROFESOR</p>
+                                            <p class="m-0 d-inline-block align-middle font-14">Profesor</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                             <p class="m-0 d-inline-block align-middle font-14">docente@gmail.com</p>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
-                                            <span class="badge badge-warning">TARDANZA</span>
+                                            <span class="badge badge-warning">Tardanza</span>
                                         </td>
                                         <td style="border-style:solid;border-color:black; text-align:center; border-top:solid;">
                                             <p class="m-0 d-inline-block align-middle font-14">13/02/2021</p>
                                         </td>
                                     </tr>
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -107,13 +117,21 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
+@section scripts{
+    <script>
+        $(document).ready(function () {
 
-        $('#tblAsistencia').DataTable();
+            $('#tblAsistencia').DataTable();
 
-    });
+            //$("#tablaHorario").find('tbody').append('<tr><td>1</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">9:00 AM - 10:00 AM</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top: solid;">ARITMÉTICA</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">AJEDREZ</td>'+
+            //                                    '<td style="border-style:solid;border-color:black; border-top:solid;">INGLES</td>'+
+            //                                    '</tr>');
 
 
+        });
 
-</script>
+    </script>
+}
