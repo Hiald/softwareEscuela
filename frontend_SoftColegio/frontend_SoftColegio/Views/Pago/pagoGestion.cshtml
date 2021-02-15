@@ -3,7 +3,6 @@
 }
 
 <div class="container-fluid">
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -18,15 +17,11 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <p class="text-muted font-14">
-                        @*<button type="button" class="btn btn-success btn-rounded mb-3" data-toggle="modal" data-target="#modalClase">
-                                <i class="mdi mdi-plus"></i>Agregar Pago
-                            </button>*@
                     </p>
                     <div class="row">
                         <div class="col-md-4" style="display:none">
@@ -63,17 +58,11 @@
 
                             </table>
                         </div>
-                        <!-- end preview code-->
                     </div>
-                    <!-- end tab-content-->
                 </div>
-                <!-- end card body-->
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col-->
     </div>
-    <!-- end row-->
     <!-- MODAL -->
     <div id="modalPago" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -200,16 +189,12 @@
                         <div class="row justify-content-center text-center">
                             <button class="btn btn-success btn-shadow btn-sm" id="btnGuardarPago" type="submit">Guardar Pago</button>
                         </div>
-
                     }
                 </div>
 
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- end row-->
     <div id="modalDetalle" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -239,9 +224,7 @@
                     <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
 
 </div>
@@ -369,12 +352,19 @@
                     }
                     $('#idCurso').append($("<option></option>")
                         .attr("value", "0")
-                        .text("Listar todo"));
-                    $.each(data, function (index, value) {
-                        $('#idCurso').append($("<option></option>")
-                            .attr("value", value.idcurso)
-                            .text(value.Snombre));
-                    });
+                        .text("Seleccione una opción"));
+                    $('#idCurso').append($("<option></option>")
+                        .attr("value", "1")
+                        .text("1er Grado"));
+                    $('#idCurso').append($("<option></option>")
+                        .attr("value", "2")
+                        .text("2do Grado"));
+                    $('#idCurso').append($("<option></option>")
+                        .attr("value", "3")
+                        .text("3er Grado"));
+                    $('#idCurso').append($("<option></option>")
+                        .attr("value", "4")
+                        .text("Curso de inglés"));
                 },
                 error: function (data) {
                     console.log(data);
@@ -525,11 +515,6 @@
             $('#idGradog').on('change', function () {
                 fn_ListarCursoGeneral();
             });
-
-            /* $('#idCurso').on('change', function () {
-                 GvalorIdCurso = $('#idCurso option:selected').attr('value');
-                 fn_listartabla();
-             });*/
 
             $('#idCursog').on('change', function () {
                 GvalorIdCurso = $('#idCursog option:selected').attr('value');

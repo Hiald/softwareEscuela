@@ -3,8 +3,6 @@
 }
 
 <div class="container-fluid">
-
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -19,7 +17,6 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -49,7 +46,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
                             <table id="tblClase" class="table dt-responsive nowrap w-100">
@@ -67,18 +63,11 @@
 
                             </table>
                         </div>
-                        <!-- end preview code-->
                     </div>
-                    <!-- end tab-content-->
-
                 </div>
-                <!-- end card body-->
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col-->
     </div>
-    <!-- end row-->
     <!-- MODAL -->
     <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -159,11 +148,8 @@
                     <button type="button" class="btn btn-success btn-rounded mb-3" id="btnGuardar"><i class="mdi mdi-plus"></i>Guardar</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- end row-->
     <!--MODAL AGREGAR ARCHIVO-->
     <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -172,7 +158,6 @@
                     <h4 class="modal-title" id="dark-header-modalLabel">Tarea</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-
                 @using (Html.BeginForm("AgregarArchivo", "archivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="modal-body">
@@ -237,9 +222,7 @@
                     </div>
                 }
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
 
 </div>
@@ -252,13 +235,12 @@
                 <div class="text-center">
                     <i class="dripicons-wrong h1 text-danger"></i>
                     <h4 class="mt-2">Seguro de Eliminar?</h4>
-                    @*<p class="mt-3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>*@
                     <button type="button" onclick="fn_ConfimarEliminar()" id="mdEliminar" class="btn btn-success my-2" data-dismiss="modal">Si</button>
                     <button type="button" id="" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 
 <div id="modalSuccess" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -268,12 +250,11 @@
                 <div class="text-center">
                     <i class="dripicons-checkmark h1"></i>
                     <h4 class="mt-2">DATOS AGREGADOS CORRECTAMENTE!</h4>
-                    @*<p class="mt-3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>*@
                     <button type="button" class="btn btn-light my-2" data-dismiss="modal">Continuar</button>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 
 <input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
@@ -341,7 +322,6 @@
                     console.log(data);
                 }
             });
-
 
         }
 
@@ -411,9 +391,7 @@
                         console.log(data);
                     }
                 });
-
             }
-
 
         }
 
@@ -436,13 +414,11 @@
                             .attr("value", value.idnivel)
                             .text(value.SnombreNivel));
                     });
-
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
-
 
         }
 
@@ -545,10 +521,7 @@
                         console.log(data);
                     }
                 });
-
             }
-
-
         }
 
         function fn_listartabla(param_valor) {
@@ -651,87 +624,8 @@
             $('#idCursog').on('change', function () {
                 GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
                 fn_listartabla(GvalorIdCurso);
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-        //$.ajax({
-        //    type: "POST",
-        //    url: "Clase/EliminarClaseGestion",
-        //    data: {
-        //        "widclase": idclase
-        //    },
-        //    success: function (data) {
-        //        $('#modalEliminarClase').modal("hide");
-        //        var table = $('#tblClase').DataTable();
-        //        table.ajax.reload();
-
-        //    },
-        //    error: function (data) {
-        //        console.log(data);
-        //    }
-        //});
-    }
-
-    $("#btnGuardar").click(function () {
-        var slcCurso = $('#idCurso option:selected').attr('value');
-        var slcCategoria = $('#idCategoria option:selected').attr('value');
-        var txtNombre = $('#txtNombre').val();
-        var txtDescripcion = $('#txtDescripcion').val();
-        var txtRutaEnlace = $('#txtRutaEnlace').val();
-        var txtRutaVideo = $('#txtRutaVideo').val();
-        var txtRutaImagen = $('#txtRutaImagen').val();
-        var slcSemana = $('#idSemana option:selected').attr('value');
-
-        if (txtNombre.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA CLASE");
-            return;
-        }
-        if (slcSemana.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONE EL NÚMERO DE SEMANA");
-            return;
-        }
-        if (txtRutaEnlace.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE LA RUTA DEL ENLACE");
-            return;
-        }
-        if (txtRutaVideo.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
-            return;
-        }
-        var paramidusuario = $('#hddidusuario').val();
-        $.ajax({
-            type: "POST",
-            url: '/Clase/InsertarClaseGestion',
-            data: {
-                "idgrado": slcCurso,
-                "isemana": slcSemana,
-                "nombre": txtNombre,
-                "descripcion": txtDescripcion,
-                "rutaenlace": txtRutaEnlace,
-                "rutavideo": txtRutaVideo,
-                "categoria": 1,
-                "imagen": "",
-                "imagenruta": "",
-                "orden": paramidusuario
-            },
-            async: false,
-            success: function (msg) {
-                $('#modalClase').modal("hide");
-                $('#modalSuccess').modal("show");
-                GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
-                fn_listartabla(GvalorIdCurso);
-            },
-            error: function (msg) {
-                console.log(msg);
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
             });
-
+           
         });
 
         function fnEditar() {
@@ -844,7 +738,7 @@
                 success: function (msg) {
                     $('#modalClase').modal("hide");
                     $('#modalSuccess').modal("show");
-                    GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+                    GvalorIdCurso = 0;
                     fn_listartabla(GvalorIdCurso);
                 },
                 error: function (msg) {

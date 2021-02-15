@@ -3,8 +3,6 @@
 }
 
 <div class="container-fluid">
-
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -19,7 +17,6 @@
             </div>
         </div>
     </div>
-    <!-- end page title -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -27,7 +24,6 @@
                     <p class="text-muted font-14">
                         <button type="button" class="btn btn-success btn-rounded mb-3" data-toggle="modal" data-target="#modalClase"><i class="mdi mdi-plus"></i>Agregar Asignación</button>
                     </p>
-                    <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="basic-datatable-preview">
                             <table id="tblAsignacion" class="table dt-responsive nowrap w-100">
@@ -45,18 +41,11 @@
 
                             </table>
                         </div>
-                        <!-- end preview code-->
                     </div>
-                    <!-- end tab-content-->
-
                 </div>
-                <!-- end card body-->
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col-->
     </div>
-    <!-- end row-->
     <!-- MODAL -->
     <div id="modalClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -91,14 +80,6 @@
                                 <select class="form-control" id="idCurso"></select>
                             </div>
                         </div>
-                        <!--<div class="col-md-6">
-                            <label for="">Cursos</label>
-                            <div class="form-group mb-3" id="idCurso">-->
-                        @*  Here *@
-
-                        <!--</div>
-                        </div>-->
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -108,7 +89,6 @@
             </div>
         </div>
     </div>
-    <!-- end row-->
     <!--MODAL AGREGAR ARCHIVO-->
     <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -174,11 +154,8 @@
                     <button type="button" class="btn btn-dark" id="btnGuardarArchivo">Guardar</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-
 </div>
 
 <div id="modal-eliminar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -188,13 +165,12 @@
                 <div class="text-center">
                     <i class="dripicons-wrong h1 text-danger"></i>
                     <h4 class="mt-2">Seguro de Eliminar?</h4>
-                    @*<p class="mt-3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>*@
                     <button type="button" onclick="fn_ConfimarEliminar()" id="mdEliminar" class="btn btn-success my-2" data-dismiss="modal">Si</button>
                     <button type="button" id="" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 
 @section scripts{
@@ -308,13 +284,7 @@
                             .attr("value", value.idcurso)
                             .text(value.Snombre));
                     });
-
-                    //$.each(data, function (index, value) {
-                    //    $('#idCurso').append("<div class='custom-control custom-checkbox custom-control-inline'>" +
-                    //                            "<input type='checkbox' class='custom-control-input' value='" + value.idcurso + "'>" +
-                    //                            "<label class='custom-control-label' for='" + value.idcurso+"'>"+value.Snombre+"</label>"+
-                    //                         "</div>");
-                    //});
+                    
                 },
                 error: function (data) {
                     console.log(data);
@@ -368,26 +338,6 @@
                     ],
                     "aoColumnDefs":
                         [
-                            //{
-                            //    "mRender": function (data, type, row) {
-                            //        var strHtml = "<button class='btn btn-warning' onclick='fnEditar()' data-edit=\"" + row.idcursodocente + "\" id='AccessEditar' >Editar</button>";
-                            //        return strHtml;
-                            //    },
-                            //    "sWidth": "5px",
-                            //    "sClass": "css-center",
-                            //    "bSort": false,
-                            //    "aTargets": [5]
-                            //},
-                            //{
-                            //    "mRender": function (data, type, row) {
-                            //        var strHtml = "<button class='btn btn-danger' onclick='fnAgregarClase(" + row.idcursodocente + ")' id='AccessEliminar' >Eliminar</button>";
-                            //        return strHtml;
-                            //    },
-                            //    "sWidth": "5px",
-                            //    "sClass": "css-center",
-                            //    "bSort": false,
-                            //    "aTargets": [6]
-                            //}
                         ]
                 });
 
@@ -433,7 +383,6 @@
                 return;
             }
 
-
             $.ajax({
                 type: "POST",
                 url: '/Curso/InsertarCursoDocente',
@@ -458,7 +407,6 @@
                     // si acabo de completar
                 }
             });
-
         });
 
     </script>

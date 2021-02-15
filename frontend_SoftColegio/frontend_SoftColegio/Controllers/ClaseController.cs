@@ -135,7 +135,7 @@ namespace frontend_SoftColegio.Controllers
         [HttpPost]
         public async Task<JsonResult> InsertarClaseGestion(int idgrado, int isemana, string nombre, string descripcion
             , string rutaenlace, string rutavideo, int categoria, string imagenruta
-            , int orden, IEnumerable<HttpPostedFileBase> imagen)
+            , int orden, string imagen)
         {
             try
             {
