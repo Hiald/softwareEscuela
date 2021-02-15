@@ -763,23 +763,23 @@
                     $('#idCurso').append($("<option></option>")
                         .attr("value", "0")
                         .text("Seleccione una opción"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "1")
-                        .text("1er Grado"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "2")
-                        .text("2do Grado"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "3")
-                        .text("3er Grado"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "4")
-                        .text("Curso de inglés"));
-                    /*$.each(data, function (index, value) {
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "1")
+                    //    .text("1er Grado"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "2")
+                    //    .text("2do Grado"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "3")
+                    //    .text("3er Grado"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "4")
+                    //    .text("Curso de inglés"));
+                    $.each(data, function (index, value) {
                         $('#idCurso').append($("<option></option>")
                             .attr("value", value.idcurso)
                             .text(value.Snombre));
-                    });*/
+                    });
                 },
                 error: function (data) {
                     console.log(data);
