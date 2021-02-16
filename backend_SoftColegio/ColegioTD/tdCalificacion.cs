@@ -36,7 +36,7 @@ namespace ColegioTD
 
         }
 
-        public int tdActualizarNota(int tdidarchivodetalle, int tdinota, string tdobservacion, int tdidusuario,
+        public int tdActualizarNota(int tdidarchivodetalle, string tdinota, string tdobservacion, int tdidusuario,
                                     int tditiponota, Int16 tdiestado)
         {
             int iRespuesta = -1;

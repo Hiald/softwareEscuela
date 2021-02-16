@@ -65,7 +65,7 @@ namespace ColegioTD
 
         }
 
-        public int tdActualizarArchivoDetalle(int tdidarchivodetalle, int tdnota, string tdobservacion, int tdidusuario
+        public int tdActualizarArchivoDetalle(int tdidarchivodetalle, string tdnota, string tdobservacion, int tdidusuario
                                         , int tdtiponota, Int16 tdestado, DateTime tdfecharegistro)
         {
             int iRespuesta = -1;
@@ -93,7 +93,7 @@ namespace ColegioTD
         }
 
         public int tdInsertarArchivoDetalle(int tdidarchivo, int tdidusuario, string tdimagen
-                    , int tdnota, string adobservacion, string tddescripcion, string tdenlace)
+                    , string tdnota, string adobservacion, string tddescripcion, string tdenlace)
         {
             int iRespuesta = -1;
             try
@@ -201,7 +201,7 @@ namespace ColegioTD
         }
 
         public int tdActualizarArchivoDetalle(int tditipoactualizar, int tdidarchivodetalle, int tdidarchivo
-                                        , int tdidusuario, int tdidnota, string tdobservacion, string tdenlace)
+                                        , int tdidusuario, string tdidnota, string tdobservacion, string tdenlace)
         {
             int iRespuesta = -1;
             try

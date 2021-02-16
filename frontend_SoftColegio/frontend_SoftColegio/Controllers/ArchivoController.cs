@@ -312,8 +312,9 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+        // INACTIVO NO ME SIRVE
         [HttpPost]
-        public async Task<JsonResult> ActualizarArchivoAlumno(int idarchivodetalle, int nota
+        public async Task<JsonResult> ActualizarArchivoAlumno(int idarchivodetalle, string nota
                                          , string observacion, int tiponota)
         {
             try
@@ -369,7 +370,7 @@ namespace frontend_SoftColegio.Controllers
         // ACTIVO: registra las TAREAS O EJERCICIOS por los alumnos: alumno
         [HttpPost]
         public async Task<ActionResult> InsertarArchivoAlumno(int pidcurso, string snombrecurso
-                            , int idarchivo, IEnumerable<HttpPostedFileBase> imagen, int nota
+                            , int idarchivo, IEnumerable<HttpPostedFileBase> imagen, string nota
                             , string observacion, string descripcion, string enlace)
         {
             try

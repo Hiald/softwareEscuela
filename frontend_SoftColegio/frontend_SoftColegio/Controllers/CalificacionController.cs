@@ -143,7 +143,7 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: actualiza la nota de las TAREAS o EJERCICIOS: docente
         [HttpPost]
-        public async Task<JsonResult> ActualizarNota(int idarchivodetalle, int inota, string observacion,
+        public async Task<JsonResult> ActualizarNota(int idarchivodetalle, string inota, string observacion,
                                     int itiponota, Int16 iestado, int idusuario)
         {
             try
