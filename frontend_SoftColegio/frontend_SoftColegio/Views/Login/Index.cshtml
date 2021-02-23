@@ -97,7 +97,7 @@
                 <!-- end .card-body -->
             </div>
         </div>
-        <div class="auth-fluid-right text-center">
+        <div class="auth-fluid-right text-center" id="imgfondoLogin">
         </div>
     </div>
     <script src="~/assets/js/vendor.min.js"></script>
@@ -219,4 +219,44 @@
         });
 
     });
+
+
+    function imagen3() {
+        $('.auth-fluid').css({
+            'background': 'url(../assets/images/img3nidoperulina.png) right',
+            'background-size': 'contain'
+        });
+    }
+
+    function imagen2() {
+        $('.auth-fluid').css({
+            'background': 'url(../assets/images/img2nidoperulina.png) right',
+            'background-size': 'cover'
+        });
+    }
+
+    function imagen1() {
+        $('.auth-fluid').css({
+            'background': 'url(../assets/images/img1nidoperulina.png) right',
+            'background-size': 'contain'
+        });
+    }
+    var i = 0;
+    function fadeDivs() {
+        i = i < 3 ? i : 0;
+        if (i == 0) {
+            imagen1();
+        } else if (i == 1) {
+            imagen2();
+        } else if (i == 2) {
+            imagen3();
+        }
+        // $('.auth-fluid').fadeOut(100);
+        i++;
+    }
+
+    $(document).ready(function () {
+        setInterval(fadeDivs, 3000);
+    });
+
 </script>

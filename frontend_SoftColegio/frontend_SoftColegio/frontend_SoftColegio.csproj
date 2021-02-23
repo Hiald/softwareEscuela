@@ -247,6 +247,7 @@
     <Content Include="assets\fonts\Nunito-Regular.svg" />
     <Content Include="assets\fonts\Nunito-SemiBold.svg" />
     <Content Include="assets\fonts\unicons8adf.svg" />
+    <Content Include="assets\images\asda.png" />
     <Content Include="assets\images\barcode.png" />
     <Content Include="assets\images\bg-auth.jpg" />
     <Content Include="assets\images\bg-pattern-dark.png" />
@@ -269,7 +270,11 @@
     <Content Include="assets\images\flags\spain.jpg" />
     <Content Include="assets\images\flags\us.jpg" />
     <Content Include="assets\images\help-icon.svg" />
+    <Content Include="assets\images\IMAGENES DE PORTADA-02.jpg" />
     <Content Include="assets\images\imagenfondo2.png" />
+    <Content Include="assets\images\img1nidoperulina.png" />
+    <Content Include="assets\images\img2nidoperulina.png" />
+    <Content Include="assets\images\img3nidoperulina.png" />
     <Content Include="assets\images\layouts\layout-1.png" />
     <Content Include="assets\images\layouts\layout-2.png" />
     <Content Include="assets\images\layouts\layout-3.png" />
