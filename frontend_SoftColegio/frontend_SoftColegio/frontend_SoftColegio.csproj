@@ -247,7 +247,6 @@
     <Content Include="assets\fonts\Nunito-Regular.svg" />
     <Content Include="assets\fonts\Nunito-SemiBold.svg" />
     <Content Include="assets\fonts\unicons8adf.svg" />
-    <Content Include="assets\images\asda.png" />
     <Content Include="assets\images\barcode.png" />
     <Content Include="assets\images\bg-auth.jpg" />
     <Content Include="assets\images\bg-pattern-dark.png" />
