@@ -109,7 +109,7 @@ namespace ColegioAD
             }
         }
 
-        public int adInsertarArchivoDetalle(int adidarchivo, int adidusuario, string adimagen, int adnota
+        public int adInsertarArchivoDetalle(int adidarchivo, int adidusuario, string adimagen, string adnota
                     , string adobservacion, string addescripcion, string adenlace)
         {
             try
@@ -120,7 +120,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_idarchivo", MySqlDbType.Int32).Value = adidarchivo;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_imagen", MySqlDbType.VarChar, 150).Value = adimagen;
-                cmd.Parameters.Add("_nota", MySqlDbType.Int32).Value = adnota;
+                cmd.Parameters.Add("_nota", MySqlDbType.VarChar, 10).Value = adnota;
                 cmd.Parameters.Add("_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
                 cmd.Parameters.Add("_v_descripcion", MySqlDbType.VarChar, 500).Value = addescripcion;
                 cmd.Parameters.Add("_enlace", MySqlDbType.VarChar, 500).Value = adenlace;
@@ -137,7 +137,7 @@ namespace ColegioAD
             }
         }
 
-        public int adActualizarArchivoDetalle(int adidarchivodetalle, int adnota, string adobservacion, int adidusuario
+        public int adActualizarArchivoDetalle(int adidarchivodetalle, string adnota, string adobservacion, int adidusuario
                                         , int adtiponota, Int16 adestado, DateTime adfecharegistro)
         {
             try
@@ -146,7 +146,7 @@ namespace ColegioAD
                 MySqlCommand cmd = new MySqlCommand("sp_insertar_archivo_detalle", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("_idarchivodetalle", MySqlDbType.Int32).Value = adidarchivodetalle;
-                cmd.Parameters.Add("_nota", MySqlDbType.Int32).Value = adnota;
+                cmd.Parameters.Add("_nota", MySqlDbType.VarChar, 10).Value = adnota;
                 cmd.Parameters.Add("_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = adtiponota;
@@ -334,7 +334,7 @@ namespace ColegioAD
         }
 
         public int adActualizarArchivoDetalle(int aditipoactualizar, int adidarchivodetalle, int adidarchivo
-                                        , int adidusuario, int adidnota, string adobservacion, string adenlace)
+                                        , int adidusuario, string adidnota, string adobservacion, string adenlace)
         {
             try
             {
@@ -345,7 +345,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_idarchivodetalle", MySqlDbType.Int32).Value = adidarchivodetalle;
                 cmd.Parameters.Add("_idarchivo", MySqlDbType.Int32).Value = adidarchivo;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
-                cmd.Parameters.Add("_i_nota", MySqlDbType.Int32).Value = adidnota;
+                cmd.Parameters.Add("_i_nota", MySqlDbType.VarChar, 10).Value = adidnota;
                 cmd.Parameters.Add("_v_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
                 cmd.Parameters.Add("_v_enlace", MySqlDbType.VarChar, 500).Value = adenlace;
 

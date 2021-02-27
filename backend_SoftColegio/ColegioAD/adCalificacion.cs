@@ -82,7 +82,7 @@ namespace ColegioAD
             }
         }
 
-        public int adActualizarNota(int adidarchivodetalle, int adinota, string adobservacion, int adidusuario,
+        public int adActualizarNota(int adidarchivodetalle, string adinota, string adobservacion, int adidusuario,
                                     int aditiponota, Int16 adiestado)
         {
             try
@@ -91,7 +91,7 @@ namespace ColegioAD
                 MySqlCommand cmd = new MySqlCommand("sp_actualizar_nota", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("_idarchivodetalle", MySqlDbType.Int32).Value = adidarchivodetalle;
-                cmd.Parameters.Add("_nota", MySqlDbType.Int32).Value = adinota;
+                cmd.Parameters.Add("_nota", MySqlDbType.VarChar, 10).Value = adinota;
                 cmd.Parameters.Add("_observacion", MySqlDbType.VarChar, 500).Value = adobservacion;
                 cmd.Parameters.Add("_idusuario", MySqlDbType.Int32).Value = adidusuario;
                 cmd.Parameters.Add("_tiponota", MySqlDbType.Int32).Value = aditiponota;

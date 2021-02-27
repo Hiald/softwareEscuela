@@ -50,7 +50,7 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsActualizarArchivoDetalle(int widarchivodetalle, int wnota, string wobservacion, int widusuario
+        public int wsActualizarArchivoDetalle(int widarchivodetalle, string wnota, string wobservacion, int widusuario
                                         , int wtiponota, Int16 westado, string wfecharegistro)
         {
             int iresultado = -1;
@@ -70,7 +70,7 @@ namespace ColegioAPI.Controllers
 
         [HttpGet]
         public int wsInsertarArchivoDetalle(int widarchivo, int widusuario, string wimagen
-                    , int wnota, string wobservacion, string wdescripcion, string wenlace)
+                    , string wnota, string wobservacion, string wdescripcion, string wenlace)
         {
             int iresultado = -1;
             try
@@ -142,7 +142,7 @@ namespace ColegioAPI.Controllers
 
         [HttpGet]
         public int wsActualizarArchivoDetalle(int wsitipoactualizar, int wsidarchivodetalle, int wsidarchivo
-                                        , int wsidusuario, int wsidnota, string wsobservacion, string wsenlace)
+                                        , int wsidusuario, string wsidnota, string wsobservacion, string wsenlace)
         {
             int iresultado = -1;
             try

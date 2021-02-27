@@ -28,7 +28,7 @@ namespace ColegioAPI.Controllers
         }
 
         [HttpGet]
-        public int wsActualizarNota(int wsidarchivodetalle, int wsinota, string wsobservacion, int wsidusuario,
+        public int wsActualizarNota(int wsidarchivodetalle, string wsinota, string wsobservacion, int wsidusuario,
                                     int wsitiponota, Int16 wsiestado)
         {
             int iresultado = -1;
