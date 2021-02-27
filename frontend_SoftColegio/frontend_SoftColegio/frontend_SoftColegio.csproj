@@ -151,6 +151,9 @@
   <ItemGroup>
     <Content Include="assets\css\app-dark.min.css" />
     <Content Include="assets\css\app.min.css" />
+    <Content Include="assets\css\burger.svg" />
+    <Content Include="assets\css\floating-wpp.css" />
+    <Content Include="assets\css\floating-wpp.js" />
     <Content Include="assets\css\icons.min.css" />
     <Content Include="assets\css\vendor\britecharts.min.css" />
     <Content Include="assets\css\vendor\buttons.bootstrap4.css" />
@@ -167,6 +170,7 @@
     <Content Include="assets\css\vendor\select.bootstrap4.css" />
     <Content Include="assets\css\vendor\simplemde.min.css" />
     <Content Include="assets\css\vendor\summernote-bs4.css" />
+    <Content Include="assets\css\whatsapp.svg" />
     <Content Include="assets\datatables\Buttons-1.6.5\css\buttons.bootstrap.css" />
     <Content Include="assets\datatables\Buttons-1.6.5\css\buttons.bootstrap.min.css" />
     <Content Include="assets\datatables\Buttons-1.6.5\css\buttons.bootstrap4.css" />

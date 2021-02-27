@@ -24,7 +24,7 @@
     <link href="~/assets/css/vendor/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/vendor/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/vendor/select.bootstrap4.css" rel="stylesheet" type="text/css" />
-
+    <link href="~/assets/css/floating-wpp.css" rel="stylesheet" />
     <script>
         var RutaPrincipal = "@Url.Content("~")";
         var valorfecha = "";
@@ -177,50 +177,51 @@
                     @if (ViewBag.GrolUsuario == 3)
                     {
                         @*<li class="side-nav-item">
-                                <a href="javascript: void(0);" class="side-nav-link"
-                                   style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
-                                    <i class="mdi mdi-gamepad-variant-outline"></i>
-                                    <span class="badge badge-success float-right">0</span>
-                                    <span>JUEGOS-PC</span>
-                                </a>
-                                <ul class="side-nav-second-level" aria-expanded="false">
-                                    <li>
-                                        <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
-                                           href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">AJEDREZ</a>
-                                    </li>
-                                </ul>
-                            </li>
+                    <a href="javascript: void(0);" class="side-nav-link"
+                       style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
+                        <i class="mdi mdi-gamepad-variant-outline"></i>
+                        <span class="badge badge-success float-right">0</span>
+                        <span>JUEGOS-PC</span>
+                    </a>
+                    <ul class="side-nav-second-level" aria-expanded="false">
+                        <li>
+                            <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
+                               href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">AJEDREZ</a>
+                        </li>
+                    </ul>
+                </li>
 
-                            <li class="side-nav-item">
-                                <a href="javascript: void(0);" class="side-nav-link"
-                                   style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
-                                    <i class="mdi mdi-gamepad-variant-outline"></i>
-                                    <span class="badge badge-success float-right">0</span>
-                                    <span>JUEGOS PARA CELULAR</span>
-                                </a>
-                                <ul class="side-nav-second-level" aria-expanded="false">
-                                    <li>
-                                        <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
-                                           href="https://play.google.com/store/apps/details?id=com.fanatee.cody" target="_blank">CRUCIGRAMA</a>
-                                    </li>
-                                </ul>
-                                <ul class="side-nav-second-level" aria-expanded="false">
-                                    <li>
-                                        <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
-                                           href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">HOMESCAPES</a>
-                                    </li>
-                                </ul>
-                            </li>*@
+                <li class="side-nav-item">
+                    <a href="javascript: void(0);" class="side-nav-link"
+                       style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px">
+                        <i class="mdi mdi-gamepad-variant-outline"></i>
+                        <span class="badge badge-success float-right">0</span>
+                        <span>JUEGOS PARA CELULAR</span>
+                    </a>
+                    <ul class="side-nav-second-level" aria-expanded="false">
+                        <li>
+                            <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
+                               href="https://play.google.com/store/apps/details?id=com.fanatee.cody" target="_blank">CRUCIGRAMA</a>
+                        </li>
+                    </ul>
+                    <ul class="side-nav-second-level" aria-expanded="false">
+                        <li>
+                            <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
+                               href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">HOMESCAPES</a>
+                        </li>
+                    </ul>
+                </li>*@
                     }
 
                 </ul>
                 <div>
+                    <div id="WhatsappBtn"></div>
                     @*<img src="~/Content/img/calendario.png" height="320" />*@
                 </div>
                 <div class="clearfix"></div>
+                
             </div>
         </div>
-
 
         <div class="content-page">
             <div class="content">
@@ -333,6 +334,22 @@
     <script src="~/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="~/assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
     <script src="~/assets/js/pages/demo.dashboard.js"></script>
+    <script src="~/assets/css/floating-wpp.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#WhatsappBtn').floatingWhatsApp({
+                phone: '51920310522',
+                popupMessage: '¡Hola! ¿Cómo podemos ayudarte?',
+                message: "Tengo algunas consultas sobre la plataforma educativa.",
+                showPopup: true,
+                showOnIE: false,
+                headerTitle: '¡Bienvenid@@!',
+                headerColor: '#25D366',
+                backgroundColor: '#25D366',
+                buttonImage: '<img src="../../assets/css/whatsapp.svg" />'
+            });
+        });
+    </script>
     @RenderSection("Scripts", required: false)
     <script>
 
