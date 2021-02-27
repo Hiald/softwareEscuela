@@ -84,14 +84,14 @@
                         }
                         else if (ViewBag.GrolUsuario == 3)
                         {
-                            <a href="javascript: void(0);" class="side-nav-link"
-                               style="color:white !important;border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                            <a href="javascript: void(0);" class="side-nav-link" >
                                 <i class="uil-home-alt"></i>
                                 <span>GENERAL</span>
+                                <span class="menu-arrow"></span>
                             </a>
                         }
 
-                        <ul class="side-nav-second-level mm-show" aria-expanded="true">
+                        <ul class="side-nav-second-level" aria-expanded="false">
                             @if (ViewBag.GrolUsuario == 1)
                             {
                                 <li>
@@ -139,24 +139,32 @@
                             }
                             else if (ViewBag.GrolUsuario == 3)
                             {
-                                <li>
-                                    <a href="/Clase/Curso" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
-                                        <i class="uil-home-alt"></i>
-                                        <span>CURSOS</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Horario/Index" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
-                                        <i class="uil-graduation-hat"></i>
-                                        <span>HORARIO</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Calificacion/Calificacion" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
+                                <li class="side-nav-item">
+                                    <a href="/Calificacion/Calificacion">
                                         <i class="uil-file-plus-alt"></i>
-                                        <span>CALIFICACIÓN</span>
+                                        <span>Calificación</span>
                                     </a>
                                 </li>
+                                <li class="side-nav-item"> 
+                                    <a href="javascript: void(0);" class="">
+                                        <i class="uil-graduation-hat"></i>
+                                        <span>Cursos - Horario</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul class="side-nav-third-level" aria-expanded="false">
+                                        <li>
+                                            <a href="/Clase/Curso">
+                                                <span>Cursos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Horario/Index">
+                                                <span>Horario</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
                                 @*<li>
                                         <a href="/Pago/Pago" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
                                             <i class="uil-file-plus-alt"></i>
@@ -177,37 +185,32 @@
                     @if (ViewBag.GrolUsuario == 3)
                     {
                         <li class="side-nav-item">
-                            <a href="javascript: void(0);" class="side-nav-link"
-                               style="font-weight: bold;color:white !important; border: 2px solid white; border-radius: 15px; margin: 15px">
+                            <a href="javascript: void(0);" class="side-nav-link">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
-                                <span class="badge badge-success float-right">0</span>
-                                <span>JUEGOS-PC</span>
+                                <span>JUEGOS - PC</span>
+                                <span class="menu-arrow"></span>
                             </a>
                             <ul class="side-nav-second-level" aria-expanded="false">
                                 <li>
-                                    <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
-                                       href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">AJEDREZ</a>
+                                    <a href="https://www.chess.com/es/lessons/movimiento-de-las-piezas/el-rey" target="_blank">Ajedrez</a>
                                 </li>
                             </ul>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="javascript: void(0);" class="side-nav-link"
-                               style="font-weight: bold;color:white !important; border: 2px solid white; border-radius: 15px; margin: 15px">
+                            <a href="javascript: void(0);" class="side-nav-link">
                                 <i class="mdi mdi-gamepad-variant-outline"></i>
-                                <span class="badge badge-success float-right">0</span>
-                                <span>JUEGOS PARA CELULAR</span>
+                                <span>JUEGOS - CELULAR</span>
+                                <span class="menu-arrow"></span>
                             </a>
                             <ul class="side-nav-second-level" aria-expanded="false">
                                 <li>
-                                    <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
-                                       href="https://play.google.com/store/apps/details?id=com.fanatee.cody" target="_blank">CRUCIGRAMA</a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.fanatee.cody" target="_blank">Crucigrama</a>
                                 </li>
                             </ul>
                             <ul class="side-nav-second-level" aria-expanded="false">
                                 <li>
-                                    <a style="font-weight: bold; border: 2px solid white; border-radius: 15px; margin: 15px"
-                                       href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">HOMESCAPES</a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank">Homescapes</a>
                                 </li>
                             </ul>
                         </li>
