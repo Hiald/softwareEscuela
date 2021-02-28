@@ -31,25 +31,25 @@
                         <select class="form-control" name="widnivel" id="idNivel"></select>
                     </div>
                 </div>
-                <div class="col-md-4" style="display:none;">
+                <div class="col-md-3">
                     <div class="form-group mb-3">
                         <label for="idGrado">Grado</label>
                         <select class="form-control" name="widgrado" id="idGrado"></select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group mb-3">
                         <label for="idCurso">Curso</label>
                         <select class="form-control" name="widcurso" id="idCurso"></select>
                     </div>
                 </div>
 
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="dtfechainicio">Fecha inicio curso</label>
                     <input class="form-control" type="date" id="dtfechainicio">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group mb-3">
                         <label for="slcpagoindimult">Tipo de pago</label>
                         <select data-toggle="tooltip" data-placement="top" data-html="true"
@@ -719,7 +719,7 @@
                 url: "/curso/ListarGrado",
                 async: false,
                 data: {
-                    "widnivel": parseInt(inivelvalor),
+                    "widnivel": parseInt(1),
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -753,33 +753,34 @@
                 type: "POST",
                 url: "/clase/ListarClaseGestion",
                 data: {
-                    "idgrado": parseInt(1), //slcgradog
+                    "idgrado": parseInt(slcgradog), //slcgradog
                     "idnivel": parseInt(1) //slcnivelg
                 },
                 success: function (data) {
+                    console.log(data);
                     if (data.data === "") {
                         alert("¡No hay datos, ¡intenta agregar algunos!");
                     }
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "0")
-                        .text("Seleccione una opción"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "1")
-                        .text("1er Grado"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "2")
-                        .text("2do Grado"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "3")
-                        .text("3er Grado"));
-                    $('#idCurso').append($("<option></option>")
-                        .attr("value", "4")
-                        .text("Curso de inglés"));
-                    /*$.each(data, function (index, value) {
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "0")
+                    //    .text("Seleccione una opción"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "1")
+                    //    .text("Comunicación"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "2")
+                    //    .text("Matemáticas"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "3")
+                    //    .text("Ciencia y Ambiente"));
+                    //$('#idCurso').append($("<option></option>")
+                    //    .attr("value", "4")
+                    //    .text("Personal Social"));
+                    $.each(data, function (index, value) {
                         $('#idCurso').append($("<option></option>")
                             .attr("value", value.idcurso)
                             .text(value.Snombre));
-                    });*/
+                    });
                 },
                 error: function (data) {
                     console.log(data);
@@ -790,6 +791,7 @@
 
         $(document).ready(function () {
             fn_ListarNivel();
+            fn_ListarGrado();
             $('#slcpagoindimult').tooltip();
             $('#slcpagoindimult').on('change', function () {
                 $('#slcpagoindimult').tooltip('hide');
@@ -818,7 +820,7 @@
             $('#idNivel').on('change', function () {
                 fn_ListarGrado();
             });
-            fn_ListarCurso();
+            //fn_ListarCurso();
             $('#idGrado').on('change', function () {
                 fn_ListarCurso();
             });

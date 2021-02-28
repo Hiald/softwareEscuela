@@ -590,7 +590,9 @@
         $(document).ready(function () {
             fn_ListarNivel();
             fn_ListarNivelAgregar();
-
+            if ($('#hddtipousuario').val() == 2) {
+                fn_listartabla(0);
+            }
             $('#idNivel').on('change', function () {
                 if ($('#idNivel option:selected').attr('value') == "") {
                     $('#idGrado').find('option').remove();
