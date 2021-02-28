@@ -84,6 +84,7 @@ namespace frontend_SoftColegio.Controllers
                 DVariables["APELLIDOMATERNO"] = oEnUsuario.SApellidoMaterno.ToString();
                 DVariables["CORREO"] = oEnUsuario.Scorreo.ToString();
                 DVariables["TIPOUSUARIO"] = oEnUsuario.tipousuario.ToString();
+                DVariables["IMAGENUSUARIO"] = oEnUsuario.simagenruta.ToString();
                 UtlAuditoria.SetSessionValues(DVariables);
 
                 /* string pdip = UtlAuditoria.ObtenerDireccionIP();
@@ -149,7 +150,7 @@ namespace frontend_SoftColegio.Controllers
                         releaseUris.Add(sRutaServidor);
                     }
                 }
-                string valorimg1 = "/Content/imagenalumno/vacio.png";
+                string valorimg1 = "/imagenalumno/vacio.png";
                 if (releaseUris.Count == 1)
                 {
                     valorimg1 = releaseUris[0];

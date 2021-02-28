@@ -19,6 +19,7 @@ namespace frontend_SoftColegio.Controllers
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -32,6 +33,7 @@ namespace frontend_SoftColegio.Controllers
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GidNivel = idNivel;
             ViewBag.GidGrado = idGrado;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -45,6 +47,7 @@ namespace frontend_SoftColegio.Controllers
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GidNivel = idNivel;
             ViewBag.GidGrado = idGrado;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 

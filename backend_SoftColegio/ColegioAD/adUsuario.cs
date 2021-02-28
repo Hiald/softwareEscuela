@@ -166,6 +166,7 @@ namespace ColegioAD
                             int pos_apellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
                             int pos_correo = mdrd.GetOrdinal("v_correo");
                             int pos_tipousuario = mdrd.GetOrdinal("i_tipo_usuario");
+                            int pos_imagenruta = mdrd.GetOrdinal("v_imagen_ruta");
 
                             while (mdrd.Read())
                             {
@@ -179,6 +180,7 @@ namespace ColegioAD
                                 senUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_apellidomaterno) ? "-" : mdrd.GetString(pos_apellidomaterno));
                                 senUsuario.Scorreo = (mdrd.IsDBNull(pos_correo) ? "-" : mdrd.GetString(pos_correo));
                                 senUsuario.tipousuario = (mdrd.IsDBNull(pos_tipousuario) ? 0 : mdrd.GetInt32(pos_tipousuario));
+                                senUsuario.simagenruta = (mdrd.IsDBNull(pos_imagenruta) ? "/imagenalumno/vacio.png" : mdrd.GetString(pos_imagenruta));
                             }
                         }
                     }
@@ -219,6 +221,7 @@ namespace ColegioAD
                             int pos_apellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
                             int pos_correo = mdrd.GetOrdinal("v_correo");
                             int pos_tipousuario = mdrd.GetOrdinal("i_tipo_usuario");
+                            int pos_imagenruta = mdrd.GetOrdinal("v_imagen_ruta");
 
                             while (mdrd.Read())
                             {
@@ -234,6 +237,7 @@ namespace ColegioAD
                                 enUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_apellidomaterno) ? "-" : mdrd.GetString(pos_apellidomaterno));
                                 enUsuario.Scorreo = (mdrd.IsDBNull(pos_correo) ? "-" : mdrd.GetString(pos_correo));
                                 enUsuario.tipousuario = (mdrd.IsDBNull(pos_tipousuario) ? 0 : mdrd.GetInt32(pos_tipousuario));
+                                enUsuario.simagenruta = (mdrd.IsDBNull(pos_imagenruta) ? "-" : mdrd.GetString(pos_imagenruta));
                                 slenUsuario.Add(enUsuario);
                             }
                         }

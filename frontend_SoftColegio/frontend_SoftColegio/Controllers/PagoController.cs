@@ -25,11 +25,10 @@ namespace frontend_SoftColegio.Controllers
            
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.Gidusuario = idusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
-
-
-
+        
         [SecuritySession]
         public ActionResult Index()
         {
@@ -39,6 +38,7 @@ namespace frontend_SoftColegio.Controllers
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GidNivel = idNivel;
             ViewBag.GidGrado = idGrado;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -53,6 +53,7 @@ namespace frontend_SoftColegio.Controllers
             ViewBag.GidNivel = idNivel;
             ViewBag.GidGrado = idGrado;
             ViewBag.Gidusuario = idusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -64,6 +65,7 @@ namespace frontend_SoftColegio.Controllers
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             ViewBag.Gidusuario = idusuario;
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -835,6 +837,7 @@ namespace frontend_SoftColegio.Controllers
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -843,6 +846,7 @@ namespace frontend_SoftColegio.Controllers
         public ActionResult ReporteUsuarioPago()
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             ViewBag.GrolUsuario = irolusuario;
             return View();
         }

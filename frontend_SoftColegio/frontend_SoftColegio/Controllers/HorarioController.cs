@@ -20,6 +20,7 @@ namespace frontend_SoftColegio.Controllers
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GidNivel = idNivel;
             ViewBag.GidGrado = idGrado;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 

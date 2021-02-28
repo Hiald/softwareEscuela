@@ -18,6 +18,7 @@ namespace frontend_SoftColegio.Controllers
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
