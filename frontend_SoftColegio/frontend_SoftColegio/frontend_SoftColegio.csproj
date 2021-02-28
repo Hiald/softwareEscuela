@@ -445,6 +445,7 @@
     <Folder Include="clasevideo\" />
     <Folder Include="Content\imgpago\" />
     <Folder Include="fonts\" />
+    <Folder Include="imagenalumno\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
     <Folder Include="Views\Asistencia\" />

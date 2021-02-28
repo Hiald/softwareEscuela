@@ -118,7 +118,8 @@ namespace frontend_SoftColegio.Controllers
 
         [HttpPost]
         public async Task<JsonResult> Crearusuario(int widnivel, int widgrado, int widsede, string wnombres, string wamaterno
-                                                    , string wapaterno, int wtipousuario, string wusuario, string wclave)
+                                                    , string wapaterno, int wtipousuario, string wusuario, string wclave
+                                                    , IEnumerable<HttpPostedFileBase> wimagen)
         {
             try
             {
@@ -129,6 +130,31 @@ namespace frontend_SoftColegio.Controllers
                 string wtoken = "vacio";
                 string wgenero = "0";
                 string wcorreo = "vacio";
+
+                Random random = new Random();
+                const string alfabeto = "abcdefghijklmnopqrstuvwxyz0123456789";
+                var releaseUris = new List<string>();
+                Int16 estado = 1;
+                foreach (var file in wimagen)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string sTipoImagen = System.IO.Path.GetFileName(file.ContentType);
+                        string sRandom = new string(Enumerable.Repeat(alfabeto, 10).Select(s => s[random.Next(s.Length)]).ToArray());
+                        string sRutaLocal = System.IO.Path.Combine(Server.MapPath("~/imagenalumno/"), sRandom + "." + sTipoImagen);
+
+                        string sRutaServidor = "/imagenalumno/" + sRandom + "." + sTipoImagen;
+                        // sRuta es para la bd                        
+                        file.SaveAs(sRutaLocal);
+                        releaseUris.Add(sRutaServidor);
+                    }
+                }
+                string valorimg1 = "/Content/imagenalumno/vacio.png";
+                if (releaseUris.Count == 1)
+                {
+                    valorimg1 = releaseUris[0];
+                }
+
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
@@ -136,7 +162,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/usuario/wsInsertarCuenta?widnivel=" + widnivel + "&widgrado=" + widgrado
                         + "&widsede=" + widsede + "&wnombres=" + wnombres + "&wamaterno=" + wamaterno + "&wapaterno=" + wapaterno
-                        + "&wgenero=" + wgenero + "&wcorreo=" + wcorreo + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro);
+                        + "&wgenero=" + wgenero + "&wcorreo=" + wcorreo + "&westado=" + westado + "&wfechaRegistro=" + wfechaRegistro + "&wimagen=" + valorimg1);
 
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)

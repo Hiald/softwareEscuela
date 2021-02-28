@@ -14,7 +14,7 @@ namespace ColegioAD
         }
 
         public int adInsertarCuenta(int adidnivel, int adidgrado, int adidsede, string adnombres, string adamaterno, string adapaterno, string adgenero
-                                    , string adcorreo, Int16 adestado, DateTime adfechaRegistro)
+                                    , string adcorreo, Int16 adestado, DateTime adfechaRegistro, string adimagen)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_apellido_materno", MySqlDbType.VarChar, 50).Value = adamaterno;
                 cmd.Parameters.Add("_apellido_paterno", MySqlDbType.VarChar, 50).Value = adapaterno;
                 cmd.Parameters.Add("_genero", MySqlDbType.VarChar, 1).Value = adgenero;
+                cmd.Parameters.Add("_v_imagen_ruta", MySqlDbType.VarChar, 250).Value = adimagen;
                 cmd.Parameters.Add("_correo", MySqlDbType.VarChar, 50).Value = adcorreo;
                 cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = 1;
                 cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = DateTime.Now;

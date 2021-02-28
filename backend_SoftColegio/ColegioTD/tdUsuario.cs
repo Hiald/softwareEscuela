@@ -36,7 +36,7 @@ namespace ColegioTD
         }
 
         public int tdInsertarCuenta(int tdidnivel, int tdidgrado, int tdidsede, string tdnombres, string tdamaterno, string tdapaterno, string tdgenero
-                                    , string tdcorreo, Int16 tdestado, DateTime tdfechaRegistro)
+                                    , string tdcorreo, Int16 tdestado, DateTime tdfechaRegistro, string tdimagen)
         {
             int iRespuesta = -3;
             try
@@ -48,7 +48,7 @@ namespace ColegioTD
                     {
                         iadUsuario = new adUsuario(con);
                         iRespuesta = iadUsuario.adInsertarCuenta(tdidnivel, tdidgrado, tdidsede, tdnombres, tdamaterno, tdapaterno, tdgenero
-                                                                , tdcorreo, tdestado, tdfechaRegistro);
+                                                                , tdcorreo, tdestado, tdfechaRegistro, tdimagen);
                         scope.Commit();
                     }
                 }
