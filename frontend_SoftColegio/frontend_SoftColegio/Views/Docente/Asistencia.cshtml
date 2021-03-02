@@ -1,0 +1,214 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Contenido</a></li>
+                        <li class="breadcrumb-item active">Gestion clases</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">MÓDULO ASISTENCIA</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="idGradog">Grado</label>
+                                <select class="form-control" id="idGradog"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="idCursog">Curso</label>
+                                <select class="form-control" id="idCursog"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="idClaseg">Clase</label>
+                                <select class="form-control" id="idClaseg"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="basic-datatable-preview">
+                            <table id="tblClase" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE DE LA CLASE</th>
+                                        <th>ALUMNO</th>
+                                        <th>GRADO</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="@ViewBag.GIDUsuario" id="hddidusuario" />
+<input type="hidden" value="@ViewBag.GrolUsuario" id="hddtipousuario" />
+
+@section scripts{
+    <script src="~/assets/js/moment.js"></script>
+    <script>
+        $(document).ready(function () {
+            fn_ListarGrado();
+        });
+
+        function fn_ListarGrado() {
+            //var inivelvalor = $('#idNivelg option:selected').attr('value');
+            $('#idGradog').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/curso/ListarGrado",
+                data: {
+                    "widnivel": parseInt(1),
+                },
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay grados, intenta agregar algunos!");
+                    }
+                    $('#idGradog').append($("<option></option>")
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idGradog').append($("<option></option>")
+                            .attr("value", value.idgrado)
+                            .text(value.SnombreGrado));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function fn_ListarCurso() {
+            //var slcnivelg = $('#idNivelg option:selected').attr('value');
+            var slcgradog = $('#idGradog option:selected').attr('value');
+
+            var dtipousuario = $('#hddtipousuario').val();
+            var idusuarioparam = $('#hddidusuario').val();
+            if (dtipousuario == 1) {
+                idusuarioparam = 0;
+
+                $('#idCursog').find('option').remove();
+                $.ajax({
+                    type: "POST",
+                    url: "/clase/ListarClaseGestion",
+                    data: {
+                        "idgrado": parseInt(slcgradog),
+                        "idnivel": parseInt(1)
+                    },
+                    success: function (data) {
+                        if (data.data === "") {
+                            alert("¡No hay datos, ¡intenta agregar algunos!");
+                        }
+                        $('#idCursog').append($("<option></option>")
+                            .attr("value", "0")
+                            .text("Seleccione una opción"));
+                        $.each(data, function (index, value) {
+                            $('#idCursog').append($("<option></option>")
+                                .attr("value", value.idcurso)
+                                .text(value.Snombre));
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+            } else {
+                var igradovalor = $('#idGradog option:selected').attr('value');
+                $('#idCursog').find('option').remove();
+                $.ajax({
+                    type: "POST",
+                    url: "/curso/ListarCursoGestion",
+                    data: {
+                        "valoritipousuario": 4,
+                        "widusuario": idusuarioparam,
+                        "idnivel": 1,
+                        "idgrado": igradovalor,
+                        "idcurso": 0
+                    },
+                    success: function (data) {
+                        if (data.aaData === "") {
+                            alert("¡No hay datos, intenta agregar una!");
+                        }
+                        $('#idCursog').append($("<option></option>")
+                            .attr("value", "")
+                            .text("Seleccione una opción"));
+                        $.each(data.aaData, function (index, value) {
+                            $('#idCursog').append($("<option></option>")
+                                .attr("value", value.idcurso)
+                                .text(value.SnombreCurso));
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        }
+
+        function fn_ListarClase()
+        {
+            var slcidCurso = $('#idCursog option:selected').attr('value');
+                idusuarioparam = 0;
+                $('#idClaseg').find('option').remove();
+                $.ajax({
+                    type: "POST",
+                    url: "/clase/ListarClaseGeneral",
+                    data: {
+                        "idcurso": parseInt(slcidCurso)
+                    },
+                    success: function (data) {
+                        if (data.data === "") {
+                            alert("¡No hay datos, ¡intenta agregar algunos!");
+                        }
+                        $('#idClaseg').append($("<option></option>")
+                            .attr("value", "0")
+                            .text("Seleccione una opción"));
+                        $.each(data, function (index, value) {
+                            $('#idClaseg').append($("<option></option>")
+                                .attr("value", value.idclase)
+                                .text(value.Snombre));
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+        }
+
+        $('#idGradog').on('change', function () {
+            fn_ListarCurso();
+        });
+
+        $('#idCursog').on('change', function () {
+            fn_ListarClase();
+        });
+
+
+
+    </script>
+}

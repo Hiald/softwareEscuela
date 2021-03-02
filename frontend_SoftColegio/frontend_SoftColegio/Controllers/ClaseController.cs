@@ -400,18 +400,7 @@ namespace frontend_SoftColegio.Controllers
                         loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
                     }
                 }
-
-                objResultado = new
-                {
-                    PageStart = 1,
-                    pageSize = 100,
-                    SearchText = string.Empty,
-                    ShowChildren = UtlConstantes.bValorTrue,
-                    iTotalRecords = loenClase.Count,
-                    iTotalDisplayRecords = 1,
-                    aaData = loenClase
-                };
-                return Json(objResultado);
+                return Json(loenClase);
             }
             catch (Exception ex)
             {
@@ -454,6 +443,50 @@ namespace frontend_SoftColegio.Controllers
             }
 
         }
+
+
+        //01/03/2021 SIRVE PARA LISTAR LAS CLASES DE LOS DOCENTES CON AUMNOS
+        [HttpPost]
+        public async Task<JsonResult> ListarClaseAlumno(int widclase)
+        {
+            try
+            {
+                int idusuario = widclase;
+                var objResultado = new object();
+                List<edCurso> loenClase = new List<edCurso>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseAlumno?widclase=" + widclase);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edCurso>>(rwsapilu);
+                    }
+                }
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = loenClase.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = loenClase
+                };
+                return Json(objResultado);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
+
 
     }
 }

@@ -142,5 +142,30 @@ namespace ColegioTD
 
         }
 
+        public List<edClase> tdListarClaseAlumno(int tdidclase)
+        {
+            List<edClase> renClase = new List<edClase>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadClase = new adClase(con);
+                        renClase = iadClase.adListarClaseAlumno(tdidclase);
+                        scope.Commit();
+                    }
+                }
+                return (renClase);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+
+        }
+
     }
 }

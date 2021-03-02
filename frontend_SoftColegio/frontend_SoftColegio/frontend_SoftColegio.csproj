@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CalificacionController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
+    <Compile Include="Controllers\DocenteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -519,6 +520,7 @@
     <Content Include="Views\Pago\Usuario.cshtml" />
     <Content Include="Views\Alumno\Asistencia.cshtml" />
     <Content Include="Views\Calificacion\Libreta.cshtml" />
+    <Content Include="Views\Docente\Asistencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\frontendED\frontendED.csproj">

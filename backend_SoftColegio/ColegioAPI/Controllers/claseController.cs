@@ -98,5 +98,21 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string wsListarClaseAlumno(int widclase)
+        {
+            List<edClase> wsenClase = new List<edClase>();
+            try
+            {
+                itdClase = new tdClase();
+                wsenClase = itdClase.tdListarClaseAlumno(widclase);
+                return JsonConvert.SerializeObject(wsenClase);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
     }
 }

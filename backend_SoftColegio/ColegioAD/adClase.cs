@@ -211,5 +211,47 @@ namespace ColegioAD
             }
         }
 
+        public List<edClase> adListarClaseAlumno(int adidclase)
+        {
+            try
+            {
+                List<edClase> slClase = new List<edClase>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_listar_clase_alumno", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("_idclase", MySqlDbType.Int32).Value = adidclase;
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edClase sClase = null;
+                            int pos_idclase = mdrd.GetOrdinal("ID_CLASE");
+                            int pos_vnombreclase= mdrd.GetOrdinal("NOMBRE_CLASE");
+                            int pos_idusuario = mdrd.GetOrdinal("IdUsuario");
+                            int pos_alumno = mdrd.GetOrdinal("ALUMNO");
+                            int pos_grado = mdrd.GetOrdinal("GRADO");
+                            
+                            while (mdrd.Read())
+                            {
+                                sClase = new edClase();
+                                sClase.idclase = (mdrd.IsDBNull(pos_idclase) ? 0 : mdrd.GetInt32(pos_idclase));
+                                sClase.Snombre = (mdrd.IsDBNull(pos_vnombreclase) ? "-" : mdrd.GetString(pos_vnombreclase));
+                                sClase.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
+                                sClase.SnombreAlumno = (mdrd.IsDBNull(pos_alumno) ? "-" : mdrd.GetString(pos_alumno));
+                                sClase.SnombreGrado = (mdrd.IsDBNull(pos_grado) ? "-" : mdrd.GetString(pos_grado));
+                                slClase.Add(sClase);
+                            }
+                        }
+                    }
+                    return slClase;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
+
     }
 }
