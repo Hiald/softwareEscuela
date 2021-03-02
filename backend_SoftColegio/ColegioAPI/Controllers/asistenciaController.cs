@@ -12,14 +12,14 @@ namespace ColegioAPI.Controllers
         tdAsistencia itdAsistencia;
 
         [HttpGet]
-        public int wsInsertarAsistencia(int widclase, int widtipoasistencia,
-                                        string wfechaingreso, string wobservacion)
+        public int wsInsertarAsistencia(int widclase, int widdocente,
+                                        int widalumno, int widtipoasistencia, string wfechaingreso)
         {
             int iresultado = -4;
             try
             {
                 itdAsistencia = new tdAsistencia();
-                iresultado = itdAsistencia.tdInsertarAsistencia(widclase, widtipoasistencia, wfechaingreso, wobservacion);
+                iresultado = itdAsistencia.tdInsertarAsistencia(widclase, widdocente, widalumno, widtipoasistencia, wfechaingreso);
                 return iresultado;
             }
             catch (Exception ex)
@@ -28,6 +28,23 @@ namespace ColegioAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string wsListarAsistenciaAlumno(int widalumno)
+        {
+            List<edAsistencia> wsenClase = new List<edAsistencia>();
+            try
+            {
+                itdAsistencia = new tdAsistencia();
+                wsenClase = itdAsistencia.tdListarAsistenciaAlumno(widalumno);
+                return JsonConvert.SerializeObject(wsenClase);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
+            }
+        }
+
+        
 
     }
 }

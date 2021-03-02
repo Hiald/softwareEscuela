@@ -11,6 +11,9 @@ namespace ColegioED
         public int idcurso { get; set; }
 
         public int idusuario { get; set; }
+        public int idtipoasistencia { get; set; }
+
+        public string fechaingreso { get; set; }
         public int idclase { get; set; }
         public int idgrado { get; set; }
         public int idnivel { get; set; }

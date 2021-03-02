@@ -49,6 +49,7 @@
                                         <th>NOMBRE DE LA CLASE</th>
                                         <th>ALUMNO</th>
                                         <th>GRADO</th>
+                                        <th>FECHA INGRESO</th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -244,24 +245,27 @@
 
                         { "data": "Snombre" },
                         { "data": "SnombreAlumno" },
-                        { "data": "SnombreGrado" }
+                        { "data": "SnombreGrado" },
+                        { "data": "fechaingreso"}
                     ],
                     "aoColumnDefs":
                         [
                             {
                                 "mRender": function (data, type, row) {
-                                    var strHtml = "<button class='btn btn-light btn-rounded' onclick='fn_Eliminar()' data-cat=\"" + row.idclase + "|" + "\" id='AcessEliminar' >Asistió</button>";
-
-                                    return strHtml;
-                                },
-                                "sWidth": "5px",
-                                "sClass": "css-center",
-                                "bSort": false,
-                                "aTargets": [3]
-                            },
-                            {
-                                "mRender": function (data, type, row) {
-                                    var strHtml = "<button class='btn btn-light btn-rounded' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Faltó</button>";
+                                    var strHtml = "";
+                                    if (row.idtipoasistencia == 1)
+                                    {
+                                        strHtml = "<button class='btn btn-success btn-rounded' onclick='fn_GuardarAsistio("
+                                        + row.idclase + ", " +
+                                        row.idusuario +
+                                        ")' >Asistió</button>";
+                                    } else
+                                    {
+                                        strHtml = "<button class='btn btn-light btn-rounded' onclick='fn_GuardarAsistio("
+                                            + row.idclase + ", " +
+                                            row.idusuario +
+                                            ")' >Asistió</button>";
+                                    }                                    
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
@@ -271,16 +275,127 @@
                             },
                             {
                                 "mRender": function (data, type, row) {
-                                    var strHtml = "<button class='btn btn-light btn-rounded' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Tardanza</button>";
+                                    var strHtml = "";
+                                    if (row.idtipoasistencia == 2)
+                                    {
+                                        strHtml = "<button class='btn btn-danger btn-rounded' onclick='fn_GuardarFalto("
+                                            + row.idclase + ", " +
+                                            row.idusuario +
+                                            ")' >Faltó</button>";
+                                    } else
+                                    {
+                                        strHtml = "<button class='btn btn-light btn-rounded' onclick='fn_GuardarFalto("
+                                            + row.idclase + ", " +
+                                            row.idusuario +
+                                            ")' >Faltó</button>";
+                                    }
+                                    
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
                                 "aTargets": [5]
+                            },
+                            {
+                                "mRender": function (data, type, row) {
+                                    var strHtml = "";
+                                    if (row.idtipoasistencia == 3)
+                                    {
+                                        strHtml = "<button class='btn btn-warning btn-rounded' onclick='fn_GuardarTardanza("
+                                            + row.idclase + ", " +
+                                            row.idusuario +
+                                            ")' >Tardanza</button>";
+                                    } else
+                                    {
+                                        strHtml = "<button class='btn btn-light btn-rounded' onclick='fn_GuardarTardanza("
+                                            + row.idclase + ", " +
+                                            row.idusuario +
+                                            ")' >Tardanza</button>";                                            
+                                    }
+                                    
+                                    return strHtml;
+                                },
+                                "sWidth": "5px",
+                                "sClass": "css-center",
+                                "bSort": false,
+                                "aTargets": [6]
                             }
                         ]
                 });
+        }
+
+        function fn_GuardarAsistio(idclase, idusuario)
+        {
+            var iddocente = $('#hddidusuario').val();
+            var idtipoasistencia = parseInt(1);
+
+            $.ajax({
+                type: "POST",
+                url:  "/Docente/InsertarAsistencia",
+                data: {
+                    "widclase": idclase,
+                    "widdocente": iddocente,
+                    "widalumno": idusuario,
+                    "widtipoasistencia": idtipoasistencia
+                },
+                success: function (data) {
+                    var table = $('#tblClase').DataTable();
+                    table.ajax.reload();
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function fn_GuardarFalto(idclase, idusuario) {
+            var iddocente = $('#hddidusuario').val();
+            var idtipoasistencia = parseInt(2);
+
+            $.ajax({
+                type: "POST",
+                url: "/Docente/InsertarAsistencia",
+                data: {
+                    "widclase": idclase,
+                    "widdocente": iddocente,
+                    "widalumno": idusuario,
+                    "widtipoasistencia": idtipoasistencia
+                },
+                success: function (data) {
+                    var table = $('#tblClase').DataTable();
+                    table.ajax.reload();
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function fn_GuardarTardanza(idclase, idusuario) {
+            var iddocente = $('#hddidusuario').val();
+            var idtipoasistencia = parseInt(3);
+
+            $.ajax({
+                type: "POST",
+                url: "/Docente/InsertarAsistencia",
+                data: {
+                    "widclase": idclase,
+                    "widdocente": iddocente,
+                    "widalumno": idusuario,
+                    "widtipoasistencia": idtipoasistencia
+                },
+                success: function (data) {
+                    var table = $('#tblClase').DataTable();
+                    table.ajax.reload();
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
 
     </script>

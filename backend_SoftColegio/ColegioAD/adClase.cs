@@ -286,7 +286,9 @@ namespace ColegioAD
                             int pos_idusuario = mdrd.GetOrdinal("IdUsuario");
                             int pos_alumno = mdrd.GetOrdinal("ALUMNO");
                             int pos_grado = mdrd.GetOrdinal("GRADO");
-                            
+                            int pos_idtipoasistencia = mdrd.GetOrdinal("IdTipoAsistencia");
+                            int pos_fechaingreso = mdrd.GetOrdinal("FechaIngreso");         
+
                             while (mdrd.Read())
                             {
                                 sClase = new edClase();
@@ -295,6 +297,8 @@ namespace ColegioAD
                                 sClase.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
                                 sClase.SnombreAlumno = (mdrd.IsDBNull(pos_alumno) ? "-" : mdrd.GetString(pos_alumno));
                                 sClase.SnombreGrado = (mdrd.IsDBNull(pos_grado) ? "-" : mdrd.GetString(pos_grado));
+                                sClase.idtipoasistencia = (mdrd.IsDBNull(pos_idtipoasistencia) ? 0 : mdrd.GetInt32(pos_idtipoasistencia));
+                                sClase.fechaingreso = (mdrd.IsDBNull(pos_fechaingreso) ? "-" : mdrd.GetString(pos_fechaingreso));
                                 slClase.Add(sClase);
                             }
                         }
