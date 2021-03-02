@@ -198,7 +198,7 @@
                         console.log(data);
                     }
                 });
-        }
+        }        
 
         $('#idGradog').on('change', function () {
             fn_ListarCurso();
@@ -209,6 +209,68 @@
         });
 
 
+        function fn_listartabla(param_valor) {
+            $('#tblClase').DataTable(
+                {
+                    "ajax": {
+                        "url": "/Clase/ListarClaseAlumno",
+                        "type": "POST",
+                        "datatype": "json",
+                        "data": { "widclase": param_valor }
+                    },
+                    //"bServerSide": true,
+                    "bProcessing": true,
+                    "bDestroy": true,
+                    "language": {
+                        "info": "",
+                        "infoEmpty": "",
+                        "infoFiltered": "",
+                        "emptyTable": "No se encontraron registros",
+                        "sZeroRecords": "No se encontraron registros.",
+                        "processing": "Cargando. Por favor espere...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "sSearch": "Buscar:"
+                    },
+                    "columns": [
+
+                        { "data": "Snombre" },
+                        { "data": "Snombrecurso" },
+                        { "data": "Sdescripcion" },
+                        { "data": "Srutaenlace" },
+                        { "data": "SrutaVideo" },
+                        { "data": "SimagenRuta" }
+                    ],
+                    "aoColumnDefs":
+                        [
+                            {
+                                "mRender": function (data, type, row) {
+                                    var strHtml = "<button class='btn btn-danger' onclick='fn_Eliminar()' data-cat=\"" + row.idclase + "|" + "\" id='AcessEliminar' >Eliminar</button>";
+
+                                    return strHtml;
+                                },
+                                "sWidth": "5px",
+                                "sClass": "css-center",
+                                "bSort": false,
+                                "aTargets": [5]
+                            },
+                            {
+                                "mRender": function (data, type, row) {
+                                    var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Agregar tarea</button>";
+                                    return strHtml;
+                                },
+                                "sWidth": "5px",
+                                "sClass": "css-center",
+                                "bSort": false,
+                                "aTargets": [6]
+                            }
+                        ]
+                });
+        }
 
     </script>
 }
