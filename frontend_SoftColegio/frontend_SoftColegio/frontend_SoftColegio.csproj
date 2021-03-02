@@ -433,7 +433,6 @@
     <Content Include="assets\PERFIL_PL.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="imagenalumno\vacio.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -455,6 +454,7 @@
     <Folder Include="clasevideo\" />
     <Folder Include="Content\imgpago\" />
     <Folder Include="fonts\" />
+    <Folder Include="imagenalumno\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
     <Folder Include="Views\Asistencia\" />
