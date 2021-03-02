@@ -13,14 +13,14 @@ namespace ColegioAPI.Controllers
 
         [HttpGet]
         public int wsInsertarCuenta(int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno, string wgenero
-                                    , string wcorreo, Int16 westado, string wfechaRegistro)
+                                    , string wcorreo, Int16 westado, string wfechaRegistro, string wimagen)
         {
             int iresultado = -4;
             try
             {
                 itdUsuario = new tdUsuario();
                 iresultado = itdUsuario.tdInsertarCuenta(widnivel, widgrado, widsede, wnombres, wamaterno, wapaterno, wgenero
-                                                        , wcorreo, westado, DateTime.Now);
+                                                        , wcorreo, westado, DateTime.Now, wimagen);
                 return iresultado;
             }
             catch (Exception ex)
@@ -31,14 +31,14 @@ namespace ColegioAPI.Controllers
 
         //23/01/2021
         [HttpGet]
-        public int wsActualizarCuenta(int widusuario,int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno, string wgenero
+        public int wsActualizarCuenta(int widusuario, int widnivel, int widgrado, int widsede, string wnombres, string wamaterno, string wapaterno, string wgenero
                                     , string wcorreo, Int16 westado, string wfechaRegistro)
         {
             int iresultado = -4;
             try
             {
                 itdUsuario = new tdUsuario();
-                iresultado = itdUsuario.tdActualizarCuenta(widusuario,widnivel, widgrado, widsede, wnombres, wamaterno, wapaterno, wgenero
+                iresultado = itdUsuario.tdActualizarCuenta(widusuario, widnivel, widgrado, widsede, wnombres, wamaterno, wapaterno, wgenero
                                                         , wcorreo, westado, DateTime.Now);
                 return iresultado;
             }

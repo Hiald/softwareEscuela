@@ -117,7 +117,11 @@
                                         <option value="4">Supervisor</option>
                                     </select>
                                 </div>
-
+                                <div class="form-group mb-3">
+                                    <label for="simagen">Imagen</label>
+                                    <input type="file" id="simagen" class="form-control" placeholder="Imagen" accept="image/png, image/jpeg, image/jpg">
+                                    <label>*Las imágenes deben ser proporcionales, ejemplo: 200x200</label>
+                                </div>
                                 <div class="form-group mb-3">
                                     <label for="idUsuario">Usuario</label>
                                     <input type="text" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
@@ -203,6 +207,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-3">
+                                    <img src="" id="simageneditar" height="100" class="rounded" alt="imagen">
+                                </div>
+                                <div class="form-group mb-3">
                                     <label for="idUsuarioEditar">Usuario</label>
                                     <input type="text" id="idUsuarioEditar" name="example-email" class="form-control" placeholder="Usuario">
                                 </div>
@@ -243,190 +250,193 @@
 </div>
 
 @section scripts {
-<script>
-    $("#frmUsuario").submit(false);
-    $('#frm2').submit(false);
-    $('#frm2Editar').submit(false);
+    <script>
+        $("#frmUsuario").submit(false);
+        $('#frm2').submit(false);
+        $('#frm2Editar').submit(false);
 
-    function fn_ListarNivel() {
+        function fn_ListarNivel() {
 
-        $('#idNivel').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/curso/ListarNivel",
-            success: function (data) {
-                console.log(data);
-                if (data.aaData === "") {
-                    alert("¡No hay niveles, intenta agregar algunos!");
-                }
-                $('#idNivel').append($("<option></option>")
-                    .attr("value", "")
-                    .text("Seleccione una opción"));
-                $.each(data.aaData, function (index, value) {
+            $('#idNivel').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/curso/ListarNivel",
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay niveles, intenta agregar algunos!");
+                    }
                     $('#idNivel').append($("<option></option>")
-                        .attr("value", value.idnivel)
-                        .text(value.SnombreNivel));
-                });
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idNivel').append($("<option></option>")
+                            .attr("value", value.idnivel)
+                            .text(value.SnombreNivel));
+                    });
 
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-
-    }
-
-    function fn_ListarNivelEditar() {
-
-        $('#idNivelEditar').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/curso/ListarNivel",
-            success: function (data) {
-                if (data.aaData === "") {
-                    alert("¡No hay niveles, intenta agregar algunos!");
+                },
+                error: function (data) {
+                    console.log(data);
                 }
-                $('#idNivelEditar').append($("<option></option>")
-                    .attr("value", "")
-                    .text("Seleccione una opción"));
-                $.each(data.aaData, function (index, value) {
+            });
+
+        }
+
+        function fn_ListarNivelEditar() {
+
+            $('#idNivelEditar').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/curso/ListarNivel",
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay niveles, intenta agregar algunos!");
+                    }
                     $('#idNivelEditar').append($("<option></option>")
-                        .attr("value", value.idnivel)
-                        .text(value.SnombreNivel));
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-
-    }
-
-    function fn_listarGrado() {
-        var slcnivel = $('#idNivel option:selected').attr('value');
-        $('#idGrado').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/Curso/ListarGrado",
-            data: {
-                "widnivel": parseInt(slcnivel)
-            },
-            success: function (data) {
-                if (data.aaData === "") {
-                    alert("¡No hay categorias, intenta agregar una!");
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idNivelEditar').append($("<option></option>")
+                            .attr("value", value.idnivel)
+                            .text(value.SnombreNivel));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
                 }
-                $('#idGrado').append($("<option></option>")
-                    .attr("value", "")
-                    .text("Seleccione una opción"));
-                $.each(data.aaData, function (index, value) {
+            });
+
+        }
+
+        function fn_listarGrado() {
+            var slcnivel = $('#idNivel option:selected').attr('value');
+            $('#idGrado').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/Curso/ListarGrado",
+                data: {
+                    "widnivel": parseInt(slcnivel)
+                },
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay categorias, intenta agregar una!");
+                    }
                     $('#idGrado').append($("<option></option>")
-                        .attr("value", value.idgrado)
-                        .text(value.SnombreGrado));
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
-    function fn_listarGradoEditar(slcnivel, vidgrado) {
-
-        $('#idGradoEditar').find('option').remove();
-        $.ajax({
-            type: "POST",
-            url: "/Curso/ListarGrado",
-            async: false,
-            data: {
-                "widnivel": parseInt(slcnivel)
-            },
-            success: function (data) {
-                if (data.aaData === "") {
-                    alert("¡No hay categorias, intenta agregar una!");
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idGrado').append($("<option></option>")
+                            .attr("value", value.idgrado)
+                            .text(value.SnombreGrado));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
                 }
-                $('#idGradoEditar').append($("<option></option>")
-                    .attr("value", "")
-                    .text("Seleccione una opción"));
-                $.each(data.aaData, function (index, value) {
+            });
+        }
+
+        function fn_listarGradoEditar(slcnivel, vidgrado) {
+
+            $('#idGradoEditar').find('option').remove();
+            $.ajax({
+                type: "POST",
+                url: "/Curso/ListarGrado",
+                async: false,
+                data: {
+                    "widnivel": parseInt(slcnivel)
+                },
+                success: function (data) {
+                    if (data.aaData === "") {
+                        alert("¡No hay categorias, intenta agregar una!");
+                    }
                     $('#idGradoEditar').append($("<option></option>")
-                        .attr("value", value.idgrado)
-                        .text(value.SnombreGrado));
-                });
-            },
-            error: function (data) {
-                console.log(data);
+                        .attr("value", "")
+                        .text("Seleccione una opción"));
+                    $.each(data.aaData, function (index, value) {
+                        $('#idGradoEditar').append($("<option></option>")
+                            .attr("value", value.idgrado)
+                            .text(value.SnombreGrado));
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+            $('#idGradoEditar option[value="' + vidgrado + '"]').attr('selected', 'selected');
+
+        }
+
+        $("#btnAgregar").click(function () {
+            var slcNivel = $('#idNivel option:selected').attr('value');
+            var slcGrado = $('#idGrado option:selected').attr('value');
+            var slcSede = $('#idSede option:selected').attr('value');
+            var ipNombres = $('#idNombres').val();
+            var ipApPaterno = $('#idApPaterno').val();
+            var ipApMaterno = $('#idApMaterno').val();
+            var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
+            var ipUsuario = $('#idUsuario').val();
+            var ipContrasenia = $('#idContrasenia').val();
+
+            if (slcNivel.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
+                return;
             }
-        });
-        console.log(vidgrado);
-        $('#idGradoEditar option[value="' + vidgrado + '"]').attr('selected', 'selected');
+            if (slcTipoUsuario.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
+                return;
+            }
+            if (slcGrado.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA EL GRADO");
+                return;
+            }
+            if (ipUsuario.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
+                return;
+            }
+            if (slcSede.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA LA SEDE");
+                return;
+            }
 
-    }
+            if (ipContrasenia.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
+                return;
+            }
+            if (ipNombres.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE EL NOMBRE");
+                return;
+            }
+            if (ipApPaterno.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE EL APELLIDO PATERNO");
+                return;
+            }
+            if (ipApMaterno.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE EL APELLIDO MATERNO");
+                return;
+            }
 
-    $("#btnAgregar").click(function () {
-        var slcNivel = $('#idNivel option:selected').attr('value');
-        var slcGrado = $('#idGrado option:selected').attr('value');
-        var slcSede = $('#idSede option:selected').attr('value');
-        var ipNombres = $('#idNombres').val();
-        var ipApPaterno = $('#idApPaterno').val();
-        var ipApMaterno = $('#idApMaterno').val();
-        var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
-        var ipUsuario = $('#idUsuario').val();
-        var ipContrasenia = $('#idContrasenia').val();
+            var fdata = new FormData();
+            var fileInput = $('#simagen')[0].files[0];
+            fdata.append("widnivel", slcNivel);
+            fdata.append("widgrado", slcGrado);
+            fdata.append("widsede", slcSede);
+            fdata.append("wnombres", ipNombres);
+            fdata.append("wamaterno", ipApMaterno);
+            fdata.append("wapaterno", ipApPaterno);
+            fdata.append("wtipousuario", slcTipoUsuario);
+            fdata.append("wusuario", ipUsuario);
+            fdata.append("wclave", ipContrasenia);
+            fdata.append("wimagen", fileInput);
 
-        if (slcNivel.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
-            return;
-        }
-        if (slcTipoUsuario.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
-            return;
-        }
-        if (slcGrado.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA EL GRADO");
-            return;
-        }
-        if (ipUsuario.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
-            return;
-        }
-        if (slcSede.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA LA SEDE");
-            return;
-        }
-
-        if (ipContrasenia.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
-            return;
-        }
-        if (ipNombres.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE");
-            return;
-        }
-        if (ipApPaterno.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL APELLIDO PATERNO");
-            return;
-        }
-        if (ipApMaterno.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL APELLIDO MATERNO");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: RutaPrincipal + 'Login/Crearusuario',
-            data: {
-                "widnivel": slcNivel,
-                "widgrado": slcGrado,
-                "widsede": slcSede,
-                "wnombres": ipNombres,
-                "wamaterno": ipApMaterno,
-                "wapaterno": ipApPaterno,
-                "wtipousuario": slcTipoUsuario,
-                "wusuario": ipUsuario,
-                "wclave": ipContrasenia
-            },
-            async: false,
-            success: function (msg) {
+            $.ajax({
+                type: 'post',
+                url: RutaPrincipal + 'Login/Crearusuario',
+                data: fdata,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
                 NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
 
                 $('#idGrado').find('option').remove();
@@ -440,287 +450,324 @@
                 $('#modalUsuario').modal("hide");
                 var table = $('#basic-datatable').DataTable();
                 table.ajax.reload();
-            },
-            error: function (msg) {
-                var slcNivel = $('#idNivel option:selected').attr('value');
-                var slcGrado = $('#idGrado option:selected').attr('value');
-                var slcSede = $('#idSede option:selected').attr('value');
-                var ipNombres = $('#idNombres').val();
-                var ipApPaterno = $('#idApPaterno').val();
-                var ipApMaterno = $('#idApMaterno').val();
-                var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
-                var ipUsuario = $('#idUsuario').val();
-                var ipContrasenia = $('#idContrasenia').val();
-                //location.reload();
-            },
-            complete: function (data) {
-                // si acabo de completar
-            }
+
+            });
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: RutaPrincipal + 'Login/Crearusuario',
+            //    data: {
+            //        "widnivel": slcNivel,
+            //        "widgrado": slcGrado,
+            //        "widsede": slcSede,
+            //        "wnombres": ipNombres,
+            //        "wamaterno": ipApMaterno,
+            //        "wapaterno": ipApPaterno,
+            //        "wtipousuario": slcTipoUsuario,
+            //        "wusuario": ipUsuario,
+            //        "wclave": ipContrasenia
+            //    },
+            //    async: false,
+            //    success: function (msg) {
+            //        NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
+
+            //        $('#idGrado').find('option').remove();
+            //        $("#idNivel").prop('selectedIndex', 0);
+            //        $("#idTipoUsuario").prop('selectedIndex', 0);
+            //        $('#idNombres').val("");
+            //        $('#idApPaterno').val("");
+            //        $('#idApMaterno').val("");
+            //        $('#idUsuario').val("");
+            //        $('#idContrasenia').val("");
+            //        $('#modalUsuario').modal("hide");
+            //        var table = $('#basic-datatable').DataTable();
+            //        table.ajax.reload();
+            //    },
+            //    error: function (msg) {
+            //        var slcNivel = $('#idNivel option:selected').attr('value');
+            //        var slcGrado = $('#idGrado option:selected').attr('value');
+            //        var slcSede = $('#idSede option:selected').attr('value');
+            //        var ipNombres = $('#idNombres').val();
+            //        var ipApPaterno = $('#idApPaterno').val();
+            //        var ipApMaterno = $('#idApMaterno').val();
+            //        var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
+            //        var ipUsuario = $('#idUsuario').val();
+            //        var ipContrasenia = $('#idContrasenia').val();
+            //        //location.reload();
+            //    },
+            //    complete: function (data) {
+            //        // si acabo de completar
+            //    }
+            //});
+
         });
 
-    });
-
-    function fnlistarTabla() {
-        $('#basic-datatable').dataTable({
-            "ajax": {
-                "url": RutaPrincipal + 'Login/ListarUsuarioGestion',
-                "type": "POST",
-                "datatype": "json",
-                "data": {
-                    "usuario": "vacio",
-                    "tipousuario": 0
-                }
-            },
-            //"bServerSide": true,
-            "bProcessing": true,
-            "bDestroy": true,
-            "language": {
-                "info": "",
-                "infoEmpty": "",
-                "infoFiltered": "",
-                "emptyTable": "No se encontraron registros",
-                "sZeroRecords": "No se encontraron registros.",
-                "processing": "Cargando. Por favor espere...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "sLengthMenu": "Mostrando _MENU_ filas",
-                "sSearch": "Buscar:"
-            },
-            "columns": [
-                {
-                    "mData": "idnivel",
-                    "sClass": "center",
-                    "mRender": function (data, type, value) {
-                        var valorNivel = ""
-                        var valorGrado = "";
-
-                        (value.idnivel == 1) ? valorNivel = "Primaria" : valorNivel = "Secundaria";
-                        switch (value.idgrado) {
-                            case 1: valorGrado = "Primero"; break;
-                            case 2: valorGrado = "Segundo"; break;
-                            case 3: valorGrado = "Tercero"; break;
-                            case 4: valorGrado = "Cuarto"; break;
-                            case 5: valorGrado = "Quinto"; break;
-                            case 6: valorGrado = "Sexto"; break;
-                            case 7: valorGrado = "Primero"; break;
-                            case 8: valorGrado = "Segundo"; break;
-                            case 9: valorGrado = "Tercero"; break;
-                            case 10: valorGrado = "PRE"; break;
-                        }
-                        return valorNivel + " / " + valorGrado;
-                        //return "Principal";
+        function fnlistarTabla() {
+            $('#basic-datatable').dataTable({
+                "ajax": {
+                    "url": RutaPrincipal + 'Login/ListarUsuarioGestion',
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        "usuario": "vacio",
+                        "tipousuario": 0
                     }
                 },
-                { "sName": "Susuario", "mDataProp": "Susuario" },
-                { "sName": "Snombres", "mDataProp": "Snombres" },
-                {
-                    "mData": "SApellidoPaterno",
-                    "sClass": "center",
-                    "mRender": function (data, type, value) {
-                        return value.SApellidoPaterno + " " + value.SApellidoMaterno;
-                    }
-                },
-                { "sName": "Scorreo", "mDataProp": "Scorreo" },
-                {
-                    "mData": "tipousuario",
-                    "sClass": "center",
-                    "mRender": function (data, type, value) {
-                        if (value.tipousuario == 1) {
-                            return "administrador";
-                        } else if (value.tipousuario == 2) {
-                            return "Docente";
-                        }
-                        else if (value.tipousuario == 3) {
-                            return "Alumno";
-                        }
-                    }
-                },
-                {},
-                {}
-            ],
-            "aoColumnDefs":
-                [
-                    {
-                        "mRender": function (data, type, row) {
-                            var strHtml = "<button class='btn btn-warning' onclick='fn_Editar("
-                                + row.idusuario + ", " +
-                                row.idnivel + ", " +
-                                row.tipousuario + ", " +
-                                row.idgrado + ", " +
-                                row.idsede + ", " +
-                                "\"" + row.Susuario + "\"" + ", " +
-                                "\"" + row.Snombres + "\"" + ", " +
-                                "\"" + row.SApellidoPaterno + "\"" + ", " +
-                                "\"" + row.SApellidoMaterno + "\"" +
-                                ")' >Editar</button>";
-                            return strHtml;
-                        },
-                        "sWidth": "5px",
-                        "sClass": "css-center",
-                        "bSort": false,
-                        "aTargets": [6]
+                //"bServerSide": true,
+                "bProcessing": true,
+                "bDestroy": true,
+                "language": {
+                    "info": "",
+                    "infoEmpty": "",
+                    "infoFiltered": "",
+                    "emptyTable": "No se encontraron registros",
+                    "sZeroRecords": "No se encontraron registros.",
+                    "processing": "Cargando. Por favor espere...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
                     },
+                    "sLengthMenu": "Mostrando _MENU_ filas",
+                    "sSearch": "Buscar:"
+                },
+                "columns": [
                     {
-                        "mRender": function (data, type, row) {
-                            var strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idusuario + ");' >Eliminar</button>";
-                            return strHtml;
+                        "mData": "idnivel",
+                        "sClass": "center",
+                        "mRender": function (data, type, value) {
+                            var valorNivel = ""
+                            var valorGrado = "";
+
+                            (value.idnivel == 1) ? valorNivel = "Primaria" : valorNivel = "Secundaria";
+                            switch (value.idgrado) {
+                                case 1: valorGrado = "Primero"; break;
+                                case 2: valorGrado = "Segundo"; break;
+                                case 3: valorGrado = "Tercero"; break;
+                                case 4: valorGrado = "Cuarto"; break;
+                                case 5: valorGrado = "Quinto"; break;
+                                case 6: valorGrado = "Sexto"; break;
+                                case 7: valorGrado = "Primero"; break;
+                                case 8: valorGrado = "Segundo"; break;
+                                case 9: valorGrado = "Tercero"; break;
+                                case 10: valorGrado = "PRE"; break;
+                            }
+                            return valorNivel + " / " + valorGrado;
+                            //return "Principal";
+                        }
+                    },
+                    { "sName": "Susuario", "mDataProp": "Susuario" },
+                    { "sName": "Snombres", "mDataProp": "Snombres" },
+                    {
+                        "mData": "SApellidoPaterno",
+                        "sClass": "center",
+                        "mRender": function (data, type, value) {
+                            return value.SApellidoPaterno + " " + value.SApellidoMaterno;
+                        }
+                    },
+                    { "sName": "Scorreo", "mDataProp": "Scorreo" },
+                    {
+                        "mData": "tipousuario",
+                        "sClass": "center",
+                        "mRender": function (data, type, value) {
+                            if (value.tipousuario == 1) {
+                                return "administrador";
+                            } else if (value.tipousuario == 2) {
+                                return "Docente";
+                            }
+                            else if (value.tipousuario == 3) {
+                                return "Alumno";
+                            }
+                        }
+                    },
+                    {},
+                    {}
+                ],
+                "aoColumnDefs":
+                    [
+                        {
+                            "mRender": function (data, type, row) {
+                                var strHtml = "<button class='btn btn-warning' onclick='fn_Editar("
+                                    + row.idusuario + ", " +
+                                    row.idnivel + ", " +
+                                    row.tipousuario + ", " +
+                                    row.idgrado + ", " +
+                                    row.idsede + ", " +
+                                    "\"" + row.Susuario + "\"" + ", " +
+                                    "\"" + row.Snombres + "\"" + ", " +
+                                    "\"" + row.SApellidoPaterno + "\"" + ", " +
+                                    "\"" + row.SApellidoMaterno + "\"" + ", " +
+                                    "\"" + row.simagenruta + "\"" +
+                                    ")' >Editar</button>";
+                                return strHtml;
+                            },
+                            "sWidth": "5px",
+                            "sClass": "css-center",
+                            "bSort": false,
+                            "aTargets": [6]
                         },
-                        "sWidth": "5px",
-                        "sClass": "css-center",
-                        "bSort": false,
-                        "aTargets": [7]
-                    }
-                ]
+                        {
+                            "mRender": function (data, type, row) {
+                                var strHtml = "<button class='btn btn-danger' onclick='fnEliminar(" + row.idusuario + ");' >Eliminar</button>";
+                                return strHtml;
+                            },
+                            "sWidth": "5px",
+                            "sClass": "css-center",
+                            "bSort": false,
+                            "aTargets": [7]
+                        }
+                    ]
+            });
+        }
+
+        $(document).ready(function () {
+            fn_ListarNivel();
+            fn_ListarNivelEditar();
+            $('#idNivel').on('change', function () {
+                fn_listarGrado();
+            });
+
+            fnlistarTabla();
+
         });
-    }
 
-    $(document).ready(function () {
-        fn_ListarNivel();
-        fn_ListarNivelEditar();
-        $('#idNivel').on('change', function () {
-            fn_listarGrado();
-        });
+        function fn_Editar(idusuario, idnivel, tipousuario, idgrado,
+            idsede, Susuario, Snombres, SApellidoPaterno, SApellidoMaterno, Simagen) {
 
-        fnlistarTabla();
-
-    });
-
-    function fn_Editar(idusuario, idnivel, tipousuario, idgrado,
-        idsede, Susuario, Snombres, SApellidoPaterno, SApellidoMaterno) {
-
-        $('#idNivelEditar option').removeAttr('selected');
-        $('#idTipoUsuarioEditar option').removeAttr('selected');
-        $('#idGradoEditar option').removeAttr('selected');
-        $('#idSedeEditar option').removeAttr('selected');
-
-        $('#hddusuario').attr("data-idusuario", idusuario);
-
-        $('#idNivelEditar option[value="' + idnivel + '"]').attr('selected', 'selected');
-        $('#idTipoUsuarioEditar option[value="' + tipousuario + '"]').attr('selected', 'selected');
-
-        var slcnivel = $('#idNivelEditar option:selected').attr('value');
-        fn_listarGradoEditar(slcnivel, idgrado);
-
-        $('#idSedeEditar option[value="' + idsede + '"]').attr('selected', 'selected');
-        $("#idUsuarioEditar").val(Susuario);
-        $('#idContraseniaEditar').val("");
-        $("#idNombresEditar").val(Snombres);
-        $("#idApMaternoEditar").val(SApellidoMaterno);
-        $("#idApPaternoEditar").val(SApellidoPaterno);
-        $('#modalEditarUsuario').modal("show");
-    }
-
-    function fn_Actualizar() {
-        var iIdUsuario = $('#hddusuario').attr("data-idusuario");
-
-        var idIdNivelEdit = $('#idNivelEditar option:selected').attr('value');
-        var iIdTipoUsuarioEdit = $('#idTipoUsuarioEditar option:selected').attr('value');
-        var iIdGradoEdit = $('#idGradoEditar option:selected').attr('value');
-        var ipUsuarioEdit = $('#idUsuarioEditar').val();
-        var iIdSedeEditEdit = $('#idSedeEditar option:selected').attr('value');
-        var ipContraseniEdit = $('#idContraseniaEditar').val();
-        var sNombreEdit = $('#idNombresEditar').val();
-        var sApellidoPaternoEdit = $("#idApPaternoEditar").val();
-        var sApellidoMaternoEdit = $("#idApMaternoEditar").val();
-
-        if (idIdNivelEdit.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
-            return;
-        }
-        if (iIdTipoUsuarioEdit.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
-            return;
-        }
-        if (iIdGradoEdit.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA EL GRADO");
-            return;
-        }
-        if (ipUsuarioEdit.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
-            return;
-        }
-        if (iIdSedeEditEdit.trim() == 0) {
-            NotificacionAvisoDerecha("SELECCIONA LA SEDE");
-            return;
-        }
-
-        if (ipContraseniEdit.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
-            return;
-        }
-        if (sNombreEdit.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL NOMBRE");
-            return;
-        }
-        if (sApellidoPaternoEdit.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL APELLIDO PATERNO");
-            return;
-        }
-        if (sApellidoMaternoEdit.trim() == "") {
-            NotificacionAvisoDerecha("INGRESE EL APELLIDO MATERNO");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: RutaPrincipal + "Login/ActualizarUsuario",
-            data: {
-                "widusuario": iIdUsuario,
-                "widnivel": idIdNivelEdit,
-                "widgrado": iIdGradoEdit,
-                "wsusuario": ipUsuarioEdit,
-                "wsclave": ipContraseniEdit,
-                "wstipousuario": iIdTipoUsuarioEdit,
-                "widsede": iIdSedeEditEdit,
-                "wnombres": sNombreEdit,
-                "wamaterno": sApellidoMaternoEdit,
-                "wapaterno": sApellidoPaternoEdit
-            },
-            success: function (data) {
-                $('#modalEditarUsuario').modal("hide");
-                //var table = $('#basic-datatable').DataTable();
-                //table.clear().draw();
-                var table = $('#basic-datatable').DataTable();
-                table.ajax.reload();
-
-            },
-            error: function (data) {
-                console.log(data);
+            $('#idNivelEditar option').removeAttr('selected');
+            $('#idTipoUsuarioEditar option').removeAttr('selected');
+            $('#idGradoEditar option').removeAttr('selected');
+            $('#idSedeEditar option').removeAttr('selected');
+            console.log(Simagen);
+            if (Simagen == "-") {
+                $('#simageneditar').attr("alt", "No hay imagen en este usuario");
+            } else {
+                $('#simageneditar').attr("src", Simagen);
             }
-        });
-    }
+            $('#hddusuario').attr("data-idusuario", idusuario);
 
-    function fnEliminar(widalumno) {
-        $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", widalumno);
-        $('#modalEliminarAlumno').modal("show");
-    }
+            $('#idNivelEditar option[value="' + idnivel + '"]').attr('selected', 'selected');
+            $('#idTipoUsuarioEditar option[value="' + tipousuario + '"]').attr('selected', 'selected');
 
-    function fn_ConfirmarEliminar() {
-        var pidalumno = $('#hddAlumnoEliminar').attr("data-idalumnoEliminar");
-        $.ajax({
-            type: "POST",
-            url: "/Login/DesactivarUsuario",
-            data: {
-                "widusuario": pidalumno
-            },
-            async: false,
-            success: function (data) {
-                $('#modalEliminarAlumno').modal("hide");
-                $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", "");
-                fnlistarTabla();
-            },
-            error: function (data) {
-                console.log(data);
+            var slcnivel = $('#idNivelEditar option:selected').attr('value');
+            fn_listarGradoEditar(slcnivel, idgrado);
+
+            $('#idSedeEditar option[value="' + idsede + '"]').attr('selected', 'selected');
+            $("#idUsuarioEditar").val(Susuario);
+            $('#idContraseniaEditar').val("");
+            $("#idNombresEditar").val(Snombres);
+            $("#idApMaternoEditar").val(SApellidoMaterno);
+            $("#idApPaternoEditar").val(SApellidoPaterno);
+            $('#modalEditarUsuario').modal("show");
+        }
+
+        function fn_Actualizar() {
+            var iIdUsuario = $('#hddusuario').attr("data-idusuario");
+
+            var idIdNivelEdit = $('#idNivelEditar option:selected').attr('value');
+            var iIdTipoUsuarioEdit = $('#idTipoUsuarioEditar option:selected').attr('value');
+            var iIdGradoEdit = $('#idGradoEditar option:selected').attr('value');
+            var ipUsuarioEdit = $('#idUsuarioEditar').val();
+            var iIdSedeEditEdit = $('#idSedeEditar option:selected').attr('value');
+            var ipContraseniEdit = $('#idContraseniaEditar').val();
+            var sNombreEdit = $('#idNombresEditar').val();
+            var sApellidoPaternoEdit = $("#idApPaternoEditar").val();
+            var sApellidoMaternoEdit = $("#idApMaternoEditar").val();
+
+            if (idIdNivelEdit.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
+                return;
             }
-        });
+            if (iIdTipoUsuarioEdit.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
+                return;
+            }
+            if (iIdGradoEdit.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA EL GRADO");
+                return;
+            }
+            if (ipUsuarioEdit.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
+                return;
+            }
+            if (iIdSedeEditEdit.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONA LA SEDE");
+                return;
+            }
 
-    }
+            if (ipContraseniEdit.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
+                return;
+            }
+            if (sNombreEdit.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE EL NOMBRE");
+                return;
+            }
+            if (sApellidoPaternoEdit.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE EL APELLIDO PATERNO");
+                return;
+            }
+            if (sApellidoMaternoEdit.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE EL APELLIDO MATERNO");
+                return;
+            }
 
-</script> 
+            $.ajax({
+                type: "POST",
+                url: RutaPrincipal + "Login/ActualizarUsuario",
+                data: {
+                    "widusuario": iIdUsuario,
+                    "widnivel": idIdNivelEdit,
+                    "widgrado": iIdGradoEdit,
+                    "wsusuario": ipUsuarioEdit,
+                    "wsclave": ipContraseniEdit,
+                    "wstipousuario": iIdTipoUsuarioEdit,
+                    "widsede": iIdSedeEditEdit,
+                    "wnombres": sNombreEdit,
+                    "wamaterno": sApellidoMaternoEdit,
+                    "wapaterno": sApellidoPaternoEdit
+                },
+                success: function (data) {
+                    $('#modalEditarUsuario').modal("hide");
+                    //var table = $('#basic-datatable').DataTable();
+                    //table.clear().draw();
+                    var table = $('#basic-datatable').DataTable();
+                    table.ajax.reload();
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function fnEliminar(widalumno) {
+            $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", widalumno);
+            $('#modalEliminarAlumno').modal("show");
+        }
+
+        function fn_ConfirmarEliminar() {
+            var pidalumno = $('#hddAlumnoEliminar').attr("data-idalumnoEliminar");
+            $.ajax({
+                type: "POST",
+                url: "/Login/DesactivarUsuario",
+                data: {
+                    "widusuario": pidalumno
+                },
+                async: false,
+                success: function (data) {
+                    $('#modalEliminarAlumno').modal("hide");
+                    $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", "");
+                    fnlistarTabla();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+    </script>
 }
 
-    

@@ -23,6 +23,7 @@ namespace frontend_SoftColegio.Controllers
             int idusuario = UtlAuditoria.ObtenerIdUsuario();
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GIDUsuario = idusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -52,6 +53,7 @@ namespace frontend_SoftColegio.Controllers
                 ViewBag.Lista = loenClase;
                 ViewBag.Curso = nombreCurso;
                 ViewBag.IdCurso = idcurso;
+                ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
                 return View();
             }
             catch (Exception ex)
@@ -121,6 +123,7 @@ namespace frontend_SoftColegio.Controllers
                 }
                 ViewBag.GrolUsuario = ItipoUsuario;
                 ViewBag.Lista = loenClase;
+                ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
                 return View();
             }
             catch (Exception ex)

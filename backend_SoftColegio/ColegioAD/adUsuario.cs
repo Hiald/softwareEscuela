@@ -14,7 +14,7 @@ namespace ColegioAD
         }
 
         public int adInsertarCuenta(int adidnivel, int adidgrado, int adidsede, string adnombres, string adamaterno, string adapaterno, string adgenero
-                                    , string adcorreo, Int16 adestado, DateTime adfechaRegistro)
+                                    , string adcorreo, Int16 adestado, DateTime adfechaRegistro, string adimagen)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_apellido_materno", MySqlDbType.VarChar, 50).Value = adamaterno;
                 cmd.Parameters.Add("_apellido_paterno", MySqlDbType.VarChar, 50).Value = adapaterno;
                 cmd.Parameters.Add("_genero", MySqlDbType.VarChar, 1).Value = adgenero;
+                cmd.Parameters.Add("_v_imagen_ruta", MySqlDbType.VarChar, 250).Value = adimagen;
                 cmd.Parameters.Add("_correo", MySqlDbType.VarChar, 50).Value = adcorreo;
                 cmd.Parameters.Add("_estado", MySqlDbType.Bit).Value = 1;
                 cmd.Parameters.Add("_fecha_registro", MySqlDbType.DateTime).Value = DateTime.Now;
@@ -165,6 +166,7 @@ namespace ColegioAD
                             int pos_apellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
                             int pos_correo = mdrd.GetOrdinal("v_correo");
                             int pos_tipousuario = mdrd.GetOrdinal("i_tipo_usuario");
+                            int pos_imagenruta = mdrd.GetOrdinal("v_imagen_ruta");
 
                             while (mdrd.Read())
                             {
@@ -178,6 +180,7 @@ namespace ColegioAD
                                 senUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_apellidomaterno) ? "-" : mdrd.GetString(pos_apellidomaterno));
                                 senUsuario.Scorreo = (mdrd.IsDBNull(pos_correo) ? "-" : mdrd.GetString(pos_correo));
                                 senUsuario.tipousuario = (mdrd.IsDBNull(pos_tipousuario) ? 0 : mdrd.GetInt32(pos_tipousuario));
+                                senUsuario.simagenruta = (mdrd.IsDBNull(pos_imagenruta) ? "/imagenalumno/vacio.png" : mdrd.GetString(pos_imagenruta));
                             }
                         }
                     }
@@ -218,6 +221,7 @@ namespace ColegioAD
                             int pos_apellidomaterno = mdrd.GetOrdinal("v_apellido_materno");
                             int pos_correo = mdrd.GetOrdinal("v_correo");
                             int pos_tipousuario = mdrd.GetOrdinal("i_tipo_usuario");
+                            int pos_imagenruta = mdrd.GetOrdinal("v_imagen_ruta");
 
                             while (mdrd.Read())
                             {
@@ -233,6 +237,7 @@ namespace ColegioAD
                                 enUsuario.SApellidoMaterno = (mdrd.IsDBNull(pos_apellidomaterno) ? "-" : mdrd.GetString(pos_apellidomaterno));
                                 enUsuario.Scorreo = (mdrd.IsDBNull(pos_correo) ? "-" : mdrd.GetString(pos_correo));
                                 enUsuario.tipousuario = (mdrd.IsDBNull(pos_tipousuario) ? 0 : mdrd.GetInt32(pos_tipousuario));
+                                enUsuario.simagenruta = (mdrd.IsDBNull(pos_imagenruta) ? "-" : mdrd.GetString(pos_imagenruta));
                                 slenUsuario.Add(enUsuario);
                             }
                         }

@@ -23,6 +23,7 @@ namespace frontend_SoftColegio.Controllers
             int idusuario = UtlAuditoria.ObtenerIdUsuario();
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GIDUsuario = idusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -34,6 +35,7 @@ namespace frontend_SoftColegio.Controllers
             int idusuario = UtlAuditoria.ObtenerIdUsuario();
             ViewBag.GrolUsuario = irolusuario;
             ViewBag.GIDUsuario = idusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -43,6 +45,7 @@ namespace frontend_SoftColegio.Controllers
         {
             int irolusuario = UtlAuditoria.ObtenerTipoUsuario();
             ViewBag.GrolUsuario = irolusuario;
+            ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
             return View();
         }
 
@@ -70,6 +73,7 @@ namespace frontend_SoftColegio.Controllers
                 ViewBag.GrolUsuario = ItipoUsuario;
                 ViewBag.Lista = loenArchivo;
                 ViewBag.Gidclase = idclase;
+                ViewBag.GImagenUsuario = UtlAuditoria.ObtenerImagenUsuario();
                 return View();
             }
             catch (Exception ex)
@@ -110,12 +114,7 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
-
-
-
-
-
-
+        
 
         // INACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
         [HttpPost]

@@ -20,6 +20,7 @@ namespace frontendUtil
         private const string SESSION_CORREO = "SESSION_ISUSCRIPCIONESTADO";
         private const string SESSION_IMATRICULADO = "SESSION_IMATRICULADO";
         private const string SESSION_TIPOUSUARIO = "SESSION_TIPOUSUARIO";
+        private const string SESSION_IMAGENUSUARIO = "SESSION_IMAGENUSUARIO";
 
         #region "Obtiene Datos del Usuario"
 
@@ -71,7 +72,10 @@ namespace frontendUtil
         {
             return DateTime.Now.ToShortDateString();
         }
-
+        public static string ObtenerImagenUsuario()
+        {
+            return ((HttpContext.Current.Session[SESSION_IMAGENUSUARIO] == null) ? "/imagenalumno/vacio.png" : HttpContext.Current.Session[SESSION_IMAGENUSUARIO].ToString());
+        }
         public static void SetSessionValues(Dictionary<string, string> DVariables)
         {
             try
@@ -86,6 +90,7 @@ namespace frontendUtil
                 HttpContext.Current.Session[SESSION_APELLIDOMATERNO] = DVariables["APELLIDOMATERNO"];
                 HttpContext.Current.Session[SESSION_CORREO] = DVariables["CORREO"];
                 HttpContext.Current.Session[SESSION_TIPOUSUARIO] = DVariables["TIPOUSUARIO"];
+                HttpContext.Current.Session[SESSION_IMAGENUSUARIO] = DVariables["IMAGENUSUARIO"];
                 HttpContext.Current.Session.Timeout = 24 * 60;
             }
             catch (ArgumentOutOfRangeException kfe)
@@ -197,7 +202,8 @@ namespace frontendUtil
                 HttpContext.Current.Session[SESSION_IDSEDE] == null ||
                 HttpContext.Current.Session[SESSION_NOMBRE] == null ||
                 HttpContext.Current.Session[SESSION_TIPOUSUARIO] == null ||
-                HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] == null)
+                HttpContext.Current.Session[SESSION_APELLIDOPARTERNO] == null ||
+                HttpContext.Current.Session[SESSION_IMAGENUSUARIO] == null)
                 {
                     return true;
                 }
@@ -235,7 +241,7 @@ namespace frontendUtil
                 HttpContext.Current.Session[SESSION_APELLIDOMATERNO] = null;
                 HttpContext.Current.Session[SESSION_CORREO] = null;
                 HttpContext.Current.Session[SESSION_TIPOUSUARIO] = null;
-
+                HttpContext.Current.Session[SESSION_IMAGENUSUARIO] = null;
                 return true;
             }
             catch (Exception ex)
