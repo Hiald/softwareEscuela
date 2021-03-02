@@ -381,7 +381,7 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
-        //ACTIVO : lista las clases por cada curso : alumno, admin
+        //ACTIVO : lista las clases por cada curso : alumno, admin //Datatable
         [HttpPost]
         public async Task<JsonResult> ListarClaseGeneral(int idcurso)
         {
@@ -403,7 +403,19 @@ namespace frontend_SoftColegio.Controllers
                         loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
                     }
                 }
-                return Json(loenClase);
+
+                objResultado = new
+                {
+                    PageStart = 1,
+                    pageSize = 100,
+                    SearchText = string.Empty,
+                    ShowChildren = UtlConstantes.bValorTrue,
+                    iTotalRecords = loenClase.Count,
+                    iTotalDisplayRecords = 1,
+                    aaData = loenClase
+                };
+
+                return Json(objResultado);
             }
             catch (Exception ex)
             {
@@ -447,16 +459,46 @@ namespace frontend_SoftColegio.Controllers
 
         }
 
+        //ACTIVO : lista las clases por cada curso : alumno, admin //Datatable
+        [HttpPost]
+        public async Task<JsonResult> ListarClasexCurso(int idcurso)
+        {
+            try
+            {
+                var objResultado = new object();
+                int IidUsuario = UtlAuditoria.ObtenerIdUsuario();
+                List<edClase> loenClase = new List<edClase>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage Reslistarusu = await client.GetAsync("api/clase/wsListarClaseCurso?widcurso=" + idcurso + "&widusuario=" + IidUsuario);
+                    if (Reslistarusu.IsSuccessStatusCode)
+                    {
+                        var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
+                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
+                    }
+                }
+
+                return Json(loenClase);
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                return Json(ex);
+            }
+
+        }
 
         //01/03/2021 SIRVE PARA LISTAR LAS CLASES DE LOS DOCENTES CON AUMNOS
         [HttpPost]
         public async Task<JsonResult> ListarClaseAlumno(int widclase)
         {
             try
-            {
-                int idusuario = widclase;
+            {                
                 var objResultado = new object();
-                List<edCurso> loenClase = new List<edCurso>();
+                List<edClase> loenClase = new List<edClase>();
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
@@ -466,7 +508,7 @@ namespace frontend_SoftColegio.Controllers
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
-                        loenClase = JsonConvert.DeserializeObject<List<edCurso>>(rwsapilu);
+                        loenClase = JsonConvert.DeserializeObject<List<edClase>>(rwsapilu);
                     }
                 }
 
@@ -487,7 +529,6 @@ namespace frontend_SoftColegio.Controllers
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 return Json(ex);
             }
-
         }
 
 

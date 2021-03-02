@@ -177,7 +177,7 @@
                 $('#idClaseg').find('option').remove();
                 $.ajax({
                     type: "POST",
-                    url: "/clase/ListarClaseGeneral",
+                    url: "/clase/ListarClasexCurso",
                     data: {
                         "idcurso": parseInt(slcidCurso)
                     },
@@ -208,6 +208,10 @@
             fn_ListarClase();
         });
 
+        $('#idClaseg').on('change', function () {
+            GvalorIdClase = parseInt($('#idClaseg option:selected').attr('value'));
+            fn_listartabla(GvalorIdClase);
+        });
 
         function fn_listartabla(param_valor) {
             $('#tblClase').DataTable(
@@ -239,34 +243,41 @@
                     "columns": [
 
                         { "data": "Snombre" },
-                        { "data": "Snombrecurso" },
-                        { "data": "Sdescripcion" },
-                        { "data": "Srutaenlace" },
-                        { "data": "SrutaVideo" },
-                        { "data": "SimagenRuta" }
+                        { "data": "SnombreAlumno" },
+                        { "data": "SnombreGrado" }
                     ],
                     "aoColumnDefs":
                         [
                             {
                                 "mRender": function (data, type, row) {
-                                    var strHtml = "<button class='btn btn-danger' onclick='fn_Eliminar()' data-cat=\"" + row.idclase + "|" + "\" id='AcessEliminar' >Eliminar</button>";
+                                    var strHtml = "<button class='btn btn-light btn-rounded' onclick='fn_Eliminar()' data-cat=\"" + row.idclase + "|" + "\" id='AcessEliminar' >Asistió</button>";
 
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
-                                "aTargets": [5]
+                                "aTargets": [3]
                             },
                             {
                                 "mRender": function (data, type, row) {
-                                    var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Agregar tarea</button>";
+                                    var strHtml = "<button class='btn btn-light btn-rounded' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Faltó</button>";
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
-                                "aTargets": [6]
+                                "aTargets": [4]
+                            },
+                            {
+                                "mRender": function (data, type, row) {
+                                    var strHtml = "<button class='btn btn-light btn-rounded' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Tardanza</button>";
+                                    return strHtml;
+                                },
+                                "sWidth": "5px",
+                                "sClass": "css-center",
+                                "bSort": false,
+                                "aTargets": [5]
                             }
                         ]
                 });

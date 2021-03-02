@@ -7,7 +7,10 @@ namespace frontendED
         public int idclase { get; set; }
         public int idgrado { get; set; }
         public int idnivel { get; set; }
+        public int idusuario { get; set; }
+        public string SnombreAlumno { get; set; }
         public string Snombre { get; set; }
+        public string SnombreGrado { get; set; }
         public string nombrenivel { get; set; }
         public string nombregrado { get; set; }
         public string nombre { get; set; }

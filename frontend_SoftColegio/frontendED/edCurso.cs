@@ -5,6 +5,9 @@ namespace frontendED
     {
         public int idcursodocente { get; set; }
         public string Snombres { get; set; }
+        
+
+
         public string Sapellidos { get; set; }
         public string SnombreNivel { get; set; }
         public string SnombreGrado { get; set; }
