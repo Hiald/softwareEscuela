@@ -150,6 +150,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\2anios.jpeg" />
+    <Content Include="assets\3anios.jpeg" />
+    <Content Include="assets\4anios.jpeg" />
+    <Content Include="assets\5anios.jpeg" />
     <Content Include="assets\css\app-dark.min.css" />
     <Content Include="assets\css\app.min.css" />
     <Content Include="assets\css\burger.svg" />
