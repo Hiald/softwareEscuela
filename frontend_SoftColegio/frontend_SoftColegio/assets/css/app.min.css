@@ -14330,7 +14330,7 @@ input[data-switch=dark]:checked + label {
     }
 
 body.authentication-bg {
-    /*background-image: url(../images/img1nidoperulina.png);*/
+    background-image: url(../images/imgver.png);
     background-size: cover;
     background-position: center
 }
@@ -14359,8 +14359,8 @@ body.authentication-bg {
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
-    background: url(../images/img2nidoperulina.png) right;
-    background-size: contain;
+    background: url(../images/imgver.png) center;
+    background-size: cover
 }
 
     .auth-fluid .auth-fluid-form-box {
