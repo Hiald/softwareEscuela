@@ -327,6 +327,7 @@
 
         function fn_GuardarAsistio(idclase, idusuario)
         {
+            $('#divcarga').addClass("is-active");
             var iddocente = $('#hddidusuario').val();
             var idtipoasistencia = parseInt(1);
 
@@ -339,14 +340,17 @@
                     "widalumno": idusuario,
                     "widtipoasistencia": idtipoasistencia
                 },
-                success: function (data) {
+                success: function (data) {                    
                     var table = $('#tblClase').DataTable();
                     table.ajax.reload();
-
+                    $('#divcarga').removeClass("is-active");
                 },
                 error: function (data) {
                     console.log(data);
                 }
+                
+                
+
             });
         }
 

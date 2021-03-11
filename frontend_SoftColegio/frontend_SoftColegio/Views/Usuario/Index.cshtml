@@ -369,6 +369,9 @@
         }
 
         $("#btnAgregar").click(function () {
+
+            $('#divcarga').addClass("is-active");
+
             var slcNivel = $('#idNivel option:selected').attr('value');
             var slcGrado = $('#idGrado option:selected').attr('value');
             var slcSede = $('#idSede option:selected').attr('value');
@@ -437,6 +440,7 @@
                 processData: false,
                 contentType: false
             }).done(function (result) {
+                $('#divcarga').removeClass("is-active");
                 NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
 
                 $('#idGrado').find('option').remove();
@@ -502,7 +506,7 @@
 
         });
 
-        function fnlistarTabla() {
+        function fnlistarTabla() {            
             $('#basic-datatable').dataTable({
                 "ajax": {
                     "url": RutaPrincipal + 'Login/ListarUsuarioGestion',
@@ -619,6 +623,7 @@
                         }
                     ]
             });
+            
         }
 
         $(document).ready(function () {
@@ -627,9 +632,7 @@
             $('#idNivel').on('change', function () {
                 fn_listarGrado();
             });
-
             fnlistarTabla();
-
         });
 
         function fn_Editar(idusuario, idnivel, tipousuario, idgrado,
@@ -663,6 +666,7 @@
         }
 
         function fn_Actualizar() {
+            $('#divcarga').addClass("is-active");
             var iIdUsuario = $('#hddusuario').attr("data-idusuario");
 
             var idIdNivelEdit = $('#idNivelEditar option:selected').attr('value');
@@ -729,6 +733,7 @@
                     "wapaterno": sApellidoPaternoEdit
                 },
                 success: function (data) {
+                    $('#divcarga').removeClass("is-active");
                     $('#modalEditarUsuario').modal("hide");
                     //var table = $('#basic-datatable').DataTable();
                     //table.clear().draw();
@@ -748,6 +753,7 @@
         }
 
         function fn_ConfirmarEliminar() {
+            
             var pidalumno = $('#hddAlumnoEliminar').attr("data-idalumnoEliminar");
             $.ajax({
                 type: "POST",
