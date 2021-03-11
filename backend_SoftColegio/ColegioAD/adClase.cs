@@ -251,7 +251,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_idcurso", MySqlDbType.Int32).Value = adidcurso;
                 cmd.Parameters.Add("_i_semana", MySqlDbType.Int32).Value = adidsemana;
                 cmd.Parameters.Add("_v_nombre", MySqlDbType.VarChar, 100).Value = adnombre;
-                cmd.Parameters.Add("_v_descripcion", MySqlDbType.VarChar, 100).Value = addescripcion;
+                cmd.Parameters.Add("_v_descripcion", MySqlDbType.VarChar, 500).Value = addescripcion;
                 cmd.Parameters.Add("_v_ruta_enlace", MySqlDbType.VarChar, 500).Value = adrutaenlace;
                 cmd.Parameters.Add("_v_ruta_video", MySqlDbType.VarChar, 500).Value = adrutavideo;
                 cmd.Parameters.Add("_v_imagen_ruta", MySqlDbType.VarChar, 500).Value = adimagenruta;

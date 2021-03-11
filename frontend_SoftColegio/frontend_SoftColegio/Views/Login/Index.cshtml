@@ -54,8 +54,8 @@
                     <!-- form -->
                     <form id="frm2">
                         <div class="form-group">
-                            <label for="emailaddress">Dirección de correo electrónico</label>
-                            <input class="form-control" type="text" id="emailaddress" required="" placeholder="Introduce tu correo electrónico">
+                            <label for="emailaddress">Usuario</label>
+                            <input class="form-control" type="text" id="emailaddress" required="" placeholder="Introduce tu usuario">
                         </div>
                         <div class="form-group">
                             @*<a href="pages-recoverpw-2.html" class="text-muted float-right"><small>Olvidaste tu contraseña?</small></a>*@
@@ -145,7 +145,7 @@
             var ipClave = $('#password').val();
             var mensaje = "";
             if (ipUsuario.trim() == "") {
-                NotificacionAvisoIzquierda("INGRESAR SU CORREO");
+                NotificacionAvisoIzquierda("INGRESAR SU USUARIO");
                 return;
             }
             if (ipClave.trim() == "") {
@@ -186,7 +186,7 @@
         var ipClave = $('#password').val();
         var mensaje = "";
         if (ipUsuario.trim() == "") {
-            NotificacionAvisoIzquierda("INGRESAR SU CORREO");
+            NotificacionAvisoIzquierda("INGRESAR SU USUARIO");
             return;
         }
         if (ipClave.trim() == "") {
@@ -258,7 +258,7 @@
     }
 
     $(document).ready(function () {
-        setInterval(fadeDivs, 3000);
+        //setInterval(fadeDivs, 3000);
     });
 
 </script>
