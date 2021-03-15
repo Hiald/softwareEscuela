@@ -739,7 +739,7 @@
                 success: function (data) {
                     $('#modalEliminarClase').modal("hide");
                     GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
-                    fn_listartabla(GvalorIdCurso);
+                    fn_listartabla(0);
                 },
                 error: function (data) {
                     console.log(data);
@@ -764,6 +764,7 @@
         }
 
         $("#btnGuardar").click(function () {
+            $('#divcarga').addClass("is-active");
             var slcCurso = $('#idCurso option:selected').attr('value');
             var slcCategoria = $('#idCategoria option:selected').attr('value');
             var txtNombre = $('#txtNombre').val();
@@ -807,6 +808,7 @@
                 },
                 async: false,
                 success: function (msg) {
+                    $('#divcarga').removeClass("is-active");
                     $('#modalClase').modal("hide");
                     $('#modalSuccess').modal("show");
                     GvalorIdCurso = 0;
