@@ -18,12 +18,16 @@
     <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="~/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/css-loader/3.3.3/css-loader.css" rel="stylesheet" />
+    @*<link href="~/assets/css/css-loader.css" rel="stylesheet" />*@
+
     <script>
          var RutaPrincipal = "@Url.Content("~")";
     </script>
 </head>
 
 <body class="authentication-bg pb-0" data-layout-config='{"darkMode":false}'>
+    <div id="divcarga" class="loader loader-default" data-text="Cargando... por favor espere" blink></div>
     <input type="hidden" id="data-ivalorsesion" value="@ViewBag.GIvalorSesion" />
     <div class="auth-fluid">
         <!--Auth fluid left content -->
@@ -125,6 +129,7 @@
 
     $(document).on('keypress', function (e) {
         if (e.which == 13) {
+            $('#divcarga').addClass("is-active");
             var ipUsuario = $('#emailaddress').val();
             var ipClave = $('#password').val();
             var mensaje = "";
@@ -150,7 +155,7 @@
                         NotificacionErrorIzquierda("USUARIO O CLAVE INCORRECTO");
                         return;
                     } else {
-
+                        $('#divcarga').removeClass("is-active");
                         window.location.href = RutaPrincipal + "Home/Index";
 
                     }
