@@ -22,12 +22,38 @@
 <div class="row justify-content-center text-center">
     <div class="col-12">
         <br />
-        <h1 class="upper-text">¡BIENVENIDO/A! 🧑🏻/👧🏻</h1>
+        <div class="d-flex justify-content-center">
+            <img src="~/assets/Imagen4.jpg" alt="" height="45">
+            <h1 class="upper-text" style="color:#000">&nbsp;I.E.P. SANTA TERESA DE JESÚS</h1>
+        </div>
+
+        <h1 class="upper-text" style="color:#000">BIENVENIDO: </h1>
         <br />
-        <h1 class="upper-text">Hola @ViewBag.GNombreUsuario 😃</h1>
+        <h1 class="upper-text" style="color:#000">@ViewBag.GNombreUsuario </h1>
         <br />
-        <h3 class="upper-text">📚 🖍Revisa las clases que tienes hoy </h3>
-        <br />
-        <h4 class="justify-content-center">Disfruta de los juegos agregados especialmente para ti</h4>
+        @{
+            var sort = (string)ViewBag.GGradoUsuario.ToString();
+
+            switch (sort)
+            {
+                case "1":<text><h2 class="upper-text" style="color:#000">1er Grado de Primaria</h2></text>break;
+            case "2": <text><h2 class="upper-text" style="color:#000">2do Grado de Primaria</h2></text>break;
+        case "3": <text><h2 class="upper-text" style="color:#000">3er Grado de Primaria</h2></text>break;
+    case "4": <text><h2 class="upper-text" style="color:#000">4to Grado de Primaria</h2></text>break;
+case "5": <text><h2 class="upper-text" style="color:#000">5to Grado de Primaria</h2></text>break;
+case "6": <text><h2 class="upper-text" style="color:#000">6to Grado de Primaria</h2></text>break;
+case "7": <text><h2 class="upper-text" style="color:#000">1er Grado de Secundaria</h2></text>break;
+case "8": <text><h2 class="upper-text" style="color:#000">2do Grado de Secundaria</h2></text>break;
+case "9": <text><h2 class="upper-text" style="color:#000">3er Grado de Secundaria</h2></text>break;
+case "10": <text><h2 class="upper-text" style="color:#000">PRE</h2></text>break;
+
+}
+        }
+        <h3 class="upper-text"></h3>
+        <div class="row justify-content-center">
+            <div class="col-md-8 justify-content-center">
+                <h3 style="font-style:italic;color:#000" class="justify-content-center">"Si no estás dispuesto a aprender nadie te puede ayudar. Si estás dispuesto a aprender nadie te puede parar"</h3>
+            </div>
+        </div>
     </div>
 </div>
