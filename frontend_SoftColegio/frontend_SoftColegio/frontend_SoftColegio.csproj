@@ -151,6 +151,7 @@
   <ItemGroup>
     <Content Include="assets\css\app-dark.min.css" />
     <Content Include="assets\css\app.min.css" />
+    <Content Include="assets\css\css-loader.css" />
     <Content Include="assets\css\icons.min.css" />
     <Content Include="assets\css\vendor\britecharts.min.css" />
     <Content Include="assets\css\vendor\buttons.bootstrap4.css" />
