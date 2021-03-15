@@ -36,7 +36,7 @@
     <!-- Begin page -->
     <!-- third party js -->
     <!-- <script src="assets/js/vendor/Chart.bundle.min.js"></script> -->
-
+    <div id="divcarga" class="loader loader-default" data-text="Cargando... por favor espere" blink></div>
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
         <div class="left-side-menu">
@@ -86,7 +86,7 @@
                         }
                         else if (ViewBag.GrolUsuario == 3)
                         {
-                            <a href="javascript: void(0);" class="side-nav-link" >
+                            <a href="javascript: void(0);" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
                                 <span>GENERAL</span>
                                 <span class="menu-arrow"></span>
@@ -147,7 +147,7 @@
                                         <span>Calificación</span>
                                     </a>
                                 </li>
-                                <li class="side-nav-item"> 
+                                <li class="side-nav-item">
                                     <a href="javascript: void(0);" class="">
                                         <i class="uil-graduation-hat"></i>
                                         <span>Cursos - Horario</span>
@@ -166,7 +166,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                
+
                                 @*<li>
                                         <a href="/Pago/Pago" style="border: 2px solid white;border-radius: 15px;margin: 15px; font-weight:bold;">
                                             <i class="uil-file-plus-alt"></i>
