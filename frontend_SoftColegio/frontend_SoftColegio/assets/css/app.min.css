@@ -5087,7 +5087,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    min-height: 1px;
+    min-height: 170px;
     padding: 1.5rem
 }
 
@@ -13322,7 +13322,7 @@ b, strong {
         }
 
     .ribbon-box .ribbon-content {
-        clear: both
+        clear: left;
     }
 
     .ribbon-box .ribbon-primary {
@@ -14330,7 +14330,7 @@ input[data-switch=dark]:checked + label {
     }
 
 body.authentication-bg {
-    background-image: url(../images/imgver.png);
+    background-image: url(../images/img1nidoperulina.png);
     background-size: cover;
     background-position: center
 }
@@ -14359,7 +14359,7 @@ body.authentication-bg {
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
-    background: url(../images/imgver.png) center;
+    background: url(../images/img2nidoperulina.png) center;
     background-size: cover
 }
 

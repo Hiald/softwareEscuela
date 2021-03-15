@@ -51,13 +51,13 @@
                             <table id="tblClase" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Clase</th>
-                                        <th>Nombre Curso</th>
-                                        <th>Descripción</th>
-                                        <th>Ruta Enlace</th>
-                                        <th>Ruta Video</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th width="10%">Clase</th>
+                                        <th width="10%">Curso</th>
+                                        <th width="10%">Enlace</th>
+                                        <th width="15%">Video</th>
+                                        <th width="15%"></th>
+                                        <th width="15%"></th>
+                                        <th width="15%"></th>
                                     </tr>
                                 </thead>
 
@@ -150,6 +150,7 @@
             </div>
         </div>
     </div>
+
     <!--MODAL AGREGAR ARCHIVO-->
     <div id="modalArchivo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -221,6 +222,62 @@
                         <button type="submit" class="btn btn-success btn-rounded mb-3"><i class="mdi mdi-plus"></i>Guardar</button>
                     </div>
                 }
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ACTUALIZAR CLASE -->
+    <div id="modalActualizarClase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-success">
+                    <h4 class="modal-title" id="dark-header-modalLabel">ACTUALIZAR CLASE</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" id="hddidclase" value="" />
+                        <input type="hidden" id="hddidcurso" value="" />
+                        <input type="hidden" id="hddsemana" value="" />
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtNombreEditar">Nombre de la clase</label>
+                                <input type="text" id="txtNombreEditar" class="form-control" placeholder="Clase">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="idSemanaEditar">Número de semana</label>
+                                <input disabled type="text" class="form-control" id="idSemanaEditar" value="" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="txtDescripcionEditar">Descripcion clase</label>
+                                <textarea class="form-control" id="txtDescripcionEditar" placeholder="Descripción..." rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtRutaEnlaceEditar">Ruta enlace</label>
+                                <input type="text" id="txtRutaEnlaceEditar" class="form-control" placeholder="Ruta enlace...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtRutaVideoEditar">Ruta video</label>
+                                <input type="text" id="txtRutaVideoEditar" class="form-control" placeholder="Ruta video...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="fnActualizarClase();" class="btn btn-success btn-rounded mb-3" id="btnActualizarClase">
+                        <i class="mdi mdi-plus"></i>Actualizar
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -552,13 +609,13 @@
                         "sSearch": "Buscar:"
                     },
                     "columns": [
-
-                        { "data": "Snombre" },
-                        { "data": "Snombrecurso" },
-                        { "data": "Sdescripcion" },
-                        { "data": "Srutaenlace" },
-                        { "data": "SrutaVideo" },
-                        { "data": "SimagenRuta" }
+                        { "data": "Snombre", "width": "15%" },
+                        { "data": "Snombrecurso", "width": "15%" },
+                        { "data": "Srutaenlace", "width": "20%" },
+                        { "data": "SrutaVideo", "width": "20%" },
+                        { "width": "10%" },
+                        { "width": "10%" },
+                        { "width": "10%" }
                     ],
                     "aoColumnDefs":
                         [
@@ -571,11 +628,31 @@
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
-                                "aTargets": [5]
+                                "aTargets": [4]
                             },
                             {
                                 "mRender": function (data, type, row) {
                                     var strHtml = "<button class='btn btn-info' onclick='fnAgregarClase(" + row.idclase + ")' data-delet=\"" + row.idclase + "\" id='AccessEliminar' >Agregar tarea</button>";
+                                    return strHtml;
+                                },
+                                "sWidth": "5px",
+                                "sClass": "css-center",
+                                "bSort": false,
+                                "aTargets": [5]
+                            },
+                            {
+                                "mRender": function (data, type, row) {
+                                    console.log(row);
+                                    var strHtml = "<button class='btn btn-warning' onclick='fnEditarClase(" +
+                                        row.idclase + ", " +
+                                        row.idcurso + ", " +
+                                        row.Isemana + ", " +
+                                        "\"" + row.Snombre + "\"" + ", " +
+                                        "\"" + row.Sdescripcion + "\"" + ", " +
+                                        "\"" + row.Srutaenlace + "\"" + ", " +
+                                        "\"" + row.SrutaVideo + "\"" + ", " +
+                                        "\"" + row.SimagenRuta + "\"" + ", " +
+                                        ")' style='color: #fff !important;'>Modificar Clase</button>";
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
@@ -627,17 +704,9 @@
                 GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
                 fn_listartabla(GvalorIdCurso);
             });
-           
+
         });
 
-        function fnEditar() {
-            $('body').on("click", "#AccessEdita", function (e) {
-                e.preventDefault();
-                var id_categoria = $(this).attr("data-edit");
-                alert("Valor : " + id_categoria);
-                //$('#txNombreEditar').val(ArrayCategoria[1]);
-            });
-        }
         var idClase = 0;
 
         function fnAgregarClase(idclasem) {
@@ -759,6 +828,68 @@
             $('#modalArchivo').modal("hide");
             GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
             fn_listartabla(GvalorIdCurso);
+        }
+
+        function fnEditarClase(pidclase, pidcurso, pIsemana, pSnombre, pSdescripcion
+            , pSrutaenlace, pSrutaVideo, pSimagenRuta) {
+            var sdescripcion = pSdescripcion;
+            var senlace = pSrutaenlace;
+            var svideo = pSrutaVideo;
+            var simagen = pSimagenRuta;
+            if (senlace == "-") { senlace = ""; }
+            if (svideo == "-") { svideo = ""; }
+            if (simagen == "-") { simagen = ""; }
+            if (sdescripcion == "-") { sdescripcion = ""; }
+
+            $('#hddidclase').val(pidclase);
+            $('#hddidcurso').val(pidcurso);
+            $('#hddsemana').val(pIsemana);
+            $('#txtNombreEditar').val(pSnombre);
+            $('#idSemanaEditar').val("Semana " + pIsemana);
+            $('#txtDescripcionEditar').val(sdescripcion);
+            $('#txtRutaEnlaceEditar').val(senlace);
+            $('#txtRutaVideoEditar').val(svideo);
+            $('#modalActualizarClase').modal("show");
+        }
+
+        function fnActualizarClase() {
+            if ($('#txtNombreEditar').val() == "" || $('#idSemanaEditar').val() == "" || $('#txtRutaEnlaceEditar').val() == "") {
+                alert("Falta completar campos");
+                return;
+            }
+            var idclase = $('#hddidclase').val();
+            var idcurso = $('#hddidcurso').val();
+            var idsemana = $('#hddsemana').val();
+            var snombre = $('#txtNombreEditar').val();
+            var sdescripcion = $('#txtDescripcionEditar').val();
+            var srutaenlace = $('#txtRutaEnlaceEditar').val();
+            var srutavideo = $('#txtRutaVideoEditar').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Clase/ActualizarClaseGestion",
+                data: {
+                    "wtiproceso": 1,
+                    "widclase": idclase,
+                    "widcurso": idcurso,
+                    "widsemana": idsemana,
+                    "wnombre": snombre,
+                    "wdescripcion": sdescripcion,
+                    "wrutaenlace": srutaenlace,
+                    "wrutavideo": srutavideo,
+                    "wimagenruta": ""
+                },
+                success: function (data) {
+                    $('#modalActualizarClase').modal("hide");
+                    NotificacionSuccessDerecha("Datos actualizados correctamente");
+                    GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+                    fn_listartabla(GvalorIdCurso);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
         }
 
     </script>

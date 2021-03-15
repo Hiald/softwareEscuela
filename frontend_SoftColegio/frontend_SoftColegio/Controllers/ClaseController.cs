@@ -112,7 +112,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage Reslistarusu = await client.
-                        GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado 
+                        GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado
                         + "&wsidnivel=" + idnivel + "&wstipousuario=" + ItipoUsuario + "&widusuario=" + Iidusuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
@@ -230,39 +230,39 @@ namespace frontend_SoftColegio.Controllers
                     valorimg1 = releaseUris[0];
                     valorimg2 = releaseUris[1];
                 }
-                
-                    //si el pago es individual
-                    using (var client = new HttpClient())
-                    {
-                        client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
-                        client.DefaultRequestHeaders.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                            HttpResponseMessage ResRegistrarCuenta = await 
-                            client.GetAsync("api/clase/wsInsertarClase?wsidcurso=" + widgrado
-                         + "&wssemana=" + wisemana + "&wsnombre=" + wnombre + "&wsdescripcion=" 
-                         + wdescripcion + "&wsrutaenlace=" + wrutaenlace + "&wsrutavideo=" 
-                         + wrutavideo + "&wscategoria=" + wcategoria + "&wsimagen=" + wimagen 
-                         + "&wsimagenruta=" + wimagenruta + "&wsorden=" + worden
-                         + "&wsestado=" + estado + "&wfecharegistro=" + wfechaRegistro);
+
+                //si el pago es individual
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage ResRegistrarCuenta = await
+                    client.GetAsync("api/clase/wsInsertarClase?wsidcurso=" + widgrado
+                 + "&wssemana=" + wisemana + "&wsnombre=" + wnombre + "&wsdescripcion="
+                 + wdescripcion + "&wsrutaenlace=" + wrutaenlace + "&wsrutavideo="
+                 + wrutavideo + "&wscategoria=" + wcategoria + "&wsimagen=" + wimagen
+                 + "&wsimagenruta=" + wimagenruta + "&wsorden=" + worden
+                 + "&wsestado=" + estado + "&wfecharegistro=" + wfechaRegistro);
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
+                    {
+                        var rwsapi = ResRegistrarCuenta.Content.ReadAsAsync<string>().Result;
+                        idGenerado = int.Parse(rwsapi);
+                        if (idGenerado == -1)
                         {
-                            var rwsapi = ResRegistrarCuenta.Content.ReadAsAsync<string>().Result;
-                            idGenerado = int.Parse(rwsapi);
-                            if (idGenerado == -1)
+                            //error
+                            objResultado = new
                             {
-                                //error
-                                objResultado = new
-                                {
-                                    iResultado = -1,
-                                    iResultadoIns = "Ha ocurrido un error, intentalo nuevamente. Error: BCK"
-                                };
-                                return Json(objResultado);
-                            }
+                                iResultado = -1,
+                                iResultadoIns = "Ha ocurrido un error, intentalo nuevamente. Error: BCK"
+                            };
+                            return Json(objResultado);
                         }
                     }
-                
-               
+                }
+
+
                 objResultado = new
                 {
                     iResultado = 1,
@@ -279,9 +279,9 @@ namespace frontend_SoftColegio.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ActualizarClaseGestion(int widclase, int wsidgrado, string wsnombre, string wsdescripcion
-                , string wsrutaenlace, string wsrutavideo, int wscategoria, string wsimagen, string wsimagenruta
-                , int wsorden)
+        public async Task<JsonResult> ActualizarClaseGestion(int wtiproceso, int widclase, int widcurso
+                        , int widsemana, string wnombre, string wdescripcion, string wrutaenlace
+                        , string wrutavideo, string wimagenruta)
         {
             try
             {
@@ -289,16 +289,16 @@ namespace frontend_SoftColegio.Controllers
                 string wfechaRegistro = DateTime.Now.ToString();
                 int idGenerado = -1;
                 Int16 wsestado = 1;
+
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(MvcApplication.wsRouteSchoolBackend);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/clase/wsActualizarClase?widclase=" + widclase
-                        + "&wsidgrado=" + wsidgrado + "&wsnombre=" + wsnombre + "&wsdescripcion=" + wsdescripcion
-                        + "&wsrutaenlace=" + wsrutaenlace + "&wsrutavideo=" + wsrutavideo + "&wscategoria=" + wscategoria
-                        + "&wsimagen=" + wsimagen + "&wsimagenruta=" + wsimagenruta
-                        + "&wsorden=" + wsorden + "&wsestado=" + wsestado + "&fecharegistro=" + wfechaRegistro);
+                    HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/clase/wsActualizarClaseGestion?wstiproceso=" + wtiproceso +
+                        "&wsidclase=" + widclase + "&wsidcurso=" + widcurso + "&wsidsemana=" + widsemana +
+                        "&wsnombre=" + wnombre + "&wsdescripcion=" + wdescripcion + "&wsrutaenlace=" + wrutaenlace +
+                        "&wsrutavideo=" + wrutavideo + "&wsimagenruta=" + wimagenruta);
 
                     if (ResRegistrarCuenta.IsSuccessStatusCode)
                     {
@@ -372,7 +372,7 @@ namespace frontend_SoftColegio.Controllers
                 };
                 return Json(objResultado);
             }
-            
+
             catch (Exception ex)
             {
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
@@ -440,8 +440,8 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage Reslistarusu = await client.
-                        GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel 
-                        + "&wstipousuario=" + ItipoUsuario  + "&widusuario=" + Iidusuario);
+                        GetAsync("api/clase/wsListarCurso?wsidgrado=" + idgrado + "&wsidnivel=" + idnivel
+                        + "&wstipousuario=" + ItipoUsuario + "&widusuario=" + Iidusuario);
                     if (Reslistarusu.IsSuccessStatusCode)
                     {
                         var rwsapilu = Reslistarusu.Content.ReadAsAsync<string>().Result;
@@ -496,7 +496,7 @@ namespace frontend_SoftColegio.Controllers
         public async Task<JsonResult> ListarClaseAlumno(int widclase)
         {
             try
-            {                
+            {
                 var objResultado = new object();
                 List<edClase> loenClase = new List<edClase>();
                 using (var client = new HttpClient())
