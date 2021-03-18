@@ -540,16 +540,16 @@
             fn_ListarCurso();
         });
 
-        $('#idGrado').on('change', function () {
-            if ($('#idGrado option:selected').attr('value') == "") {
-                $('#idCurso').find('option').remove();
-                $('#idClase').find('option').remove();
-                return;
-            }
-            $('#idCurso').find('option').remove();
-            $('#idClase').find('option').remove();
-            fn_ListarCurso();
-        });
+        //$('#idGrado').on('change', function () {
+        //    if ($('#idGrado option:selected').attr('value') == "") {
+        //        $('#idCurso').find('option').remove();
+        //        $('#idClase').find('option').remove();
+        //        return;
+        //    }
+        //    $('#idCurso').find('option').remove();
+        //    $('#idClase').find('option').remove();
+        //    fn_ListarCurso();
+        //});
 
         $('#idCursog').on('change', function () {
             fn_ListarClase();

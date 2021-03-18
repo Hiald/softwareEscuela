@@ -32,7 +32,7 @@
                     <ul class="nav nav-tabs nav-bordered mb-3">
                         <li class="nav-item"></li>
                     </ul>
-                    <span class="badge badge-danger" style="font-size:18px">INGRESAR A LA CLASE EN VIVO</span>
+                    @*<span class="badge badge-danger" style="font-size:18px">INGRESAR A LA CLASE EN VIVO</span>*@
                     <div class="tab-content">
                         <div class="tab-pane show active" id="links-buttons-preview">
                             <div class="list-group">
@@ -86,12 +86,32 @@
                                                                                 <label>Descripción de la clase</label>
                                                                                 <textarea class="form-control" rows="3">@item.Sdescripcion</textarea>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <a href="@item.SrutaVideo" target="_blank" class="btn btn-success">Abrir ruta video</a>
+                                                                            <div class="col-md-4">
+                                                                                <a href="@item.SrutaVideo" target="_blank" class="btn btn-warning btn-rounded">
+                                                                                    <i class="mdi mdi-video-wireless-outline"></i>
+                                                                                    <span>Ruta de la grabación</span>
+                                                                                </a>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <a href="@item.Srutaenlace" target="_blank" class="btn btn-success">Abrir Enlace</a>
+
+                                                                            @*<button type="button" class="btn btn-warning btn-lg btn-rounded">
+                                                                                <i class="mdi mdi-rocket mr-1"></i>
+                                                                                <span>Ir a la clase en vivo</span>
+                                                                                </button>*@
+
+                                                                            <div class="col-md-4">
+                                                                                <a href="@item.Srutaenlace" target="_blank" class="btn btn-success btn-rounded">
+                                                                                    <i class="mdi mdi-video-wireless-outline"></i>
+                                                                                    <span>Ruta del video de clase</span>
+                                                                                </a>
                                                                             </div>
+
+                                                                            <div class="col-md-4">
+                                                                                <a href="@item.Srutaenlace" target="_blank" class="btn btn-danger btn-rounded">
+                                                                                    <i class="mdi mdi-file-pdf"></i>
+                                                                                    <span>Link PDF</span>
+                                                                                </a>
+                                                                            </div>
+
                                                                         </div>
                                                                         <br />
                                                                     </div>

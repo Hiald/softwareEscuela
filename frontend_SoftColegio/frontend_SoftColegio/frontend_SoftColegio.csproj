@@ -251,7 +251,6 @@
     <Content Include="assets\Imagen4.jpg" />
     <Content Include="assets\Imagen5.jpg" />
     <Content Include="assets\images\barcode.png" />
-    <Content Include="assets\images\bg-auth.jpg" />
     <Content Include="assets\images\bg-pattern-dark.png" />
     <Content Include="assets\images\bg-pattern-light.svg" />
     <Content Include="assets\images\bg-pattern.png" />

@@ -363,6 +363,7 @@
     }
 
     $("#btnAgregar").click(function () {
+        $('#divcarga').addClass("is-active");
         var slcNivel = $('#idNivel option:selected').attr('value');
         var slcGrado = $('#idGrado option:selected').attr('value');
         var slcSede = $('#idSede option:selected').attr('value');
@@ -425,8 +426,9 @@
                 "wusuario": ipUsuario,
                 "wclave": ipContrasenia
             },
-            async: false,
+            async: true,
             success: function (msg) {
+                $('#divcarga').removeClass("is-active");
                 NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
 
                 $('#idGrado').find('option').remove();

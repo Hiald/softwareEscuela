@@ -18,8 +18,8 @@
     <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="~/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/css-loader/3.3.3/css-loader.css" rel="stylesheet" />
-    @*<link href="~/assets/css/css-loader.css" rel="stylesheet" />*@
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/css-loader/3.3.3/css-loader.css" rel="stylesheet" />*@
+    <link href="~/assets/css/css-loader.css" rel="stylesheet" />
 
     <script>
          var RutaPrincipal = "@Url.Content("~")";
@@ -129,7 +129,7 @@
 
     $(document).on('keypress', function (e) {
         if (e.which == 13) {
-            $('#divcarga').addClass("is-active");
+
             var ipUsuario = $('#emailaddress').val();
             var ipClave = $('#password').val();
             var mensaje = "";
@@ -142,6 +142,8 @@
                 return;
             }
 
+            $('#divcarga').addClass("is-active");
+
             $.ajax({
                 type: "POST",
                 url: RutaPrincipal + 'Login/Loginusuario',
@@ -149,10 +151,11 @@
                     "wusuario": ipUsuario,
                     "wclave": ipClave
                 },
-                async: false,
+                async: true,
                 success: function (msg) {
-                    if (msg.iResultado === -3) {
+                    if (msg.iResultado === -3) {                        
                         NotificacionErrorIzquierda("USUARIO O CLAVE INCORRECTO");
+                        $('#divcarga').removeClass("is-active");
                         return;
                     } else {
                         $('#divcarga').removeClass("is-active");
@@ -172,7 +175,6 @@
     });
 
     $("#btnLogin").click(function () {
-        $('#divcarga').addClass("is-active");
         var ipUsuario = $('#emailaddress').val();
         var ipClave = $('#password').val();
         var mensaje = "";
@@ -185,6 +187,8 @@
             return;
         }
 
+        $('#divcarga').addClass("is-active");
+
         $.ajax({
             type: "POST",
             url: RutaPrincipal + 'Login/Loginusuario',
@@ -192,10 +196,11 @@
                 "wusuario": ipUsuario,
                 "wclave": ipClave
             },
-            async: false,
+            async: true,
             success: function (msg) {
                 if (msg.iResultado === -3) {
                     NotificacionErrorIzquierda("USUARIO O CLAVE INCORRECTO");
+                    $('#divcarga').removeClass("is-active");
                     return;
                 } else {
                     $('#divcarga').removeClass("is-active");

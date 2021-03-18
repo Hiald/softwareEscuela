@@ -48,6 +48,7 @@ namespace frontend_SoftColegio.Controllers
 
         // alumno
         [SecuritySession]
+        //Ejemplo 15/03/2021
         public async Task<ActionResult> Tarea(int idclase)
         {
             try
