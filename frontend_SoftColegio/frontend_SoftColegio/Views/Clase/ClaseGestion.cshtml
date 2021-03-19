@@ -170,30 +170,11 @@
                                     <input type="text" name="nombre" id="txtNombreArc" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="txttipoarchivo">Tipo de Tarea</label>
-                                    <select class="form-control" name="itipoarchivo" id="txttipoarchivo">
-                                        <option value="0">Seleccionar</option>
-                                        <option value="1">Tarea (Calificable)</option>
-                                        <option value="2">Teoría</option>
-                                        <option value="3">Texto</option>
-                                        <option value="4">Otro</option>
-                                    </select>
-                                </div>
+
+                            <div class="col-md-6" style="display:none;">
+                                <input class="form-control" name="itipoarchivo" value="1" id="txttipoarchivo">
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
-                                    <label for="txtdescripcion">Descripción</label>
-                                    <textarea class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="txtenlace">Enlace de la tarea</label>
-                                    <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
-                                </div>
-                            </div>
+
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="txtvideo">Archivo de la tarea</label>
@@ -213,6 +194,18 @@
                                 <div class="form-group mb-3">
                                     <label for="txtfechafin">Fecha Fin</label>
                                     <input type="date" name="fechafin" id="txtfechafin" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="txtenlace">Enlace de la tarea</label>
+                                    <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="txtdescripcion">Descripción</label>
+                                    <textarea class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -668,7 +661,22 @@
             fn_ListarNivel();
             fn_ListarNivelAgregar();
             if ($('#hddtipousuario').val() == 2) {
-                fn_listartabla(0);
+                $('#idCursog').on('change', function () {
+                    var GDocenteIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+                    if (GDocenteIdCurso == 0) {
+                        return;
+                    }
+                    fn_listartabla(GDocenteIdCurso);
+                });
+
+            } else {
+                $('#idCursog').on('change', function () {
+                    GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
+                    if (GvalorIdCurso == 0) {
+                        return;
+                    }
+                    fn_listartabla(GvalorIdCurso);
+                });
             }
             $('#idNivel').on('change', function () {
                 if ($('#idNivel option:selected').attr('value') == "") {
@@ -700,10 +708,7 @@
                 fn_ListarCurso();
             });
 
-            $('#idCursog').on('change', function () {
-                GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
-                fn_listartabla(GvalorIdCurso);
-            });
+
 
         });
 
