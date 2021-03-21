@@ -159,62 +159,59 @@
                     <h4 class="modal-title" id="dark-header-modalLabel">Tarea</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                @using (Html.BeginForm("AgregarArchivo", "archivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <div class="modal-body">
-                        <div class="row">
-                            <input type="hidden" name="idgrado" value="" id="hddidclase" />
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="txtNombreArc">Nombre</label>
-                                    <input type="text" name="nombre" id="txtNombreArc" class="form-control">
-                                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="idgrado" value="" id="hddidclase" />
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtNombreArc">Nombre</label>
+                                <input type="text" name="nombre" id="txtNombreArc" class="form-control">
                             </div>
+                        </div>
 
-                            <div class="col-md-6" style="display:none;">
-                                <input class="form-control" name="itipoarchivo" value="1" id="txttipoarchivo">
-                            </div>
+                        <div class="col-md-6" style="display:none;">
+                            <input class="form-control" name="itipoarchivo" value="1" id="txttipoarchivo">
+                        </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="txtvideo">Archivo de la tarea</label>
-                                    <input type="file" id="txtvideo" name="FRutaArchivo" class="form-control"
-                                           accept="application/msword, application/vnd.ms-powerpoint, text/plain
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtvideo">Archivo de la tarea</label>
+                                <input type="file" id="txtvideo" name="FRutaArchivo" class="form-control"
+                                       accept="application/msword, application/vnd.ms-powerpoint, text/plain
                                                 , application/pdf, image/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
                                                  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="txtfechaini">Fecha Inicio</label>
-                                    <input type="date" name="fechaini" id="txtfechaini" class="form-control">
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechaini">Fecha Inicio</label>
+                                <input type="date" name="fechaini" id="txtfechaini" class="form-control">
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="txtfechafin">Fecha Fin</label>
-                                    <input type="date" name="fechafin" id="txtfechafin" class="form-control">
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="txtfechafin">Fecha Fin</label>
+                                <input type="date" name="fechafin" id="txtfechafin" class="form-control">
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
-                                    <label for="txtenlace">Enlace de la tarea</label>
-                                    <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
-                                </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="txtenlace">Enlace de la tarea</label>
+                                <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
-                                    <label for="txtdescripcion">Descripción</label>
-                                    <textarea class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="3"></textarea>
-                                </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="txtdescripcion">Descripción</label>
+                                <textarea class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="3"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success btn-rounded mb-3"><i class="mdi mdi-plus"></i>Guardar</button>
-                    </div>
-                }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-rounded mb-3" data-dismiss="modal">Cerrar</button>
+                    <button onclick="fnAgregarTarea();" class="btn btn-success btn-rounded mb-3"><i class="mdi mdi-plus"></i>Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -635,7 +632,6 @@
                             },
                             {
                                 "mRender": function (data, type, row) {
-                                    console.log(row);
                                     var strHtml = "<button class='btn btn-warning' onclick='fnEditarClase(" +
                                         row.idclase + ", " +
                                         row.idcurso + ", " +
@@ -713,7 +709,7 @@
         });
 
         var idClase = 0;
-
+        //agrega tarea
         function fnAgregarClase(idclasem) {
             idClase = parseInt(idclasem);
             $('#hddidclase').val(idClase);
@@ -742,9 +738,10 @@
                 //dataType: "json",
                 //async: true,
                 success: function (data) {
+                    NotificacionSuccessDerecha("Clase eliminada");
                     $('#modalEliminarClase').modal("hide");
                     GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
-                    fn_listartabla(0);
+                    fn_listartabla(GvalorIdCurso);
                 },
                 error: function (data) {
                     console.log(data);
@@ -769,7 +766,7 @@
         }
 
         $("#btnGuardar").click(function () {
-            $('#divcarga').addClass("is-active");
+
             var slcCurso = $('#idCurso option:selected').attr('value');
             var slcCategoria = $('#idCategoria option:selected').attr('value');
             var txtNombre = $('#txtNombre').val();
@@ -795,6 +792,7 @@
                 NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
                 return;
             }
+            $('#divcarga').addClass("is-active");
             var paramidusuario = $('#hddidusuario').val();
             $.ajax({
                 type: "POST",
@@ -811,13 +809,17 @@
                     "imagenruta": "",
                     "orden": paramidusuario
                 },
-                async: false,
+                async: true,
                 success: function (msg) {
                     $('#divcarga').removeClass("is-active");
                     $('#modalClase').modal("hide");
                     $('#modalSuccess').modal("show");
-                    GvalorIdCurso = 0;
+                    GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
                     fn_listartabla(GvalorIdCurso);
+                    $('#txtNombre').val("");
+                    $('#txtDescripcion').val("");
+                    $('#txtRutaEnlace').val("");
+                    $('#txtRutaVideo').val("");
                 },
                 error: function (msg) {
                     console.log(msg);
@@ -860,6 +862,7 @@
         }
 
         function fnActualizarClase() {
+
             if ($('#txtNombreEditar').val() == "" || $('#idSemanaEditar').val() == "" || $('#txtRutaEnlaceEditar').val() == "") {
                 alert("Falta completar campos");
                 return;
@@ -871,10 +874,11 @@
             var sdescripcion = $('#txtDescripcionEditar').val();
             var srutaenlace = $('#txtRutaEnlaceEditar').val();
             var srutavideo = $('#txtRutaVideoEditar').val();
-
+            $('#divcarga').addClass("is-active");
             $.ajax({
                 type: "POST",
                 url: "/Clase/ActualizarClaseGestion",
+                async: true,
                 data: {
                     "wtiproceso": 1,
                     "widclase": idclase,
@@ -887,6 +891,7 @@
                     "wimagenruta": ""
                 },
                 success: function (data) {
+                    $('#divcarga').removeClass("is-active");
                     $('#modalActualizarClase').modal("hide");
                     NotificacionSuccessDerecha("Datos actualizados correctamente");
                     GvalorIdCurso = parseInt($('#idCursog option:selected').attr('value'));
@@ -899,5 +904,46 @@
 
         }
 
+        function fnAgregarTarea() {
+            var nombre = $('#txtNombreArc').val();
+            if (nombre == "") {
+                NotificacionAvisoDerecha("INGRESE NOMBRE");
+                $('#divcarga').removeClass("is-active");
+                return;
+            }
+
+            $('#divcarga').addClass("is-active");
+            var fdata = new FormData();
+            var fileInput = $('#txtvideo')[0].files[0];
+            fdata.append("idgrado", $('#hddidclase').val());
+            fdata.append("nombre", nombre);
+            fdata.append("rutaenlace", $('#txtenlace').val());
+            fdata.append("FRutaArchivo", fileInput);
+            fdata.append("fechaini", $('#txtfechaini').val());
+            fdata.append("fechafin", $('#txtfechafin').val());
+            fdata.append("itipoarchivo", 1);
+            fdata.append("descripcion", $('#txtdescripcion').val());
+            $.ajax({
+                type: "POST",
+                url: '/Archivo/AgregarArchivo',
+                data: fdata,
+                processData: false,
+                contentType: false,
+                async: true,
+                success: function (msg) {
+                    $('#divcarga').removeClass("is-active");
+                    $('#modalArchivo').modal("hide");
+                    $('#modalSuccess').modal("show");
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    //location.reload();
+                },
+                complete: function (data) {
+                    // si acabo de completar
+                }
+            });
+
+        }
     </script>
 }

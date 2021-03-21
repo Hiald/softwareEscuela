@@ -245,14 +245,27 @@
 
                     $.each(value.aaData, function (index, val) {
                         var valortiparchivo = "";
-
+                        var palabraBuscar = "vacio.png";
+                        
                         if (val.Itipoarchivo == 1) {
-                            valortiparchivo = '<div class="col-md-6">'
-                                + '<a class="btn btn-info" target="_blank" href="' + val.SenlaceAlumno + '">Abrir tarea</a>'
-                                + '</div>'
-                                + '<div class="col-md-6">'
-                                + '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>'
-                                + '</div>';
+                            var string = val.SenlaceAlumno;
+                            if (string.includes(palabraBuscar)) {
+                                //si encuentra vacio la tarea
+                                valortiparchivo = '<div class="col-md-6">'
+                                    + '<label class="text-dark bg-light">No hay archivos en esta tarea</label>'
+                                    + '</div>'
+                                    + '<div class="col-md-6">'
+                                    
+                                    + '</div>';
+                            } else {
+                                valortiparchivo = '<div class="col-md-6">'
+                                    + '<a class="btn btn-info" target="_blank" href="' + val.SenlaceAlumno + '">Abrir tarea</a>'
+                                    + '</div>'
+                                    + '<div class="col-md-6">'
+                                    + '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>'
+                                    + '</div>';
+                            }
+                            
                         }
                         var enlace = val.Senlace;
                         $(valorparam).append('<div class="card">'

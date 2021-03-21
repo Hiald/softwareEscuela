@@ -175,7 +175,7 @@ namespace frontend_SoftColegio.Controllers
 
         // ACTIVO: registra las TAREAS o EJERCICIOS del profesor: admin, docente
         [HttpPost]
-        public async Task<ActionResult> AgregarArchivo(int idgrado, string nombre, string rutaenlace
+        public async Task<JsonResult> AgregarArchivo(int idgrado, string nombre, string rutaenlace
                                     , IEnumerable<HttpPostedFileBase> FRutaArchivo, string fechaini
                                     , string fechafin, int itipoarchivo, string descripcion)
         {
@@ -251,7 +251,7 @@ namespace frontend_SoftColegio.Controllers
                                 iResultado = -1,
                                 iResultadoIns = "Ha ocurrido un error, intentalo nuevamente. Error: BCK"
                             };
-                            return RedirectToAction("claseGestion", "clase");
+                            return Json(objResultado);
                         }
                     }
                 }
@@ -260,7 +260,7 @@ namespace frontend_SoftColegio.Controllers
                     iResultado = 1,
                     iResultadoIns = "correcto"
                 };
-                return RedirectToAction("claseGestion", "clase");
+                return Json(objResultado);
             }
             catch (Exception ex)
             {
