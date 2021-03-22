@@ -13,7 +13,7 @@ namespace ColegioAPI.Controllers
 
         [HttpGet]
         public int wsInsertarClase(int wsidcurso, int wssemana, string wsnombre, string wsdescripcion
-                                , string wsrutaenlace, string wsrutavideo, int wscategoria, string wsimagen
+                                , string wsrutaenlace, string wsrutavideo, string wsrutalibro, int wscategoria, string wsimagen
                                 , string wsimagenruta, int wsorden, Int16 wsestado, string wfecharegistro)
         {
             int iresultado = -1;
@@ -21,7 +21,7 @@ namespace ColegioAPI.Controllers
             {
                 itdClase = new tdClase();
                 iresultado = itdClase.tdInsertarClase(wsidcurso, wssemana, wsnombre, wsdescripcion
-                                                    , wsrutaenlace, wsrutavideo, wscategoria, wsimagen
+                                                    , wsrutaenlace, wsrutavideo, wsrutalibro, wscategoria, wsimagen
                                                     , wsimagenruta, wsorden, wsestado, DateTime.Now);
                 return iresultado;
             }
@@ -95,6 +95,22 @@ namespace ColegioAPI.Controllers
             catch (Exception ex)
             {
                 return iresultado;
+            }
+        }
+
+        [HttpGet]
+        public string wsListarClaseVivo(int widnivel, int widgrado, int widtipousuario)
+        {
+            List<edClase> wsenClase = new List<edClase>();
+            try
+            {
+                itdClase = new tdClase();
+                wsenClase = itdClase.tdListarClaseVivo(widnivel, widgrado, widtipousuario);
+                return JsonConvert.SerializeObject(wsenClase);
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex);
             }
         }
 

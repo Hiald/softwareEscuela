@@ -134,7 +134,7 @@ namespace frontend_SoftColegio.Controllers
         //ACTIVO : inserta la clase : admin
         [HttpPost]
         public async Task<JsonResult> InsertarClaseGestion(int idgrado, int isemana, string nombre, string descripcion
-            , string rutaenlace, string rutavideo, int categoria, string imagenruta
+            , string rutaenlace, string rutavideo, string rutalibro, int categoria, string imagenruta
             , int orden, string imagen)
         {
             try
@@ -150,7 +150,7 @@ namespace frontend_SoftColegio.Controllers
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage ResRegistrarCuenta = await client.GetAsync("api/clase/wsInsertarClase?wsidcurso=" + idgrado
                         + "&wssemana=" + isemana + "&wsnombre=" + nombre + "&wsdescripcion=" + descripcion
-                        + "&wsrutaenlace=" + rutaenlace + "&wsrutavideo=" + rutavideo + "&wscategoria=" + categoria
+                        + "&wsrutaenlace=" + rutaenlace + "&wsrutavideo=" + rutavideo + "&wsrutalibro=" + rutalibro + "&wscategoria=" + categoria
                         + "&wsimagen=" + imagen + "&wsimagenruta=" + imagenruta + "&wsorden=" + orden
                         + "&wsestado=" + estado + "&wfecharegistro=" + wfechaRegistro);
 

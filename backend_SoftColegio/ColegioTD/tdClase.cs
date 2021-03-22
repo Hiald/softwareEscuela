@@ -11,7 +11,7 @@ namespace ColegioTD
         adClase iadClase;
 
         public int tdInsertarClase(int tdidcurso, int tdsemana, string tdnombre, string tddescripcion
-                                , string tdrutaenlace, string tdrutavideo, int tdcategoria, string tdimagen
+                                , string tdrutaenlace, string tdrutavideo, string tdrutalibro, int tdcategoria, string tdimagen
                                 , string tdimagenruta, int tdorden, Int16 tdestado, DateTime tdfecharegistro)
         {
             int iRespuesta = -1;
@@ -24,7 +24,7 @@ namespace ColegioTD
                     {
                         iadClase = new adClase(con);
                         iRespuesta = iadClase.adInsertarClase(tdidcurso, tdsemana, tdnombre, tddescripcion
-                                                            , tdrutaenlace, tdrutavideo, tdcategoria, tdimagen
+                                                            , tdrutaenlace, tdrutavideo,tdrutalibro, tdcategoria, tdimagen
                                                             , tdimagenruta, tdorden, tdestado, tdfecharegistro);
                         scope.Commit();
                     }
@@ -111,7 +111,6 @@ namespace ColegioTD
                 //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 throw ex;
             }
-
         }
 
         public int tdActualizarClaseGestion(int tdtiproceso, int tdidclase, int tdidcurso, int tdidsemana
@@ -139,8 +138,30 @@ namespace ColegioTD
                 //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 throw ex;
             }
-
         }
 
+        public List<edClase> tdListarClaseVivo(int tdidnivel, int tdidgrado, int tdidtipousuario)
+        {
+            List<edClase> renClase = new List<edClase>();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(mysqlConexion))
+                {
+                    con.Open();
+                    using (MySqlTransaction scope = con.BeginTransaction())
+                    {
+                        iadClase = new adClase(con);
+                        renClase = iadClase.adListarClaseVivo(tdidnivel, tdidgrado, tdidtipousuario);
+                        scope.Commit();
+                    }
+                }
+                return (renClase);
+            }
+            catch (MySqlException ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessRN, UtlConstantes.LogNamespace_TProcessRN, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
+                throw ex;
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace frontendED
         public string Sdescripcion { get; set; }
         public string Srutaenlace { get; set; }
         public string SrutaVideo { get; set; }
+        public string SrutaLibro { get; set; }
         public int Icategoria { get; set; }
         public int Iestado { get; set; }
         public int Isemana { get; set; }

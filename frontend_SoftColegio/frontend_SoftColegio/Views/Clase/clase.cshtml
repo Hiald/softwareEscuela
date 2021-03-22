@@ -106,7 +106,7 @@
                                                                             </div>
 
                                                                             <div class="col-md-4">
-                                                                                <a href="@item.Srutaenlace" target="_blank" class="btn btn-danger btn-rounded">
+                                                                                <a href="@item.SrutaLibro" target="_blank" class="btn btn-danger btn-rounded">
                                                                                     <i class="mdi mdi-file-pdf"></i>
                                                                                     <span>Link PDF</span>
                                                                                 </a>
@@ -184,10 +184,10 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="txtLinkTarea">Por favor ingresar un enlace (opcional)</label>
+                            <label for="txtLinkTarea">Por favor ingresar un enlace</label>
                             <input type="text" id="txtLinkTarea" name="enlace" placeholder="Link de tarea..." class="form-control">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="display:none">
                             <div class="form-group mb-3">
                                 <label for="txtarchivo">Archivo de la tarea</label>
                                 <input type="file" id="txtarchivo" name="imagen" class="form-control"
@@ -267,9 +267,9 @@
 
                         if (val.Itipoarchivo == 1) {
                             valortiparchivo = '<div class="col-md-6">'
-                                + '<a class="btn btn-info" target="_blank" href="' + val.SenlaceAlumno + '">Abrir tarea</a>'
-                                + '</div>'
-                                + '<div class="col-md-6">'
+                                //+ '<a class="btn btn-info" target="_blank" href="' + val.SenlaceAlumno + '">Abrir tarea</a>'
+                                //+ '</div>'
+                                //+ '<div class="col-md-6">'
                                 + '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>'
                                 + '</div>';
                         }
@@ -283,7 +283,7 @@
                             + '<textarea class="form-control" rows="3">' + val.Sobservacion + '</textarea>'
                             + '</div>'
 
-                            + '<div class="col-md-12 mb-3">'
+                            + '<div class="col-md-6 mb-3">'
                             + '<a target="_blank" href="' + enlace + '" class="btn btn-primary">Enlace de la tarea</a>'
                             + '</div>'
 

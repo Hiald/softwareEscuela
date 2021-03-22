@@ -8,6 +8,7 @@ namespace ColegioED
 {
     public class edClase
     {
+        public int idclasevivo { get; set; }
         public int idcurso { get; set; }
         public int idclase { get; set; }
         public int idgrado { get; set; }
@@ -19,6 +20,7 @@ namespace ColegioED
         public string Sdescripcion { get; set; }
         public string Srutaenlace { get; set; }
         public string SrutaVideo { get; set; }
+        public string SrutaLibro { get; set; }
         public int Icategoria { get; set; }
         public int Iestado { get; set; }
         public int Isemana { get; set; }

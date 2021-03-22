@@ -73,7 +73,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-success">
-                    <h4 class="modal-title" id="dark-header-modalLabel">CLASE</h4>
+                    <h4 class="modal-title" id="dark-header-modalLabel">FORMULARIO CLASE</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -131,14 +131,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">Ruta enlace</label>
-                                <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
+                                <label for="simpleinput">Grabación de la clase</label>
+                                <input type="text" id="txtGrabacionClase" class="form-control" placeholder="Grabación de la clase...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">Ruta video</label>
-                                <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
+                                <label for="simpleinput">Ruta de la pizarra</label>
+                                <input type="text" id="txtRutaPizarra" class="form-control" placeholder="Ruta de la pizarra...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="simpleinput">Ruta del libro</label>
+                                <input type="text" id="txtRutaLibro" class="form-control" placeholder="Ruta del libro...">
                             </div>
                         </div>
                     </div>
@@ -193,7 +199,7 @@
                                     <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="display:none">
                                 <div class="form-group mb-3">
                                     <label for="txtvideo">Archivo de la tarea</label>
                                     <input type="file" id="txtvideo" name="FRutaArchivo" class="form-control"
@@ -697,8 +703,9 @@
             var slcCategoria = $('#idCategoria option:selected').attr('value');
             var txtNombre = $('#txtNombre').val();
             var txtDescripcion = $('#txtDescripcion').val();
-            var txtRutaEnlace = $('#txtRutaEnlace').val();
-            var txtRutaVideo = $('#txtRutaVideo').val();
+            var txtGrabacionClase = $('#txtGrabacionClase').val();
+            var txtRutaPizarra = $('#txtRutaPizarra').val();
+            var txtRutaLibro = $('#txtRutaLibro').val();
             var txtRutaImagen = $('#txtRutaImagen').val();
             var slcSemana = $('#idSemana option:selected').attr('value');
 
@@ -710,12 +717,12 @@
                 NotificacionAvisoDerecha("SELECCIONE EL NÚMERO DE SEMANA");
                 return;
             }
-            if (txtRutaEnlace.trim() == "") {
-                NotificacionAvisoDerecha("INGRESE LA RUTA DEL ENLACE");
+            if (txtGrabacionClase.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE LA GRABACIÓN DE LA CLASE");
                 return;
             }
-            if (txtRutaVideo.trim() == "") {
-                NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
+            if (txtRutaPizarra.trim() == "") {
+                NotificacionAvisoDerecha("INGRESE LA RUTA DE LA PIZARRA");
                 return;
             }
             var paramidusuario = $('#hddidusuario').val();
@@ -727,8 +734,9 @@
                     "isemana": slcSemana,
                     "nombre": txtNombre,
                     "descripcion": txtDescripcion,
-                    "rutaenlace": txtRutaEnlace,
-                    "rutavideo": txtRutaVideo,
+                    "rutaenlace": txtGrabacionClase,
+                    "rutavideo": txtRutaPizarra,
+                    "rutalibro": txtRutaLibro,
                     "categoria": 1,
                     "imagen": "",
                     "imagenruta": "",

@@ -33,17 +33,17 @@
             switch (sort)
             {
                 case "1":<text><h2 class="upper-text" style="color:#000">1er Grado de Primaria</h2></text>break;
-                case "2": <text><h2 class="upper-text" style="color:#000">2do Grado de Primaria</h2></text>break;
-                case "3": <text><h2 class="upper-text" style="color:#000">3er Grado de Primaria</h2></text>break;
-                case "4": <text><h2 class="upper-text" style="color:#000">4to Grado de Primaria</h2></text>break;
-                case "5": <text><h2 class="upper-text" style="color:#000">5to Grado de Primaria</h2></text>break;
-                case "6": <text><h2 class="upper-text" style="color:#000">6to Grado de Primaria</h2></text>break;
-                case "7": <text><h2 class="upper-text" style="color:#000">1er Grado de Secundaria</h2></text>break;
-                case "8": <text><h2 class="upper-text" style="color:#000">2do Grado de Secundaria</h2></text>break;
-                case "9": <text><h2 class="upper-text" style="color:#000">3er Grado de Secundaria</h2></text>break;
-                case "10": <text><h2 class="upper-text" style="color:#000">PRE</h2></text>break;
+            case "2": <text><h2 class="upper-text" style="color:#000">2do Grado de Primaria</h2></text>break;
+        case "3": <text><h2 class="upper-text" style="color:#000">3er Grado de Primaria</h2></text>break;
+    case "4": <text><h2 class="upper-text" style="color:#000">4to Grado de Primaria</h2></text>break;
+case "5": <text><h2 class="upper-text" style="color:#000">5to Grado de Primaria</h2></text>break;
+case "6": <text><h2 class="upper-text" style="color:#000">6to Grado de Primaria</h2></text>break;
+case "7": <text><h2 class="upper-text" style="color:#000">1er Grado de Secundaria</h2></text>break;
+case "8": <text><h2 class="upper-text" style="color:#000">2do Grado de Secundaria</h2></text>break;
+case "9": <text><h2 class="upper-text" style="color:#000">3er Grado de Secundaria</h2></text>break;
+case "10": <text><h2 class="upper-text" style="color:#000">PRE</h2></text>break;
 
-            }
+}
         }
         <h3 class="upper-text"></h3>
         <div class="mb-3 row justify-content-center">
@@ -52,11 +52,20 @@
             </div>
         </div>
 
-        <div class="row justify-content-center">
-            <button type="button" class="btn btn-warning btn-lg btn-rounded">
-                <i class="mdi mdi-rocket mr-1"></i> 
-                <span>Ir a la clase en vivo</span> 
-            </button>
-        </div>
+        @foreach (var @item in ViewBag.Lista)
+        {
+            <div class="row justify-content-center">
+                <a href="@item.SrutaVideo" target="_blank" class="btn btn-warning btn-lg btn-rounded">
+                    <i class="mdi mdi-rocket mr-1"></i>
+                    <span>Ir a la clase en vivo</span>
+                </a>
+            </div>
+        }
+
+        @*<button type="button" class="btn btn-warning btn-lg btn-rounded">
+            <i class="mdi mdi-rocket mr-1"></i>
+            <span>Ir a la clase en vivo</span>
+        </button>*@
+
     </div>
 </div>

@@ -14,11 +14,13 @@ namespace ColegioAD
         }
 
         public int adInsertarClase(int adidcurso, int adsemana, string adnombre, string addescripcion
-                                , string adrutaenlace, string adrutavideo, int adcategoria, string adimagen
+                                , string adrutaenlace, string adrutavideo, string adrutalibro, int adcategoria, string adimagen
                                 , string adimagenruta, int adorden, Int16 adestado, DateTime adfecharegistro)
         {
             try
             {
+                //"rutaenlace": txtGrabacionClase,
+                //"rutavideo": txtRutaPizarra,
                 int result = -1;
                 MySqlCommand cmd = new MySqlCommand("sp_insertar_clase", cnMysql);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -26,6 +28,7 @@ namespace ColegioAD
                 cmd.Parameters.Add("_descripcion", MySqlDbType.VarChar, 500).Value = addescripcion;
                 cmd.Parameters.Add("_rutaenlace", MySqlDbType.VarChar, 500).Value = adrutaenlace;
                 cmd.Parameters.Add("_rutavideo", MySqlDbType.VarChar, 500).Value = adrutavideo;
+                cmd.Parameters.Add("_rutalibro", MySqlDbType.VarChar, 500).Value = adrutalibro;
                 cmd.Parameters.Add("_categoria", MySqlDbType.Int32).Value = adcategoria;
                 cmd.Parameters.Add("_idcurso", MySqlDbType.Int32).Value = adidcurso;
                 cmd.Parameters.Add("_semana", MySqlDbType.Int32).Value = adsemana;
@@ -149,6 +152,7 @@ namespace ColegioAD
                             int pos_vdescripcion = mdrd.GetOrdinal("v_descripcion");
                             int pos_vrutaenlace = mdrd.GetOrdinal("v_ruta_enlace");
                             int pos_vrutavideo = mdrd.GetOrdinal("v_ruta_video");
+                            int pos_vrutalibro = mdrd.GetOrdinal("v_ruta_libro");
                             int pos_icategoria = mdrd.GetOrdinal("i_categoria");
                             int pos_vimagen = mdrd.GetOrdinal("v_imagen");
                             int pos_vimagenruta = mdrd.GetOrdinal("v_imagen_ruta");
@@ -164,6 +168,7 @@ namespace ColegioAD
                                 sClase.Sdescripcion = (mdrd.IsDBNull(pos_vdescripcion) ? "-" : mdrd.GetString(pos_vdescripcion));
                                 sClase.Srutaenlace = (mdrd.IsDBNull(pos_vrutaenlace) ? "-" : mdrd.GetString(pos_vrutaenlace));
                                 sClase.SrutaVideo = (mdrd.IsDBNull(pos_vrutavideo) ? "-" : mdrd.GetString(pos_vrutavideo));
+                                sClase.SrutaLibro = (mdrd.IsDBNull(pos_vrutalibro) ? "-" : mdrd.GetString(pos_vrutalibro));
                                 sClase.Icategoria = (mdrd.IsDBNull(pos_icategoria) ? 0 : mdrd.GetInt32(pos_icategoria));
                                 sClase.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
                                 sClase.SimagenRuta = (mdrd.IsDBNull(pos_vimagenruta) ? "-" : mdrd.GetString(pos_vimagenruta));
@@ -207,6 +212,45 @@ namespace ColegioAD
             catch (Exception ex)
             {
                 //utllog.towrite(utlconstantes.tprocessad, utlconstantes.lognamespace_tprocessad, this.gettype().name.tostring(), methodbase.getcurrentmethod().name, utlconstantes.logtipoerror, "", ex.stacktrace.tostring(), ex.message.tostring());
+                throw ex;
+            }
+        }
+
+        public List<edClase> adListarClaseVivo(int idnivel, int idgrado, int idtipousuario)
+        {
+            try
+            {
+                List<edClase> slClase = new List<edClase>();
+                using (MySqlCommand cmd = new MySqlCommand("sp_listar_clase_vivo", cnMysql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("_idnivel", MySqlDbType.Int32).Value = idnivel;
+                    cmd.Parameters.Add("_idgrado", MySqlDbType.Int32).Value = idgrado;
+                    cmd.Parameters.Add("_idtipousuario", MySqlDbType.Int32).Value = idtipousuario;
+
+                    using (MySqlDataReader mdrd = cmd.ExecuteReader())
+                    {
+                        if (mdrd != null)
+                        {
+                            edClase sClase = null;
+                            int pos_idclasevivo = mdrd.GetOrdinal("idclasevivo");
+                            int pos_rutavideo = mdrd.GetOrdinal("v_rutavideo");
+
+                            while (mdrd.Read())
+                            {
+                                sClase = new edClase();
+                                sClase.idclasevivo = (mdrd.IsDBNull(pos_idclasevivo) ? 0 : mdrd.GetInt32(pos_idclasevivo));
+                                sClase.SrutaVideo = (mdrd.IsDBNull(pos_rutavideo) ? "-" : mdrd.GetString(pos_rutavideo));
+                                slClase.Add(sClase);
+                            }
+                        }
+                    }
+                    return slClase;
+                }
+            }
+            catch (Exception ex)
+            {
+                //UtlLog.toWrite(UtlConstantes.TProcessAD, UtlConstantes.LogNamespace_TProcessAD, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 throw ex;
             }
         }
