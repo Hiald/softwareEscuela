@@ -246,7 +246,7 @@
                     $.each(value.aaData, function (index, val) {
                         var valortiparchivo = "";
                         var palabraBuscar = "vacio.png";
-                        
+
                         if (val.Itipoarchivo == 1) {
                             var string = val.SenlaceAlumno;
                             if (string.includes(palabraBuscar)) {
@@ -255,7 +255,7 @@
                                     + '<label class="text-dark bg-light">No hay archivos en esta tarea</label>'
                                     + '</div>'
                                     + '<div class="col-md-6">'
-                                    
+                                    + '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>'
                                     + '</div>';
                             } else {
                                 valortiparchivo = '<div class="col-md-6">'
@@ -265,9 +265,13 @@
                                     + '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>'
                                     + '</div>';
                             }
-                            
+
                         }
                         var enlace = val.Senlace;
+                        var valorenlace = '<a target="_blank" href="' + enlace + '" class="btn btn-primary">Enlace de la tarea</a>';
+                        if (enlace == "-" || enlace == "") {
+                            valorenlace = '<a class="btn btn-primary text-white">Enlace de la tarea</a>';
+                        }
                         $(valorparam).append('<div class="card">'
                             + '<div class="card-body">'
                             + '<div class="row">'
@@ -278,7 +282,7 @@
                             + '</div>'
 
                             + '<div class="col-md-12 mb-3">'
-                            + '<a target="_blank" href="' + enlace + '" class="btn btn-primary">Enlace de la tarea</a>'
+                            + valorenlace
                             + '</div>'
 
                             + valortiparchivo
