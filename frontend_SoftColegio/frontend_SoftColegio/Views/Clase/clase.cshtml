@@ -154,38 +154,35 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("InsertarArchivoAlumno", "archivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <input type="hidden" value="@ViewBag.IdCurso" name="pidcurso" />
-                    <input type="hidden" value="@ViewBag.Curso" name="snombrecurso" />
+                <input type="hidden" value="@ViewBag.IdCurso" name="pidcurso" id="hddidcurso" />
+                <input type="hidden" value="@ViewBag.Curso" name="snombrecurso" id="hddnombrecurso" />
 
-                    <input type="hidden" value="" name="idarchivo" id="IdArchivo" />
-                    <input type="hidden" value="0" name="nota" />
-                    <input type="hidden" value="" name="observacion" />
+                <input type="hidden" value="" name="idarchivo" id="IdArchivo" />
+                <input type="hidden" value="0" name="nota" />
+                <input type="hidden" value="" name="observacion" />
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="txtLinkTarea">Por favor ingresar un enlace (opcional)</label>
-                            <input type="text" id="txtLinkTarea" name="enlace" placeholder="Link de tarea..." class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="txtarchivo">Archivo de la tarea</label>
-                                <input type="file" id="txtarchivo" name="imagen" class="form-control"
-                                       accept="application/msword, application/vnd.ms-powerpoint, text/plain
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="txtLinkTarea">Por favor ingresar un enlace (opcional)</label>
+                        <input type="text" id="txtLinkTarea" name="enlace" placeholder="Link de tarea..." class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="txtarchivo">Archivo de la tarea</label>
+                            <input type="file" id="txtarchivo" name="imagen" class="form-control"
+                                   accept="application/msword, application/vnd.ms-powerpoint, text/plain
                                                 , application/pdf, image/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
                                                  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="txtDescripcion">Descripción (opcional)</label>
-                            <textarea rows="4" id="txtDescripcion" name="descripcion"
-                                      placeholder="..." class="form-control"></textarea>
                         </div>
                     </div>
-                    <br />
-                    <button id="btnSubirTarea" type="submit" class="btn btn-success">Subir</button>
-                }
+                    <div class="col-md-12">
+                        <label for="txtDescripcion">Descripción (opcional)</label>
+                        <textarea rows="4" id="txtDescripcion" name="descripcion"
+                                  placeholder="..." class="form-control"></textarea>
+                    </div>
+                </div>
+                <br />
+                <button id="btnSubirTarea" onclick="fnAgregarTarea();" type="submit" class="btn btn-success">Subir</button>
             </div>
         </div>
     </div>
@@ -318,7 +315,7 @@
                     console.log(data);
                     if (data.aaData.length == 0) {
                     } else {
-                        NotificacionSuccessDerecha("Ya hay una tarea subida aquí");
+                        NotificacionSuccessDerecha("YA HAY UNA TAREA SUBIDA AQUÍ.");
                     }
                 },
                 error: function (data) {
@@ -328,6 +325,37 @@
             $('#modalSubirTarea').modal("show");
         }
 
+        function fnAgregarTarea() {
+            $('#divcarga').addClass("is-active");
+
+            var fdata = new FormData();
+            var fileInput = $('#txtarchivo')[0].files[0];
+            fdata.append("pidcurso", $('#hddidcurso').val());
+            fdata.append("snombrecurso", $('#hddnombrecurso').val());
+            fdata.append("idarchivo", $('#IdArchivo').val());
+            fdata.append("nota", 0);
+            fdata.append("observacion", "");
+            fdata.append("enlace", $('#txtLinkTarea').val());
+            fdata.append("imagen", fileInput);
+            fdata.append("descripcion", $('#txtDescripcion').val());
+
+            $.ajax({
+                type: 'post',
+                url: RutaPrincipal + 'archivo/InsertarArchivoAlumno',
+                data: fdata,
+                processData: false,
+                contentType: false,
+                async: true
+            }).done(function (result) {
+                $('#divcarga').removeClass("is-active");
+                $('#txtLinkTarea').val("");
+                $('#txtarchivo').val("");
+                $('#txtDescripcion').val("");
+                NotificacionSuccessDerecha("TAREA SUBIDA CORRECTAMENTE");
+                $('#modalSubirTarea').modal("hide");
+            });
+
+        }
     </script>
 }
 
