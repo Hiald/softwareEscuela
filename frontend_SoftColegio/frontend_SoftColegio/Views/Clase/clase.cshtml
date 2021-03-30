@@ -86,31 +86,41 @@
                                                                                 <label>Descripción de la clase</label>
                                                                                 <textarea class="form-control" rows="3">@item.Sdescripcion</textarea>
                                                                             </div>
-                                                                            <div class="col-md-4">
-                                                                                <a href="@item.SrutaVideo" target="_blank" class="btn btn-warning btn-rounded">
-                                                                                    <i class="mdi mdi-video-wireless-outline"></i>
-                                                                                    <span>Ruta de la grabación</span>
-                                                                                </a>
-                                                                            </div>
+                                                                            @if (item.SrutaVideo != "")
+                                                                            {
+                                                                                <div class="col-md-4">
+                                                                                    <a href="@item.SrutaVideo" target="_blank" class="btn btn-warning btn-rounded">
+                                                                                        <i class="mdi mdi-video-wireless-outline"></i>
+                                                                                        <span>Ruta de la grabación</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            }
+
 
                                                                             @*<button type="button" class="btn btn-warning btn-lg btn-rounded">
                                                                                 <i class="mdi mdi-rocket mr-1"></i>
                                                                                 <span>Ir a la clase en vivo</span>
                                                                                 </button>*@
-
-                                                                            <div class="col-md-4">
-                                                                                <a href="@item.Srutaenlace" target="_blank" class="btn btn-success btn-rounded">
-                                                                                    <i class="mdi mdi-video-wireless-outline"></i>
-                                                                                    <span>Ruta del video de clase</span>
-                                                                                </a>
-                                                                            </div>
-
-                                                                            <div class="col-md-4">
-                                                                                <a href="@item.SrutaLibro" target="_blank" class="btn btn-danger btn-rounded">
-                                                                                    <i class="mdi mdi-file-pdf"></i>
-                                                                                    <span>Link PDF</span>
-                                                                                </a>
-                                                                            </div>
+                                                                            @if (item.Srutaenlace != "")
+                                                                            {
+                                                                                <div class="col-md-4">
+                                                                                    <a href="@item.Srutaenlace" target="_blank" class="btn btn-success btn-rounded">
+                                                                                        <i class="mdi mdi-video-wireless-outline"></i>
+                                                                                        <span>Ruta del video de clase</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            }
+                                                                            
+                                                                            @if (item.SrutaLibro != "")
+                                                                            {
+                                                                                <div class="col-md-4">
+                                                                                    <a href="@item.SrutaLibro" target="_blank" class="btn btn-danger btn-rounded">
+                                                                                        <i class="mdi mdi-file-pdf"></i>
+                                                                                        <span>Link PDF</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            }
+                                                                            
 
                                                                         </div>
                                                                         <br />
