@@ -699,6 +699,8 @@
         }
 
         $("#btnGuardar").click(function () {
+            var slcNivel = $('#idNivel option:selected').attr('value');
+            var slcGrado = $('#idGrado option:selected').attr('value');
             var slcCurso = $('#idCurso option:selected').attr('value');
             var slcCategoria = $('#idCategoria option:selected').attr('value');
             var txtNombre = $('#txtNombre').val();
@@ -709,6 +711,19 @@
             var txtRutaImagen = $('#txtRutaImagen').val();
             var slcSemana = $('#idSemana option:selected').attr('value');
 
+            if (slcNivel.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONE EL NIVEL");
+                return;
+            }
+            if (slcGrado.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONE EL GRADO");
+                return;
+            }
+            if (slcCurso.trim() == 0) {
+                NotificacionAvisoDerecha("SELECCIONE EL CURSO");
+                return;
+            }
+
             if (txtNombre.trim() == "") {
                 NotificacionAvisoDerecha("INGRESE EL NOMBRE DE LA CLASE");
                 return;
@@ -717,16 +732,11 @@
                 NotificacionAvisoDerecha("SELECCIONE EL NÚMERO DE SEMANA");
                 return;
             }
-            if (txtGrabacionClase.trim() == "") {
-                NotificacionAvisoDerecha("INGRESE LA GRABACIÓN DE LA CLASE");
-                return;
-            }
-            if (txtRutaPizarra.trim() == "") {
-                NotificacionAvisoDerecha("INGRESE LA RUTA DE LA PIZARRA");
-                return;
-            }
+
             var paramidusuario = $('#hddidusuario').val();
-            $.ajax({
+            $('#divcarga').addClass("is-active");
+
+            $.ajax({                
                 type: "POST",
                 url: '/Clase/InsertarClaseGestion',
                 data: {
@@ -742,12 +752,13 @@
                     "imagenruta": "",
                     "orden": paramidusuario
                 },
-                async: false,
+                async: true,
                 success: function (msg) {
                     $('#modalClase').modal("hide");
                     $('#modalSuccess').modal("show");
                     GvalorIdCurso = 0;
                     fn_listartabla(GvalorIdCurso);
+                    $('#divcarga').removeClass("is-active");
                 },
                 error: function (msg) {
                     console.log(msg);

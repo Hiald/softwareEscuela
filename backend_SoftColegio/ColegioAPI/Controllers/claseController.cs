@@ -17,6 +17,19 @@ namespace ColegioAPI.Controllers
                                 , string wsimagenruta, int wsorden, Int16 wsestado, string wfecharegistro)
         {
             int iresultado = -1;
+
+            if (wsrutaenlace == null)
+            {
+                wsrutaenlace = "";
+            }
+            if (wsrutavideo == null)
+            {
+                wsrutavideo = "";
+            }
+            if (wsrutalibro == null)
+            {
+                wsrutalibro = "";
+            }
             try
             {
                 itdClase = new tdClase();

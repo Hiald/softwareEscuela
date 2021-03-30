@@ -28,6 +28,7 @@ namespace frontend_SoftColegio.Controllers
                 ViewBag.GrolUsuario = irolusuario;
                 ViewBag.GNombreUsuario = susuario;
                 ViewBag.GGradoUsuario = UtlAuditoria.ObtenerIdGrado();
+                ViewBag.GTipoUsuario = UtlAuditoria.ObtenerTipoUsuario();
                 int idnivel = UtlAuditoria.ObtenerIdNivel();
                 int idgrado = UtlAuditoria.ObtenerIdGrado();
                 int idtipousuario = UtlAuditoria.ObtenerTipoUsuario();
