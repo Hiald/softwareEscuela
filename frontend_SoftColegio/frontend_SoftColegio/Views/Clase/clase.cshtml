@@ -99,8 +99,6 @@
                                                                     <div class="tab-pane fade"
                                                                          id="@("vtarea-" + item.idclase)" role="tabpanel"
                                                                          aria-labelledby="@("vtarea-" + item.idclase + "-tab")">
-
-
                                                                     </div>
                                                                     @*<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                                                                             <p class="mb-0">examenn</p>
@@ -193,7 +191,6 @@
 
 @section scripts{
     <script>
-
         $(document).ready(function () {
             //fn_ListarClase();
         });
@@ -246,7 +243,34 @@
                     $.each(value.aaData, function (index, val) {
                         var valortiparchivo = "";
                         var palabraBuscar = "vacio.png";
-                        
+                        var valoridarchivo = "";
+
+                        // ini llamada ajax
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/archivo/ListarArchivoAlumno",
+                            data: {
+                                "idarchivo": parseInt(val.idarchivo),
+                            },
+                            async: false,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.aaData.length == 0) {
+                                    valoridarchivo = '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>';
+                                } else {
+                                    //NotificacionSuccessDerecha("Ya hay una tarea subida aquí");
+                                    valoridarchivo = '<label class="text-dark bg-light">Ya subiste tu tarea aquí</label>';
+                                }
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            }
+                        });
+
+                        // fin llamada ajax
+
+
                         if (val.Itipoarchivo == 1) {
                             var string = val.SenlaceAlumno;
                             if (string.includes(palabraBuscar)) {
@@ -255,17 +279,16 @@
                                     + '<label class="text-dark bg-light">No hay archivos en esta tarea</label>'
                                     + '</div>'
                                     + '<div class="col-md-6">'
-                                    
+                                    + valoridarchivo
                                     + '</div>';
                             } else {
                                 valortiparchivo = '<div class="col-md-6">'
                                     + '<a class="btn btn-info" target="_blank" href="' + val.SenlaceAlumno + '">Abrir tarea</a>'
                                     + '</div>'
                                     + '<div class="col-md-6">'
-                                    + '<button type="button" onclick="TraerIdArchivo(' + val.idarchivo + ')" class="btn btn-success">Subir Tarea</button>'
+                                    + valoridarchivo
                                     + '</div>';
                             }
-                            
                         }
                         var enlace = val.Senlace;
                         $(valorparam).append('<div class="card">'
