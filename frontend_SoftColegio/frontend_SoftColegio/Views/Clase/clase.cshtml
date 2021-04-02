@@ -185,6 +185,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="hddarchivohide" value="" />
 
 @section scripts{
     <script>
@@ -243,7 +244,7 @@
                         var valoridarchivo = "";
 
                         // ini llamada ajax
-
+                        $('#hddarchivohide').val(idclase);
                         $.ajax({
                             type: "POST",
                             url: "/archivo/ListarArchivoAlumno",
@@ -376,6 +377,8 @@
                 $('#txtDescripcion').val("");
                 NotificacionSuccessDerecha("TAREA SUBIDA CORRECTAMENTE");
                 $('#modalSubirTarea').modal("hide");
+                var gvalorTag = $('#hddarchivohide').val();
+                $('#vclase-' + gvalorTag + '-tab').attr('href', '#vclase-' + gvalorTag).click();
             });
 
         }
