@@ -49,6 +49,7 @@
     <Compile Include="adCalificacion.cs" />
     <Compile Include="adClase.cs" />
     <Compile Include="adCurso.cs" />
+    <Compile Include="adHorario.cs" />
     <Compile Include="adPago.cs" />
     <Compile Include="adUsuario.cs" />
     <Compile Include="ad_aglobal.cs" />

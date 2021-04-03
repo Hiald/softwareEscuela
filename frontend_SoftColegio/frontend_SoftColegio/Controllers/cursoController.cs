@@ -120,7 +120,6 @@ namespace frontend_SoftColegio.Controllers
                 //UtlLog.toWrite(UtlConstantes.PizarraWEB, UtlConstantes.LogNamespace_PizarraWEB, this.GetType().Name.ToString(), MethodBase.GetCurrentMethod().Name, UtlConstantes.LogTipoError, "", ex.StackTrace.ToString(), ex.Message.ToString());
                 return Json(ex);
             }
-
         }
 
         //ACTIVO : lista los grados dependiendo del nivel

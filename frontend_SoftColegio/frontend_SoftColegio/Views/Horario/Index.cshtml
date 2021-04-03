@@ -144,7 +144,47 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-        $('#tablaHorario').DataTable();
+
+            $('#tablaHorario').DataTable(
+                {
+                    "ajax": {
+                        "url": "/Horario/Index",
+                        "type": "POST",
+                        "datatype": "json",
+                        "data": {
+
+                        }
+                    },
+                    //"bServerSide": true,
+                    "bProcessing": true,
+                    "language": {
+                        "info": "",
+                        "infoEmpty": "",
+                        "infoFiltered": "",
+                        "emptyTable": "No se encontraron registros",
+                        "sZeroRecords": "No se encontraron registros.",
+                        "processing": "Cargando. Por favor espere...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "sSearch": "Buscar:"
+                    },
+                    "columns": [
+
+                        { "data": "Snombres" },
+                        { "data": "Sapellidos" },
+                        { "data": "SnombreNivel" },
+                        { "data": "SnombreGrado" },
+                        { "data": "SnombreCurso" }
+                    ],
+                    "aoColumnDefs":
+                        [
+                        ]
+                }
+            );
         });
 
     </script>

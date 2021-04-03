@@ -129,6 +129,7 @@
     <Compile Include="Controllers\claseController.cs" />
     <Compile Include="Controllers\cursoController.cs" />
     <Compile Include="Controllers\homeController.cs" />
+    <Compile Include="Controllers\horarioController.cs" />
     <Compile Include="Controllers\pagoController.cs" />
     <Compile Include="Controllers\usuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -152,6 +153,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\asistencia\" />
     <Folder Include="Views\curso\" />
+    <Folder Include="Views\horario\" />
     <Folder Include="Views\pago\" />
   </ItemGroup>
   <ItemGroup>

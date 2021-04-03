@@ -50,6 +50,7 @@
     <Compile Include="tdCalificacion.cs" />
     <Compile Include="tdClase.cs" />
     <Compile Include="tdCurso.cs" />
+    <Compile Include="tdHorario.cs" />
     <Compile Include="tdPago.cs" />
     <Compile Include="tdUsuario.cs" />
     <Compile Include="td_aglobal.cs" />
