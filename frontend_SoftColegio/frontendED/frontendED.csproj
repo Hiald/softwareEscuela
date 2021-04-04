@@ -45,6 +45,7 @@
     <Compile Include="edCalificacion.cs" />
     <Compile Include="edClase.cs" />
     <Compile Include="edCurso.cs" />
+    <Compile Include="edHorario.cs" />
     <Compile Include="edPago.cs" />
     <Compile Include="edUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

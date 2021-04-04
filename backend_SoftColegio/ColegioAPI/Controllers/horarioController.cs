@@ -14,7 +14,7 @@ namespace ColegioAPI.Controllers
         // GET: horario
        
         [HttpGet]
-        public string wsListarClaseVivo(int widnivel, int widgrado)
+        public string wsListarHorario(int widnivel, int widgrado)
         {
             List<edHorario> wsenClase = new List<edHorario>();
             try
