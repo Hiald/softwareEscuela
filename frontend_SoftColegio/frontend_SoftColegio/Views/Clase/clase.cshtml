@@ -85,13 +85,19 @@
                                                                                 <label>Descripción de la clase</label>
                                                                                 <textarea class="form-control" rows="3">@item.Sdescripcion</textarea>
                                                                             </div>
-                                                                            <div class="col-md-6">
+                                                                            <div class="col-md-4">
                                                                                 <label>Enlace video</label>
                                                                                 <input class="form-control" type="text" value="@item.SrutaVideo" />
                                                                             </div>
-                                                                            <div class="col-md-6">
+                                                                            <div class="col-md-8">
                                                                                 <label>Enlace</label>
-                                                                                <input class="form-control" type="text" value="@item.Srutaenlace" />
+                                                                                <div class="input-group">
+                                                                                    <input class="form-control" type="text" value="@item.Srutaenlace" />
+                                                                                    <div class="input-group-append">
+                                                                                        <a class="btn btn-info text-white" href="@item.Srutaenlace" target="_blank">Ir al enlace</a>
+                                                                                    </div>
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
                                                                         <br />
