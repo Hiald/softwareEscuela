@@ -151,9 +151,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\2anios.jpeg" />
+    <Content Include="assets\2anios1.png" />
+    <Content Include="assets\2anios2.png" />
     <Content Include="assets\3anios.jpeg" />
+    <Content Include="assets\3anios1.png" />
+    <Content Include="assets\3anios2.png" />
     <Content Include="assets\4anios.jpeg" />
+    <Content Include="assets\4anios1.png" />
+    <Content Include="assets\4anios2.png" />
     <Content Include="assets\5anios.jpeg" />
+    <Content Include="assets\5anios1.png" />
+    <Content Include="assets\5anios2.png" />
     <Content Include="assets\css\app-dark.min.css" />
     <Content Include="assets\css\app.min.css" />
     <Content Include="assets\css\burger.svg" />

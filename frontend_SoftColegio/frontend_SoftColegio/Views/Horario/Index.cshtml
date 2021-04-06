@@ -1,7 +1,21 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    @@media only screen and (max-width: 600px) {
+        #idimg {
+            height: 170px !important;
+        }
 
+        #idimg2 {
+            height: 170px !important;
+        }
+
+        #idimg3 {
+            height: 170px !important;
+        }
+    }
+</style>
 <div class="container-fluid">
 
     <div class="row">
@@ -21,7 +35,6 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -33,18 +46,26 @@
                                 if (ViewBag.GidGrado == 1)
                                 {
                                     <img class="rounded" height="400" src="~/assets/3anios.jpeg" />
+                                    <img class="rounded" height="400" src="~/assets/3anios1.png" />
+                                    <img class="rounded" height="400" src="~/assets/3anios2.png" />
                                 }
                                 else if (ViewBag.GidGrado == 2)
                                 {
                                     <img class="rounded" height="400" src="~/assets/4anios.jpeg" />
+                                    <img class="rounded" height="400" src="~/assets/4anios1.png" />
+                                    <img class="rounded" height="400" src="~/assets/4anios2.png" />
                                 }
                                 else if (ViewBag.GidGrado == 3)
                                 {
                                     <img class="rounded" height="400" src="~/assets/5anios.jpeg" />
+                                    <img class="rounded" height="400" src="~/assets/5anios1.png" />
+                                    <img class="rounded" height="400" src="~/assets/5anios2.png" />
                                 }
                                 else if (ViewBag.GidGrado == 5)
                                 {
                                     <img class="rounded" height="400" src="~/assets/2anios.jpeg" />
+                                    <img class="rounded" height="400" src="~/assets/2anios1.png" />
+                                    <img class="rounded" height="400" src="~/assets/2anios2.png" />
                                 }
 
                             }
@@ -66,6 +87,8 @@
                                     <br />
                                     <div class="col-md-12 col-lg-12 text-center">
                                         <img id="idimg" class="rounded" height="400" src="" />
+                                        <img id="idimg2" class="rounded" height="400" src="" />
+                                        <img id="idimg3" class="rounded" height="400" src="" />
                                     </div>
                                 </div>
 
@@ -76,29 +99,42 @@
             </div>
         </div>
     </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tablaHorario').DataTable();
+            $('#divimg').css("display", "none");
+            $('#idGrado').change(function () {
+                var idgrado = $('#idGrado').val();
+                if (idgrado != "0") {
 
-    @section scripts{
-        <script>
-            $(document).ready(function () {
-                $('#tablaHorario').DataTable();
-                $('#divimg').css("display", "none");
-                $('#idGrado').change(function () {
-                    var idgrado = $('#idGrado').val();
-                    if (idgrado != "0") {
-                        switch (idgrado) {
-                            case "1": $('#idimg').attr("src", "/assets/3anios.jpeg"); break;
-                            case "2": $('#idimg').attr("src", "/assets/4anios.jpeg"); break;
-                            case "3": $('#idimg').attr("src", "/assets/5anios.jpeg"); break;
-                            case "5": $('#idimg').attr("src", "/assets/2anios.jpeg"); break;
-                        }
-                        $('#divimg').css("display", "block");
-                    } else {
-                        $('#divimg').css("display", "none");
+                    if (idgrado == "1") {
+                        $('#idimg').attr("src", "/assets/3anios.jpeg");
+                        $('#idimg2').attr("src", "/assets/3anios1.png");
+                        $('#idimg3').attr("src", "/assets/3anios2.png");
+                    } else if (idgrado == "2") {
+                        $('#idimg').attr("src", "/assets/4anios.jpeg");
+                        $('#idimg2').attr("src", "/assets/4anios1.png");
+                        $('#idimg3').attr("src", "/assets/4anios2.png");
+                    } else if (idgrado == "3") {
+                        $('#idimg').attr("src", "/assets/5anios.jpeg");
+                        $('#idimg2').attr("src", "/assets/5anios1.png");
+                        $('#idimg3').attr("src", "/assets/5anios2.png");
+                    } else if (idgrado == "5") {
+                        $('#idimg').attr("src", "/assets/2anios.jpeg");
+                        $('#idimg2').attr("src", "/assets/2anios1.png");
+                        $('#idimg3').attr("src", "/assets/2anios2.png");
                     }
-                });
+
+                    $('#divimg').css("display", "block");
+                } else {
+                    $('#divimg').css("display", "none");
+                }
             });
+        });
 
 
-        </script>
-    }
+    </script>
+}
 
