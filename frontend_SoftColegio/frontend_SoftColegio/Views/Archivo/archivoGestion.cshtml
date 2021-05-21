@@ -24,25 +24,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="idNivelg">Nivel</label>
-                                <select class="form-control" id="idNivelg"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="idGradog">Grado</label>
                                 <select class="form-control" id="idGradog"></select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="idCursog">Curso</label>
                                 <select class="form-control" id="idCursog"></select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="idClaseg">Clase</label>
                                 <select class="form-control" id="idClaseg"></select>
@@ -178,56 +172,17 @@
 
     <script>
         var GvalorIdCurso = 0;
-
-        function fn_ListarNivel() {
-
-            $('#idNivelg').find('option').remove();
-            $('#idNivel').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarNivel",
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay niveles, intenta agregar algunos!");
-                    }
-                    $('#idNivelg').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivelg').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-
-                    $('#idNivel').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivel').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
+        
         function fn_ListarGrado() {
             var dtipousuario = $('#hddtipousuario').val();
             var idusuarioparam = $('#hddidusuario').val();
-            var inivelvalor = $('#idNivelg option:selected').attr('value');
-            var inivelvalornuevo = $('#idNivel option:selected').attr('value');
 
             $('#idGradog').find('option').remove();
             $.ajax({
                 type: "POST",
                 url: "/curso/ListarGrado",
                 data: {
-                    "widnivel": parseInt(inivelvalor),
+                    "widnivel": parseInt(1),
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -255,7 +210,7 @@
                 data: {
                     "valoritipousuario": dtipousuario,
                     "widusuario": idusuarioparam,
-                    "idnivel": inivelvalornuevo,
+                    "idnivel": 1,
                     "idgrado": 0,
                     "idcurso": 0
                 },
@@ -281,7 +236,6 @@
         }
 
         function fn_ListarCurso() {
-            var slcnivelg = $('#idNivelg option:selected').attr('value');
             var slcgradog = $('#idGradog option:selected').attr('value');
 
             var dtipousuario = $('#hddtipousuario').val();
@@ -295,7 +249,7 @@
                     url: "/clase/ListarClaseGestion",
                     data: {
                         "idgrado": parseInt(slcgradog),
-                        "idnivel": parseInt(slcnivelg)
+                        "idnivel": parseInt(1)
                     },
                     success: function (data) {
                         if (data.data === "") {
@@ -316,7 +270,6 @@
                 });
 
             } else {
-                var inivelvalor = $('#idNivelg option:selected').attr('value');
                 var igradovalor = $('#idGradog option:selected').attr('value');
                 $('#idCursog').find('option').remove();
                 $.ajax({
@@ -325,7 +278,7 @@
                     data: {
                         "valoritipousuario": 4,
                         "widusuario": idusuarioparam,
-                        "idnivel": inivelvalor,
+                        "idnivel": 1,
                         "idgrado": igradovalor,
                         "idcurso": 0
                     },
@@ -480,21 +433,7 @@
         }
 
         $(document).ready(function () {
-            fn_ListarNivel();
-
-            $('#idNivelg').on('change', function () {
-                if ($('#idNivelg option:selected').attr('value') == "") {
-                    $('#idGradog').find('option').remove();
-                    $('#idCursog').find('option').remove();
-                    $('#idClaseg').find('option').remove();
-                    return;
-                }
-                $('#idGradog').find('option').remove();
-                $('#idCursog').find('option').remove();
-                $('#idClaseg').find('option').remove();
-                fn_ListarGrado();
-            });
-
+            fn_ListarGrado();
             $('#idGradog').on('change', function () {
                 if ($('#idGradog option:selected').attr('value') == "") {
                     $('#idCursog').find('option').remove();

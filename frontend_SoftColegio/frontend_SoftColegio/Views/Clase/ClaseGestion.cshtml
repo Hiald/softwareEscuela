@@ -27,19 +27,13 @@
                         </button>
                     </p>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label for="idNivelg">Nivel</label>
-                                <select class="form-control" id="idNivelg"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idGradog">Grado</label>
                                 <select class="form-control" id="idGradog"></select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idCursog">Curso</label>
                                 <select class="form-control" id="idCursog"></select>
@@ -51,13 +45,10 @@
                             <table id="tblClase" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th width="10%">Clase</th>
-                                        <th width="10%">Curso</th>
-                                        <th width="10%">Enlace</th>
-                                        <th width="15%">Video</th>
-                                        <th width="15%"></th>
-                                        <th width="15%"></th>
-                                        <th width="15%"></th>
+                                        <th width="70%">Nombre</th>
+                                        <th width="10%"></th>
+                                        <th width="10%"></th>
+                                        <th width="10%"></th>
                                     </tr>
                                 </thead>
 
@@ -78,20 +69,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label for="idNivel">Nivel</label>
-                                <select class="form-control" id="idNivel"></select>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idGrado">Grado</label>
                                 <select class="form-control" id="idGrado"></select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idCurso">Curso</label>
                                 <select class="form-control" id="idCurso"></select>
@@ -131,14 +115,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">Ruta enlace</label>
-                                <input type="text" id="txtRutaEnlace" class="form-control" placeholder="Ruta enlace...">
+                                <label for="simpleinput">Enlace de la Clase</label>
+                                <input type="text" id="txtRutaEnlace" class="form-control" maxlength="100" placeholder="Ruta enlace...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="simpleinput">Ruta video</label>
-                                <input type="text" id="txtRutaVideo" class="form-control" placeholder="Ruta video...">
+                                <input type="text" id="txtRutaVideo" class="form-control" maxlength="100" placeholder="Ruta video...">
                             </div>
                         </div>
                     </div>
@@ -197,7 +181,7 @@
                         <div class="col-md-12">
                             <div class="form-group mb-3">
                                 <label for="txtenlace">Enlace de la tarea</label>
-                                <input type="text" name="rutaenlace" id="txtenlace" class="form-control">
+                                <input type="text" maxlength="100" name="rutaenlace" id="txtenlace" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -250,14 +234,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="txtRutaEnlaceEditar">Ruta enlace</label>
-                                <input type="text" id="txtRutaEnlaceEditar" class="form-control" placeholder="Ruta enlace...">
+                                <label for="txtRutaEnlaceEditar">Enlace de la Clase</label>
+                                <input type="text" id="txtRutaEnlaceEditar" class="form-control" maxlength="100" placeholder="Ruta enlace...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="txtRutaVideoEditar">Ruta video</label>
-                                <input type="text" id="txtRutaVideoEditar" class="form-control" placeholder="Ruta video...">
+                                <input type="text" id="txtRutaVideoEditar" class="form-control" maxlength="100" placeholder="Ruta video...">
                             </div>
                         </div>
                     </div>
@@ -313,43 +297,15 @@
         $('#txtfechaini').val(moment().format("YYYY-MM-DD"));
         $('#txtfechafin').val(moment().format("YYYY-MM-DD"));
 
-        function fn_ListarNivelAgregar() {
-            $('#idNivel').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarNivel",
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay niveles, intenta agregar algunos!");
-                    }
-
-                    $('#idNivel').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivel').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
         function fn_ListarGradoAgregar() {
             var dtipousuario = $('#hddtipousuario').val();
             var idusuarioparam = $('#hddidusuario').val();
-            var inivelvalor = $('#idNivel option:selected').attr('value');
             $('#idGrado').find('option').remove();
             $.ajax({
                 type: "POST",
                 url: "/curso/ListarGrado",
                 data: {
-                    "widnivel": parseInt(inivelvalor),
+                    "widnivel": parseInt(1),
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -373,7 +329,6 @@
         }
 
         function fn_ListarCursoAgregar() {
-            var slcnivelg = $('#idNivel option:selected').attr('value');
             var slcgradog = $('#idGrado option:selected').attr('value');
 
             var dtipousuario = $('#hddtipousuario').val();
@@ -387,7 +342,7 @@
                     url: "/clase/ListarClaseGestion",
                     data: {
                         "idgrado": parseInt(slcgradog),
-                        "idnivel": parseInt(slcnivelg)
+                        "idnivel": parseInt(1)
                     },
                     success: function (data) {
                         if (data.data === "") {
@@ -408,7 +363,6 @@
                 });
 
             } else {
-                var inivelvalor = $('#idNivel option:selected').attr('value');
                 var igradovalor = $('#idGrado option:selected').attr('value');
                 $('#idCurso').find('option').remove();
                 $.ajax({
@@ -417,7 +371,7 @@
                     data: {
                         "valoritipousuario": 4,
                         "widusuario": idusuarioparam,
-                        "idnivel": inivelvalor,
+                        "idnivel": 1,
                         "idgrado": igradovalor,
                         "idcurso": 0
                     },
@@ -442,44 +396,15 @@
 
         }
 
-        function fn_ListarNivel() {
-
-            $('#idNivelg').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarNivel",
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay niveles, intenta agregar algunos!");
-                    }
-
-                    $('#idNivelg').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivelg').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
         function fn_ListarGrado() {
             var dtipousuario = $('#hddtipousuario').val();
             var idusuarioparam = $('#hddidusuario').val();
-            var inivelvalor = $('#idNivelg option:selected').attr('value');
-
             $('#idGradog').find('option').remove();
             $.ajax({
                 type: "POST",
                 url: "/curso/ListarGrado",
                 data: {
-                    "widnivel": parseInt(inivelvalor),
+                    "widnivel": parseInt(1),
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -503,7 +428,6 @@
         }
 
         function fn_ListarCurso() {
-            var slcnivelg = $('#idNivelg option:selected').attr('value');
             var slcgradog = $('#idGradog option:selected').attr('value');
 
             var dtipousuario = $('#hddtipousuario').val();
@@ -517,7 +441,7 @@
                     url: "/clase/ListarClaseGestion",
                     data: {
                         "idgrado": parseInt(slcgradog),
-                        "idnivel": parseInt(slcnivelg)
+                        "idnivel": parseInt(1)
                     },
                     success: function (data) {
                         if (data.data === "") {
@@ -538,7 +462,6 @@
                 });
 
             } else {
-                var inivelvalor = $('#idNivelg option:selected').attr('value');
                 var igradovalor = $('#idGradog option:selected').attr('value');
                 $('#idCursog').find('option').remove();
                 $.ajax({
@@ -547,7 +470,7 @@
                     data: {
                         "valoritipousuario": 4,
                         "widusuario": idusuarioparam,
-                        "idnivel": inivelvalor,
+                        "idnivel": 1,
                         "idgrado": igradovalor,
                         "idcurso": 0
                     },
@@ -599,10 +522,7 @@
                         "sSearch": "Buscar:"
                     },
                     "columns": [
-                        { "data": "Snombre", "width": "15%" },
-                        { "data": "Snombrecurso", "width": "15%" },
-                        { "data": "Srutaenlace", "width": "20%" },
-                        { "data": "SrutaVideo", "width": "20%" },
+                        { "data": "Snombre", "width": "70%" },
                         { "width": "10%" },
                         { "width": "10%" },
                         { "width": "10%" }
@@ -612,13 +532,12 @@
                             {
                                 "mRender": function (data, type, row) {
                                     var strHtml = "<button class='btn btn-danger' onclick='fn_Eliminar()' data-cat=\"" + row.idclase + "|" + "\" id='AcessEliminar' >Eliminar</button>";
-
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
-                                "aTargets": [4]
+                                "aTargets": [1]
                             },
                             {
                                 "mRender": function (data, type, row) {
@@ -628,7 +547,7 @@
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
-                                "aTargets": [5]
+                                "aTargets": [2]
                             },
                             {
                                 "mRender": function (data, type, row) {
@@ -636,26 +555,26 @@
                                         row.idclase + ", " +
                                         row.idcurso + ", " +
                                         row.Isemana + ", " +
-                                        "\"" + row.Snombre + "\"" + ", " +
-                                        "\"" + row.Sdescripcion + "\"" + ", " +
-                                        "\"" + row.Srutaenlace + "\"" + ", " +
-                                        "\"" + row.SrutaVideo + "\"" + ", " +
-                                        "\"" + row.SimagenRuta + "\"" + ", " +
+                                        "\"" + encodeURIComponent(row.Snombre) + "\"" + ", " +
+                                        "\"" + encodeURIComponent(row.Sdescripcion) + "\"" + ", " +
+                                        "\"" + encodeURIComponent(row.Srutaenlace) + "\"" + ", " +
+                                        "\"" + encodeURIComponent(row.SrutaVideo) + "\"" + ", " +
+                                        "\"" + encodeURIComponent(row.SimagenRuta) + "\"" + ", " +
                                         ")' style='color: #fff !important;'>Modificar Clase</button>";
                                     return strHtml;
                                 },
                                 "sWidth": "5px",
                                 "sClass": "css-center",
                                 "bSort": false,
-                                "aTargets": [6]
+                                "aTargets": [3]
                             }
                         ]
                 });
         }
 
         $(document).ready(function () {
-            fn_ListarNivel();
-            fn_ListarNivelAgregar();
+            fn_ListarGrado();
+            fn_ListarGradoAgregar();
             if ($('#hddtipousuario').val() == 2) {
                 $('#idCursog').on('change', function () {
                     var GDocenteIdCurso = parseInt($('#idCursog option:selected').attr('value'));
@@ -674,30 +593,10 @@
                     fn_listartabla(GvalorIdCurso);
                 });
             }
-            $('#idNivel').on('change', function () {
-                if ($('#idNivel option:selected').attr('value') == "") {
-                    $('#idGrado').find('option').remove();
-                    $('#idCurso').find('option').remove();
-                    return;
-                }
-                $('#idGrado').find('option').remove();
-                $('#idCurso').find('option').remove();
-                fn_ListarGradoAgregar();
-            });
+
 
             $('#idGrado').on('change', function () {
                 fn_ListarCursoAgregar();
-            });
-
-            $('#idNivelg').on('change', function () {
-                if ($('#idNivelg option:selected').attr('value') == "") {
-                    $('#idGradog').find('option').remove();
-                    $('#idCursog').find('option').remove();
-                    return;
-                }
-                $('#idGradog').find('option').remove();
-                $('#idCursog').find('option').remove();
-                fn_ListarGrado();
             });
 
             $('#idGradog').on('change', function () {
@@ -788,8 +687,9 @@
                 NotificacionAvisoDerecha("INGRESE LA RUTA DEL ENLACE");
                 return;
             }
-            if (txtRutaVideo.trim() == "") {
-                NotificacionAvisoDerecha("INGRESE LA RUTA DEL VIDEO");
+            
+            if (!validURL(txtRutaEnlace)) {
+                NotificacionAvisoDerecha("INGRESE UNA RUTA DEL VIDEO VÁLIDA");
                 return;
             }
             $('#divcarga').addClass("is-active");
@@ -841,10 +741,10 @@
 
         function fnEditarClase(pidclase, pidcurso, pIsemana, pSnombre, pSdescripcion
             , pSrutaenlace, pSrutaVideo, pSimagenRuta) {
-            var sdescripcion = pSdescripcion;
-            var senlace = pSrutaenlace;
-            var svideo = pSrutaVideo;
-            var simagen = pSimagenRuta;
+            var sdescripcion = decodeURIComponent(pSdescripcion);
+            var senlace = decodeURIComponent(pSrutaenlace);
+            var svideo = decodeURIComponent(pSrutaVideo);
+            var simagen = decodeURIComponent(pSimagenRuta);
             if (senlace == "-") { senlace = ""; }
             if (svideo == "-") { svideo = ""; }
             if (simagen == "-") { simagen = ""; }
@@ -853,7 +753,7 @@
             $('#hddidclase').val(pidclase);
             $('#hddidcurso').val(pidcurso);
             $('#hddsemana').val(pIsemana);
-            $('#txtNombreEditar').val(pSnombre);
+            $('#txtNombreEditar').val(decodeURIComponent(pSnombre));
             $('#idSemanaEditar').val("Semana " + pIsemana);
             $('#txtDescripcionEditar').val(sdescripcion);
             $('#txtRutaEnlaceEditar').val(senlace);
@@ -874,6 +774,11 @@
             var sdescripcion = $('#txtDescripcionEditar').val();
             var srutaenlace = $('#txtRutaEnlaceEditar').val();
             var srutavideo = $('#txtRutaVideoEditar').val();
+
+            if (!validURL(srutaenlace)) {
+                NotificacionAvisoDerecha("INGRESE UNA RUTA DEL VIDEO VÁLIDA");
+                return;
+            }
             $('#divcarga').addClass("is-active");
             $.ajax({
                 type: "POST",
@@ -911,6 +816,11 @@
                 $('#divcarga').removeClass("is-active");
                 return;
             }
+            var penlace = $('#txtenlace').val();
+            if (!validURL(penlace)) {
+                NotificacionAvisoDerecha("INGRESE UNA RUTA DE LA TAREA VÁLIDA");
+                return;
+            }
 
             $('#divcarga').addClass("is-active");
             var fdata = new FormData();
@@ -944,6 +854,16 @@
                 }
             });
 
+        }
+
+        function validURL(str) {
+            var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+            return !!pattern.test(str);
         }
     </script>
 }

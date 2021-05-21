@@ -32,11 +32,9 @@
                             <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Nivel/Grado</th>
+                                        <th>Grado</th>
                                         <th>Usuario</th>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
-                                        <th>Correo</th>
+                                        <th>Alumno</th>
                                         <th>Tipo de usuario</th>
                                         <th></th>
                                         <th></th>
@@ -46,14 +44,9 @@
                             </table>
                         </div>
                     </div>
-                    <!-- end tab-content-->
-
                 </div>
-                <!-- end card body-->
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col-->
     </div>
 
     <div id="modalUsuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dark-header-modalLabel" aria-hidden="true">
@@ -65,28 +58,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-
-
                         <div class="col-lg-6">
                             <form id="frmUsuario">
-                                <div class="form-group mb-3">
-                                    <label for="idNivel">Nivel</label>
-                                    <select class="form-control" id="idNivel"></select>
-                                </div>
-
                                 <div class="form-group mb-3">
                                     <label for="idGrado">Grado</label>
                                     <select class="form-control" id="idGrado"></select>
                                 </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="idSede">Sede</label>
-                                    <select class="form-control" id="idSede">
-                                        <option value="0">Seleccionar</option>
-                                        <option value="1">Principal</option>
-                                    </select>
-                                </div>
-
                                 <div class="form-group mb-3">
                                     <label for="idNombres">Nombres</label>
                                     <input type="text" id="idNombres" placeholder="Nombres" class="form-control">
@@ -120,13 +97,11 @@
                                 <div class="form-group mb-3">
                                     <label for="simagen">Imagen</label>
                                     <input type="file" id="simagen" class="form-control" placeholder="Imagen" accept="image/png, image/jpeg, image/jpg">
-                                    <label>*Las imágenes deben ser proporcionales, ejemplo: 200x200</label>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="idUsuario">Usuario</label>
                                     <input type="text" id="idUsuario" name="example-email" class="form-control" placeholder="Usuario">
                                 </div>
-
                                 <div class="form-group mb-3">
                                     <label for="idContrasenia">Contraseña</label>
                                     <input type="password" id="idContrasenia" class="form-control">
@@ -157,44 +132,23 @@
                         <div class="col-lg-6">
                             <form id="frmUsuarioEditar">
                                 <div class="form-group mb-3">
-                                    <label for="idNivelEditar">Nivel (Primaria / Secundaria)</label>
-                                    <select class="form-control" id="idNivelEditar">
-                                        <option value="0">Seleccionar</option>
-                                        <option value="1">Primaria</option>
-                                        <option value="2">Secundaria</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group mb-3">
                                     <label for="idGradoEditar">Grado</label>
                                     <select class="form-control" id="idGradoEditar"></select>
                                 </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="idSedeEditar">Sede</label>
-                                    <select class="form-control" id="idSedeEditar">
-                                        <option value="0">Seleccionar</option>
-                                        <option value="1">Principal</option>
-                                    </select>
-                                </div>
-
                                 <div class="form-group mb-3">
                                     <label for="idNombresEditar">Nombres</label>
                                     <input type="text" id="idNombresEditar" placeholder="Nombres" class="form-control">
                                 </div>
-
                                 <div class="form-group mb-3">
                                     <label for="idApPaternoEditar">Apellido Paterno</label>
                                     <input type="text" id="idApPaternoEditar" placeholder="Apellido Paterno" class="form-control">
                                 </div>
-
                                 <div class="form-group mb-3">
                                     <label for="idApMaternoEditar">Apellido Materno</label>
                                     <input type="text" id="idApMaternoEditar" placeholder="Apellido Materno" class="form-control">
                                 </div>
                             </form>
-                        </div> <!-- end col -->
-
+                        </div>
                         <div class="col-lg-6">
                             <form id="frm2Editar">
                                 <div class="form-group mb-3">
@@ -207,7 +161,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <img src="" id="simageneditar" height="100" class="rounded" alt="imagen">
+                                    <img src="" id="simageneditar" height="65" class="rounded" alt="imagen">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="idUsuarioEditar">Usuario</label>
@@ -220,8 +174,6 @@
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -255,67 +207,13 @@
         $('#frm2').submit(false);
         $('#frm2Editar').submit(false);
 
-        function fn_ListarNivel() {
-
-            $('#idNivel').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarNivel",
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay niveles, intenta agregar algunos!");
-                    }
-                    $('#idNivel').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivel').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
-        function fn_ListarNivelEditar() {
-
-            $('#idNivelEditar').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarNivel",
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay niveles, intenta agregar algunos!");
-                    }
-                    $('#idNivelEditar').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivelEditar').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
         function fn_listarGrado() {
-            var slcnivel = $('#idNivel option:selected').attr('value');
             $('#idGrado').find('option').remove();
             $.ajax({
                 type: "POST",
                 url: "/Curso/ListarGrado",
                 data: {
-                    "widnivel": parseInt(slcnivel)
+                    "widnivel": parseInt(1)
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -344,7 +242,7 @@
                 url: "/Curso/ListarGrado",
                 async: false,
                 data: {
-                    "widnivel": parseInt(slcnivel)
+                    "widnivel": parseInt(1)
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -369,23 +267,15 @@
         }
 
         $("#btnAgregar").click(function () {
-
             $('#divcarga').addClass("is-active");
-
-            var slcNivel = $('#idNivel option:selected').attr('value');
             var slcGrado = $('#idGrado option:selected').attr('value');
-            var slcSede = $('#idSede option:selected').attr('value');
             var ipNombres = $('#idNombres').val();
             var ipApPaterno = $('#idApPaterno').val();
             var ipApMaterno = $('#idApMaterno').val();
             var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
             var ipUsuario = $('#idUsuario').val();
             var ipContrasenia = $('#idContrasenia').val();
-
-            if (slcNivel.trim() == 0) {
-                NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
-                return;
-            }
+            
             if (slcTipoUsuario.trim() == 0) {
                 NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
                 return;
@@ -398,11 +288,7 @@
                 NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
                 return;
             }
-            if (slcSede.trim() == 0) {
-                NotificacionAvisoDerecha("SELECCIONA LA SEDE");
-                return;
-            }
-
+            
             if (ipContrasenia.trim() == "") {
                 NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
                 return;
@@ -422,9 +308,9 @@
 
             var fdata = new FormData();
             var fileInput = $('#simagen')[0].files[0];
-            fdata.append("widnivel", slcNivel);
+            fdata.append("widnivel", 1);
             fdata.append("widgrado", slcGrado);
-            fdata.append("widsede", slcSede);
+            fdata.append("widsede", 1);
             fdata.append("wnombres", ipNombres);
             fdata.append("wamaterno", ipApMaterno);
             fdata.append("wapaterno", ipApPaterno);
@@ -444,7 +330,6 @@
                 NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
 
                 $('#idGrado').find('option').remove();
-                $("#idNivel").prop('selectedIndex', 0);
                 $("#idTipoUsuario").prop('selectedIndex', 0);
                 $('#idNombres').val("");
                 $('#idApPaterno').val("");
@@ -452,61 +337,13 @@
                 $('#idUsuario').val("");
                 $('#idContrasenia').val("");
                 $('#modalUsuario').modal("hide");
-                var table = $('#basic-datatable').DataTable();
-                table.ajax.reload();
+                fnlistarTabla();
 
             });
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: RutaPrincipal + 'Login/Crearusuario',
-            //    data: {
-            //        "widnivel": slcNivel,
-            //        "widgrado": slcGrado,
-            //        "widsede": slcSede,
-            //        "wnombres": ipNombres,
-            //        "wamaterno": ipApMaterno,
-            //        "wapaterno": ipApPaterno,
-            //        "wtipousuario": slcTipoUsuario,
-            //        "wusuario": ipUsuario,
-            //        "wclave": ipContrasenia
-            //    },
-            //    async: false,
-            //    success: function (msg) {
-            //        NotificacionSuccessDerecha("USUARIO CREADO CORRECTAMENTE");
-
-            //        $('#idGrado').find('option').remove();
-            //        $("#idNivel").prop('selectedIndex', 0);
-            //        $("#idTipoUsuario").prop('selectedIndex', 0);
-            //        $('#idNombres').val("");
-            //        $('#idApPaterno').val("");
-            //        $('#idApMaterno').val("");
-            //        $('#idUsuario').val("");
-            //        $('#idContrasenia').val("");
-            //        $('#modalUsuario').modal("hide");
-            //        var table = $('#basic-datatable').DataTable();
-            //        table.ajax.reload();
-            //    },
-            //    error: function (msg) {
-            //        var slcNivel = $('#idNivel option:selected').attr('value');
-            //        var slcGrado = $('#idGrado option:selected').attr('value');
-            //        var slcSede = $('#idSede option:selected').attr('value');
-            //        var ipNombres = $('#idNombres').val();
-            //        var ipApPaterno = $('#idApPaterno').val();
-            //        var ipApMaterno = $('#idApMaterno').val();
-            //        var slcTipoUsuario = $('#idTipoUsuario option:selected').attr('value');
-            //        var ipUsuario = $('#idUsuario').val();
-            //        var ipContrasenia = $('#idContrasenia').val();
-            //        //location.reload();
-            //    },
-            //    complete: function (data) {
-            //        // si acabo de completar
-            //    }
-            //});
-
         });
 
-        function fnlistarTabla() {            
+        function fnlistarTabla() {
             $('#basic-datatable').dataTable({
                 "ajax": {
                     "url": RutaPrincipal + 'Login/ListarUsuarioGestion',
@@ -541,10 +378,7 @@
                         "mData": "idnivel",
                         "sClass": "center",
                         "mRender": function (data, type, value) {
-                            var valorNivel = ""
                             var valorGrado = "";
-
-                            (value.idnivel == 1) ? valorNivel = "Primaria" : valorNivel = "Secundaria";
                             switch (value.idgrado) {
                                 case 1: valorGrado = "Primero"; break;
                                 case 2: valorGrado = "Segundo"; break;
@@ -557,20 +391,17 @@
                                 case 9: valorGrado = "Tercero"; break;
                                 case 10: valorGrado = "PRE"; break;
                             }
-                            return valorNivel + " / " + valorGrado;
-                            //return "Principal";
+                            return valorGrado;
                         }
                     },
                     { "sName": "Susuario", "mDataProp": "Susuario" },
-                    { "sName": "Snombres", "mDataProp": "Snombres" },
                     {
-                        "mData": "SApellidoPaterno",
+                        "mData": "Snombres",
                         "sClass": "center",
                         "mRender": function (data, type, value) {
-                            return value.SApellidoPaterno + " " + value.SApellidoMaterno;
+                            return value.Snombres + " " + value.SApellidoPaterno + " " + value.SApellidoMaterno;
                         }
                     },
-                    { "sName": "Scorreo", "mDataProp": "Scorreo" },
                     {
                         "mData": "tipousuario",
                         "sClass": "center",
@@ -609,7 +440,7 @@
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [6]
+                            "aTargets": [4]
                         },
                         {
                             "mRender": function (data, type, row) {
@@ -619,30 +450,23 @@
                             "sWidth": "5px",
                             "sClass": "css-center",
                             "bSort": false,
-                            "aTargets": [7]
+                            "aTargets": [5]
                         }
                     ]
             });
-            
+
         }
 
         $(document).ready(function () {
-            fn_ListarNivel();
-            fn_ListarNivelEditar();
-            $('#idNivel').on('change', function () {
-                fn_listarGrado();
-            });
+            fn_listarGrado();
             fnlistarTabla();
         });
 
         function fn_Editar(idusuario, idnivel, tipousuario, idgrado,
             idsede, Susuario, Snombres, SApellidoPaterno, SApellidoMaterno, Simagen) {
 
-            $('#idNivelEditar option').removeAttr('selected');
             $('#idTipoUsuarioEditar option').removeAttr('selected');
             $('#idGradoEditar option').removeAttr('selected');
-            $('#idSedeEditar option').removeAttr('selected');
-            console.log(Simagen);
             if (Simagen == "-") {
                 $('#simageneditar').attr("alt", "No hay imagen en este usuario");
             } else {
@@ -650,13 +474,8 @@
             }
             $('#hddusuario').attr("data-idusuario", idusuario);
 
-            $('#idNivelEditar option[value="' + idnivel + '"]').attr('selected', 'selected');
             $('#idTipoUsuarioEditar option[value="' + tipousuario + '"]').attr('selected', 'selected');
-
-            var slcnivel = $('#idNivelEditar option:selected').attr('value');
-            fn_listarGradoEditar(slcnivel, idgrado);
-
-            $('#idSedeEditar option[value="' + idsede + '"]').attr('selected', 'selected');
+            fn_listarGradoEditar(1, idgrado);
             $("#idUsuarioEditar").val(Susuario);
             $('#idContraseniaEditar').val("");
             $("#idNombresEditar").val(Snombres);
@@ -666,23 +485,16 @@
         }
 
         function fn_Actualizar() {
-            $('#divcarga').addClass("is-active");
             var iIdUsuario = $('#hddusuario').attr("data-idusuario");
 
-            var idIdNivelEdit = $('#idNivelEditar option:selected').attr('value');
             var iIdTipoUsuarioEdit = $('#idTipoUsuarioEditar option:selected').attr('value');
             var iIdGradoEdit = $('#idGradoEditar option:selected').attr('value');
             var ipUsuarioEdit = $('#idUsuarioEditar').val();
-            var iIdSedeEditEdit = $('#idSedeEditar option:selected').attr('value');
             var ipContraseniEdit = $('#idContraseniaEditar').val();
             var sNombreEdit = $('#idNombresEditar').val();
             var sApellidoPaternoEdit = $("#idApPaternoEditar").val();
             var sApellidoMaternoEdit = $("#idApMaternoEditar").val();
 
-            if (idIdNivelEdit.trim() == 0) {
-                NotificacionAvisoDerecha("SELECCIONA EL NIVEL");
-                return;
-            }
             if (iIdTipoUsuarioEdit.trim() == 0) {
                 NotificacionAvisoDerecha("SELECCIONA EL TIPO DE USUARIO");
                 return;
@@ -695,11 +507,7 @@
                 NotificacionAvisoDerecha("INGRESE UN NOMBRE DE USUARIO");
                 return;
             }
-            if (iIdSedeEditEdit.trim() == 0) {
-                NotificacionAvisoDerecha("SELECCIONA LA SEDE");
-                return;
-            }
-
+            
             if (ipContraseniEdit.trim() == "") {
                 NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA");
                 return;
@@ -717,17 +525,23 @@
                 return;
             }
 
+            if (ipContraseniEdit.length < 5) {
+                NotificacionAvisoDerecha("INGRESE UNA CONTRASEÑA MAYOR A 5 CARACTERES");
+                return;
+            }
+
+            $('#divcarga').addClass("is-active");
             $.ajax({
                 type: "POST",
                 url: RutaPrincipal + "Login/ActualizarUsuario",
                 data: {
                     "widusuario": iIdUsuario,
-                    "widnivel": idIdNivelEdit,
+                    "widnivel": 1,
                     "widgrado": iIdGradoEdit,
                     "wsusuario": ipUsuarioEdit,
                     "wsclave": ipContraseniEdit,
                     "wstipousuario": iIdTipoUsuarioEdit,
-                    "widsede": iIdSedeEditEdit,
+                    "widsede": 1,
                     "wnombres": sNombreEdit,
                     "wamaterno": sApellidoMaternoEdit,
                     "wapaterno": sApellidoPaternoEdit
@@ -735,11 +549,8 @@
                 success: function (data) {
                     $('#divcarga').removeClass("is-active");
                     $('#modalEditarUsuario').modal("hide");
-                    //var table = $('#basic-datatable').DataTable();
-                    //table.clear().draw();
-                    var table = $('#basic-datatable').DataTable();
-                    table.ajax.reload();
-
+                    fnlistarTabla();
+                    NotificacionSuccessDerecha("Datos actualizados correctamente.");
                 },
                 error: function (data) {
                     console.log(data);
@@ -753,8 +564,8 @@
         }
 
         function fn_ConfirmarEliminar() {
-            
             var pidalumno = $('#hddAlumnoEliminar').attr("data-idalumnoEliminar");
+            $('#divcarga').addClass("is-active");
             $.ajax({
                 type: "POST",
                 url: "/Login/DesactivarUsuario",
@@ -765,6 +576,8 @@
                 success: function (data) {
                     $('#modalEliminarAlumno').modal("hide");
                     $('#hddAlumnoEliminar').attr("data-idalumnoEliminar", "");
+                    $('#divcarga').removeClass("is-active");
+                    NotificacionSuccessDerecha("Cuenta eliminada.");
                     fnlistarTabla();
                 },
                 error: function (data) {

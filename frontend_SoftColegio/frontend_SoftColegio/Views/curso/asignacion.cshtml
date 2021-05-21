@@ -34,8 +34,7 @@
                                         <th>Nivel</th>
                                         <th>Grado</th>
                                         <th>Curso</th>
-                                        <th></th>
-                                        <th></th>
+                                        
                                     </tr>
                                 </thead>
 
@@ -56,25 +55,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="idUsuario">Usuario</label>
                                 <select class="form-control" id="idUsuario"></select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="idNivel">Nivel</label>
-                                <select class="form-control" id="idNivel"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="idGrado">Grado</label>
                                 <select class="form-control" id="idGrado"></select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="idCurso">Curso</label>
                                 <select class="form-control" id="idCurso"></select>
@@ -175,33 +168,7 @@
 
 @section scripts{
     <script>
-        function fn_ListarNivel() {
-
-            $('#idNivel').find('option').remove();
-            $.ajax({
-                type: "POST",
-                url: "/curso/ListarNivel",
-                success: function (data) {
-                    if (data.aaData === "") {
-                        alert("¡No hay niveles, intenta agregar algunos!");
-                    }
-                    $('#idNivel').append($("<option></option>")
-                        .attr("value", "")
-                        .text("Seleccione una opción"));
-                    $.each(data.aaData, function (index, value) {
-                        $('#idNivel').append($("<option></option>")
-                            .attr("value", value.idnivel)
-                            .text(value.SnombreNivel));
-                    });
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-        }
-
+    
         function fn_ListarUsuario() {
 
             $('#idUsuario').find('option').remove();
@@ -233,13 +200,12 @@
         }
 
         function fn_listarGrado() {
-            var slcnivel = $('#idNivel option:selected').attr('value');
             $('#idGrado').find('option').remove();
             $.ajax({
                 type: "POST",
                 url: "/Curso/ListarGrado",
                 data: {
-                    "widnivel": parseInt(slcnivel)
+                    "widnivel": parseInt(1)
                 },
                 success: function (data) {
                     if (data.aaData === "") {
@@ -261,7 +227,6 @@
         }
 
         function fn_ListarCurso() {
-            var slcnivel = $('#idNivel option:selected').attr('value');
             var slcgrado = $('#idGrado option:selected').attr('value');
             $('#idCurso').html("");
             $.ajax({
@@ -269,7 +234,7 @@
                 url: "/clase/ListarClaseGestion",
                 data: {
                     "idgrado": parseInt(slcgrado),
-                    "idnivel": parseInt(slcnivel)
+                    "idnivel": parseInt(1)
                 },
                 success: function (data) {
                     if (data === "") {
@@ -294,7 +259,7 @@
         }
 
         $(document).ready(function () {
-            fn_ListarNivel();
+            fn_listarGrado();
             fn_ListarUsuario();
 
             $('#tblAsignacion').DataTable(
@@ -340,11 +305,7 @@
                         [
                         ]
                 });
-
-            $('#idNivel').on('change', function () {
-                fn_listarGrado();
-            });
-
+            
             $('#idGrado').on('change', function () {
                 fn_ListarCurso();
             });
@@ -362,16 +323,11 @@
 
         $("#btnGuardar").click(function () {
             var idUsuario = $('#idUsuario option:selected').attr('value');
-            var idNivel = $('#idNivel option:selected').attr('value');
             var idGrado = $('#idGrado option:selected').attr('value');
             var idCurso = $('#idCurso option:selected').attr('value');
 
             if (idUsuario.trim() == 0) {
                 NotificacionAvisoDerecha("SELECCIONE UN USUARIO");
-                return;
-            }
-            if (idNivel.trim() == 0) {
-                NotificacionAvisoDerecha("SELECCIONE UN NIVEL");
                 return;
             }
             if (idGrado.trim() == 0) {
@@ -388,7 +344,7 @@
                 url: '/Curso/InsertarCursoDocente',
                 data: {
                     "idusuario": idUsuario,
-                    "idnivel": idNivel,
+                    "idnivel": 1,
                     "idgrado": idGrado,
                     "idcurso": idCurso
                 },
