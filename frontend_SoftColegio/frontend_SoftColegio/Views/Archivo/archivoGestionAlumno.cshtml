@@ -73,7 +73,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        
+
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="idGrado">Grado</label>
@@ -171,16 +171,26 @@
                                 <textarea disabled class="form-control" name="descripcion" id="txtdescripcion" placeholder="Descripción..." rows="5"></textarea>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <label id="lbenlace">Enlace</label>
+                            <div class="input-group mb-3" id="divenlace">
+                                <input class="form-control" id="txenlacenota" type="text" value="" />
+                                <div class="input-group-append">
+                                    <a class="btn btn-info text-white" id="txenlacenota2" href="" target="_blank">Ir al enlace</a>
+                                </div>
+                            </div>
+                            <label id="lblmensajenota">No hay enlace del alumno</label>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="txtenlace">Enlace de la tarea</label>
+                                <label for="txtenlace">Tarea Creada (Docente)</label>
                                 <br />
                                 <a class="btn btn-info" href="" target="_blank" id="txtenlace">Abrir enlace</a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="arutaarchivo">Archivo de la tarea</label>
+                                <label for="arutaarchivo">Archivo de la tarea (Alumno)</label>
                                 <br />
                                 <a class="btn btn-info" href="" target="_blank" id="arutaarchivo">Abrir archivo</a>
                             </div>
@@ -258,7 +268,6 @@
                             "mRender": function (data, type, row) {
                                 var strHtml = "";
                                 var grolusuario = $('#hddtipousuario').val();
-
                                 if (grolusuario == 2) {
                                     if (row.Inota >= 1) {
                                     } else {
@@ -266,6 +275,7 @@
                                             + "\"" + row.SimagenAlumno + "\"" + ", "
                                             + "\"" + row.SfechaInicio + "\"" + ", "
                                             + "\"" + row.sdescripcion + "\"" + ", "
+                                            + "\"" + encodeURIComponent(row.SenlaceAlumno) + "\"" + ", "
                                             + row.idusuario + ")'>Agregar nota</button>";
 
                                     }
@@ -275,12 +285,14 @@
                                             + "\"" + row.SimagenAlumno + "\"" + ", "
                                             + "\"" + row.SfechaInicio + "\"" + ", "
                                             + "\"" + row.sdescripcion + "\"" + ", "
+                                            + "\"" + encodeURIComponent(row.SenlaceAlumno) + "\"" + ", "
                                             + row.idusuario + ")'>Modificar nota</button>";
                                     } else {
                                         strHtml = "<button class='btn btn-info' onclick='fnEditar(" + row.idarchivodetalle + ", "
                                             + "\"" + row.SimagenAlumno + "\"" + ", "
                                             + "\"" + row.SfechaInicio + "\"" + ", "
                                             + "\"" + row.sdescripcion + "\"" + ", "
+                                            + "\"" + encodeURIComponent(row.SenlaceAlumno) + "\"" + ", "
                                             + row.idusuario + ")'>Agregar nota</button>";
                                     }
                                 }
@@ -307,11 +319,11 @@
                     ]
             });
     }
-        
+
     function fn_ListarGrado() {
         var dtipousuario = $('#hddtipousuario').val();
         var idusuarioparam = $('#hddidusuario').val();
-        
+
         $('#idGradog').find('option').remove();
         $.ajax({
             type: "POST",
@@ -481,7 +493,7 @@
                 return;
             }
         });
-        
+
         $('#idGradog').on('change', function () {
             if ($('#idGradog option:selected').attr('value') == "") {
                 $('#idCursog').find('option').remove();
@@ -519,11 +531,24 @@
 
     var gIdArchivoDetalle = 0;
     var gIdusuario = 0;
-        function fnEditar(param_idarchivodetalle, archivo, enlace, descripcion, param_idusuario) {
+        function fnEditar(param_idarchivodetalle, archivo, enlace, descripcion, senlace, param_idusuario) {
 
         gIdArchivoDetalle = param_idarchivodetalle;
         gIdusuario = param_idusuario;
-        
+        var paramenlace = decodeURIComponent(senlace);
+            if (paramenlace == "" || paramenlace == "-" || paramenlace == undefined) {
+            $('#lbenlace').toggle(false);
+            $('#divenlace').toggle(false);
+            $('#lblmensajenota').toggle(false);
+            $('#txenlacenota').val("");
+            $('#txenlacenota2').attr("");
+        } else {
+            $('#lbenlace').toggle(true);
+            $('#divenlace').toggle(true);
+            $('#lblmensajenota').toggle(false);
+            $('#txenlacenota').val(paramenlace);
+            $('#txenlacenota2').attr("href", paramenlace);
+        }
         $('#txtdescripcion').val(descripcion);
         $('#txtenlace').attr("href", enlace);
         $('#arutaarchivo').attr("href", archivo);
@@ -554,7 +579,12 @@
                       NotificacionSuccessDerecha("Nota ingresada correctamente");
                       $('#modal-agregarnota').modal("hide");
                       var table = $('#tblArchivo').DataTable();
+                      $('#txtdescripcion').val("");
+                      $('#txtenlace').attr("href", "");
+                      $('#arutaarchivo').attr("href", "");
                       table.ajax.reload();
+
+
                   },
                   error: function (msg) {
                       console.log(msg);

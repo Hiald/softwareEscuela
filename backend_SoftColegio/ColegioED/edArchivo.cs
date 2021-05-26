@@ -28,7 +28,7 @@ namespace ColegioED
         public string Simagen { get; set; }
         public string SenlaceAlumno { get; set; }
         public string SimagenAlumno { get; set; }
-        public int Inota { get; set; }
+        public string Inota { get; set; }
         public string Sobservacion { get; set; }
         public int Bestado { get; set; }
         public string SfechaRegistro { get; set; }

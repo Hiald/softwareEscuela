@@ -197,7 +197,7 @@ namespace ColegioAD
                                 senUsuario.idusuario = (mdrd.IsDBNull(pos_idusuario) ? 0 : mdrd.GetInt32(pos_idusuario));
                                 senUsuario.Simagen = (mdrd.IsDBNull(pos_vimagen) ? "-" : mdrd.GetString(pos_vimagen));
                                 senUsuario.SenlaceAlumno = (mdrd.IsDBNull(pos_vdescripcion) ? "-" : mdrd.GetString(pos_vdescripcion));
-                                senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
+                                senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? "" : mdrd.GetString(pos_inota));
                                 senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
                                 senUsuario.Senlace = (mdrd.IsDBNull(pos_venlace) ? "-" : mdrd.GetString(pos_venlace));
                                 loenusuario.Add(senUsuario);
@@ -282,7 +282,7 @@ namespace ColegioAD
                                 senUsuario.SfechaRegistro = (mdrd.IsDBNull(pos_dtfecharegistro) ? "-" : mdrd.GetString(pos_dtfecharegistro));
                                 senUsuario.idarchivodetalle = (mdrd.IsDBNull(pos_idarchivodetalle) ? 0 : mdrd.GetInt32(pos_idarchivodetalle));
                                 senUsuario.SimagenAlumno = (mdrd.IsDBNull(pos_imagenalumno) ? "-" : mdrd.GetString(pos_imagenalumno));
-                                senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? 0 : mdrd.GetInt32(pos_inota));
+                                senUsuario.Inota = (mdrd.IsDBNull(pos_inota) ? "" : mdrd.GetString(pos_inota));
                                 senUsuario.Sobservacion = (mdrd.IsDBNull(pos_vobservacion) ? "-" : mdrd.GetString(pos_vobservacion));
                                 senUsuario.SenlaceAlumno = (mdrd.IsDBNull(pos_enlacealumno) ? "-" : mdrd.GetString(pos_enlacealumno));
                                 senUsuario.idcurso = (mdrd.IsDBNull(pos_idcurso) ? 0 : mdrd.GetInt32(pos_idcurso));

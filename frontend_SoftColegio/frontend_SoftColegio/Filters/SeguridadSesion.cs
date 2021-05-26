@@ -3,7 +3,6 @@ using System.Web.Routing;
 using System.Web.Mvc;
 using frontendUtil;
 
-
 namespace frontend_SoftColegio.Filters
 {
     public class SecuritySession : ActionFilterAttribute
